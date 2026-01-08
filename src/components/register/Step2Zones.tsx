@@ -61,45 +61,76 @@ export default function Step2Zones({ data, onUpdate, onNext, onBack }: Props) {
 
             <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
 
-                <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-6">
-                    <h3 className="text-xs font-bold text-blue-800 uppercase mb-2">Materia Activa (Incluída)</h3>
-                    <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-blue-200">
-                        <CheckCircle2 className="w-5 h-5 text-green-500" />
-                        <span className="text-sm font-bold text-slate-800">Alcoholemias Express</span>
-                        <span className="text-[10px] text-slate-400 ml-auto">Próximamente más materias</span>
+                {/* MATTERS GRID */}
+                <div className="mb-6">
+                    <h3 className="text-xs font-bold text-slate-400 uppercase mb-3">Especialidad Principal</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        {/* Active Matter */}
+                        <div className="bg-white p-3 rounded-lg border-2 border-green-500 shadow-sm relative overflow-hidden">
+                            <div className="absolute top-0 right-0 bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-bl font-bold">ACTIVA</div>
+                            <span className="font-bold text-slate-900 text-sm">Alcoholemia</span>
+                        </div>
+
+                        {/* Future Matters */}
+                        {['Violencia Género', 'Divorcios', 'Estafas', 'Extranjería', 'Laboral', 'Herencias', 'Accidentes', 'Mercantil', 'Penal General', 'Inmobiliario'].map(m => (
+                            <div key={m} className="bg-slate-50 p-3 rounded-lg border border-slate-100 opacity-60 grayscale cursor-not-allowed">
+                                <div className="text-[10px] text-slate-400 bg-slate-200 w-fit px-1 rounded mb-1">Próximamente</div>
+                                <span className="font-medium text-slate-500 text-sm">{m}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-                <div className="space-y-3">
-                    <h3 className="text-xs font-bold text-slate-400 uppercase">Zonas Comerciales (+80€ cada extra)</h3>
-                    {ZONES.map(zone => {
-                        const isSelected = data.activeZones.includes(zone.id);
-                        return (
-                            <div
-                                key={zone.id}
-                                onClick={() => toggleZone(zone.id)}
-                                className={`group relative p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected
-                                        ? 'border-slate-900 bg-slate-900 text-white shadow-lg transform scale-[1.01]'
-                                        : 'border-slate-100 hover:border-slate-300 hover:bg-slate-50 text-slate-600'
-                                    }`}
-                            >
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <div className="font-bold text-lg mb-1 flex items-center gap-2">
-                                            {zone.label}
-                                            {isSelected && <CheckCircle2 className="w-5 h-5 text-green-400" />}
+                <div className="flex flex-col md:flex-row gap-6">
+                    <div className="flex-1 space-y-3">
+                        <h3 className="text-xs font-bold text-slate-400 uppercase">Zonas Comerciales (+80€ cada extra)</h3>
+                        {ZONES.map(zone => {
+                            const isSelected = data.activeZones.includes(zone.id);
+                            return (
+                                <div
+                                    key={zone.id}
+                                    onClick={() => toggleZone(zone.id)}
+                                    className={`group relative p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected
+                                            ? 'border-slate-900 bg-slate-900 text-white shadow-lg transform scale-[1.01]'
+                                            : 'border-slate-100 hover:border-slate-300 hover:bg-slate-50 text-slate-600'
+                                        }`}
+                                >
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <div className="font-bold text-lg mb-1 flex items-center gap-2">
+                                                {zone.label}
+                                                {isSelected && <CheckCircle2 className="w-5 h-5 text-green-400" />}
+                                            </div>
+                                            <div className={`text-xs ${isSelected ? 'text-slate-400' : 'text-slate-400'}`}>
+                                                {zone.detail}
+                                            </div>
                                         </div>
-                                        <div className={`text-xs ${isSelected ? 'text-slate-400' : 'text-slate-400'}`}>
-                                            {zone.detail}
-                                        </div>
+                                        <MapPin className={`w-5 h-5 ${isSelected ? 'text-slate-500' : 'text-slate-300'}`} />
                                     </div>
-                                    <MapPin className={`w-5 h-5 ${isSelected ? 'text-slate-500' : 'text-slate-300'}`} />
                                 </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                            );
+                        })}
+                    </div>
 
+                    {/* MAP VISUAL */}
+                    <div className="md:w-1/3 bg-slate-100 rounded-xl border border-slate-200 flex flex-col items-center justify-center p-4 min-h-[200px]">
+                        {/* Placeholder until image is available */}
+                        <div className="bg-white p-2 rounded-lg shadow-sm border border-slate-200 w-full h-full flex items-center justify-center text-center relative overflow-hidden">
+                            <img
+                                src="/images/mapa-judicial-barcelona.png"
+                                alt="Mapa Judicial Barcelona"
+                                className="w-full h-full object-contain opacity-50"
+                                onError={(e) => {
+                                    e.currentTarget.style.display = 'none';
+                                    e.currentTarget.parentElement!.innerText = 'Mapa Judicial (Imagen no disponible)';
+                                }}
+                            />
+                        </div>
+                        <p className="text-[10px] text-slate-400 mt-2 text-center">
+                            Visualización aproximada de los Partidos Judiciales por Zona Comercial.
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div className="pt-4 mt-auto flex gap-3">
@@ -114,8 +145,8 @@ export default function Step2Zones({ data, onUpdate, onNext, onBack }: Props) {
                     onClick={onNext}
                     disabled={!isValid}
                     className={`flex-1 py-3 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${isValid
-                            ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg'
-                            : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                        ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg'
+                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                         }`}
                 >
                     Continuar al Pago

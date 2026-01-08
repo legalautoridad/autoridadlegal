@@ -85,8 +85,12 @@ export function WalletHeader({ balance, isActive }: WalletHeaderProps) {
                             </div>
 
                             <button
-                                onClick={() => setShowRecharge(true)}
-                                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+                                onClick={() => isActive ? setShowRecharge(true) : null}
+                                disabled={!isActive}
+                                className={`hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${isActive
+                                        ? 'bg-gray-900 text-white hover:bg-gray-800'
+                                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                    }`}
                             >
                                 <CreditCard className="w-4 h-4" />
                                 Recargar
@@ -100,8 +104,9 @@ export function WalletHeader({ balance, isActive }: WalletHeaderProps) {
                             </span>
                             <button
                                 onClick={handleToggle}
-                                disabled={isPending}
-                                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${active ? 'bg-emerald-500' : 'bg-gray-200'
+                                disabled={isPending || !isActive}
+                                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${!isActive ? 'bg-gray-200 cursor-not-allowed opacity-50' :
+                                        active ? 'bg-emerald-500' : 'bg-gray-200'
                                     }`}
                             >
                                 <span

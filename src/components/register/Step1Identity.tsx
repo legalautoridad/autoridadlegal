@@ -90,12 +90,21 @@ export default function Step1Identity({ data, onUpdate, onNext }: Props) {
 
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Colegio (ICAB...)</label>
-                        <input
+                        <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Colegio</label>
+                        <select
                             value={data.barAssociation}
                             onChange={(e) => onUpdate({ barAssociation: e.target.value })}
-                            className="w-full p-3 rounded-lg border border-slate-200 text-sm"
-                        />
+                            className="w-full p-3 rounded-lg border border-slate-200 bg-white text-sm"
+                        >
+                            <option value="ICAB">Barcelona (ICAB)</option>
+                            <option value="ICASBD">Sabadell (ICASBD)</option>
+                            <option value="ICATER">Terrassa (ICATER)</option>
+                            <option value="ICAVOR">Granollers (ICAVOR)</option>
+                            <option value="ICAMAT">Mataró (ICAMAT)</option>
+                            <option value="ICASF">Sant Feliu de Llobregat (ICASF)</option>
+                            <option value="ICAM">Manresa (ICAM)</option>
+                            <option value="ICAVIC">Vic (ICAVIC)</option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Nº Colegiado</label>
