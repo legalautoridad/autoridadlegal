@@ -16,7 +16,7 @@ export default async function LawyerDashboardPage() {
     const balance = data.wallet?.balance ?? 0
     // Default to false if verification data is missing (e.g. legacy users or incomplete onboarding)
     const isVerified = data.verification?.is_verified ?? false
-    const verificationStatus = data.verification?.status || 'PENDING'
+    // const verificationStatus = data.verification?.status || 'PENDING' // Unused for now
 
     /*
    * NEW: Read-Only Mode for Pending Users.
@@ -45,14 +45,14 @@ export default async function LawyerDashboardPage() {
                 </div>
             )}
 
-            {/* 2. Main Dashboard (Not blurred anymore) */}
+            {/* 2. Main Dashboard */}
             <div>
                 <WalletHeader balance={balance} isActive={isActive} />
             </div>
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-                {/* 2. GRID LAYOUT */}
+                {/* GRID LAYOUT */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                     {/* LEFT COLUMN: Clean, Focused Inbox (Takes 2/3 width on desktop) */}
