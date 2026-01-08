@@ -86,6 +86,6 @@ export async function unlockLead(leadId: string, leadPrice: number) {
     });
 
     console.log('[Unlock] Success.');
-    revalidatePath('/dashboard/leads');
+    revalidatePath('/lawyer/dashboard');
     return { success: true };
 }

@@ -43,7 +43,7 @@ export async function createLead(data: CreateCaseData) {
         throw new Error('Failed to create case');
     }
 
-    revalidatePath('/dashboard/leads');
+    revalidatePath('/lawyer/dashboard');
     return { success: true };
 }
 
@@ -98,7 +98,7 @@ export async function saveLead(data: {
             throw error;
         }
 
-        revalidatePath('/dashboard/leads');
+        revalidatePath('/lawyer/dashboard');
         return newCase.id;
 
     } catch (err: any) {
@@ -111,5 +111,5 @@ export async function deleteTestLeads() {
     const supabase = await createClient();
     // Assuming we might have a flag or just by email convention
     await supabase.from('cases').delete().ilike('client_email', '%@example.com%');
-    revalidatePath('/dashboard/leads');
+    revalidatePath('/lawyer/dashboard');
 }

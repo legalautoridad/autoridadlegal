@@ -18,5 +18,5 @@ export async function login(formData: FormData) {
         return { error: 'Credenciales inválidas.' };
     }
 
-    return redirect('/dashboard/leads');
+    return redirect('/lawyer/dashboard');
 }

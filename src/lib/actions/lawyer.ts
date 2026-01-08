@@ -21,6 +21,10 @@ export type DashboardData = {
         notes?: string
     }[]
     availability: any[]
+    verification: {
+        is_verified: boolean
+        status: string
+    } | null
 }
 
 export async function getLawyerDashboardData(): Promise<DashboardData> {
@@ -63,13 +67,23 @@ export async function getLawyerDashboardData(): Promise<DashboardData> {
         .eq('lawyer_id', lawyerId)
         .gte('blocked_date', today)
 
+    const { data: lawyerProfile } = await supabase
+        .from('lawyer_profiles')
+        .select('is_verified, verification_status')
+        .eq('id', lawyerId)
+        .single()
+
     return {
         wallet: walletData ? {
             balance: walletData.balance,
             is_active: profileData?.is_active || false
         } : null,
         cases: cases || [],
-        availability: availability || []
+        availability: availability || [],
+        verification: lawyerProfile ? {
+            is_verified: lawyerProfile.is_verified,
+            status: lawyerProfile.verification_status
+        } : null
     }
 }
 
