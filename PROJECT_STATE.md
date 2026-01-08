@@ -104,4 +104,9 @@ The core IP is the System Prompt (`src/lib/ai/config.ts`).
 ### Priority 3: Feature Development (NEXT)
 ### Priority 3: Feature Development (NEXT)
 - [x] **Build Lawyer Dashboard UI** (`/lawyer/dashboard`).
+- [x] **Logout y Gestión de Sesión** (Added to Dashboard).
+- [x] **Refinamiento UX Selección de Zonas** (Text-based List vs 3D Map).
+> READY FOR CTO REVIEW (v0.3.0 CORE LOOP FUNCTIONAL)
+
 - [ ] **Email/SMS Notifications** (Integration).
+- [ ] **Interactive 3D Zone Map** (Moved to Post-MVP Backlog).

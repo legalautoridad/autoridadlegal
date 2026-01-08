@@ -20,3 +20,9 @@ export async function login(formData: FormData) {
 
     return redirect('/lawyer/dashboard');
 }
+
+export async function logoutLawyer() {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+    return redirect('/login');
+}

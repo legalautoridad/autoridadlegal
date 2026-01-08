@@ -1,9 +1,5 @@
-import { Suspense } from 'react'
-import { getLawyerDashboardData } from '@/lib/actions/lawyer'
-import { WalletHeader } from '@/components/lawyer/WalletHeader'
-import { CaseInbox } from '@/components/lawyer/CaseInbox'
-import { AvailabilityCalendar } from '@/components/lawyer/AvailabilityCalendar'
-import { ShieldAlert } from 'lucide-react'
+import { LogOut } from 'lucide-react'
+import { logoutLawyer } from '@/lib/actions/auth'
 
 export const dynamic = 'force-dynamic'
 
@@ -26,6 +22,15 @@ export default async function LawyerDashboardPage() {
 
     return (
         <div className="min-h-screen pb-20 relative bg-slate-50">
+            {/* LOGOUT BUTTON (TOP RIGHT) */}
+            <div className="absolute top-4 right-4 z-50">
+                <form action={logoutLawyer}>
+                    <button type="submit" className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-red-600 transition-colors shadow-sm">
+                        <LogOut className="w-3.5 h-3.5" />
+                        Cerrar Sesión
+                    </button>
+                </form>
+            </div>
 
             {/* 1. WARNING BANNER FOR PENDING USERS */}
             {!isVerified && (

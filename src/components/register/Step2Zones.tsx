@@ -83,88 +83,84 @@ export default function Step2Zones({ data, onUpdate, onNext, onBack }: Props) {
                 </div>
 
             </div>
-                        ))}
-        </div>
-                </div >
 
-        <div className="flex flex-col gap-6">
-            <div>
-                <h3 className="text-xs font-bold text-slate-400 uppercase mb-4">Selecciona tus Zonas (+80€ cada extra)</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {ZONES.map(zone => {
-                        const isSelected = data.activeZones.includes(zone.id);
-                        return (
-                            <div
-                                key={zone.id}
-                                onClick={() => toggleZone(zone.id)}
-                                className={`group cursor-pointer rounded-xl border-2 transition-all p-4 relative overflow-hidden ${isSelected
-                                    ? 'border-slate-900 bg-slate-50'
-                                    : 'border-slate-100 hover:border-slate-300 hover:bg-white bg-white'
-                                    }`}
-                            >
-                                <div className="flex items-start gap-4">
-                                    <div className={`mt-1 w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected
-                                        ? 'bg-slate-900 border-slate-900'
-                                        : 'border-slate-300 bg-white'
-                                        }`}>
-                                        {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
-                                    </div>
-
-                                    <div className="flex-1">
-                                        <div className="flex justify-between items-center mb-1">
-                                            <span className={`font-bold text-lg ${isSelected ? 'text-slate-900' : 'text-slate-700'}`}>
-                                                {zone.label}
-                                            </span>
-                                            {isSelected && (
-                                                <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full uppercase">
-                                                    Seleccionado
-                                                </span>
-                                            )}
+            <div className="flex flex-col gap-6">
+                <div>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase mb-4">Selecciona tus Zonas (+80€ cada extra)</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {ZONES.map(zone => {
+                            const isSelected = data.activeZones.includes(zone.id);
+                            return (
+                                <div
+                                    key={zone.id}
+                                    onClick={() => toggleZone(zone.id)}
+                                    className={`group cursor-pointer rounded-xl border-2 transition-all p-4 relative overflow-hidden ${isSelected
+                                        ? 'border-slate-900 bg-slate-50'
+                                        : 'border-slate-100 hover:border-slate-300 hover:bg-white bg-white'
+                                        }`}
+                                >
+                                    <div className="flex items-start gap-4">
+                                        <div className={`mt-1 w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected
+                                            ? 'bg-slate-900 border-slate-900'
+                                            : 'border-slate-300 bg-white'
+                                            }`}>
+                                            {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
                                         </div>
 
-                                        <p className="text-sm text-slate-500 leading-relaxed">
-                                            <strong className="text-xs uppercase tracking-wide text-slate-400 block mb-1">Partidos Judiciales:</strong>
-                                            {zone.detail}
-                                        </p>
+                                        <div className="flex-1">
+                                            <div className="flex justify-between items-center mb-1">
+                                                <span className={`font-bold text-lg ${isSelected ? 'text-slate-900' : 'text-slate-700'}`}>
+                                                    {zone.label}
+                                                </span>
+                                                {isSelected && (
+                                                    <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full uppercase">
+                                                        Seleccionado
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            <p className="text-sm text-slate-500 leading-relaxed">
+                                                <strong className="text-xs uppercase tracking-wide text-slate-400 block mb-1">Partidos Judiciales:</strong>
+                                                {zone.detail}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
+                    </div>
                 </div>
-            </div>
 
-            {/* MAP MOVED TO BACKLOG FOR MVP
+                {/* MAP MOVED TO BACKLOG FOR MVP
                     <div className="hidden">
                         <InteractiveZoneMap
                             activeZones={data.activeZones}
                             onToggle={toggleZone}
                         />
                     </div>
-                    */}
-        </div>
-            </div >
+                */}
+            </div>
 
-        <div className="pt-4 mt-auto flex gap-3">
-            <button
-                onClick={onBack}
-                className="px-6 py-3 rounded-xl border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 transition-colors"
-            >
-                <ArrowLeft className="w-4 h-4" />
-            </button>
+            <div className="pt-4 mt-auto flex gap-3">
+                <button
+                    onClick={onBack}
+                    className="px-6 py-3 rounded-xl border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 transition-colors"
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                </button>
 
-            <button
-                onClick={onNext}
-                disabled={!isValid}
-                className={`flex-1 py-3 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${isValid
-                    ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg'
-                    : 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                    }`}
-            >
-                Continuar al Pago
-                <ArrowRight className="w-4 h-4" />
-            </button>
-        </div>
+                <button
+                    onClick={onNext}
+                    disabled={!isValid}
+                    className={`flex-1 py-3 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${isValid
+                        ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg'
+                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                        }`}
+                >
+                    Continuar al Pago
+                    <ArrowRight className="w-4 h-4" />
+                </button>
+            </div>
         </div >
     );
 }
