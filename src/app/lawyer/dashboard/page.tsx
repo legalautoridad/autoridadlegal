@@ -3,6 +3,7 @@ import { getLawyerDashboardData } from '@/lib/actions/lawyer'
 import { WalletHeader } from '@/components/lawyer/WalletHeader'
 import { CaseInbox } from '@/components/lawyer/CaseInbox'
 import { AvailabilityCalendar } from '@/components/lawyer/AvailabilityCalendar'
+import { ShieldAlert } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -49,16 +50,26 @@ export default async function LawyerDashboardPage() {
                 <WalletHeader balance={balance} isActive={isActive} />
             </div>
 
-            {/* RIGHT COLUMN: Utilities (Calendar, Stats, etc) */}
-            <div className="space-y-6">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-                {/* Availability Widget */}
-                <AvailabilityCalendar blockedDates={data.availability} />
-            </div>
+                {/* 2. GRID LAYOUT */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
+                    {/* LEFT COLUMN: Clean, Focused Inbox (Takes 2/3 width on desktop) */}
+                    <div className="lg:col-span-2 space-y-6">
+                        <CaseInbox cases={data.cases} isActive={isActive} />
+                    </div>
+
+                    {/* RIGHT COLUMN: Utilities (Calendar, Stats, etc) */}
+                    <div className="space-y-6">
+
+                        {/* Availability Widget */}
+                        <AvailabilityCalendar blockedDates={data.availability} />
+                    </div>
+
+                </div>
+
+            </main>
         </div>
-
-            </main >
-        </div >
     )
 }
