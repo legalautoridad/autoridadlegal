@@ -30,10 +30,11 @@ interface Case {
 }
 
 interface CaseInboxProps {
-    cases: Case[]
+    cases: Case[],
+    isActive?: boolean
 }
 
-export function CaseInbox({ cases }: CaseInboxProps) {
+export function CaseInbox({ cases, isActive = true }: CaseInboxProps) {
     if (cases.length === 0) {
         return (
             <div className="text-center py-20 bg-gray-50 rounded-xl border border-gray-100">
@@ -55,7 +56,7 @@ export function CaseInbox({ cases }: CaseInboxProps) {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 mb-10"> {/* 2 Columns for detailed cards */}
                 <AnimatePresence>
                     {cases.map((c) => (
-                        <CaseCard key={c.id} caseData={c} />
+                        <CaseCard key={c.id} caseData={c} isActive={isActive} />
                     ))}
                 </AnimatePresence>
             </div>
@@ -63,13 +64,14 @@ export function CaseInbox({ cases }: CaseInboxProps) {
     )
 }
 
-function CaseCard({ caseData }: { caseData: Case }) {
+function CaseCard({ caseData, isActive }: { caseData: Case, isActive: boolean }) {
     const [isPending, startTransition] = useTransition()
     const isAssigned = caseData.status === 'ASSIGNED'
     const isContacted = caseData.status === 'CONTACTED'
     const profile = caseData.client_profile || {}
 
     const handleConfirmContact = () => {
+        if (!isActive) return; // Guard clause
         startTransition(async () => {
             try {
                 await confirmCaseContact(caseData.id)
@@ -166,8 +168,11 @@ function CaseCard({ caseData }: { caseData: Case }) {
                 {isAssigned && (
                     <button
                         onClick={handleConfirmContact}
-                        disabled={isPending}
-                        className="w-full flex items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 transition-all active:scale-[0.98]"
+                        disabled={isPending || !isActive}
+                        className={`w-full flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold shadow-sm transition-all active:scale-[0.98] ${isActive
+                                ? 'bg-black text-white hover:bg-gray-800'
+                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                            }`}
                     >
                         {isPending ? (
                             <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

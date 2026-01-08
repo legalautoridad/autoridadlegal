@@ -41,7 +41,7 @@ export default function MarketingPage() {
 
                 <div className="flex gap-4 justify-center">
                     <Link
-                        href="/dashboard/leads"
+                        href="/lawyer/dashboard"
                         className="rounded-full bg-primary px-8 py-3 text-white font-medium hover:bg-slate-800 transition-colors"
                     >
                         Access Dashboard

@@ -4,7 +4,6 @@ import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 
 export async function unlockLead(leadId: string, leadPrice: number) {
-    console.log(`[Unlock] Starting for Lead ${leadId} by User...`);
     const supabase = await createClient();
 
     // 1. Get Current User
@@ -26,7 +25,6 @@ export async function unlockLead(leadId: string, leadPrice: number) {
         throw new Error('Profile not found');
     }
 
-    console.log(`[Unlock] Balance: ${profile.credit_balance}, Price: ${leadPrice}`);
 
     // Strict Balance Check
     if (profile.credit_balance < leadPrice) { // Using leadPrice as requested, generally 50
@@ -85,7 +83,6 @@ export async function unlockLead(leadId: string, leadPrice: number) {
         description: `Unlock Lead ${leadId}`
     });
 
-    console.log('[Unlock] Success.');
-    revalidatePath('/dashboard/leads');
+    revalidatePath('/lawyer/dashboard');
     return { success: true };
 }

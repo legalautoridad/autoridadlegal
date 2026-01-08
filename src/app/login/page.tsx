@@ -15,14 +15,17 @@ export default function LoginPage() {
         setError(null);
 
         const formData = new FormData(e.currentTarget);
-        const result = await login(formData); // Note: server actions returning Redirect don't typically return values to client unless error
+        const result = await login(formData);
 
+        // If we get here, it means no redirect happened or we have an error object
         if (result && result.error) {
             setError(result.error);
             setLoading(false);
+        } else {
+            // Redundant safeguard: if 'login' action redirects, code below might not run, 
+            // but if it returns success without redirect, we force it.
+            window.location.href = '/lawyer/dashboard';
         }
-        // If successful, redirect happens on server, so no need to setLoading(false) really, 
-        // but better safe for UX if redirect is slow.
     };
 
     return (
@@ -94,6 +97,9 @@ export default function LoginPage() {
                 </div>
 
                 <div className="bg-slate-50 p-4 border-t border-slate-100 text-center">
+                    <p className="text-sm text-slate-600 mb-2">
+                        ¿Eres abogado y quieres unirte? <a href="/lawyer/register" className="font-bold text-slate-900 hover:text-blue-600 transition-colors">Regístrate aquí</a>
+                    </p>
                     <p className="text-xs text-slate-400">
                         Sistema seguro protegido por SSL y 2FA.
                     </p>
