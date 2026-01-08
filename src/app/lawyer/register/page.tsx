@@ -54,6 +54,8 @@ export default function RegisterPage() {
     const handleNext = () => setStep(prev => prev + 1);
     const handleBack = () => setStep(prev => prev - 1);
 
+    const [isSuccess, setIsSuccess] = useState(false);
+
     const handleSubmit = async () => {
         setIsSubmitting(true);
         setError(null);
@@ -64,9 +66,11 @@ export default function RegisterPage() {
                 setError(res.error);
                 setIsSubmitting(false);
             } else {
-                // Success -> Redirect handled by router or server action? 
-                // Server actions redirect works, but we can stick to client redirect for clarity
-                router.push('/lawyer/dashboard');
+                setIsSuccess(true);
+                // Redirect after short delay to show success state
+                setTimeout(() => {
+                    router.push('/lawyer/dashboard');
+                }, 2000);
             }
         } catch (err: any) {
             console.error('Registration Error:', err);
@@ -83,6 +87,27 @@ export default function RegisterPage() {
             setIsSubmitting(false);
         }
     };
+
+    if (isSuccess) {
+        return (
+            <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+                <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full text-center animate-in zoom-in duration-300">
+                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h2 className="text-2xl font-bold text-slate-900 mb-2">¡Bienvenido a Autoridad Legal!</h2>
+                    <p className="text-slate-500 mb-6">
+                        Tu cuenta ha sido creada correctamente. Estamos redirigiéndote a tu panel de control...
+                    </p>
+                    <div className="flex justify-center">
+                        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-900 rounded-full animate-spin"></div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">

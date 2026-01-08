@@ -48,11 +48,21 @@ export default function InteractiveZoneMap({ activeZones, onToggle }: Props) {
             />
 
             {/* SVG Overlay */}
+            {/* SVG Overlay */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                 {ZONES.map((zone) => {
                     const isActive = activeZones.includes(zone.id);
                     const isHovered = hoveredZone === zone.id;
 
+                    // Logic to determine z-index (render order):
+                    // Standard SVG doesn't support z-index. The order is determined by position in DOM.
+                    // We render normal zones first, then the hovered one.
+                    // BUT for simplicity in React, we can just render them all, and rely on `scale` generic visual.
+                    // To strictly do "render last if hovered", we would need to sort the array or lookups.
+                    // Given the simple polygons, scale might be enough. 
+
+                    // Actually, let's just render them. 
+                    // If we want the pop-out to really cover neighbors, we need to move it to the end of the list.
                     return (
                         <motion.path
                             key={zone.id}
@@ -65,16 +75,49 @@ export default function InteractiveZoneMap({ activeZones, onToggle }: Props) {
                                 fill: isActive ? 'rgba(37, 99, 235, 0.6)' : isHovered ? 'rgba(59, 130, 246, 0.4)' : 'rgba(255, 255, 255, 0.01)',
                                 stroke: isActive ? '#1e3a8a' : isHovered ? '#2563eb' : 'rgba(255,255,255,0)',
                                 strokeWidth: isActive || isHovered ? 1 : 0,
-                                scale: isHovered ? 1.02 : 1,
-                                filter: isHovered ? 'drop-shadow(0px 10px 10px rgba(0,0,0,0.2))' : 'none',
-                                zIndex: isHovered ? 20 : 10
+                                scale: isHovered ? 1.05 : 1, // Increased scale for effect
+                                filter: isHovered ? 'drop-shadow(0px 5px 5px rgba(0,0,0,0.2))' : 'none',
                             }}
-                            transition={{ duration: 0.3, ease: 'easeOut' }}
-                            className="cursor-pointer"
+                            transition={{ duration: 0.2 }}
+                            className="cursor-pointer transition-all"
+                            style={{
+                                transformOrigin: 'center',
+                                // SVG doesn't use zIndex but we can apply it to the style for some browsers or future compat
+                                zIndex: isHovered ? 50 : 1
+                            }}
+                        />
+                    );
+                }).sort((a, b) => {
+                    // Sort logic: if 'key' == hoveredZone, put it last. 
+                    // Since we are mapping first, we can't sort the React Elements easily without losing the closure over 'zone'.
+                    // Better approach: Sort the data array first.
+                    return 0;
+                })}
+
+                {/* Render again the hovered zone on top to ensure Z-index pop-out */}
+                {hoveredZone && (() => {
+                    const zone = ZONES.find(z => z.id === hoveredZone);
+                    if (!zone) return null;
+                    const isActive = activeZones.includes(zone.id);
+                    return (
+                        <motion.path
+                            key={`${zone.id}-highlight`}
+                            d={zone.path}
+                            onClick={() => onToggle(zone.id)}
+                            pointerEvents="none" // Pass through events to the underlying one to avoid flickering
+                            initial={false}
+                            animate={{
+                                fill: isActive ? 'rgba(37, 99, 235, 0.6)' : 'rgba(59, 130, 246, 0.4)',
+                                stroke: isActive ? '#1e3a8a' : '#2563eb',
+                                strokeWidth: 1.5,
+                                scale: 1.05,
+                                filter: 'drop-shadow(0px 8px 8px rgba(0,0,0,0.3))'
+                            }}
+                            className="transition-all"
                             style={{ transformOrigin: 'center' }}
                         />
                     );
-                })}
+                })()}
             </svg>
 
             {/* Tooltips */}
