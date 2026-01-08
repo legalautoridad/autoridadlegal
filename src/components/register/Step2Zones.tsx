@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { RegisterData } from '@/app/lawyer/register/page';
 import { ArrowRight, ArrowLeft, CheckCircle2, MapPin } from 'lucide-react';
+import InteractiveZoneMap from './InteractiveZoneMap';
 
 interface Props {
     data: RegisterData;
@@ -91,8 +92,8 @@ export default function Step2Zones({ data, onUpdate, onNext, onBack }: Props) {
                                     key={zone.id}
                                     onClick={() => toggleZone(zone.id)}
                                     className={`group relative p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected
-                                            ? 'border-slate-900 bg-slate-900 text-white shadow-lg transform scale-[1.01]'
-                                            : 'border-slate-100 hover:border-slate-300 hover:bg-slate-50 text-slate-600'
+                                        ? 'border-slate-900 bg-slate-900 text-white shadow-lg transform scale-[1.01]'
+                                        : 'border-slate-100 hover:border-slate-300 hover:bg-slate-50 text-slate-600'
                                         }`}
                                 >
                                     <div className="flex justify-between items-start">
@@ -113,21 +114,13 @@ export default function Step2Zones({ data, onUpdate, onNext, onBack }: Props) {
                     </div>
 
                     {/* MAP VISUAL */}
-                    <div className="md:w-1/3 bg-slate-100 rounded-xl border border-slate-200 flex flex-col items-center justify-center p-4 min-h-[200px]">
-                        {/* Placeholder until image is available */}
-                        <div className="bg-white p-2 rounded-lg shadow-sm border border-slate-200 w-full h-full flex items-center justify-center text-center relative overflow-hidden">
-                            <img
-                                src="/images/mapa-judicial-barcelona.png"
-                                alt="Mapa Judicial Barcelona"
-                                className="w-full h-full object-contain opacity-50"
-                                onError={(e) => {
-                                    e.currentTarget.style.display = 'none';
-                                    e.currentTarget.parentElement!.innerText = 'Mapa Judicial (Imagen no disponible)';
-                                }}
-                            />
-                        </div>
-                        <p className="text-[10px] text-slate-400 mt-2 text-center">
-                            Visualización aproximada de los Partidos Judiciales por Zona Comercial.
+                    <div className="md:w-1/3 flex flex-col items-center justify-start min-h-[300px]">
+                        <InteractiveZoneMap
+                            activeZones={data.activeZones}
+                            onToggle={toggleZone}
+                        />
+                        <p className="text-[10px] text-slate-400 mt-3 text-center px-4">
+                            Selecciona las zonas en el mapa o en la lista para ver los partidos judiciales incluidos.
                         </p>
                     </div>
                 </div>

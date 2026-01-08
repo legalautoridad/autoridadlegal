@@ -101,7 +101,7 @@ export default function Step1Identity({ data, onUpdate, onNext }: Props) {
                             <option value="ICATER">Terrassa (ICATER)</option>
                             <option value="ICAVOR">Granollers (ICAVOR)</option>
                             <option value="ICAMAT">Mataró (ICAMAT)</option>
-                            <option value="ICASF">Sant Feliu de Llobregat (ICASF)</option>
+                            <option value="ICASF">Sant Feliu (ICASF)</option>
                             <option value="ICAM">Manresa (ICAM)</option>
                             <option value="ICAVIC">Vic (ICAVIC)</option>
                         </select>
