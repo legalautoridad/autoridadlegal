@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Autoridad Legal
 
-## Getting Started
+Autoridad Legal es una plataforma diseñada para gestionar casos legales, conectar abogados con clientes y administrar transacciones financieras relacionadas con servicios jurídicos.
 
-First, run the development server:
+## Características
+
+- **Gestión de Casos**: Administración completa del ciclo de vida de los casos legales.
+- **Dashboard de Abogados**: Interfaz dedicada para que los abogados gestionen sus casos y finanzas.
+- **Sistema Financiero**: Monedero prepago, historial de transacciones y asignación automática de casos basada en saldo.
+- **Integración con IA**: Uso de Google Vertex AI para análisis de casos y generación de resúmenes.
+
+## Tecnologías
+
+- **Framework**: [Next.js](https://nextjs.org)
+- **Base de Datos**: [Supabase](https://supabase.com) (PostgreSQL)
+- **Estilos**: Tailwind CSS
+- **IA**: Google Vertex AI (Gemini)
+- **Pagos**: Integración con Stripe (prevista/en desarrollo)
+
+## Configuración del Entorno
+
+Para ejecutar este proyecto localmente, necesitarás configurar las variables de entorno. 
+Copia el archivo `.env.local.example` a `.env.local` y rellena los valores necesarios:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.local.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Variables Requeridas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Supabase**: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+- **Google Vertex AI**: Credenciales y configuración del proyecto.
+- **Otros**: `NEXT_PUBLIC_APP_URL`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Desarrollo Local
 
-## Learn More
+1. Instala las dependencias:
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Ejecuta el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Despliegue en Vercel
 
-## Deploy on Vercel
+Este proyecto está optimizado para ser desplegado en [Vercel](https://vercel.com).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Importa el proyecto en Vercel.
+2. Configura las variables de entorno en el panel de Vercel (mismas que en `.env.local`).
+3. Despliega.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+© 2026 Autoridad Legal. Todos los derechos reservados.
