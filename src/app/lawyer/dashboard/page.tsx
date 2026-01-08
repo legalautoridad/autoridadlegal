@@ -1,5 +1,9 @@
-import { LogOut } from 'lucide-react'
+import { LogOut, ShieldAlert } from 'lucide-react'
 import { logoutLawyer } from '@/lib/actions/auth'
+import { getLawyerDashboardData } from '@/lib/actions/lawyer'
+import { WalletHeader } from '@/components/lawyer/WalletHeader'
+import { CaseInbox } from '@/components/lawyer/CaseInbox'
+import { AvailabilityCalendar } from '@/components/lawyer/AvailabilityCalendar'
 
 export const dynamic = 'force-dynamic'
 
@@ -23,11 +27,15 @@ export default async function LawyerDashboardPage() {
     return (
         <div className="min-h-screen pb-20 relative bg-slate-50">
             {/* LOGOUT BUTTON (TOP RIGHT) */}
-            <div className="absolute top-4 right-4 z-50">
+            {/* LOGOUT BUTTON (Fixed Top Right) */}
+            <div className="absolute top-6 right-6 z-[60]">
                 <form action={logoutLawyer}>
-                    <button type="submit" className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-red-600 transition-colors shadow-sm">
-                        <LogOut className="w-3.5 h-3.5" />
-                        Cerrar Sesión
+                    <button
+                        type="submit"
+                        className="group flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-600 bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-full hover:bg-slate-50 hover:border-red-100 hover:text-red-600 transition-all shadow-sm hover:shadow-md active:scale-95"
+                    >
+                        <LogOut className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
+                        <span>Cerrar Sesión</span>
                     </button>
                 </form>
             </div>

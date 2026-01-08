@@ -78,7 +78,6 @@ export function ChatWidget() {
         if (dataMatch && dataMatch[1]) {
             try {
                 const parsed = JSON.parse(dataMatch[1]);
-                console.log("Captured Lead Data:", parsed);
                 setLeadData(parsed);
             } catch (e) {
                 console.error("Failed to parse LEAD_DATA", e);
@@ -105,7 +104,6 @@ export function ChatWidget() {
                     status: status,
                     agreed_price: price
                 });
-                console.log("Lead Saved successfully!");
             } catch (err) {
                 console.error("Error saving lead from chat:", err);
             }
