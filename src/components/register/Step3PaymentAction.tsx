@@ -33,7 +33,7 @@ export default function Step3PaymentAction({ data, onSubmit, onBack, isSubmittin
                 </div>
             </div>
 
-            <div className="flex-1">
+            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
                 {/* Mock Payment Form */}
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm opacity-60 pointer-events-none select-none relative">
                     <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -54,7 +54,7 @@ export default function Step3PaymentAction({ data, onSubmit, onBack, isSubmittin
                         </div>
                     </div>
                 </div>
-                <p className="text-center text-xs text-slate-400 mt-2 flex items-center justify-center gap-1">
+                <p className="text-center text-xs text-slate-400 mt-2 flex items-center justify-center gap-1 mb-4">
                     <Lock className="w-3 h-3" /> Pagos procesados seguramente por Stripe
                 </p>
             </div>

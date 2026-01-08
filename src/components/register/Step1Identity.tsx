@@ -13,7 +13,7 @@ export default function Step1Identity({ data, onUpdate, onNext }: Props) {
 
     const isValid =
         data.fullName.length > 3 &&
-        data.email.includes('@') &&
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) && // Basic regex allowing numbers, dots etc
         data.password.length >= 6 &&
         data.documentNumber.length > 4 &&
         data.barNumber.length > 1 &&
@@ -137,8 +137,8 @@ export default function Step1Identity({ data, onUpdate, onNext }: Props) {
                     onClick={onNext}
                     disabled={!isValid}
                     className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 font-bold transition-all transform ${isValid
-                            ? 'bg-slate-900 text-white hover:bg-slate-800 hover:scale-[1.02] shadow-lg'
-                            : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                        ? 'bg-slate-900 text-white hover:bg-slate-800 hover:scale-[1.02] shadow-lg'
+                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                         }`}
                 >
                     Continuar

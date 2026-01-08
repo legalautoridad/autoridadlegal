@@ -69,7 +69,17 @@ export default function RegisterPage() {
                 router.push('/lawyer/dashboard');
             }
         } catch (err: any) {
-            setError(err.message || 'Error desconocido');
+            console.error('Registration Error:', err);
+            let msg = err.message || 'Error desconocido';
+
+            // Mask technical errors
+            if (msg.includes('Row Level Security') || msg.includes('violates') || msg.includes('syntax')) {
+                msg = 'Hubo un error técnico al procesar tu solicitud. Por favor, intenta de nuevo o contacta con soporte.';
+            } else if (msg.includes('limit')) {
+                msg = 'Has excedido el límite de intentos.';
+            }
+
+            setError(msg);
             setIsSubmitting(false);
         }
     };
