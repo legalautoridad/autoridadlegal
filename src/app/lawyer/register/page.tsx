@@ -111,6 +111,9 @@ export default function RegisterPage() {
 
                     <div className="relative z-10 text-xs text-slate-400">
                         &copy; 2026 Autoridad Legal. <br /> Alta Segura SSL.
+                        <div className="mt-4 pt-4 border-t border-white/10">
+                            ¿Ya tienes cuenta? <a href="/login" className="text-white font-bold hover:underline">Inicia sesión</a>
+                        </div>
                     </div>
                 </div>
 

@@ -57,10 +57,8 @@ export async function middleware(request: NextRequest) {
 
     // 2. Protection for LAWYER routes
     // If user is NOT logged in and tries to access /lawyer -> Redirect to /login
-    // EXCEPTION: Allow access to some public or semi-public/auth-progress routes if needed? 
-    // Currently all /lawyer/* requires auth.
-    if (!user && request.nextUrl.pathname.startsWith('/lawyer')) {
-        // Allow onboarding *landing* if it was public? No, it's for registered users.
+    // EXCEPTION: Allow access to /lawyer/register (Public onboarding)
+    if (!user && request.nextUrl.pathname.startsWith('/lawyer') && !request.nextUrl.pathname.startsWith('/lawyer/register')) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 

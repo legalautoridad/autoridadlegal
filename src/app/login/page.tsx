@@ -97,6 +97,9 @@ export default function LoginPage() {
                 </div>
 
                 <div className="bg-slate-50 p-4 border-t border-slate-100 text-center">
+                    <p className="text-sm text-slate-600 mb-2">
+                        ¿Eres abogado y quieres unirte? <a href="/lawyer/register" className="font-bold text-slate-900 hover:text-blue-600 transition-colors">Regístrate aquí</a>
+                    </p>
                     <p className="text-xs text-slate-400">
                         Sistema seguro protegido por SSL y 2FA.
                     </p>
