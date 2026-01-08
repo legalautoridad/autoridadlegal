@@ -13,10 +13,10 @@ interface Props {
 }
 
 const ZONES = [
-    { id: 'BCN_VALLES', label: 'BCN y Vallés', detail: 'Barcelona, Hospitalet, Badalona, Terrassa, Sabadell, Cornellà...' },
-    { id: 'MARESME', label: 'Maresme', detail: 'Mataró, Arenys de Mar, Granollers...' },
-    { id: 'GARRAF', label: 'Garraf / Penedès', detail: 'Vilanova, Vilafranca, Igualada...' },
-    { id: 'MANRESA', label: 'Catalunya Central', detail: 'Manresa, Berga, Vic...' },
+    { id: 'BCN_VALLES', label: 'BCN y Vallés', detail: 'Barcelona, Badalona, L\'Hospitalet, Terrassa, Sabadell, Cerdanyola, Rubí, Sant Cugat, Gavà, Cornellà, Sant Boi, El Prat, Santa Coloma.' },
+    { id: 'MARESME', label: 'Maresme', detail: 'Mataró, Arenys de Mar, Granollers, Mollet del Vallès.' },
+    { id: 'GARRAF', label: 'Garraf / Sur', detail: 'Vilanova i la Geltrú, Vilafranca del Penedès, Igualada, Sant Feliu de Llobregat, Martorell.' },
+    { id: 'MANRESA', label: 'Manresa / Norte', detail: 'Manresa, Berga, Vic.' },
 ];
 
 export default function Step2Zones({ data, onUpdate, onNext, onBack }: Props) {
@@ -82,70 +82,89 @@ export default function Step2Zones({ data, onUpdate, onNext, onBack }: Props) {
                     </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-6">
-                    <div className="flex-1 space-y-3">
-                        <h3 className="text-xs font-bold text-slate-400 uppercase">Zonas Comerciales (+80€ cada extra)</h3>
-                        {ZONES.map(zone => {
-                            const isSelected = data.activeZones.includes(zone.id);
-                            return (
-                                <div
-                                    key={zone.id}
-                                    onClick={() => toggleZone(zone.id)}
-                                    className={`group relative p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected
-                                        ? 'border-slate-900 bg-slate-900 text-white shadow-lg transform scale-[1.01]'
-                                        : 'border-slate-100 hover:border-slate-300 hover:bg-slate-50 text-slate-600'
-                                        }`}
-                                >
-                                    <div className="flex justify-between items-start">
-                                        <div>
-                                            <div className="font-bold text-lg mb-1 flex items-center gap-2">
+            </div>
+                        ))}
+        </div>
+                </div >
+
+        <div className="flex flex-col gap-6">
+            <div>
+                <h3 className="text-xs font-bold text-slate-400 uppercase mb-4">Selecciona tus Zonas (+80€ cada extra)</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {ZONES.map(zone => {
+                        const isSelected = data.activeZones.includes(zone.id);
+                        return (
+                            <div
+                                key={zone.id}
+                                onClick={() => toggleZone(zone.id)}
+                                className={`group cursor-pointer rounded-xl border-2 transition-all p-4 relative overflow-hidden ${isSelected
+                                    ? 'border-slate-900 bg-slate-50'
+                                    : 'border-slate-100 hover:border-slate-300 hover:bg-white bg-white'
+                                    }`}
+                            >
+                                <div className="flex items-start gap-4">
+                                    <div className={`mt-1 w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected
+                                        ? 'bg-slate-900 border-slate-900'
+                                        : 'border-slate-300 bg-white'
+                                        }`}>
+                                        {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
+                                    </div>
+
+                                    <div className="flex-1">
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className={`font-bold text-lg ${isSelected ? 'text-slate-900' : 'text-slate-700'}`}>
                                                 {zone.label}
-                                                {isSelected && <CheckCircle2 className="w-5 h-5 text-green-400" />}
-                                            </div>
-                                            <div className={`text-xs ${isSelected ? 'text-slate-400' : 'text-slate-400'}`}>
-                                                {zone.detail}
-                                            </div>
+                                            </span>
+                                            {isSelected && (
+                                                <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full uppercase">
+                                                    Seleccionado
+                                                </span>
+                                            )}
                                         </div>
-                                        <MapPin className={`w-5 h-5 ${isSelected ? 'text-slate-500' : 'text-slate-300'}`} />
+
+                                        <p className="text-sm text-slate-500 leading-relaxed">
+                                            <strong className="text-xs uppercase tracking-wide text-slate-400 block mb-1">Partidos Judiciales:</strong>
+                                            {zone.detail}
+                                        </p>
                                     </div>
                                 </div>
-                            );
-                        })}
-                    </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
 
-                    {/* MAP VISUAL */}
-                    <div className="md:w-1/3 flex flex-col items-center justify-start min-h-[300px]">
+            {/* MAP MOVED TO BACKLOG FOR MVP
+                    <div className="hidden">
                         <InteractiveZoneMap
                             activeZones={data.activeZones}
                             onToggle={toggleZone}
                         />
-                        <p className="text-[10px] text-slate-400 mt-3 text-center px-4">
-                            Selecciona las zonas en el mapa o en la lista para ver los partidos judiciales incluidos.
-                        </p>
                     </div>
-                </div>
-            </div>
-
-            <div className="pt-4 mt-auto flex gap-3">
-                <button
-                    onClick={onBack}
-                    className="px-6 py-3 rounded-xl border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 transition-colors"
-                >
-                    <ArrowLeft className="w-4 h-4" />
-                </button>
-
-                <button
-                    onClick={onNext}
-                    disabled={!isValid}
-                    className={`flex-1 py-3 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${isValid
-                        ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg'
-                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                        }`}
-                >
-                    Continuar al Pago
-                    <ArrowRight className="w-4 h-4" />
-                </button>
-            </div>
+                    */}
         </div>
+            </div >
+
+        <div className="pt-4 mt-auto flex gap-3">
+            <button
+                onClick={onBack}
+                className="px-6 py-3 rounded-xl border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 transition-colors"
+            >
+                <ArrowLeft className="w-4 h-4" />
+            </button>
+
+            <button
+                onClick={onNext}
+                disabled={!isValid}
+                className={`flex-1 py-3 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${isValid
+                    ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg'
+                    : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                    }`}
+            >
+                Continuar al Pago
+                <ArrowRight className="w-4 h-4" />
+            </button>
+        </div>
+        </div >
     );
 }
