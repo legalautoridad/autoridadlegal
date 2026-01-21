@@ -19,9 +19,20 @@ export function ChatWidget() {
     const [leadData, setLeadData] = useState<{ name: string, phone: string, email?: string, city: string } | null>(null);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLTextAreaElement>(null);
     const hasOpened = useRef(false);
 
     const searchParams = useSearchParams();
+
+    // Auto-focus on input when loading finishes
+    useEffect(() => {
+        if (!isLoading && isOpen) {
+            // Small timeout to ensure DOM is ready/state updated
+            setTimeout(() => {
+                inputRef.current?.focus();
+            }, 100);
+        }
+    }, [isLoading, isOpen]);
 
     // Auto-open logic (Proactive)
     useEffect(() => {
@@ -255,6 +266,7 @@ export function ChatWidget() {
                     <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-slate-100">
                         <div className="relative">
                             <textarea
+                                ref={inputRef}
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={(e) => {
