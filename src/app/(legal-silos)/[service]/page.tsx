@@ -11,13 +11,13 @@ import { FAQAccordion } from "@/components/seo/FAQAccordion"; // Keep for now if
 import { FAQSection } from "@/components/seo/FAQSection";
 
 type Props = {
-    params: Promise<{ vertical: string }>;
+    params: Promise<{ service: string }>;
 };
 
 // SEO: Generate Dynamic Metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { vertical } = await params;
-    const config = getSiloConfig(vertical);
+    const { service } = await params;
+    const config = getSiloConfig(service);
 
     if (!config) {
         return {
@@ -37,8 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // ...
 
 export default async function VerticalPage({ params }: Props) {
-    const { vertical } = await params;
-    const config = getSiloConfig(vertical);
+    const { service } = await params;
+    const config = getSiloConfig(service);
 
     if (!config) {
         return notFound();
@@ -104,7 +104,7 @@ export default async function VerticalPage({ params }: Props) {
             <ValueProposition config={config} />
 
             {/* --- FAQ SECTION (National) --- */}
-            <FAQSection category={vertical} city="Cataluña" />
+            <FAQSection category={service} city="Cataluña" />
 
             {/* --- CTA FINAL --- */}
 
@@ -119,7 +119,7 @@ export default async function VerticalPage({ params }: Props) {
 
 // Static Generation (Optional, but good for performance)
 export function generateStaticParams() {
-    return Object.keys(SILO_CONFIGS).map((vertical) => ({
-        vertical: vertical,
+    return Object.keys(SILO_CONFIGS).map((slug) => ({
+        service: slug,
     }));
 }
