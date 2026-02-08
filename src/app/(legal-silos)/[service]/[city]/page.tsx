@@ -14,20 +14,21 @@ import Link from "next/link";
 import { FAQSection } from "@/components/seo/FAQSection";
 
 type Props = {
-    params: Promise<{ vertical: string; city: string }>;
+    params: Promise<{ service: string; city: string }>;
 };
 
 // 1. Validation & Data Fetching Helper
 async function getData(params: Props['params']) {
-    const { vertical, city } = await params;
-    const config = getSiloConfig(vertical);
+    const { service, city } = await params;
+    const config = getSiloConfig(service);
     const location = LOCATIONS.find((l) => l.slug === city);
 
     if (!config || !location) {
+        // Console log for debugging if needed, but not in production code
         return null;
     }
 
-    return { config, location, vertical, city };
+    return { config, location, service, city };
 }
 
 // 2. SEO: Dynamic Metadata
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const data = await getData(params);
     if (!data) return {};
 
-    const { config, location, vertical } = data;
+    const { config, location, service } = data;
 
     // Aligned with proper Power Messages
     const titles: Record<string, string> = {
@@ -45,19 +46,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 
     return {
-        title: titles[vertical] || `Abogado ${config.hero.badge_text} ${location.name}`,
+        title: titles[service] || `Abogado ${config.hero.badge_text} ${location.name}`,
         description: `Servicio legal experto en ${location.name}. Especialistas en ${config.hero.badge_text}. Asistencia urgente en ${location.court}.`,
     };
 }
 
 // 3. Static Generation (Cartesian Product: Service x City)
 export function generateStaticParams() {
-    const params: { vertical: string; city: string }[] = [];
+    const params: { service: string; city: string }[] = [];
     const verticals = Object.keys(SILO_CONFIGS);
 
-    verticals.forEach((vertical) => {
+    verticals.forEach((service) => {
         LOCATIONS.forEach((location) => {
-            params.push({ vertical, city: location.slug });
+            params.push({ service, city: location.slug });
         });
     });
 
@@ -72,8 +73,9 @@ export default async function LocalLandingPage({ params }: Props) {
         return notFound();
     }
 
-    const { config, location, vertical } = data;
+    const { config, location, service } = data;
 
+    // --- Dynamic Content Injection (Power Messages) ---
     // --- Dynamic Content Injection (Power Messages) ---
     const POWER_MESSAGES: Record<string, { title: string; subtitle: string }> = {
         'alcoholemia': {
@@ -90,7 +92,7 @@ export default async function LocalLandingPage({ params }: Props) {
         }
     };
 
-    const powerMessage = POWER_MESSAGES[vertical] || {
+    const powerMessage = POWER_MESSAGES[service] || {
         title: `Abogado Especialista en ${config.hero.badge_text} en ${location.name}`,
         subtitle: `Asistencia legal urgente en la zona de ${location.zone}.`
     };
@@ -150,7 +152,7 @@ export default async function LocalLandingPage({ params }: Props) {
             <ValueProposition config={config} />
 
             {/* --- FAQ SECTION (High Authority) --- */}
-            <FAQSection category={vertical} city={location.name} />
+            <FAQSection category={service} city={location.name} />
 
             {/* Related Articles (E-E-A-T) */}
             <section className="py-20 bg-white border-t border-slate-100">
@@ -162,7 +164,7 @@ export default async function LocalLandingPage({ params }: Props) {
 
                     <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                         {ARTICLES
-                            .filter(a => a.category === vertical) // Filter by current silo
+                            .filter(a => a.category === service) // Filter by current silo
                             .slice(0, 3) // Limit to 3
                             .map(article => (
                                 <Link
@@ -192,7 +194,7 @@ export default async function LocalLandingPage({ params }: Props) {
                     </div>
 
                     {/* Empty State Fallback (Optional) */}
-                    {ARTICLES.filter(a => a.category === vertical).length === 0 && (
+                    {ARTICLES.filter(a => a.category === service).length === 0 && (
                         <p className="text-center text-slate-400 italic">Pronto publicaremos artículos sobre esta materia.</p>
                     )}
                 </div>

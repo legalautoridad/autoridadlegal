@@ -5,7 +5,7 @@ export function Header() {
     return (
         <header className="sticky top-0 z-50 bg-white shadow-sm font-sans">
             {/* Urgency Protocol Strip */}
-            <div className="bg-black text-white px-4 py-2 text-center text-xs md:text-sm font-bold tracking-widest uppercase">
+            {/*<div className="bg-black text-white px-4 py-2 text-center text-xs md:text-sm font-bold tracking-widest uppercase">
                 <span className="animate-pulse text-red-500 mr-2">🚨 Protocolo de Urgencia Activado 24h</span>
                 <span className="hidden md:inline text-slate-400">|</span>
                 <span className="hidden md:inline ml-2 text-slate-300">Respuesta Garantizada en &lt; 30 min</span>
@@ -32,7 +32,7 @@ export function Header() {
                 </nav>
 
                 {/* CTA Button */}
-                <div className="flex items-center gap-4">
+                {/*<div className="flex items-center gap-4">
                     <a
                         href="tel:900000000"
                         className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-full font-bold text-sm shadow-red-200 shadow-lg hover:bg-red-700 transition-all hover:scale-105"
@@ -43,7 +43,7 @@ export function Header() {
                     <button className="md:hidden p-2 text-slate-600">
                         <Menu className="h-6 w-6" />
                     </button>
-                </div>
+                </div>*/}
             </div>
         </header>
     );
