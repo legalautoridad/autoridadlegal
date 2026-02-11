@@ -165,7 +165,7 @@ async function main() {
         try {
             const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY);
             // Use the model defined in config or a newer one
-            const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp';
+            const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
             const model = genAI.getGenerativeModel({ model: modelName });
             const result = await model.generateContent("Hola");
             if (result && result.response) {
