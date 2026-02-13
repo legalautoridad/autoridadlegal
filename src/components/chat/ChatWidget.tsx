@@ -190,7 +190,7 @@ export function ChatWidget() {
                                 <Scale className="h-5 w-5 text-accent" />
                             </div>
                             <div>
-                                <h3 className="font-bold text-sm">Abogado de Guardia (IA)</h3>
+                                <h3 className="font-bold text-sm">Asistente Legal IA</h3>
                                 <span className="text-xs text-slate-300 flex items-center gap-1">
                                     <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                     Conectado ahora

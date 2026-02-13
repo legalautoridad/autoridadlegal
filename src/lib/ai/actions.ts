@@ -17,6 +17,8 @@ export async function sendMessage(history: Message[]) {
 
     (async () => {
         try {
+            console.log('--- SendMessage AI Execution ---');
+            console.log('Model:', GENAI_CONFIG.model);
             const genAI = new GoogleGenerativeAI(GENAI_CONFIG.apiKey);
             const cacheManager = new GoogleAICacheManager(GENAI_CONFIG.apiKey);
 
@@ -69,7 +71,7 @@ export async function sendMessage(history: Message[]) {
             try {
                 // Determine if we are in a production-like env compatible with caching or just try
                 // Note: gemini-2.5-flash might support caching but depends on tier.
-
+    
                 // Construct cache content
                 // Currently only supported in Paid Tier for some models, but let's try.
                 console.log('Attempting to create Context Cache with model:', GENAI_CONFIG.model);
@@ -85,26 +87,26 @@ export async function sendMessage(history: Message[]) {
                     ],
                     ttlSeconds: 3600,
                 });
-
+    
                 console.log('Context Cache created successfully:', cache.name);
-
+    
                 model = genAI.getGenerativeModel({
                     model: GENAI_CONFIG.model,
                     cachedContent: cache.name,
                     tools: activeTools,
                     safetySettings,
                 });
-
+    
                 // If cached, system instruction is already in cache, no need to send again?
                 // Actually, creating model with cachedContent usually implies the context is there.
                 // But we must check if systemInstruction override is allowed or if it's baked in.
                 // According to SDK, it's baked in.
                 finalSystemInstruction = ''; // Clear it to avoid duplication if baked in
-
+    
             } catch (cacheError: any) {
                 console.warn('Cache creation failed (likely Free Tier quota or Model mismatch). Falling back to standard prompt.');
                 console.error('Cache Error Details:', cacheError.message);
-
+    
                 // Fallback: Standard Model with concatenated prompt
                 // IMPORTANT: We inject the Context + Prompt into the systemInstruction.
                 // We DO NOT modify the history array to avoid the "role filter" error.
@@ -241,10 +243,14 @@ export async function sendMessage(history: Message[]) {
             stream.done();
         } catch (error: any) {
             console.error('CRITICAL ERROR in sendMessage:', error);
+            console.error('Error Code:', error.code);
+            console.error('Error Status:', error.status);
+            console.error('Error Details:', JSON.stringify(error, null, 2));
+
             if (error.message?.includes('API key')) {
                 console.error('Check your GOOGLE_GENAI_API key in .env.local');
             }
-            stream.error('Lo siento, ha ocurrido un error al conectar con el asistente. (Ver logs servidor)');
+            stream.error(`Error: ${error.message || 'Error al conectar con el asistente'}`);
         }
     })();
 

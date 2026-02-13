@@ -18,6 +18,7 @@ export interface SiloConfig {
         title: string;
         subtitle: string;
         badge_text: string;
+        specialty: string;
         cta: string;
     };
     stats: {
@@ -41,19 +42,20 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             gradient: "from-orange-50 to-orange-100",
         },
         seo: {
-            title: "Abogados Alcoholemia 24h | Juicio Rápido y Defensa Urgente",
+            title: "Abogados Alcoholemia | Juicio Rápido y Defensa Urgente",
             description: "Especialistas en juicios rápidos por alcoholemia. Minimizamos retirada de carné y multas. Atención inmediata en comisaría y juzgado.",
         },
         hero: {
             title: "Defensa Especializada en Alcoholemia y Seguridad Vial",
             subtitle: "¿Positivo en control? No dejes que un error arruine tu vida laboral. Minimizamos la retirada de carné y la multa.",
-            badge_text: "Abogado de Guardia Disponible",
+            badge_text: "Asistencia Inmediata",
+            specialty: "Alcoholemia",
             cta: "Hablar con Abogado de Urgencia",
         },
         stats: [
             { label: "Casos Gestionados", value: "+1.200" },
             { label: "Sentencias Favorables", value: "94%" },
-            { label: "Atención", value: "24/7" },
+            { label: "Atención", value: "Inmediata" },
         ],
         pain_points: {
             title: "¿Qué pasa si no actúas rápido?",
@@ -65,7 +67,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             ],
         },
         features: [
-            "Asistencia en Comisaría 24/7",
+            "Asistencia en Comisaría",
             "Defensa en Juicio Rápido",
             "Recurso de Multas Tráfico",
         ],
@@ -85,7 +87,8 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
         hero: {
             title: "Desbloqueo de Herencias y Planificación Sucesoria",
             subtitle: "Evita conflictos familiares y optimiza la carga fiscal de tu legado con expertos en derecho sucesorio.",
-            badge_text: "Expertos en Planificación Patrimonial",
+            badge_text: "Expertos en Herencias",
+            specialty: "Herencias",
             cta: "Consulta de Planificación",
         },
         stats: [
@@ -123,7 +126,8 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
         hero: {
             title: "Indemnización Máxima por Accidente",
             subtitle: "No aceptes la primera oferta del seguro. Reclamamos lo que realmente te corresponde con peritos médicos independientes.",
-            badge_text: "Peritos Médicos Independientes",
+            badge_text: "Indemnización Máxima",
+            specialty: "Accidentes de Tráfico",
             cta: "Valorar mi Indemnización Gratis",
         },
         stats: [

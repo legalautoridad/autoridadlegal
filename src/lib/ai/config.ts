@@ -1,7 +1,7 @@
 
 export const GENAI_CONFIG = {
     apiKey: process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENAI_API || '',
-    model: process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp',
+    model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
 };
 
 export const SYSTEM_PROMPT = `

@@ -29,16 +29,6 @@ export function HeroSection({ config }: { config: SiloConfig }) {
             <div className="container relative z-10 px-4 md:px-6">
                 <div className="max-w-4xl mx-auto text-center space-y-8">
 
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 backdrop-blur-sm animate-in fade-in slide-in-from-top-4 duration-700">
-                        <span className="relative flex h-2 w-2">
-                            <span className={cn("animate-ping absolute inline-flex h-full w-full rounded-full opacity-75", config.colors.primary.replace('bg-', 'bg-'))}></span>
-                            <span className={cn("relative inline-flex rounded-full h-2 w-2", config.colors.primary.replace('bg-', 'bg-'))}></span>
-                        </span>
-                        <span className="text-sm font-medium text-slate-300 tracking-wide uppercase">
-                            {config.hero.badge_text || "Servicio Jurídico Integral"}
-                        </span>
-                    </div>
 
                     {/* Heading */}
                     <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white font-serif leading-tight">

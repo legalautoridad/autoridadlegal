@@ -2,6 +2,9 @@ import { createServerClient } from '@supabase/ssr'
 import { createClient as createBaseClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
+/**
+ * Client for Server Components and Actions (Requires request scope)
+ */
 export async function createClient() {
     const cookieStore = await cookies()
 
@@ -41,5 +44,15 @@ export async function createAdminClient() {
                 persistSession: false
             }
         }
+    )
+}
+
+/**
+ * Direct client for Static Site Generation (No request scope needed)
+ */
+export function createStaticClient() {
+    return createSupabaseClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
 }
