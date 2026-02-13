@@ -15,7 +15,7 @@ export async function unlockLead(leadId: string, leadPrice: number) {
 
     // 2. Get Profile & Check Balance
     const { data: profile, error: profileError } = await supabase
-        .from('profiles')
+        .from('lawyer_members')
         .select('credit_balance')
         .eq('id', user.id)
         .single();
@@ -51,7 +51,7 @@ export async function unlockLead(leadId: string, leadPrice: number) {
     // 4. STEP A: Deduct Money (Linear)
     const newBalance = profile.credit_balance - leadPrice;
     const { error: deductError } = await supabase
-        .from('profiles')
+        .from('lawyer_members')
         .update({ credit_balance: newBalance })
         .eq('id', user.id);
 

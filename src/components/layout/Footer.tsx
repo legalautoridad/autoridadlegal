@@ -25,6 +25,7 @@ export function Footer() {
                             <li><Link href="/legal/legal-notice" className="hover:text-white transition-colors">Aviso Legal</Link></li>
                             <li><Link href="/legal/privacy" className="hover:text-white transition-colors">Política de Privacidad</Link></li>
                             <li><Link href="/legal/terms" className="hover:text-white transition-colors">Términos de Contratación</Link></li>
+                            <li className="pt-2 border-t border-slate-800 mt-2"><Link href="/login" className="text-xs font-bold text-slate-500 hover:text-white transition-colors flex items-center gap-1.5"><ShieldCheck className="w-3 h-3" /> Acceso Profesionales</Link></li>
                         </ul>
                     </div>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { login } from '@/lib/actions/auth';
+import { memberLogin } from '@/lib/actions/auth';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ShieldCheck, ArrowRight, Lock } from 'lucide-react';
@@ -15,7 +15,7 @@ export default function LoginPage() {
         setError(null);
 
         const formData = new FormData(e.currentTarget);
-        const result = await login(formData);
+        const result = await memberLogin(formData);
 
         // If we get here, it means no redirect happened or we have an error object
         if (result && result.error) {
