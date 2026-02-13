@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { readStreamableValue } from "ai/rsc";
 import { Message, sendMessage } from "@/lib/ai/actions";
 import { saveLead } from "@/lib/actions/leads"; // Import saveLead
@@ -9,10 +9,20 @@ import { cn } from "@/lib/utils";
 import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
 
 export function ChatWidget() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+
+    // Check if we should hide the widget on specific paths
+    const isExcludedPath =
+        pathname === '/login' ||
+        pathname?.startsWith('/admin') ||
+        pathname?.startsWith('/lawyer');
+
     const [messages, setMessages] = useState<Message[]>([
         { role: 'model', content: 'Hola, soy tu asistente especialista. Por favor, cuéntame qué te ha ocurrido y te orientaré en tu problema o consulta. Para empezar dime tu nombre para dirigirme a ti y cuéntame qué te ha ocurrido.' }
     ]);
+
+    if (isExcludedPath) return null;
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     // Extracted Lead Data State

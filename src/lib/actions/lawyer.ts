@@ -44,7 +44,7 @@ export async function getLawyerDashboardData(): Promise<DashboardData> {
         .single()
 
     const { data: profileData } = await supabase
-        .from('profiles')
+        .from('lawyer_members')
         .select('is_active')
         .eq('id', lawyerId)
         .single()
@@ -156,7 +156,7 @@ export async function toggleLawyerStatus(isActive: boolean) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) throw new Error('Unauthorized')
 
-    await supabase.from('profiles').update({ is_active: isActive }).eq('id', user.id)
+    await supabase.from('lawyer_members').update({ is_active: isActive }).eq('id', user.id)
     revalidatePath('/lawyer/dashboard')
     return { success: true }
 }

@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 
-export default async function LawyerLayout({
+export default async function AdminLayout({
     children,
 }: {
     children: React.ReactNode
@@ -14,22 +14,24 @@ export default async function LawyerLayout({
 
     // 1. Must be logged in
     if (!user) {
-        return redirect('/login');
+        return redirect('/admin/login');
     }
 
-    // 2. Must exist in 'lawyer_members' table
-    const { data: member, error } = await supabase
-        .from('lawyer_members')
-        .select('id')
+    // 2. Must exist in 'users' table (Admins)
+    const { data: admin, error } = await supabase
+        .from('users')
+        .select('role')
         .eq('id', user.id)
         .single();
 
-    if (!member || error) {
+    if (!admin || error) {
+        // If they are not an admin, we sign them out or just redirect
+        // For security, if they are logged in but not an admin, send them away
         return redirect('/');
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-slate-50">
             {children}
         </div>
     );
