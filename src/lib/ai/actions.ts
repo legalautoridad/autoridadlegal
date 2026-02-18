@@ -4,7 +4,7 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/ge
 import { GoogleAICacheManager } from '@google/generative-ai/server';
 import { createStreamableValue } from 'ai/rsc';
 import { GENAI_CONFIG, SYSTEM_PROMPT } from './config';
-import { getContextForService } from '@/lib/ai/get-context';
+import { getVectorContext } from '@/lib/ai/get-context';
 import { pricingToolDefinition, calculateLegalQuote, agreementToolDefinition, generateAgreement } from './tools';
 
 export interface Message {
@@ -42,87 +42,23 @@ export async function sendMessage(history: Message[]) {
                 },
             ];
 
-            // 1. Get Content
-            const legalContext = getContextForService('alcoholemia');
+            // 1. Get Dynamic Context (Vector RAG)
+            const lastMessage = history[history.length - 1];
+            const legalContext = await getVectorContext(lastMessage.content);
+
             // Use the new SYSTEM_PROMPT imported from config
             const personaPrompt = SYSTEM_PROMPT;
-
-            let model;
-            let finalSystemInstruction = personaPrompt;
 
             const toolConfig = {
                 functionDeclarations: [pricingToolDefinition, agreementToolDefinition],
             };
 
             // PROGRESSIVE TOOL AVAILABILITY
-            // To prevent the model from jumping to "Pricing" immediately, we disable tools
-            // for the first few turns. The model should only "sell" after diagnosing.
-            // History: [User] -> Length 1 (Start)
-            // History: [User, Model, User] -> Length 3 (Turn 2)
-            // History: [User, Model, User, Model, User] -> Length 5 (Turn 3/4)
-            // Let's enable tools only after history length is >= 4 (At least 2 exchanges).
-            const shouldEnableTools = history.length >= 4; // Turn 3 onwards
+            // Enable tools only after history length is >= 4 (At least 2 exchanges).
+            const shouldEnableTools = history.length >= 4;
             const activeTools = shouldEnableTools ? [toolConfig] : [];
 
-            // 2. BYPASS CACHING FOR DEBUGGING
-            // We are disabling caching to ensure the new SYSTEM_PROMPT is strictly applied on every request.
-            // This eliminates stale cache issues.
-            /*
-            try {
-                // Determine if we are in a production-like env compatible with caching or just try
-                // Note: gemini-2.5-flash might support caching but depends on tier.
-    
-                // Construct cache content
-                // Currently only supported in Paid Tier for some models, but let's try.
-                console.log('Attempting to create Context Cache with model:', GENAI_CONFIG.model);
-                const cache = await cacheManager.create({
-                    model: GENAI_CONFIG.model,
-                    displayName: 'legal_context_cache',
-                    systemInstruction: personaPrompt,
-                    contents: [
-                        {
-                            role: 'user',
-                            parts: [{ text: legalContext }],
-                        },
-                    ],
-                    ttlSeconds: 3600,
-                });
-    
-                console.log('Context Cache created successfully:', cache.name);
-    
-                model = genAI.getGenerativeModel({
-                    model: GENAI_CONFIG.model,
-                    cachedContent: cache.name,
-                    tools: activeTools,
-                    safetySettings,
-                });
-    
-                // If cached, system instruction is already in cache, no need to send again?
-                // Actually, creating model with cachedContent usually implies the context is there.
-                // But we must check if systemInstruction override is allowed or if it's baked in.
-                // According to SDK, it's baked in.
-                finalSystemInstruction = ''; // Clear it to avoid duplication if baked in
-    
-            } catch (cacheError: any) {
-                console.warn('Cache creation failed (likely Free Tier quota or Model mismatch). Falling back to standard prompt.');
-                console.error('Cache Error Details:', cacheError.message);
-    
-                // Fallback: Standard Model with concatenated prompt
-                // IMPORTANT: We inject the Context + Prompt into the systemInstruction.
-                // We DO NOT modify the history array to avoid the "role filter" error.
-                model = genAI.getGenerativeModel({
-                    model: GENAI_CONFIG.model,
-                    tools: activeTools,
-                    safetySettings,
-                    systemInstruction: {
-                        role: 'system',
-                        parts: [{ text: `${personaPrompt}\n\n${legalContext}` }]
-                    }
-                });
-            }
-            */
-
-            console.log('Using Standard Model (No Cache) to enforce System Prompt.');
+            console.log('Using Standard Model (No Cache) with Vector Context.');
 
             // Explicitly define systemInstruction with parts/text structure
             const systemInstructionContent = {
@@ -130,7 +66,7 @@ export async function sendMessage(history: Message[]) {
                 parts: [{ text: `${personaPrompt}\n\n${legalContext}` }]
             };
 
-            model = genAI.getGenerativeModel({
+            const model = genAI.getGenerativeModel({
                 model: GENAI_CONFIG.model,
                 tools: activeTools,
                 safetySettings,
@@ -138,12 +74,6 @@ export async function sendMessage(history: Message[]) {
             });
 
             // 3. Validate and Clean History
-            // Gemini API requires the history to start with 'user'.
-            // If the first message is 'model', we must remove it or ensure the first is user.
-            // Also, we need to separate the "history" from the "current message" for sendMessageStream(current)
-            // The history passed to startChat should be everything OLDER than the last message.
-
-            const lastMessage = history[history.length - 1];
             let previousHistory = history.slice(0, -1); // All except last
 
             // Filter: Ensure strict user/model alternation starting with user
