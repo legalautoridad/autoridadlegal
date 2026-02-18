@@ -1,4 +1,5 @@
-import { ARTICLES } from "@/data/articles";
+import { getArticleBySlug, getArticleSlugs } from "@/lib/actions/articles";
+import { ARTICLES } from "@/data/articles"; // Keeping for fallback compatibility if needed
 import { AUTHORS } from "@/data/authors";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -11,6 +12,23 @@ type Props = {
 
 // 1. Data Fetching
 async function getArticle(slug: string) {
+    // Try database first
+    const dbArticle = await getArticleBySlug(slug);
+    if (dbArticle) {
+        return {
+            article: {
+                title: dbArticle.title,
+                excerpt: dbArticle.subtitle || '',
+                content: dbArticle.content || '',
+                category: dbArticle.service_category || 'Legal',
+                publishedAt: dbArticle.created_at,
+                image: dbArticle.image_url || 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1000'
+            },
+            author: dbArticle.author
+        };
+    }
+
+    // Fallback to static articles for legacy support
     const article = ARTICLES.find((a) => a.slug === slug);
     if (!article) return null;
     const author = AUTHORS.find((a) => a.id === article.authorId);
@@ -31,8 +49,14 @@ export async function generateMetadata({ params }: Props) {
 
 // 3. Static Paths
 export async function generateStaticParams() {
-    return ARTICLES.map((article) => ({
-        slug: article.slug,
+    const dbSlugs = await getArticleSlugs();
+    const staticSlugs = ARTICLES.map((article) => article.slug);
+
+    // Merge and deduplicate
+    const allSlugs = Array.from(new Set([...dbSlugs, ...staticSlugs]));
+
+    return allSlugs.map((slug) => ({
+        slug,
     }));
 }
 
@@ -95,7 +119,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <div className="flex items-center justify-center gap-3 pt-4">
                         {author && (
                             <>
-                                <img src={author.image} alt={author.name} className="w-10 h-10 rounded-full bg-slate-100" />
+                                <img src={author.image} alt={author.name} className="w-10 h-10 rounded-full bg-slate-100 object-cover" />
                                 <div className="text-left">
                                     <p className="text-sm font-bold text-slate-900">{author.name}</p>
                                     <p className="text-xs text-slate-500">{author.role}</p>
@@ -123,7 +147,7 @@ export default async function BlogPostPage({ params }: Props) {
                 {/* Bottom Author Box (Trust Signal) */}
                 {author && (
                     <div className="mt-16 bg-slate-50 rounded-2xl p-8 border border-slate-100 flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
-                        <img src={author.image} alt={author.name} className="w-20 h-20 rounded-full bg-white shadow-md" />
+                        <img src={author.image} alt={author.name} className="w-20 h-20 rounded-full bg-white shadow-md object-cover" />
                         <div className="flex-1 space-y-2">
                             <div className="flex flex-col md:flex-row items-center gap-2">
                                 <h3 className="text-lg font-bold text-slate-900">{author.name}</h3>
@@ -137,15 +161,17 @@ export default async function BlogPostPage({ params }: Props) {
                                 {author.barNumber}
                             </p>
                         </div>
-                        <a
-                            href={author.linkedinUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 transition-all font-medium text-sm"
-                        >
-                            <Linkedin className="w-4 h-4" />
-                            Ver Perfil
-                        </a>
+                        {author.linkedinUrl && author.linkedinUrl !== '#' && (
+                            <a
+                                href={author.linkedinUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 transition-all font-medium text-sm"
+                            >
+                                <Linkedin className="w-4 h-4" />
+                                Ver Perfil
+                            </a>
+                        )}
                     </div>
                 )}
             </article>

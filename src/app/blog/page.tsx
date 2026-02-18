@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { ARTICLES } from "@/data/articles";
-import { AUTHORS } from "@/data/authors";
+import { getArticles } from "@/lib/actions/articles";
 import { ArrowRight, Scale } from "lucide-react";
 
 export const metadata = {
@@ -8,7 +7,9 @@ export const metadata = {
     description: "Análisis experto sobre derecho penal, civil y accidentes. Artículos redactados por abogados colegiados.",
 };
 
-export default function BlogIndexPage() {
+export default async function BlogIndexPage() {
+    const articles = await getArticles();
+
     return (
         <main className="min-h-screen bg-slate-50">
             {/* Minimalist Header */}
@@ -31,8 +32,7 @@ export default function BlogIndexPage() {
             {/* Articles Grid */}
             <section className="py-20 px-6 max-w-7xl mx-auto">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {ARTICLES.map((article) => {
-                        const author = AUTHORS.find(a => a.id === article.authorId);
+                    {articles.map((article) => {
                         return (
                             <Link
                                 key={article.slug}
@@ -42,44 +42,44 @@ export default function BlogIndexPage() {
                                 {/* Image */}
                                 <div className="h-48 overflow-hidden relative">
                                     <img
-                                        src={article.image}
+                                        src={article.image_url || 'https://placehold.co/600x400/1e293b/ffffff?text=Cargando...'}
                                         alt={article.title}
                                         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                                     />
-                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wide text-slate-900">
-                                        {article.category}
+                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wide text-slate-900 capitalize">
+                                        {article.service_category}
                                     </div>
                                 </div>
 
                                 {/* Content */}
                                 <div className="p-6 flex-1 flex flex-col">
                                     <div className="flex-1 space-y-3">
-                                        <h2 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                        <h2 className="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
                                             {article.title}
                                         </h2>
                                         <p className="text-slate-600 text-sm line-clamp-3 leading-relaxed">
-                                            {article.excerpt}
+                                            {article.subtitle}
                                         </p>
                                     </div>
 
                                     {/* Footer / Author */}
                                     <div className="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between">
                                         <div className="flex items-center gap-3">
-                                            {author && (
+                                            {article.author && (
                                                 <>
                                                     <img
-                                                        src={author.image}
-                                                        alt={author.name}
+                                                        src={article.author.image}
+                                                        alt={article.author.name}
                                                         className="w-8 h-8 rounded-full bg-slate-200"
                                                     />
                                                     <div className="text-xs">
-                                                        <p className="font-bold text-slate-900">{author.name}</p>
-                                                        <p className="text-slate-500">{article.publishedAt}</p>
+                                                        <p className="font-bold text-slate-900">{article.author.name}</p>
+                                                        <p className="text-slate-500">{new Date(article.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                                                     </div>
                                                 </>
                                             )}
                                         </div>
-                                        <div className="text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
+                                        <div className="text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
                                             <ArrowRight className="w-5 h-5" />
                                         </div>
                                     </div>

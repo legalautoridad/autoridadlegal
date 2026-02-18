@@ -1,4 +1,4 @@
-import { ShieldCheck, Users, ClipboardCheck, BarChart3, Settings, Gavel, LogOut, Map, Landmark } from 'lucide-react';
+import { ShieldCheck, Users, ClipboardCheck, BarChart3, Settings, Gavel, LogOut, Map, Landmark, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { logoutAdmin } from '@/lib/actions/auth';
@@ -120,6 +120,19 @@ export default async function AdminDashboard() {
                             <div>
                                 <h4 className="font-bold text-slate-900">Aprobar Perfiles</h4>
                                 <p className="text-sm text-slate-500">Gestionar la verificación de perfiles profesionales.</p>
+                            </div>
+                        </Link>
+
+                        <Link
+                            href="/admin/articles"
+                            className="flex items-center gap-4 p-5 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 hover:border-indigo-200 transition-all group"
+                        >
+                            <div className="p-3 bg-indigo-50 rounded-xl group-hover:bg-indigo-100 transition-colors">
+                                <FileText className="h-6 w-6 text-indigo-600 group-hover:text-indigo-700" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-slate-900">Gestionar Artículos</h4>
+                                <p className="text-sm text-slate-500">Publicar y editar contenido para el blog.</p>
                             </div>
                         </Link>
                     </div>
