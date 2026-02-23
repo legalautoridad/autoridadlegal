@@ -16,6 +16,23 @@ export const pricingToolDefinition: FunctionDeclaration = {
     }
 };
 
+// 1.1 DEFINICIÓN DE CAPTURA DE LEADS
+export const leadToolDefinition: FunctionDeclaration = {
+    name: "record_lead_data",
+    description: "Registra los datos de contacto y detalles del caso del usuario una vez obtenidos. Úsala tan pronto como tengas el nombre y teléfono.",
+    parameters: {
+        type: SchemaType.OBJECT,
+        properties: {
+            name: { type: SchemaType.STRING, description: "Nombre completo del usuario." },
+            phone: { type: SchemaType.STRING, description: "Teléfono de contacto." },
+            email: { type: SchemaType.STRING, description: "Correo electrónico (opcional)." },
+            case_summary: { type: SchemaType.STRING, description: "Resumen breve de lo ocurrido." },
+            urgency_level: { type: SchemaType.STRING, format: 'enum', enum: ["low", "medium", "high"], description: "Nivel de urgencia detectado." }
+        },
+        required: ["name", "phone", "case_summary"]
+    }
+};
+
 // 2. LÓGICA DEL ALGORITMO (Backend)
 export function calculateLegalQuote(args: {
     has_accident: boolean;
@@ -62,6 +79,22 @@ export function calculateLegalQuote(args: {
         discounted_price_with_reservation: finalPrice - 100, // 10% aprox o 100€ directo
         complexity_reasons: reasons,
         is_negotiated_offer: discountApplied
+    };
+}
+
+export function recordLeadData(args: {
+    name: string;
+    phone: string;
+    email?: string;
+    case_summary: string;
+    urgency_level: string;
+}) {
+    console.log('[LEAD] Recording data:', args);
+    // En el futuro esto podría persistir en DB
+    return {
+        status: "success",
+        message: "Datos registrados correctamente en el sistema de gestión de Leads.",
+        follow_up_instruction: "Agradece los datos y procede con la siguiente fase del diagnóstico legal."
     };
 }
 

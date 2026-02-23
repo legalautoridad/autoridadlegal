@@ -256,13 +256,20 @@ export default function ArticleManagementPage() {
                                     <div className="space-y-4">
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 ml-1">Categoría/Servicio</label>
-                                                <input
+                                                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 ml-1">Área Legal / Servicio</label>
+                                                <select
                                                     name="service_category"
-                                                    defaultValue={editingArticle?.service_category}
-                                                    placeholder="Ej: alcoholemia"
-                                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-slate-50/50"
-                                                />
+                                                    defaultValue={editingArticle?.service_category || 'general'}
+                                                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-slate-50/50 font-bold"
+                                                >
+                                                    <option value="general">General / Informativo</option>
+                                                    <option value="alcoholemia">Alcoholemia</option>
+                                                    <option value="accidentes">Accidentes de Tráfico</option>
+                                                    <option value="herencias">Herencias y Sucesiones</option>
+                                                    <option value="familia">Derecho de Familia</option>
+                                                    <option value="penal">Derecho Penal</option>
+                                                    <option value="civil">Derecho Civil</option>
+                                                </select>
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 ml-1">Región</label>

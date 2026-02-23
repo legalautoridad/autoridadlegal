@@ -77,6 +77,7 @@ export default function LawyerManagementPage() {
                 is_active: formData.get('is_active') === 'true',
                 verification_status: formData.get('verification_status') as string,
                 is_verified: isVerified,
+                main_specialty: formData.get('main_specialty') as string,
                 email: editingLawyer.email
             });
             setEditingLawyer(null);
@@ -210,6 +211,22 @@ export default function LawyerManagementPage() {
                                     </div>
                                 </div>
                                 <div>
+                                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 ml-1">Especialidad Principal</label>
+                                    <select
+                                        name="main_specialty"
+                                        defaultValue={editingLawyer.lawyer_profiles?.[0]?.main_specialty || 'general'}
+                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-slate-50/50"
+                                    >
+                                        <option value="general">General / Varios</option>
+                                        <option value="alcoholemia">Alcoholemia</option>
+                                        <option value="accidentes">Accidentes de Tráfico</option>
+                                        <option value="herencias">Herencias y Sucesiones</option>
+                                        <option value="familia">Derecho de Familia</option>
+                                        <option value="penal">Derecho Penal</option>
+                                        <option value="civil">Derecho Civil</option>
+                                    </select>
+                                </div>
+                                <div>
                                     <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 ml-1">Estado Verificación</label>
                                     <select
                                         name="verification_status"
@@ -259,7 +276,11 @@ export default function LawyerManagementPage() {
                                     <tr key={lawyer.id} className="hover:bg-slate-50/50 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="font-bold text-slate-900">{lawyer.full_name || 'Sin nombre'}</div>
-                                            <div className="text-xs text-slate-400 font-mono">{lawyer.id}</div>
+                                            {lawyer.lawyer_profiles?.[0]?.main_specialty && (
+                                                <div className="text-[10px] text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded inline-block mt-1 font-bold uppercase border border-indigo-100 italic">
+                                                    {lawyer.lawyer_profiles[0].main_specialty}
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-2 text-sm text-slate-600 mb-1">
