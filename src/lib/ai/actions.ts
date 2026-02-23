@@ -41,7 +41,14 @@ export async function* sendMessage(history: Message[]) {
             yield delta;
         }
     } catch (error: any) {
-        console.error('[AI_ACTION] Critical Error:', error);
+        // Detailed logging for debugging
+        console.error('[AI_ACTION] Critical Error:', {
+            message: error?.message,
+            stack: error?.stack,
+            cause: error?.cause,
+            digest: error?.digest,
+            raw: error
+        });
         yield `[ERROR]: ${error?.message || 'Error al conectar con el asistente legal'}`;
     }
 }

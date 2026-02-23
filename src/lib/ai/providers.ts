@@ -1,7 +1,8 @@
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createOpenAI } from '@ai-sdk/openai';
+import { createVertex } from '@ai-sdk/google-vertex';
 
-export type AIProvider = 'google' | 'deepseek';
+export type AIProvider = 'google' | 'vertex' | 'deepseek' | 'ollama';
 
 export function getAIProvider() {
     const provider = (process.env.AI_PROVIDER || 'google') as AIProvider;
@@ -11,12 +12,28 @@ export function getAIProvider() {
 export function getModel() {
     const provider = getAIProvider();
 
+    if (provider === 'vertex') {
+        const vertex = createVertex({
+            project: process.env.GOOGLE_NUMERO_PROYECTO || 'autoridadlegal',
+            location: process.env.GOOGLE_VERTEX_LOCATION || 'us-central1', // default vertex location
+        });
+        return vertex(process.env.GEMINI_MODEL || 'gemini-2.0-flash');
+    }
+
     if (provider === 'deepseek') {
         const deepseek = createOpenAI({
             apiKey: process.env.DEEPSEEK_API_KEY || 'no-key',
-            baseURL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
+            baseURL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com/v1',
         });
         return deepseek(process.env.DEEPSEEK_MODEL || 'deepseek-chat');
+    }
+
+    if (provider === 'ollama') {
+        const ollama = createOpenAI({
+            apiKey: 'ollama', // Ollama doesn't need a key, but createOpenAI might require one
+            baseURL: process.env.OLLAMA_BASE_URL || 'http://localhost:11434/v1',
+        });
+        return ollama(process.env.OLLAMA_MODEL || 'deepseek-r1:latest');
     }
 
     // Default to Google

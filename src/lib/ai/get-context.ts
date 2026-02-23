@@ -1,14 +1,16 @@
-import { createClient } from '@supabase/supabase-js';
+import { createStaticClient } from '@/lib/supabase/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY!);
 
 export async function getVectorContext(query: string, locationId?: string, serviceType?: string) {
   try {
     console.log('[RAG] Fetching context for:', query);
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Using static client with ANON key for read-only knowledge retrieval
+    const supabase = createStaticClient();
+
+    // Using gemini-embedding-001 as it supports up to 3072 dimensions which matches the DB
     const model = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
 
     // 1. Generate embedding for the user query
@@ -21,16 +23,23 @@ export async function getVectorContext(query: string, locationId?: string, servi
     }
 
     // 2. Query Supabase for relevant context
+    // Added p_region: null to resolve ambiguity between overloaded match_knowledge functions
     const { data: matches, error } = await supabase.rpc('match_knowledge', {
       query_embedding: embedding,
       match_threshold: 0.5, // 50% similarity
       match_count: 5,        // Top 5 results
       p_location_id: locationId || null,
-      p_service_type: serviceType || null
+      p_service_type: serviceType || null,
+      p_region: null
     });
 
     if (error) {
-      console.error('[RAG] Supabase RPC Error:', JSON.stringify(error, null, 2));
+      console.error('[RAG] Supabase RPC Error:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
       return '';
     }
 
