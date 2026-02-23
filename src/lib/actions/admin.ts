@@ -76,7 +76,8 @@ export async function getLawyerMembers() {
             lawyer_profiles (
                 is_verified,
                 verification_status,
-                notification_phone
+                notification_phone,
+                main_specialty
             )
         `)
         .order('created_at', { ascending: false });
@@ -116,6 +117,7 @@ export async function updateLawyerMember(id: string, updates: any) {
     const profileUpdates: any = {};
     if (updates.verification_status !== undefined) profileUpdates.verification_status = updates.verification_status;
     if (updates.is_verified !== undefined) profileUpdates.is_verified = updates.is_verified;
+    if (updates.main_specialty !== undefined) profileUpdates.main_specialty = updates.main_specialty;
 
     if (Object.keys(profileUpdates).length > 0) {
         console.log('Updating/Initializing lawyer_profiles:', profileUpdates);

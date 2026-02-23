@@ -5,7 +5,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY!);
 
-export async function getVectorContext(query: string, locationId?: string) {
+export async function getVectorContext(query: string, locationId?: string, serviceType?: string) {
   try {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     const model = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
@@ -20,7 +20,8 @@ export async function getVectorContext(query: string, locationId?: string) {
       query_embedding: embedding,
       match_threshold: 0.5, // 50% similarity
       match_count: 5,        // Top 5 results
-      p_location_id: locationId || null
+      p_location_id: locationId || null,
+      p_service_type: serviceType || null
     });
 
     if (error) {

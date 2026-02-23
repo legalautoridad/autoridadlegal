@@ -1,4 +1,4 @@
-import { ShieldCheck, Users, ClipboardCheck, BarChart3, Settings, Gavel, LogOut, Map, Landmark, FileText } from 'lucide-react';
+import { ShieldCheck, Users, ClipboardCheck, BarChart3, Settings, Gavel, LogOut, Map, Landmark, FileText, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { logoutAdmin } from '@/lib/actions/auth';
@@ -133,6 +133,19 @@ export default async function AdminDashboard() {
                             <div>
                                 <h4 className="font-bold text-slate-900">Gestionar Artículos</h4>
                                 <p className="text-sm text-slate-500">Publicar y editar contenido para el blog.</p>
+                            </div>
+                        </Link>
+
+                        <Link
+                            href="/admin/knowledge"
+                            className="flex items-center gap-4 p-5 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 hover:border-indigo-200 transition-all group"
+                        >
+                            <div className="p-3 bg-sky-50 rounded-xl group-hover:bg-sky-100 transition-colors">
+                                <BookOpen className="h-6 w-6 text-sky-600 group-hover:text-sky-700" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-slate-900">Conocimiento RAG</h4>
+                                <p className="text-sm text-slate-500">Administrar el cerebro vectorial del chatbot.</p>
                             </div>
                         </Link>
                     </div>

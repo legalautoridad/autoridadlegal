@@ -5,7 +5,7 @@ import { GoogleAICacheManager } from '@google/generative-ai/server';
 import { createStreamableValue } from 'ai/rsc';
 import { GENAI_CONFIG, SYSTEM_PROMPT } from './config';
 import { getVectorContext } from '@/lib/ai/get-context';
-import { pricingToolDefinition, calculateLegalQuote, agreementToolDefinition, generateAgreement } from './tools';
+import { pricingToolDefinition, calculateLegalQuote, agreementToolDefinition, generateAgreement, leadToolDefinition, recordLeadData } from './tools';
 
 export interface Message {
     role: 'user' | 'model';
@@ -50,7 +50,7 @@ export async function sendMessage(history: Message[]) {
             const personaPrompt = SYSTEM_PROMPT;
 
             const toolConfig = {
-                functionDeclarations: [pricingToolDefinition, agreementToolDefinition],
+                functionDeclarations: [pricingToolDefinition, agreementToolDefinition, leadToolDefinition],
             };
 
             // PROGRESSIVE TOOL AVAILABILITY
@@ -156,6 +156,27 @@ export async function sendMessage(history: Message[]) {
                         {
                             functionResponse: {
                                 name: 'generate_agreement',
+                                response: toolResult
+                            }
+                        }
+                    ]);
+
+                    for await (const chunk of finalResponse.stream) {
+                        const text = chunk.text();
+                        if (text) {
+                            stream.update(text);
+                        }
+                    }
+                } else if (functionCallData.name === 'record_lead_data') {
+                    console.log('Executing recordLeadData with args:', functionCallData.args);
+                    const toolResult = recordLeadData(functionCallData.args as any);
+
+                    console.log('Tool Result:', toolResult);
+
+                    const finalResponse = await chat.sendMessageStream([
+                        {
+                            functionResponse: {
+                                name: 'record_lead_data',
                                 response: toolResult
                             }
                         }
