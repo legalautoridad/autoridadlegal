@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
-import { readStreamableValue } from "ai/rsc";
 import { Message, sendMessage } from "@/lib/ai/actions";
 import { saveLead } from "@/lib/actions/leads"; // Import saveLead
 import { cn } from "@/lib/utils";
@@ -157,21 +156,22 @@ export function ChatWidget() {
         setIsLoading(true);
 
         try {
-            const { output } = await sendMessage(newMessages);
+            const stream = await sendMessage(newMessages);
             let fullResponse = "";
 
             setMessages(prev => [...prev, { role: 'model', content: '' }]);
 
-            for await (const delta of readStreamableValue(output)) {
-                fullResponse += delta;
+            for await (const chunk of stream) {
+                fullResponse += chunk;
                 setMessages(prev => {
                     const updated = [...prev];
                     updated[updated.length - 1] = { role: 'model', content: fullResponse };
                     return updated;
                 });
             }
-        } catch (error) {
-            console.error(error);
+        } catch (error: any) {
+            console.error('[CHAT_WIDGET] Submission Error:', JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
+            setMessages(prev => [...prev, { role: 'model', content: "Lo siento, ha ocurrido un error técnico al procesar tu mensaje. Por favor, inténtalo de nuevo en unos momentos." }]);
         } finally {
             setIsLoading(false);
         }

@@ -1,40 +1,8 @@
-import { SchemaType, FunctionDeclaration } from "@google/generative-ai";
+import { tool } from 'ai';
+import { z } from 'zod';
 
-// 1. DEFINICIÓN DE LA HERRAMIENTA (Para la API de Gemini)
-export const pricingToolDefinition: FunctionDeclaration = {
-    name: "calculate_legal_quote",
-    description: "Calcula el presupuesto exacto y genera los argumentos de justificación basándose en la complejidad del caso.",
-    parameters: {
-        type: SchemaType.OBJECT,
-        properties: {
-            has_accident: { type: SchemaType.BOOLEAN, description: "Si hubo accidente o daños a terceros." },
-            is_recidivist: { type: SchemaType.BOOLEAN, description: "Si tiene antecedentes penales." },
-            is_professional_driver: { type: SchemaType.BOOLEAN, description: "Si es transportista o necesita el coche para trabajar/horario laboral." },
-            user_hesitation_level: { type: SchemaType.STRING, format: 'enum', enum: ["none", "medium", "high"], description: "Nivel de resistencia del usuario al precio (para activar descuentos)." }
-        },
-        required: ["has_accident", "is_recidivist", "is_professional_driver"]
-    }
-};
-
-// 1.1 DEFINICIÓN DE CAPTURA DE LEADS
-export const leadToolDefinition: FunctionDeclaration = {
-    name: "record_lead_data",
-    description: "Registra los datos de contacto y detalles del caso del usuario una vez obtenidos. Úsala tan pronto como tengas el nombre y teléfono.",
-    parameters: {
-        type: SchemaType.OBJECT,
-        properties: {
-            name: { type: SchemaType.STRING, description: "Nombre completo del usuario." },
-            phone: { type: SchemaType.STRING, description: "Teléfono de contacto." },
-            email: { type: SchemaType.STRING, description: "Correo electrónico (opcional)." },
-            case_summary: { type: SchemaType.STRING, description: "Resumen breve de lo ocurrido." },
-            urgency_level: { type: SchemaType.STRING, format: 'enum', enum: ["low", "medium", "high"], description: "Nivel de urgencia detectado." }
-        },
-        required: ["name", "phone", "case_summary"]
-    }
-};
-
-// 2. LÓGICA DEL ALGORITMO (Backend)
-export function calculateLegalQuote(args: {
+// 1. LÓGICA DEL ALGORITMO (Backend)
+export function calculateLegalQuoteLogic(args: {
     has_accident: boolean;
     is_recidivist: boolean;
     is_professional_driver: boolean;
@@ -82,7 +50,7 @@ export function calculateLegalQuote(args: {
     };
 }
 
-export function recordLeadData(args: {
+export function recordLeadDataLogic(args: {
     name: string;
     phone: string;
     email?: string;
@@ -98,34 +66,12 @@ export function recordLeadData(args: {
     };
 }
 
-// 3. HERRAMIENTA DE GENERACIÓN DE ENLACE DE PAGO (Checkout Redirect)
-export const agreementToolDefinition: FunctionDeclaration = {
-    name: 'generate_agreement',
-    description: 'Generates the secure Checkout Link for the user to enter their details and pay the reservation.',
-    parameters: {
-        type: SchemaType.OBJECT,
-        properties: {
-            city: {
-                type: SchemaType.STRING,
-                description: 'City where the legal service is needed.',
-            },
-            finalPrice: {
-                type: SchemaType.NUMBER,
-                description: 'The final negotiated price (e.g., 1000 or 990).',
-            }
-        },
-        required: ['city', 'finalPrice'],
-    },
-};
-
-export function generateAgreement(args: { city: string, finalPrice: number }) {
+export function generateAgreementLogic(args: { city: string, finalPrice: number }) {
     console.log('[AGREEMENT] Generating Link for:', args);
 
     const lawyerName = "Don Santiago Giménez Olavarriaga";
     const lawyerCollegeId = "Col. ICAB 31.389";
 
-    // Construct local URL for the checkout page we just built
-    // We add a timestamp or ID to make it unique if needed, but query params are enough.
     const paymentLink = `/checkout/summary?vertical=Alcoholemia&city=${encodeURIComponent(args.city)}&price=${args.finalPrice}`;
 
     return {
@@ -144,3 +90,38 @@ export function generateAgreement(args: { city: string, finalPrice: number }) {
         }
     };
 }
+
+// 2. DEFINICIÓN DE HERRAMIENTAS (Para Vercel AI SDK)
+export const tools = {
+    calculate_legal_quote: tool({
+        description: 'Calcula el presupuesto exacto y genera los argumentos de justificación basándose en la complejidad del caso.',
+        parameters: z.object({
+            has_accident: z.boolean().describe('Si hubo accidente o daños a terceros.'),
+            is_recidivist: z.boolean().describe('Si tiene antecedentes penales.'),
+            is_professional_driver: z.boolean().describe('Si es transportista o necesita el coche para trabajar/horario laboral.'),
+            user_hesitation_level: z.enum(['none', 'medium', 'high']).optional().describe('Nivel de resistencia del usuario al precio (para activar descuentos).'),
+        }),
+        execute: async (args) => calculateLegalQuoteLogic(args),
+    }),
+
+    record_lead_data: tool({
+        description: 'Registra los datos de contacto y detalles del caso del usuario una vez obtenidos. Úsala tan pronto como tengas el nombre y teléfono.',
+        parameters: z.object({
+            name: z.string().describe('Nombre completo del usuario.'),
+            phone: z.string().describe('Teléfono de contacto.'),
+            email: z.string().optional().describe('Correo electrónico (opcional).'),
+            case_summary: z.string().describe('Resumen breve de lo ocurrido.'),
+            urgency_level: z.enum(['low', 'medium', 'high']).describe('Nivel de urgencia detectado.'),
+        }),
+        execute: async (args) => recordLeadDataLogic(args),
+    }),
+
+    generate_agreement: tool({
+        description: 'Generates the secure Checkout Link for the user to enter their details and pay the reservation.',
+        parameters: z.object({
+            city: z.string().describe('City where the legal service is needed.'),
+            finalPrice: z.number().describe('The final negotiated price (e.g., 1000 or 990).'),
+        }),
+        execute: async (args) => generateAgreementLogic(args),
+    }),
+};

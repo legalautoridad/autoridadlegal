@@ -7,13 +7,18 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY!);
 
 export async function getVectorContext(query: string, locationId?: string, serviceType?: string) {
   try {
+    console.log('[RAG] Fetching context for:', query);
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     const model = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
 
     // 1. Generate embedding for the user query
-    // Use gemini-embedding-001 (3072 dims) to match our database precision
     const result = await model.embedContent(query);
     const embedding = result.embedding.values;
+
+    if (!embedding || embedding.length === 0) {
+      console.error('[RAG] Failed to generate embedding');
+      return '';
+    }
 
     // 2. Query Supabase for relevant context
     const { data: matches, error } = await supabase.rpc('match_knowledge', {
@@ -25,12 +30,12 @@ export async function getVectorContext(query: string, locationId?: string, servi
     });
 
     if (error) {
-      console.error('Error fetching vector matches:', error);
+      console.error('[RAG] Supabase RPC Error:', JSON.stringify(error, null, 2));
       return '';
     }
 
     if (!matches || matches.length === 0) {
-      console.log('No vector matches found for query:', query);
+      console.log('[RAG] No matches found.');
       return '';
     }
 
@@ -45,8 +50,8 @@ Diferencia si la información es GENERAL o Específica de una ubicación.
 ${contextLines.join('\n\n')}
 === FIN CONOCIMIENTO ESPECÍFICO ===
     `;
-  } catch (error) {
-    console.error('Vector RAG error:', error);
+  } catch (error: any) {
+    console.error('[RAG] Unexpected Error:', error?.message || error);
     return '';
   }
 }
