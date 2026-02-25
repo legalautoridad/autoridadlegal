@@ -13,11 +13,17 @@ export function getModel() {
     const provider = getAIProvider();
 
     if (provider === 'vertex') {
-        const vertex = createVertex({
-            project: process.env.GOOGLE_NUMERO_PROYECTO || 'autoridadlegal',
-            location: process.env.GOOGLE_VERTEX_LOCATION || 'us-central1', // default vertex location
-        });
-        return vertex(process.env.GEMINI_MODEL || 'gemini-2.0-flash');
+        const project = process.env.GOOGLE_NUMERO_PROYECTO || 'autoridadlegal';
+        const location = process.env.GOOGLE_VERTEX_LOCATION || 'europe-southwest1'; // default vertex location
+
+        const vertex = createVertex({ project, location });
+
+        // If a specific LLaMA endpoint is provided, use its fully qualified endpoint resource name
+        if (process.env.VERTEX_MODEL_ENDPOINT) {
+            return vertex(`projects/${project}/locations/${location}/endpoints/${process.env.VERTEX_MODEL_ENDPOINT}`);
+        }
+
+        return vertex(process.env.GEMINI_MODEL || 'gemini-2.5-flash');
     }
 
     if (provider === 'deepseek') {
@@ -40,5 +46,5 @@ export function getModel() {
     const google = createGoogleGenerativeAI({
         apiKey: process.env.GOOGLE_GENAI_API_KEY,
     });
-    return google(process.env.GEMINI_MODEL || 'gemini-2.0-flash');
+    return google(process.env.GEMINI_MODEL || 'gemini-2.5-flash');
 }
