@@ -51,11 +51,16 @@ RECUERDA TUS LÍMITES:
         const result = await streamObject({
             // @ts-expect-error - Google Vertex provider type mismatch
             model: model,
-            system: fullSystemPrompt,
-            messages: history.map(msg => ({
-                role: msg.role === 'model' ? 'assistant' : 'user',
-                content: msg.content,
-            })),
+            messages: [
+                {
+                    role: 'system' as const,
+                    content: fullSystemPrompt
+                },
+                ...history.map(msg => ({
+                    role: (msg.role === 'model' ? 'assistant' : 'user') as 'assistant' | 'user',
+                    content: msg.content,
+                }))
+            ],
             schema: AIResponseSchema,
         });
 
