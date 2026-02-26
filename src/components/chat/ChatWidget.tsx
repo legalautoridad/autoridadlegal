@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import { Message, sendMessage } from "@/lib/ai/actions";
 import { saveLead } from "@/lib/actions/leads"; // Import saveLead
+import { ChatState, ChatSlots, ChatProfile } from "@/lib/ai/state";
 import { cn } from "@/lib/utils";
 import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
 
@@ -17,15 +18,31 @@ export function ChatWidget() {
         pathname?.startsWith('/admin') ||
         pathname?.startsWith('/lawyer');
 
+    const profile: ChatProfile = pathname?.includes('alcoholemia') ? 'alcoholemia' : 'general';
+
+    // Extract city from URL path, e.g., /alcoholemia/barcelona -> Barcelona
+    let initialCity = undefined;
+    if (pathname) {
+        const pathSegments = pathname.split('/').filter(Boolean);
+        if (pathSegments.length >= 2 && pathSegments[0] === 'alcoholemia') {
+            const rawCity = pathSegments[1];
+            initialCity = rawCity.charAt(0).toUpperCase() + rawCity.slice(1).toLowerCase();
+        }
+    }
+
     const [messages, setMessages] = useState<Message[]>([
         { role: 'model', content: 'Hola, soy tu asistente especialista. Por favor, cuéntame qué te ha ocurrido y te orientaré en tu problema o consulta. Para empezar dime tu nombre para dirigirme a ti y cuéntame qué te ha ocurrido.' }
     ]);
+    const [chatState, setChatState] = useState<ChatState>("ASK_NAME");
+    const [chatSlots, setChatSlots] = useState<ChatSlots>(initialCity ? { city: initialCity } : {});
 
     if (isExcludedPath) return null;
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    // Extracted Lead Data State
     const [leadData, setLeadData] = useState<{ name: string, phone: string, email?: string, city: string } | null>(null);
+    const [debugPrompt, setDebugPrompt] = useState<string | null>(null);
+    const [showDebug, setShowDebug] = useState(false);
+    const [showSlots, setShowSlots] = useState(false);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -156,18 +173,38 @@ export function ChatWidget() {
         setIsLoading(true);
 
         try {
-            const stream = await sendMessage(newMessages);
+            const stream = await sendMessage(newMessages, chatState, chatSlots, profile);
             let fullResponse = "";
 
             setMessages(prev => [...prev, { role: 'model', content: '' }]);
 
             for await (const chunk of stream) {
-                fullResponse += chunk;
-                setMessages(prev => {
-                    const updated = [...prev];
-                    updated[updated.length - 1] = { role: 'model', content: fullResponse };
-                    return updated;
-                });
+                try {
+                    const parsedChunk = JSON.parse(chunk as string);
+                    if (parsedChunk.type === 'text-delta') {
+                        fullResponse += parsedChunk.content;
+                        setMessages(prev => {
+                            const updated = [...prev];
+                            updated[updated.length - 1] = { role: 'model', content: fullResponse };
+                            return updated;
+                        });
+                    } else if (parsedChunk.type === 'prompt-debug') {
+                        setDebugPrompt(parsedChunk.content);
+                        console.log("[CHAT_WIDGET] Prompt Debug Received");
+                    } else if (parsedChunk.type === 'state-update') {
+                        console.log("[CHAT_WIDGET] State Update Received:", parsedChunk.state, parsedChunk.slots);
+                        setChatState(parsedChunk.state);
+                        setChatSlots(parsedChunk.slots);
+                    }
+                } catch (e) {
+                    // Fallback for non-JSON string chunks if any bleed through
+                    fullResponse += chunk;
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        updated[updated.length - 1] = { role: 'model', content: fullResponse };
+                        return updated;
+                    });
+                }
             }
         } catch (error: any) {
             console.error('[CHAT_WIDGET] Submission Error:', JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
@@ -191,10 +228,25 @@ export function ChatWidget() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-sm">Asistente Legal IA</h3>
-                                <span className="text-xs text-slate-300 flex items-center gap-1">
-                                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                                    Conectado ahora
-                                </span>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs text-slate-300 flex items-center gap-1">
+                                        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                        Conectado
+                                    </span>
+                                    {/* Debug Toggle */}
+                                    <button
+                                        onClick={() => setShowDebug(!showDebug)}
+                                        className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 hover:bg-slate-700"
+                                    >
+                                        {showDebug ? 'Ocultar Prompt' : 'Ver Prompt'}
+                                    </button>
+                                    <button
+                                        onClick={() => setShowSlots(!showSlots)}
+                                        className="text-[10px] bg-indigo-900/50 text-indigo-200 px-2 py-0.5 rounded border border-indigo-700/50 hover:bg-indigo-800/50"
+                                    >
+                                        {showSlots ? 'Ocultar Slots' : 'Ver Slots'}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <button
@@ -206,7 +258,26 @@ export function ChatWidget() {
                     </div>
 
                     {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 relative">
+                        {/* Debug Panel Overlay */}
+                        {showDebug && debugPrompt && (
+                            <div className="absolute inset-0 z-10 bg-slate-900/95 text-green-400 p-4 overflow-y-auto font-mono text-[10px] leading-relaxed break-words whitespace-pre-wrap">
+                                <h4 className="text-white font-bold mb-2">ÚLTIMO PROMPT ENVIADO AL LLM:</h4>
+                                {debugPrompt}
+                            </div>
+                        )}
+
+                        {/* Slots Debug Panel Overlay */}
+                        {showSlots && (
+                            <div className="absolute inset-0 z-10 bg-indigo-950/95 text-indigo-300 p-4 overflow-y-auto font-mono text-[11px] leading-relaxed break-words whitespace-pre-wrap">
+                                <h4 className="text-white font-bold mb-2">MEMORIA ACTUAL (SLOTS JSON):</h4>
+                                <div className="mb-3 pb-2 border-b border-indigo-800/30">
+                                    <span className="text-indigo-400">ESTADO AI:</span> <span className="text-white">{chatState}</span>
+                                </div>
+                                {JSON.stringify(chatSlots, null, 2)}
+                            </div>
+                        )}
+
                         {messages.map((msg, i) => (
                             <div
                                 key={i}
