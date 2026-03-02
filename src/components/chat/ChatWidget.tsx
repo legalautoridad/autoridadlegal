@@ -1,16 +1,23 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { Message, sendMessage } from "@/lib/ai/actions";
 import { saveLead } from "@/lib/actions/leads"; // Import saveLead
 import { ChatState, ChatSlots, ChatProfile } from "@/lib/ai/state";
 import { cn } from "@/lib/utils";
-import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
+import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip, PhoneCall } from "lucide-react";
+import { getLiveChatCredentials } from "@/lib/actions/get-live-token";
+import { LiveAudioSession } from "./LiveAudioSession";
 
 export function ChatWidget() {
     const pathname = usePathname();
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
+
+    // Live Voice State
+    const [liveConfig, setLiveConfig] = useState<{ apiKey: string, systemPrompt: string } | null>(null);
+    const [isVoiceMode, setIsVoiceMode] = useState(false);
 
     // Check if we should hide the widget on specific paths
     const isExcludedPath =
@@ -159,6 +166,28 @@ export function ChatWidget() {
             handleSave('new', 900);
         }
     }, [messages, leadData]);
+
+    // EFFECT: Auto-redirect to Checkout when Agreement is reached (Voice & Text)
+    // We use a ref to prevent multiple redirects
+    const hasRedirected = useRef(false);
+    useEffect(() => {
+        if (chatState === 'AGREEMENT' && !hasRedirected.current) {
+            hasRedirected.current = true;
+
+            // Optionally close the widget so it's not open on the checkout page
+            setIsOpen(false);
+            if (isVoiceMode) setIsVoiceMode(false);
+
+            // Construct checkout URL with prefilled data
+            const params = new URLSearchParams();
+            params.set('service', 'Alcoholemia');
+            if (chatSlots.city) params.set('location', chatSlots.city);
+            if (chatSlots.name) params.set('name', chatSlots.name);
+            params.set('price', profile === 'general' ? '1000' : '990');
+
+            router.push(`/checkout?${params.toString()}`);
+        }
+    }, [chatState, chatSlots, router, isVoiceMode, profile]);
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!input.trim() || isLoading) return;
@@ -256,6 +285,23 @@ export function ChatWidget() {
                             <X className="h-5 w-5" />
                         </button>
                     </div>
+
+                    {/* Voice Session Header */}
+                    {isVoiceMode && liveConfig && (
+                        <div className="shrink-0 border-b border-indigo-100 z-20 bg-white">
+                            <LiveAudioSession
+                                apiKey={liveConfig.apiKey}
+                                systemPrompt={liveConfig.systemPrompt}
+                                onClose={() => setIsVoiceMode(false)}
+                                currentSlots={chatSlots}
+                                setChatSlots={setChatSlots}
+                                setChatState={setChatState}
+                                onMessage={(msg) => {
+                                    setMessages(prev => [...prev, msg]);
+                                }}
+                            />
+                        </div>
+                    )}
 
                     {/* Messages */}
                     <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 relative">
@@ -362,18 +408,26 @@ export function ChatWidget() {
                                 rows={1}
                             />
 
-                            {/* File Upload Button */}
+                            {/* Voice Mode Toggle */}
                             <button
                                 type="button"
-                                disabled={isLoading}
+                                disabled={isLoading || isVoiceMode}
                                 className={cn(
                                     "absolute right-20 top-2 p-2 rounded-lg transition-colors",
-                                    isListening ? "text-red-600 bg-red-50 animate-pulse" : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                                    isVoiceMode ? "text-indigo-600 bg-indigo-50 animate-pulse" : "text-slate-400 hover:text-indigo-600 hover:bg-slate-100"
                                 )}
-                                title="Dictar por voz"
-                                onClick={startListening}
+                                title="Llamada por voz IA"
+                                onClick={async () => {
+                                    setIsLoading(true);
+                                    try {
+                                        const config = await getLiveChatCredentials(chatState, chatSlots, profile);
+                                        setLiveConfig(config);
+                                        setIsVoiceMode(true);
+                                    } catch (e) { console.error(e) }
+                                    finally { setIsLoading(false); }
+                                }}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mic"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
+                                <PhoneCall className="h-4 w-4" />
                             </button>
                             <button
                                 type="button"

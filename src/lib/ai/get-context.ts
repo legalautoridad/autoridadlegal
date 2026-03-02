@@ -5,6 +5,10 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY!);
 
 export async function getVectorContext(query: string, locationId?: string, serviceType?: string) {
   try {
+    if (!query || query.trim() === '') {
+      return '';
+    }
+
     console.log('[RAG] Fetching context for:', query);
 
     // Using static client with ANON key for read-only knowledge retrieval

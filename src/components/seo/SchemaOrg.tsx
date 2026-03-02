@@ -1,4 +1,3 @@
-import Script from 'next/script';
 
 type SchemaType = 'LegalService' | 'Article' | 'FAQPage' | 'Service' | 'Person';
 
@@ -15,7 +14,7 @@ export function SchemaOrg({ type, data }: SchemaOrgProps) {
     };
 
     return (
-        <Script
+        <script
             id={`schema-${type.toLowerCase()}`}
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
