@@ -40,7 +40,7 @@ export const AIResponseSchema = z.object({
         incident_type: z.string().nullable().optional().describe("Tipo de incidente ('control', 'accidente', etc.)"),
         city: z.string().nullable().optional().describe("Ciudad donde ocurrió"),
         has_citation: z.boolean().nullable().optional().describe("'true' si tiene citación, 'false' si no"),
-        citation_date: z.string().nullable().optional().describe("Si tiene citación, extrae aquí la FECHA EXACTA (ej. 'mañana', '24 de marzo')."),
+        citation_date: z.string().nullable().optional().describe("Si tiene citación y proporciona tanto el DÍA como la HORA, extrae aquí la fecha convirtiéndola ESTRICTAMENTE al formato 'mm/dd/yyyy hh:mm AM/PM' (ej. 03/14/2026 10:30 AM). Si falta la hora o el día, NO extraigas nada para poder preguntarle."),
         dependents: z.boolean().nullable().optional().describe("'true' si tiene personas a cargo, 'false' si no"),
         work_status: z.string().nullable().optional().describe("CRÍTICO: Extrae aquí la situación laboral literal que indique el usuario (ej. 'trabajando', 'en paro', 'estudiante'). Si menciona a qué se dedica, ponlo aquí."),
         needs_license_for_work: z.boolean().nullable().optional().describe("'true' si necesita carnet para trabajar, 'false' si no"),
@@ -91,12 +91,12 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
             if (slots.has_citation === true && !slots.citation_date) {
                 return {
                     missing: "citation_date",
-                    instruction: "En 'answer': Acusa recibo de que sí tiene citación. En 'question': Pregunta DIRECTAMENTE qué FECHA exacta le han dado para el Juicio Rápido."
+                    instruction: "En 'answer': Acusa recibo de que sí tiene citación. En 'question': Pregunta DIRECTAMENTE qué DÍA y a qué HORA exacta le han dado para el Juicio Rápido. IMPORTANTE: Si el usuario dio una fecha incompleta (por ejemplo, solo dice 'mañana' o un día sin la hora), pídele que especifique la hora exacta para poder anotarlo."
                 };
             }
             return {
                 missing: "has_citation",
-                instruction: "En 'question': Pregunta si la policía ya le ha dado fecha para el Juicio Rápido y, en caso afirmativo, qué FECHA exacta es."
+                instruction: "En 'question': Pregunta si la policía ya le ha dado fecha para el Juicio Rápido y, en caso afirmativo, qué DÍA y HORA exacta es."
             };
         case "ASK_DEPENDENTS":
             return {
@@ -123,7 +123,7 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
                 missing: "none",
                 instruction: `Tienes toda la información. Ahora no hagas preguntas de diagnóstico.
         1. Ancla el precio del mercado local (${slots.city || 'la zona'}) entre 1100€ y 1500€.
-        2. Presenta a Autoridad Legal: Precio cerrado de 1100€ con descuento del 10% (990€) si reserva hoy con 50€.
+        2. Presenta a Autoridad Legal: Precio cerrado de 1100€.
         3. Termina preguntando: "¿Te parece justa esta opción para proteger tu trabajo y tu futuro?"
         IMPORTANTE: Si en el último mensaje el usuario ya ha dicho que "sí" acepta, le parece bien, o quiere avanzar, DEBES OBLIGATORIAMENTE poner "next_state_suggestion": "AGREEMENT" en tu respuesta JSON.`
             };
