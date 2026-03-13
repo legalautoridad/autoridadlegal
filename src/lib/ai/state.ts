@@ -26,6 +26,7 @@ export interface ChatSlots {
     dependents?: boolean | null;
     work_status?: string | null;
     needs_license_for_work?: boolean | null;
+    calculated_price?: number | null;
 }
 
 // 3. Schema expected from the AI (Redactor Obediente)
@@ -52,6 +53,47 @@ export const AIResponseSchema = z.object({
 export type AIResponse = z.infer<typeof AIResponseSchema>;
 
 export type ChatProfile = 'alcoholemia' | 'general';
+
+// Helper: Calculate dynamic price based on slots
+export function calculatePrice(slots: ChatSlots): number {
+    let price = 990;
+
+    // Urgencia: < 24 horas Juicio
+    if (slots.citation_date) {
+        try {
+            const citationDate = new Date(slots.citation_date);
+            const now = new Date();
+            const diffHours = (citationDate.getTime() - now.getTime()) / (1000 * 60 * 60);
+            if (diffHours >= 0 && diffHours < 24) {
+                price += 50;
+            }
+        } catch (e) {
+            // Silent catch for invalid dates
+        }
+    }
+
+    // Tiene Antecedentes
+    if (slots.priors?.toLowerCase() === 'si') {
+        price += 50;
+    }
+
+    // Es profesional (necesita carnet para trabajar)
+    if (slots.needs_license_for_work === true) {
+        price += 100;
+    }
+
+    // Tasa entre 0.60 y 0.65
+    if (slots.rate) {
+        const rateNum = parseFloat(slots.rate.replace(',', '.'));
+        if (!isNaN(rateNum) && rateNum >= 0.60 && rateNum <= 0.65) {
+            price += 100;
+        }
+    }
+
+    // Añadir 21% de IVA y redondear a 2 decimales
+    const priceWithIva = price * 1.21;
+    return parseFloat(priceWithIva.toFixed(2));
+}
 
 // Helper: Determine missing slots and current policy based on state
 export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots, profile: ChatProfile = 'alcoholemia'): { missing: string, instruction: string } {
@@ -109,6 +151,7 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
                 instruction: "En 'answer': Confirma que has anotado lo anterior. En 'question': Pregunta DIRECTAMENTE si actualmente está trabajando o no. No añadas ninguna otra pregunta."
             };
         case "OFFER":
+            const computedPrice = calculatePrice(slots);
             if (profile === 'general') {
                 return {
                     missing: "none",
@@ -121,10 +164,10 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
             }
             return {
                 missing: "none",
-                instruction: `Tienes toda la información. Ahora no hagas preguntas de diagnóstico.
-        1. Ancla el precio del mercado local (${slots.city || 'la zona'}) entre 1100€ y 1500€.
-        2. Presenta a Autoridad Legal: Precio cerrado de 1100€.
-        3. Termina preguntando: "¿Te parece justa esta opción para proteger tu trabajo y tu futuro?"
+                instruction: `Tienes toda la información. Tienes PROHIBIDO hacer resúmenes largos de la situación ("Entiendo que no tienes antecedentes..."). Ve DIRECTAMENTE al grano con máxima urgencia legal.
+        1. Ancla el precio para defensa penal en ${slots.city || 'la zona'} diciendo que suele rondar entre los ${computedPrice + 100}€ y ${computedPrice + 400}€.
+        2. Inmediatamente informa que el Precio Cerrado y definitivo en Autoridad Legal para toda tu defensa será exactamente de ${computedPrice}€ (IVA incluido).
+        3. Para terminar, lanza el cierre de venta: "¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?"
         IMPORTANTE: Si en el último mensaje el usuario ya ha dicho que "sí" acepta, le parece bien, o quiere avanzar, DEBES OBLIGATORIAMENTE poner "next_state_suggestion": "AGREEMENT" en tu respuesta JSON.`
             };
         case "AGREEMENT":
