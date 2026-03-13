@@ -28,6 +28,7 @@ export async function* sendMessage(history: Message[], currentState: ChatState =
 [ESTADO ACTUAL DEL BOT]: ${currentState}
 [FALTAN DATOS ANTES DE ESTE MENSAJE]: ${missing}
 [DATOS CONOCIDOS ANTES DE ESTE MENSAJE]: ${JSON.stringify(currentSlots)}
+[FECHA ACTUAL PARA REFERENCIA]: ${new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}
 
 [INSTRUCCIÓN SUGERIDA PARA ESTE ESTADO]:
 ${instruction}
