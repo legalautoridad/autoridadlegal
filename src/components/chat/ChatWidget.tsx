@@ -7,10 +7,12 @@ import { saveLead } from "@/lib/actions/leads"; // Import saveLead
 import { ChatState, ChatSlots, ChatProfile } from "@/lib/ai/state";
 import { cn } from "@/lib/utils";
 import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
+import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 
 export function ChatWidget() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
     // Check if we should hide the widget on specific paths
     const isExcludedPath =
@@ -324,7 +326,7 @@ export function ChatWidget() {
                                             return (
                                                 <div className="mb-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                                     <button
-                                                        onClick={() => window.location.href = url}
+                                                        onClick={() => setIsCheckoutOpen(true)}
                                                         className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-indigo-200 transition-all flex items-center justify-center gap-2 transform hover:scale-[1.02]"
                                                     >
                                                         <span>⚡ RESERVAR AHORA Y ACTIVAR DEFENSA</span>
@@ -462,6 +464,13 @@ export function ChatWidget() {
                     )}
                 </button>
             </div>
+
+            {/* Embedded Checkout Modal Overlay */}
+            <CheckoutModal 
+                isOpen={isCheckoutOpen} 
+                onClose={() => setIsCheckoutOpen(false)} 
+                slots={chatSlots} 
+            />
         </div>
     );
 }
