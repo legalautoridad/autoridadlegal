@@ -4,7 +4,7 @@ import { streamObject } from 'ai';
 import { SYSTEM_PROMPT } from './config';
 import { getVectorContext } from '@/lib/ai/get-context';
 import { getModel, getAIProvider } from './providers';
-import { ChatState, ChatSlots, AIResponseSchema, getPromptInstructionsForState, getNextState, ChatProfile } from './state';
+import { ChatState, ChatSlots, AIResponseSchema, getPromptInstructionsForState, getNextState, ChatProfile, calculatePrice } from './state';
 
 export interface Message {
     role: 'user' | 'model';
@@ -118,11 +118,17 @@ RECUERDA TUS LÍMITES:
             // State Transition
             const nextState = getNextState(currentState, newSlots, typeof parsedFinal.next_state_suggestion === 'string' ? parsedFinal.next_state_suggestion : undefined, profile);
 
+            // SPECIAL LOGIC: Attach calculated price into memory if we are at offer stage
+            if (nextState === 'OFFER' || nextState === 'AGREEMENT') {
+                newSlots.calculated_price = calculatePrice(newSlots);
+            }
+
             // SPECIAL LOGIC: Trigger Agreement / Tools
             if (nextState === 'AGREEMENT') {
+                const finalPrice = newSlots.calculated_price || calculatePrice(newSlots);
                 yield JSON.stringify({
                     type: 'text-delta',
-                    content: `\n\nPor seguridad y cumplimiento de la LOPD, la recogida de tus datos personales (Nombre, DNI...) y la formalización de la reserva se hace en nuestro **Servidor Seguro**.\nPulsa el botón de abajo para activar tu defensa ahora mismo:\n\n[PAYMENT_BUTTON: /checkout?city=${newSlots.city || ''}&rate=${newSlots.rate || ''}&incident=${newSlots.incident_type || ''}]\n\n*Una vez completado ese formulario, recibirás el contrato y tu abogado te llamará de inmediato.*`
+                    content: `\n\nPor seguridad y cumplimiento de la LOPD, la recogida de tus datos personales (Nombre, DNI...) y la formalización de la reserva se hace en nuestro **Servidor Seguro**.\nPulsa el botón de abajo para activar tu defensa ahora mismo:\n\n[PAYMENT_BUTTON: /checkout?city=${newSlots.city || ''}&rate=${newSlots.rate || ''}&incident=${newSlots.incident_type || ''}&price=${finalPrice}]\n\n*Una vez completado ese formulario, recibirás el contrato y tu abogado te llamará de inmediato.*`
                 });
             }
 
