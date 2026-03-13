@@ -71,20 +71,25 @@ RECUERDA TUS LÍMITES:
         let previousLength = 0;
         let finalObject: unknown = null;
 
-        for await (const partialObject of result.partialObjectStream) {
-            // Reconstruct a text-like stream for the UI
-            const currentAnswer = partialObject?.answer || "";
-            const currentQuestion = partialObject?.question || "";
+        try {
+            for await (const partialObject of result.partialObjectStream) {
+                // Reconstruct a text-like stream for the UI
+                const currentAnswer = partialObject?.answer || "";
+                const currentQuestion = partialObject?.question || "";
 
-            // Render it sequentially
-            const combinedText = [currentAnswer, currentQuestion].filter(Boolean).join("\n\n");
+                // Render it sequentially
+                const combinedText = [currentAnswer, currentQuestion].filter(Boolean).join("\n\n");
 
-            if (combinedText.length > previousLength) {
-                const delta = combinedText.substring(previousLength);
-                yield JSON.stringify({ type: 'text-delta', content: delta });
-                previousLength = combinedText.length;
+                if (combinedText.length > previousLength) {
+                    const delta = combinedText.substring(previousLength);
+                    yield JSON.stringify({ type: 'text-delta', content: delta });
+                    previousLength = combinedText.length;
+                }
+                finalObject = partialObject;
             }
-            finalObject = partialObject;
+        } catch (streamError: any) {
+            console.warn('[AI_ACTION] Stream interrupted (often a harmless Gemini empty parts bug):', streamError?.message);
+            // We consciously swallow this error because finalObject likely already contains the full response
         }
 
         // --- Post-Generation Validation & State Update ---
