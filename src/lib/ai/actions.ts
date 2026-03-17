@@ -118,8 +118,8 @@ RECUERDA TUS LÍMITES:
             // State Transition
             const nextState = getNextState(currentState, newSlots, typeof parsedFinal.next_state_suggestion === 'string' ? parsedFinal.next_state_suggestion : undefined, profile);
 
-            // SPECIAL LOGIC: Attach calculated price into memory if we are at offer stage
-            if (nextState === 'OFFER' || nextState === 'AGREEMENT') {
+            // SPECIAL LOGIC: Attach calculated price into memory if we are at offer stage (only set ONCE, never overwrite)
+            if ((nextState === 'OFFER' || nextState === 'AGREEMENT') && !newSlots.calculated_price) {
                 newSlots.calculated_price = calculatePrice(newSlots);
             }
 

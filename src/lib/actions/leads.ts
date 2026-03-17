@@ -59,7 +59,8 @@ export async function saveLead(data: {
     notes?: string;
     amount_paid?: number; // Added to fix implicit usage error
 }) {
-    const supabase = await createAdminClient();
+    // Temporarily using public client since admin key is throwing JWT invalid errors
+    const supabase = await createClient();
 
     // Mapping to 'cases' table structure
     const dbData = {

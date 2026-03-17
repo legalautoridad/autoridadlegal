@@ -146,19 +146,30 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
                 instruction: "En 'answer': Muestra empatía. En 'question': Explica que para conseguir una rebaja o atenuante necesitas cierta información personal, y pregunta si tiene hijos menores o familiares a su cargo."
             };
         case "ASK_WORK":
-            return {
-                missing: "work_status",
-                instruction: "En 'answer': Confirma que has anotado lo anterior. En 'question': Pregunta DIRECTAMENTE si actualmente está trabajando o no. No añadas ninguna otra pregunta."
-            };
+            // Sub-step 1: get work_status
+            if (!slots.work_status) {
+                return {
+                    missing: "work_status",
+                    instruction: "En 'answer': Confirma que has anotado lo anterior. En 'question': Pregunta DIRECTAMENTE si actualmente está trabajando o no. No añadas ninguna otra pregunta."
+                };
+            }
+            // Sub-step 2: get needs_license_for_work (required for correct price calculation)
+            if (slots.needs_license_for_work === null || slots.needs_license_for_work === undefined) {
+                return {
+                    missing: "needs_license_for_work",
+                    instruction: "En 'answer': Confirma su situación laboral. En 'question': Pregunta DIRECTAMENTE si para realizar su trabajo habitual necesita el carné de conducir. OBLIGATORIO: extrae needs_license_for_work=true si dice que sí, needs_license_for_work=false si dice que no."
+                };
+            }
+            return { missing: "none", instruction: "Tienes toda la información laboral. Avanza al siguiente estado." };
         case "OFFER":
             const computedPrice = calculatePrice(slots);
             if (profile === 'general') {
                 return {
                     missing: "none",
-                    instruction: `Tienes toda la información. Ahora no hagas preguntas de diagnóstico.
+                    instruction: `Tienes toda la información. Ahora no hagas preguntas de diagnóstico. Tienes PROHIBIDO ofrecer estudios de viabilidad gratuitos.
         1. Indica que en Autoridad Legal somos especialistas y podemos llevar su caso en ${slots.city || 'su zona'}.
-        2. Presenta nuestros servicios: Estudio de viabilidad gratuito y presupuesto cerrado sin compromiso.
-        3. Termina preguntando: "¿Quieres que un abogado especialista analice tu caso sin coste?"
+        2. Inmediatamente informa que el Precio Cerrado y definitivo para su defensa será de ${computedPrice}€ (IVA incluido).
+        3. Termina lanzando el cierre de venta: "¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?"
         IMPORTANTE: Si en el último mensaje el usuario ya ha dicho que "sí" acepta, quiere contratar o avanzar, DEBES OBLIGATORIAMENTE poner "next_state_suggestion": "AGREEMENT" en tu respuesta JSON.`
                 };
             }
@@ -166,14 +177,14 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
                 missing: "none",
                 instruction: `Tienes toda la información. Tienes PROHIBIDO hacer resúmenes largos de la situación ("Entiendo que no tienes antecedentes..."). Ve DIRECTAMENTE al grano con máxima urgencia legal.
         1. Ancla el precio para defensa penal en ${slots.city || 'la zona'} diciendo que suele rondar entre los ${computedPrice + 100}€ y ${computedPrice + 400}€.
-        2. Inmediatamente informa que el Precio Cerrado y definitivo en Autoridad Legal para toda tu defensa será exactamente de ${computedPrice}€ (IVA incluido).
+        2. Inmediatamente informa que el Precio Cerrado y definitivo en Autoridad Legal para toda tu defensa será exactamente de ${computedPrice}€ (IVA incluido). Tienes PROHIBIDO ofrecer estudios gratuitos.
         3. Para terminar, lanza el cierre de venta: "¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?"
         IMPORTANTE: Si en el último mensaje el usuario ya ha dicho que "sí" acepta, le parece bien, o quiere avanzar, DEBES OBLIGATORIAMENTE poner "next_state_suggestion": "AGREEMENT" en tu respuesta JSON.`
             };
         case "AGREEMENT":
             return {
                 missing: "none",
-                instruction: "El usuario ha aceptado. Celebra su decisión. NO pidas datos por aquí. Indícale que haga clic en el botón de pago seguro que aparecerá en pantalla para formalizar el encargo y que se le asigne su abogado especialista."
+                instruction: `El usuario ha aceptado pagar. Tienes PROHIBIDO pedir datos por aquí. TU ÚNICA RESPUESTA DEBE SER EXACTAMENTE ESTE TEXTO LETRA POR LETRA: "Excelente. Me alegra que quieras avanzar. Un abogado especialista de nuestro equipo analizará tu caso para ofrecerte la mejor estrategia y un presupuesto cerrado. Estamos aquí para ayudarte en este proceso. Por seguridad y cumplimiento de la LOPD, la recogida de tus datos personales (Nombre, DNI...) y la formalización de la reserva se hace en nuestro Servidor Seguro. Pulsa el botón de abajo para activar tu defensa ahora mismo: Una vez completado ese formulario, recibirás el contrato y tu abogado te llamará para la cita."`
             };
         default:
             return { missing: "unknown", instruction: "Responde de forma profesional manteniendo el contexto del caso penal." };
