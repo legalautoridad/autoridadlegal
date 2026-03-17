@@ -118,9 +118,20 @@ RECUERDA TUS LÍMITES:
             // State Transition
             const nextState = getNextState(currentState, newSlots, typeof parsedFinal.next_state_suggestion === 'string' ? parsedFinal.next_state_suggestion : undefined, profile);
 
-            // SPECIAL LOGIC: Attach calculated price into memory if we are at offer stage
-            if (nextState === 'OFFER' || nextState === 'AGREEMENT') {
+            // SPECIAL LOGIC: Attach calculated price into memory if we are at offer stage (only set ONCE, never overwrite)
+            if ((nextState === 'OFFER' || nextState === 'AGREEMENT') && !newSlots.calculated_price) {
                 newSlots.calculated_price = calculatePrice(newSlots);
+            }
+
+            // SPECIAL LOGIC: If we are TRANSITIONING INTO OFFER (from a non-OFFER state), inject the pitch immediately
+            // This prevents the dead-end "Gracias, ya tengo todo..." message with no question.
+            if (nextState === 'OFFER' && currentState !== 'OFFER') {
+                const finalPrice = newSlots.calculated_price || calculatePrice(newSlots);
+                const city = newSlots.city || 'tu zona';
+                yield JSON.stringify({
+                    type: 'text-delta',
+                    content: `\n\nLa defensa penal por alcoholemia en ${city} suele rondar entre los ${(finalPrice + 100).toFixed(2)}€ y ${(finalPrice + 400).toFixed(2)}€. En Autoridad Legal, te ofrecemos un **Precio Cerrado y definitivo** para toda tu defensa de **${finalPrice.toFixed(2)}€ (IVA incluido)**. ¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?`
+                });
             }
 
             // SPECIAL LOGIC: Trigger Agreement / Tools
@@ -129,6 +140,14 @@ RECUERDA TUS LÍMITES:
                 yield JSON.stringify({
                     type: 'text-delta',
                     content: `\n\nPor seguridad y cumplimiento de la LOPD, la recogida de tus datos personales (Nombre, DNI...) y la formalización de la reserva se hace en nuestro **Servidor Seguro**.\nPulsa el botón de abajo para activar tu defensa ahora mismo:\n\n[PAYMENT_BUTTON: /checkout?city=${newSlots.city || ''}&rate=${newSlots.rate || ''}&incident=${newSlots.incident_type || ''}&price=${finalPrice}]\n\n*Una vez completado ese formulario, recibirás el contrato y tu abogado te llamará de inmediato.*`
+                });
+            }
+
+            // SPECIAL LOGIC: No citation — inject lead capture form button
+            if (nextState === 'NO_CITATION' && currentState !== 'NO_CITATION') {
+                yield JSON.stringify({
+                    type: 'text-delta',
+                    content: `\n\n[LEAD_FORM: name=${newSlots.name || ''}&city=${newSlots.city || ''}&rate=${newSlots.rate || ''}]`
                 });
             }
 

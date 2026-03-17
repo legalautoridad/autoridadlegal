@@ -12,6 +12,7 @@ export type ChatState =
     | "ASK_WORK"
     | "OFFER"
     | "AGREEMENT"
+    | "NO_CITATION"
     | "END";
 
 // 2. Definition of known slots (Context)
@@ -130,15 +131,21 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
                 instruction: "En 'answer': Confirma que has tomado nota. En 'question': Explica que cada Juzgado tiene sus propios criterios, y por eso necesitas saber en qué ciudad o pueblo ocurrió."
             };
         case "ASK_CITATION":
+            // Case 1: has citation AND date are both set → fully complete
+            if (slots.has_citation === true && !!slots.citation_date) {
+                return { missing: "none", instruction: "La citación ya está registrada." };
+            }
+            // Case 2: has citation but missing the date/time
             if (slots.has_citation === true && !slots.citation_date) {
                 return {
                     missing: "citation_date",
                     instruction: "En 'answer': Acusa recibo de que sí tiene citación. En 'question': Pregunta DIRECTAMENTE qué DÍA y a qué HORA exacta le han dado para el Juicio Rápido. IMPORTANTE: Si el usuario dio una fecha incompleta (por ejemplo, solo dice 'mañana' o un día sin la hora), pídele que especifique la hora exacta para poder anotarlo."
                 };
             }
+            // Case 3: has_citation not yet answered (null/undefined) → ask
             return {
                 missing: "has_citation",
-                instruction: "En 'question': Pregunta si la policía ya le ha dado fecha para el Juicio Rápido y, en caso afirmativo, qué DÍA y HORA exacta es."
+                instruction: "En 'question': Pregunta si la policía ya le ha dado fecha para el Juicio Rápido y, en caso afirmativo, qué DÍA y HORA exacta es. ATENCIÓN ESPECIAL: Si el usuario dice que NO tiene citación todavía, extrae has_citation=false OBLIGATORIAMENTE, deja el campo 'question' absolutamente VACÍO y en 'answer' solo di brevemente que entiendes que aún no tiene la citación y que le indicarás cómo proceder. NO preguntes nada más."
             };
         case "ASK_DEPENDENTS":
             return {
@@ -146,34 +153,54 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
                 instruction: "En 'answer': Muestra empatía. En 'question': Explica que para conseguir una rebaja o atenuante necesitas cierta información personal, y pregunta si tiene hijos menores o familiares a su cargo."
             };
         case "ASK_WORK":
-            return {
-                missing: "work_status",
-                instruction: "En 'answer': Confirma que has anotado lo anterior. En 'question': Pregunta DIRECTAMENTE si actualmente está trabajando o no. No añadas ninguna otra pregunta."
-            };
+            // Sub-step 1: get work_status
+            if (!slots.work_status) {
+                return {
+                    missing: "work_status",
+                    instruction: "En 'answer': Confirma que has anotado lo anterior. En 'question': Pregunta DIRECTAMENTE si actualmente está trabajando o no. No añadas ninguna otra pregunta."
+                };
+            }
+            // Sub-step 2: get needs_license_for_work (required for correct price calculation)
+            if (slots.needs_license_for_work === null || slots.needs_license_for_work === undefined) {
+                return {
+                    missing: "needs_license_for_work",
+                    instruction: "En 'answer': Confirma su situación laboral. En 'question': Pregunta DIRECTAMENTE si para realizar su trabajo habitual necesita el carné de conducir. OBLIGATORIO: extrae needs_license_for_work=true si dice que sí, needs_license_for_work=false si dice que no."
+                };
+            }
+            return { missing: "none", instruction: "Tienes toda la información laboral. Avanza al siguiente estado." };
         case "OFFER":
             const computedPrice = calculatePrice(slots);
             if (profile === 'general') {
                 return {
                     missing: "none",
-                    instruction: `Tienes toda la información. Ahora no hagas preguntas de diagnóstico.
-        1. Indica que en Autoridad Legal somos especialistas y podemos llevar su caso en ${slots.city || 'su zona'}.
-        2. Presenta nuestros servicios: Estudio de viabilidad gratuito y presupuesto cerrado sin compromiso.
-        3. Termina preguntando: "¿Quieres que un abogado especialista analice tu caso sin coste?"
-        IMPORTANTE: Si en el último mensaje el usuario ya ha dicho que "sí" acepta, quiere contratar o avanzar, DEBES OBLIGATORIAMENTE poner "next_state_suggestion": "AGREEMENT" en tu respuesta JSON.`
+                    instruction: `Tienes toda la información. Tienes PROHIBIDO ofrecer estudios gratuitos.
+        PON TODO EN EL CAMPO 'answer'. El campo 'question' DEBE ESTAR VACÍO.
+        En 'answer' escribe en un solo párrafo fluido:
+        1. Indica que somos especialistas en ${slots.city || 'su zona'}
+        2. Informa que el Precio Cerrado y definitivo es de ${computedPrice}€ (IVA incluido)
+        3. Incluye directamente al final del párrafo: "¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?"
+        IMPORTANTE: Si el usuario ya ha dicho que sí acepta, pon "next_state_suggestion": "AGREEMENT" en el JSON.`
                 };
             }
             return {
                 missing: "none",
-                instruction: `Tienes toda la información. Tienes PROHIBIDO hacer resúmenes largos de la situación ("Entiendo que no tienes antecedentes..."). Ve DIRECTAMENTE al grano con máxima urgencia legal.
-        1. Ancla el precio para defensa penal en ${slots.city || 'la zona'} diciendo que suele rondar entre los ${computedPrice + 100}€ y ${computedPrice + 400}€.
-        2. Inmediatamente informa que el Precio Cerrado y definitivo en Autoridad Legal para toda tu defensa será exactamente de ${computedPrice}€ (IVA incluido).
-        3. Para terminar, lanza el cierre de venta: "¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?"
-        IMPORTANTE: Si en el último mensaje el usuario ya ha dicho que "sí" acepta, le parece bien, o quiere avanzar, DEBES OBLIGATORIAMENTE poner "next_state_suggestion": "AGREEMENT" en tu respuesta JSON.`
+                instruction: `Tienes toda la información. Tienes PROHIBIDO hacer resúmenes largos.
+        PON TODO EN EL CAMPO 'answer'. El campo 'question' DEBE ESTAR VACÍO.
+        En 'answer' escribe en un solo párrafo fluido:
+        1. Ancla el precio: la defensa penal por alcoholemia en ${slots.city || 'la zona'} suele rondar entre ${computedPrice + 100}€ y ${computedPrice + 400}€.
+        2. Informa del precio en Autoridad Legal: exactamente ${computedPrice}€ (IVA incluido).
+        3. Incluye directamente al final del mismo párrafo: "¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?"
+        IMPORTANTE: Si el usuario ya ha dicho que sí acepta, pon "next_state_suggestion": "AGREEMENT" en el JSON.`
             };
         case "AGREEMENT":
             return {
                 missing: "none",
-                instruction: "El usuario ha aceptado. Celebra su decisión. NO pidas datos por aquí. Indícale que haga clic en el botón de pago seguro que aparecerá en pantalla para formalizar el encargo y que se le asigne su abogado especialista."
+                instruction: `El usuario ha aceptado pagar. Tienes PROHIBIDO pedir datos por aquí. TU ÚNICA RESPUESTA DEBE SER EXACTAMENTE ESTE TEXTO LETRA POR LETRA: "Excelente. Me alegra que quieras avanzar. Un abogado especialista de nuestro equipo analizará tu caso para ofrecerte la mejor estrategia y un presupuesto cerrado. Estamos aquí para ayudarte en este proceso. Por seguridad y cumplimiento de la LOPD, la recogida de tus datos personales (Nombre, DNI...) y la formalización de la reserva se hace en nuestro Servidor Seguro. Pulsa el botón de abajo para activar tu defensa ahora mismo: Una vez completado ese formulario, recibirás el contrato y tu abogado te llamará para la cita."`
+            };
+        case "NO_CITATION":
+            return {
+                missing: "none",
+                instruction: `El usuario no tiene aún la fecha y hora del Juicio Rápido. Explícale que para asignarle el abogado más adecuado necesitamos esos datos en cuanto los tenga. Indícale que puede dejarnos sus datos de contacto pulsando el botón que aparecerá en pantalla y que le llamaremos en cuanto reciba la citación. PON TODO EN 'answer'. El campo 'question' DEBE ESTAR VACÍO.`
             };
         default:
             return { missing: "unknown", instruction: "Responde de forma profesional manteniendo el contexto del caso penal." };
@@ -183,19 +210,32 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
 // Central logic to advance state based on extracted slots
 export function getNextState(currentState: ChatState, slots: ChatSlots, aiSuggestedState?: string, profile: ChatProfile = 'alcoholemia'): ChatState {
 
-    // Core requirements to present an offer
+    // Core requirements to present an offer — ALL critical slots must be captured
     const canMakeOffer = profile === 'general'
         ? (!!slots.city && !!slots.incident_type)
-        : (!!slots.city && !!slots.rate && !!slots.priors);
+        : (
+            !!slots.city &&
+            !!slots.rate &&
+            !!slots.priors &&
+            slots.needs_license_for_work !== null &&
+            slots.needs_license_for_work !== undefined &&
+            slots.has_citation !== null &&
+            slots.has_citation !== undefined // citation answer is required — can be true or false
+          );
 
-    if (currentState === "AGREEMENT" || currentState === "OFFER") {
+    // Lock terminal states
+    if (currentState === "AGREEMENT" || currentState === "OFFER" || currentState === "NO_CITATION") {
         if (aiSuggestedState === "AGREEMENT") return "AGREEMENT";
         return currentState;
     }
 
-    if (canMakeOffer && aiSuggestedState === "OFFER") {
-        return "OFFER";
+    // EARLY EXIT: If client has no citation, branch to lead capture flow immediately
+    if (slots.has_citation === false) {
+        return "NO_CITATION";
     }
+
+    // NOTE: The AI's OFFER suggestion is intentionally IGNORED here to prevent skipping questions.
+    // The linear flow below always determines state — OFFER is only reached when ALL slots are filled.
 
     // Default Linear progression fallback
     const flow: ChatState[] = profile === 'general'

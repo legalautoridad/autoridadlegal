@@ -8,11 +8,13 @@ import { ChatState, ChatSlots, ChatProfile } from "@/lib/ai/state";
 import { cn } from "@/lib/utils";
 import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
+import { LeadCaptureModal } from "@/components/checkout/LeadCaptureModal";
 
 export function ChatWidget() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+    const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
 
     // Check if we should hide the widget on specific paths
     const isExcludedPath =
@@ -20,7 +22,8 @@ export function ChatWidget() {
         pathname?.startsWith('/admin') ||
         pathname?.startsWith('/lawyer');
 
-    const profile: ChatProfile = pathname?.includes('alcoholemia') ? 'alcoholemia' : 'general';
+    // Default to 'alcoholemia' profile everywhere for now to ensure the full interrogatory flow runs during testing
+    const profile: ChatProfile = 'alcoholemia';
 
     // Extract city from URL path, e.g., /alcoholemia/barcelona -> Barcelona
     let initialCity = undefined;
@@ -303,7 +306,7 @@ export function ChatWidget() {
                                             : "bg-slate-100 border border-slate-200 text-slate-900 rounded-bl-none"
                                     )}
                                 >
-                                    {msg.content.replace(/\[LEAD_DATA:.*?\]/g, '').replace(/\[PAYMENT_BUTTON:.*?\]/g, '').replace('[CLOSING_DEAL]', '').replace('[PAYMENT_LINK_DISCOUNT]', '').replace('[FREE_CALL_REQUEST]', '') || (
+                                    {msg.content.replace(/\[LEAD_DATA:.*?\]/g, '').replace(/\[PAYMENT_BUTTON:.*?\]/g, '').replace(/\[LEAD_FORM:.*?\]/g, '').replace('[CLOSING_DEAL]', '').replace('[PAYMENT_LINK_DISCOUNT]', '').replace('[FREE_CALL_REQUEST]', '') || (
                                         <span className="flex gap-1 items-center h-5">
                                             <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
                                             <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
@@ -331,9 +334,23 @@ export function ChatWidget() {
                                                     >
                                                         <span>⚡ RESERVAR AHORA Y ACTIVAR DEFENSA</span>
                                                     </button>
-                                                    <p className="text-xs text-center text-slate-400 mt-2">
-                                                        Pago seguro de 50€ (Descuento aplicado)
-                                                    </p>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })()}
+                                    {/* Dynamic Lead Form Button (for no-citation case) */}
+                                    {(() => {
+                                        const match = messages[messages.length - 1].content.match(/\[LEAD_FORM:\s*(.*?)\]/);
+                                        if (match) {
+                                            return (
+                                                <div className="mt-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                                    <button
+                                                        onClick={() => setIsLeadFormOpen(true)}
+                                                        className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                                                    >
+                                                        📞 Dejar mis datos para cuando tenga la cita
+                                                    </button>
                                                 </div>
                                             );
                                         }
@@ -471,6 +488,22 @@ export function ChatWidget() {
                 onClose={() => setIsCheckoutOpen(false)} 
                 slots={chatSlots} 
             />
+
+            {/* Lead Capture Modal Overlay (No Citation) */}
+            {(() => {
+                const lastMsg = messages[messages.length - 1];
+                const match = lastMsg?.content?.match(/\[LEAD_FORM:\s*(.*?)\]/);
+                const params = match ? Object.fromEntries(new URLSearchParams(match[1])) : {};
+                return (
+                    <LeadCaptureModal
+                        isOpen={isLeadFormOpen}
+                        onClose={() => setIsLeadFormOpen(false)}
+                        prefillName={params.name || chatSlots.name || ''}
+                        city={params.city || chatSlots.city || ''}
+                        rate={params.rate || chatSlots.rate || ''}
+                    />
+                );
+            })()}
         </div>
     );
 }
