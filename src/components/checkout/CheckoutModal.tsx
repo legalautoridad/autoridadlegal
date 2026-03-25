@@ -65,12 +65,12 @@ function StripePaymentForm({ price, clientSecret, formData, city, incidentType, 
                 });
 
                 alert(`¡Reserva confirmada con éxito!\n\nTu abogado se pondrá en contacto contigo en el teléfono \${formData.phone} de forma inminente.`);
-                onClose();
+                window.location.href = `/checkout/success?city=${encodeURIComponent(city)}&vertical=${encodeURIComponent(incidentType)}`;
             } catch (err) {
                 console.error("Error updating lead status:", err);
                 // Even if DB fails, payment succeeded, so we shouldn't block the user but we might want to log it
                 alert("Pago recibido. Hubo un retraso actualizando su expediente, pero su abogado le contactará pronto.");
-                onClose();
+                window.location.href = `/checkout/success?city=${encodeURIComponent(city)}&vertical=${encodeURIComponent(incidentType)}`;
             }
         } else {
             setErrorMessage('Estado de pago inesperado.');
