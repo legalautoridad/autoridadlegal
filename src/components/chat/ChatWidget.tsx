@@ -20,7 +20,8 @@ export function ChatWidget() {
     const isExcludedPath =
         pathname === '/login' ||
         pathname?.startsWith('/admin') ||
-        pathname?.startsWith('/lawyer');
+        pathname?.startsWith('/lawyer') ||
+        pathname?.startsWith('/checkout/success');
 
     // Default to 'alcoholemia' profile everywhere for now to ensure the full interrogatory flow runs during testing
     const profile: ChatProfile = 'alcoholemia';

@@ -3,7 +3,7 @@
 import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { generateGuaranteeCertificate, CertificateData } from '@/lib/services/pdf-generator';
-import { FileDown, CheckCircle, Shield, Mail } from 'lucide-react';
+import { FileDown, CheckCircle, Shield, Mail, FileText } from 'lucide-react';
 
 function SuccessContent() {
     const searchParams = useSearchParams();
@@ -86,16 +86,36 @@ function SuccessContent() {
                 </div>
 
                 {/* Reassurance */}
-                <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-8 text-left flex gap-3">
+                <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6 text-left flex gap-3">
                     <div className="bg-blue-100 p-2 rounded-lg h-fit">
                         <CheckCircle className="w-4 h-4 text-blue-600" />
                     </div>
                     <div>
                         <p className="text-sm text-blue-900 font-bold mb-1">Siguiente paso:</p>
                         <p className="text-xs text-blue-800 leading-relaxed">
-                            Santiago te llamará <strong>en el horario que has indicado</strong> (o en menos de 24h) para preparar tu estrategia. Estate atento al teléfono.
+                            El pago se ha confirmado correctamente. El abogado se pondrá en contacto contigo <strong>por teléfono o email</strong> para concertar una reunión y preparar tu estrategia.
                         </p>
                     </div>
+                </div>
+
+                {/* Required Documentation */}
+                <div className="bg-amber-50 border border-amber-100 rounded-xl p-5 mb-8 text-left">
+                    <h4 className="text-sm text-amber-900 font-bold mb-3 flex items-center gap-2">
+                        <FileText className="w-4 h-4 text-amber-600" />
+                        Documentación para tu caso
+                    </h4>
+                    <p className="text-xs text-amber-800 mb-3">
+                        Por favor, prepara la siguiente documentación que pueda ayudar a tu caso:
+                    </p>
+                    <ul className="text-xs text-amber-800 space-y-2 list-disc pl-4 marker:text-amber-500">
+                        <li><strong>Últimas nóminas</strong> (si estás trabajando).</li>
+                        <li><strong>Declaraciones de IVA</strong> (si eres autónomo).</li>
+                        <li><strong>Recibo de hipoteca o alquiler.</strong></li>
+                        <li><strong>Libro de familia</strong> (hijos y matrimonio).</li>
+                        <li><strong>Sentencia de pensión de alimentos</strong> (si procede).</li>
+                        <li><strong>Documentación médica</strong> de la medicación que estés tomando si puede alterar síntomas (ej. ojos vidriosos).</li>
+                        <li>Cualquier documento que pueda acreditar <strong>cargas económicas</strong> (ej. padre o madre dependiente).</li>
+                    </ul>
                 </div>
 
                 {/* Actions */}
