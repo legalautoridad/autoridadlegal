@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getKnowledgeEntries, upsertKnowledgeEntry, deleteKnowledgeEntry, ingestDocumentAction, KnowledgeEntry } from '@/lib/actions/knowledge';
+import { getKnowledgeEntries, upsertKnowledgeEntry, deleteKnowledgeEntry, uploadToBucketAction, syncBucketToRAGAction, KnowledgeEntry } from '@/lib/actions/knowledge';
 import { getLocationsAdmin, getCourtsAdmin } from '@/lib/actions/locations';
 import {
     BookOpen,
@@ -32,6 +32,7 @@ export default function KnowledgeManagementPage() {
     const [editingEntry, setEditingEntry] = useState<any>(null);
     const [formLoading, setFormLoading] = useState(false);
     const [uploadLoading, setUploadLoading] = useState(false);
+    const [syncLoading, setSyncLoading] = useState(false);
 
     useEffect(() => {
         loadData();
@@ -112,14 +113,27 @@ export default function KnowledgeManagementPage() {
         const formData = new FormData(e.currentTarget);
 
         try {
-            const result = await ingestDocumentAction(formData);
+            const result = await uploadToBucketAction(formData);
             alert(result.message);
             setShowUploadModal(false);
-            loadData();
         } catch (error: any) {
-            alert('Error en la ingesta: ' + error.message);
+            alert('Error al subir: ' + error.message);
         } finally {
             setUploadLoading(false);
+        }
+    };
+
+    const handleSync = async () => {
+        if (!confirm('Esto vaciará toda la base del RAG y la reconstruirá enteramente desde los archivos en el bucket al-context-cache. ¿Deseas continuar?')) return;
+        setSyncLoading(true);
+        try {
+            const result = await syncBucketToRAGAction();
+            alert(result.message);
+            loadData();
+        } catch (error: any) {
+            alert('Error en la sincronización: ' + error.message);
+        } finally {
+            setSyncLoading(false);
         }
     };
 
@@ -151,6 +165,14 @@ export default function KnowledgeManagementPage() {
                                 />
                             </div>
                             <button
+                                onClick={handleSync}
+                                disabled={syncLoading}
+                                className="bg-amber-600 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-amber-700 transition-all shadow-lg shadow-amber-100 h-11 disabled:opacity-50"
+                            >
+                                {syncLoading ? <Loader2 className="h-4 w-4 animate-spin"/> : <Database className="h-4 w-4" />}
+                                {syncLoading ? 'Sincronizando...' : 'Sincronizar Bucket'}
+                            </button>
+                            <button
                                 onClick={openAdd}
                                 className="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 h-11"
                             >
@@ -162,7 +184,7 @@ export default function KnowledgeManagementPage() {
                                 className="bg-emerald-600 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100 h-11"
                             >
                                 <FileUp className="h-4 w-4" />
-                                Subir Documento
+                                Subir Archivo
                             </button>
                         </div>
                     </div>
@@ -314,7 +336,7 @@ export default function KnowledgeManagementPage() {
                                     <input
                                         type="file"
                                         name="file"
-                                        accept=".pdf,.txt"
+                                        accept=".md,.txt,.pdf"
                                         required
                                         className="absolute inset-0 opacity-0 cursor-pointer"
                                         onChange={(e) => {
@@ -326,68 +348,8 @@ export default function KnowledgeManagementPage() {
                                         }}
                                     />
                                     <FileUp className="h-10 w-10 text-slate-300 group-hover:text-emerald-500 mx-auto mb-3 transition-colors" />
-                                    <p id="file-label" className="text-sm font-medium text-slate-600">Selecciona un PDF o TXT para procesar</p>
-                                    <p className="text-xs text-slate-400 mt-1">Máximo 10MB. El texto será dividido en bloques automáticamente.</p>
-                                </div>
-
-                                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="flex items-center justify-between">
-                                            <label className="text-sm font-bold text-slate-700">¿Es general?</label>
-                                            <input
-                                                type="checkbox"
-                                                name="is_general"
-                                                defaultChecked={true}
-                                                className="h-5 w-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Región (Opcional)</label>
-                                            <select
-                                                name="region"
-                                                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white"
-                                            >
-                                                <option value="">Ninguna / Nacional</option>
-                                                <option value="Cataluña">Cataluña</option>
-                                                <option value="Madrid">Madrid</option>
-                                                <option value="Valencia">Valencia</option>
-                                                <option value="Andalucía">Andalucía</option>
-                                                <option value="Galicia">Galicia</option>
-                                                <option value="País Vasco">País Vasco</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Área Legal / Servicio</label>
-                                            <select
-                                                name="service_type"
-                                                defaultValue="alcoholemia"
-                                                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-white font-bold"
-                                            >
-                                                <option value="alcoholemia">Alcoholemia</option>
-                                                <option value="accidentes">Accidentes</option>
-                                                <option value="herencias">Herencias</option>
-                                                <option value="familia">Familia</option>
-                                                <option value="penal">Penal General</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Sede (Opcional)</label>
-                                            <select name="location_id" className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white">
-                                                <option value="">Aplica a todas</option>
-                                                {locations.map(loc => <option key={loc.id} value={loc.id}>{loc.name}</option>)}
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Juzgado (Opcional)</label>
-                                            <select name="court_id" className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white">
-                                                <option value="">Cualquier juzgado</option>
-                                                {courts.map(court => <option key={court.id} value={court.id}>{court.name}</option>)}
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <p id="file-label" className="text-sm font-medium text-slate-600">Haz click para seleccionar un documento MD, TXT o PDF</p>
+                                    <p className="text-xs text-slate-400 mt-1">Máximo 10MB. Idealmente usa Markdown (.md) para mejores resultados estructurales.</p>
                                 </div>
 
                                 <button
@@ -398,15 +360,15 @@ export default function KnowledgeManagementPage() {
                                     {uploadLoading ? (
                                         <>
                                             <Loader2 className="h-5 w-5 animate-spin" />
-                                            Procesando y Vectorizando...
+                                            Subiendo al Bucket...
                                         </>
                                     ) : (
-                                        'Iniciar Ingesta de Documento'
+                                        'Subir Documento'
                                     )}
                                 </button>
                                 {uploadLoading && (
                                     <p className="text-[10px] text-center text-slate-500 animate-pulse">
-                                        Detectando texto, dividiendo en fragmentos y generando embeddings vectoriales de 3072 dimensiones...
+                                        El archivo está siendo copiado a al-context-cache. Después tendrás que presionar "Sincronizar Bucket".
                                     </p>
                                 )}
                             </form>

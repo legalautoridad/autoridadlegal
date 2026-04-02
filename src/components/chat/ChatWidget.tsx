@@ -239,19 +239,23 @@ export function ChatWidget() {
                                         <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                         Conectado
                                     </span>
-                                    {/* Debug Toggle */}
-                                    <button
-                                        onClick={() => setShowDebug(!showDebug)}
-                                        className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 hover:bg-slate-700"
-                                    >
-                                        {showDebug ? 'Ocultar Prompt' : 'Ver Prompt'}
-                                    </button>
-                                    <button
-                                        onClick={() => setShowSlots(!showSlots)}
-                                        className="text-[10px] bg-indigo-900/50 text-indigo-200 px-2 py-0.5 rounded border border-indigo-700/50 hover:bg-indigo-800/50"
-                                    >
-                                        {showSlots ? 'Ocultar Slots' : 'Ver Slots'}
-                                    </button>
+                                    {/* Debug Toggle - Only visible in DEV version */}
+                                    {process.env.NEXT_PUBLIC_APP_VERSION === 'dev' && (
+                                        <>
+                                            <button
+                                                onClick={() => setShowDebug(!showDebug)}
+                                                className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 hover:bg-slate-700"
+                                            >
+                                                {showDebug ? 'Ocultar Prompt' : 'Ver Prompt'}
+                                            </button>
+                                            <button
+                                                onClick={() => setShowSlots(!showSlots)}
+                                                className="text-[10px] bg-indigo-900/50 text-indigo-200 px-2 py-0.5 rounded border border-indigo-700/50 hover:bg-indigo-800/50"
+                                            >
+                                                {showSlots ? 'Ocultar Slots' : 'Ver Slots'}
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
