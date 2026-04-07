@@ -19,20 +19,32 @@ export async function* sendMessage(history: Message[], currentState: ChatState =
         // 2. Identify State Instructions
         const { missing, instruction } = getPromptInstructionsForState(currentState, currentSlots, profile);
 
+        // Build the state-specific override block (takes priority over the anti-loop rule for special states)
+        const stateOverride = (currentState === 'ASK_QUESTIONS' || currentState === 'OFFER' || currentState === 'AGREEMENT')
+            ? `
+⚠️ ANULACIÓN CRÍTICA — ESTADO ${currentState} ⚠️
+La regla anti-bucles NO aplica aquí. DEBES seguir la [INSTRUCCIÓN SUGERIDA] al pie de la letra.
+${currentState === 'OFFER' ? 'Tu misión es detectar si el usuario acepta (OK, sí, adelante...). Si acepta, DEBES poner "AGREEMENT" en next_state_suggestion.' : ''}
+${currentState === 'AGREEMENT' ? 'Ya han aceptado. No pidas más datos. Limítate a confirmar y guiar al botón.' : ''}
+${currentState === 'ASK_QUESTIONS' ? 'No pases de aquí hasta que el usuario confirme que no tiene más dudas.' : ''}`
+            : '';
+
         const stateContext = `
 [ESTADO ACTUAL DEL BOT]: ${currentState}
 [FALTAN DATOS ANTES DE ESTE MENSAJE]: ${missing}
 [DATOS CONOCIDOS ANTES DE ESTE MENSAJE]: ${JSON.stringify(currentSlots)}
-[FECHA ACTUAL PARA REFERENCIA]: ${new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}
+[FECHA ACTUAL PARA REFERENCIA (ESPAÑA)]: ${new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}
+⚠️ CRÍTICO: USA ESTA FECHA DE ESPAÑA COMO BASE PARA CUALQUIER CÁLCULO RELATIVO (ej. "mañana a las 10", "hoy a las 5", etc.).
 
 [INSTRUCCIÓN SUGERIDA PARA ESTE ESTADO]:
 ${instruction}
+${stateOverride}
 
 REGLA DE ORO ANTI-BUCLES (¡CRÍTICO!):
 Si en el mensaje del usuario ya encuentras la respuesta al dato que falta (ej. te dice la ciudad "Barcelona", la tasa "0.7", que "no tiene" antecedentes, etc.), **ESTÁ ESTRICTAMENTE PROHIBIDO volver a hacerle esa misma pregunta**.
 Si ves la respuesta:
 1. Extrae el dato en 'extracted_slots'.
-2. IGNORA por completo la "[INSTRUCCIÓN SUGERIDA PARA ESTE ESTADO]".
+2. IGNORA por completo la "[INSTRUCCIÓN SUGERIDA PARA ESTE ESTADO]" (excepto si hay una ANULACIÓN CRÍTICA activa).
 3. En 'answer', simplemente confirma que has entendido (ej. "Tomo nota de que fue en Barcelona").
 4. En 'question', avanza lógicamente al SIGUIENTE punto (citación, cargas familiares, trabajo...) o déjalo vacío si ya tienes los datos para la oferta.
 

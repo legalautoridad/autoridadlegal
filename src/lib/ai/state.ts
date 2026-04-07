@@ -10,6 +10,7 @@ export type ChatState =
     | "ASK_CITATION"
     | "ASK_DEPENDENTS"
     | "ASK_WORK"
+    | "ASK_QUESTIONS"
     | "OFFER"
     | "AGREEMENT"
     | "NO_CITATION"
@@ -27,6 +28,7 @@ export interface ChatSlots {
     dependents?: boolean | null;
     work_status?: string | null;
     needs_license_for_work?: boolean | null;
+    questions_resolved?: boolean | null; // True when user confirms no more questions before offer
     calculated_price?: number | null;
 }
 
@@ -42,10 +44,11 @@ export const AIResponseSchema = z.object({
         incident_type: z.string().nullable().optional().describe("Tipo de incidente ('control', 'accidente', etc.)"),
         city: z.string().nullable().optional().describe("Ciudad donde ocurrió"),
         has_citation: z.boolean().nullable().optional().describe("'true' si tiene citación, 'false' si no"),
-        citation_date: z.string().nullable().optional().describe("Si tiene citación y proporciona tanto el DÍA como la HORA, extrae aquí la fecha convirtiéndola ESTRICTAMENTE al formato 'mm/dd/yyyy hh:mm AM/PM' (ej. 03/14/2026 10:30 AM). Si falta la hora o el día, NO extraigas nada para poder preguntarle."),
+        citation_date: z.string().nullable().optional().describe("Si tiene citación y proporciona tanto el DÍA como la HORA, extrae aquí la fecha convirtiéndola ESTRICTAMENTE al formato 'DD/MM/YYYY HH:mm AM/PM' (ej. 14/03/2026 10:30 AM). USA LA FECHA ACTUAL DE ESPAÑA PROPORCIONADA PARA CALCULAR DÍAS RELATIVOS (ej. si hoy es 07/04 y dice 'mañana', es 08/04). Si falta la hora o el día, NO extraigas nada."),
         dependents: z.boolean().nullable().optional().describe("'true' si tiene personas a cargo, 'false' si no"),
         work_status: z.string().nullable().optional().describe("CRÍTICO: Extrae aquí la situación laboral literal que indique el usuario (ej. 'trabajando', 'en paro', 'estudiante'). Si menciona a qué se dedica, ponlo aquí."),
         needs_license_for_work: z.boolean().nullable().optional().describe("'true' si necesita carnet para trabajar, 'false' si no"),
+        questions_resolved: z.boolean().nullable().optional().describe("CRÍTICO: Extrae 'true' SOLO cuando el usuario confirma que no tiene más dudas o preguntas y está listo para seguir. Si el usuario hace UNA PREGUNTA, respóndela y deja este campo vacío. Cuando finalmente diga 'no tengo más preguntas' o similar, extrae 'true'."),
     }).describe("OBLIGATORIO: Extrae aquí los datos que el usuario menciona en su respuesta. Para los booleanos, si el usuario dice 'no', extrae 'false' (¡no lo dejes vacío!)."),
     confidence: z.number().describe("Nivel de confianza (0-1) en que has extraído los datos correctamente."),
     is_off_topic: z.boolean().describe("True si el usuario intenta desviarse del caso legal.")
@@ -102,100 +105,107 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
         case "ASK_NAME":
             return {
                 missing: "name",
-                instruction: "En 'answer': Saluda brevemente. En 'question': Pregunta cómo se llama para poder dirigirte a él/ella."
+                instruction: ""
+                //"En 'answer': Saluda brevemente. En 'question': Pregunta cómo se llama para poder dirigirte a él/ella."
             };
         case "ASK_WHAT_HAPPENED":
             if (profile === 'general') {
                 return {
                     missing: "incident_type",
-                    instruction: `En 'answer': Agradece a ${slots.name || 'él/ella'}. En 'question': Pregunta qué ha pasado exactamente y en qué le podemos ayudar.`
+                    instruction: ""
+                    //`En 'answer': Agradece a ${slots.name || 'él/ella'}. En 'question': Pregunta qué ha pasado exactamente y en qué le podemos ayudar.`
                 };
             }
             return {
                 missing: "incident_type",
-                instruction: `En 'answer': Agradece a ${slots.name || 'él/ella'}. En 'question': Pregunta qué ha pasado exactamente (si fue un control rutinario o un accidente).`
+                instruction: ""
+                //`En 'answer': Agradece a ${slots.name || 'él/ella'}. En 'question': Pregunta qué ha pasado exactamente (si fue un control rutinario o un accidente).`
             };
         case "ASK_RATE":
             return {
                 missing: "rate",
-                instruction: "En 'answer': Muestra comprensión. En 'question': Explica que la cifra del etilómetro es fundamental y pregunta QUÉ TASA DIO exactamente en la prueba. Si el usuario te responde con un número, EXTRAE obligatoriamente rate='número' en el JSON."
+                instruction: ""
+                //"En 'answer': Muestra comprensión. En 'question': Explica que la cifra del etilómetro es fundamental y pregunta QUÉ TASA DIO exactamente en la prueba. Si el usuario te responde con un número, EXTRAE obligatoriamente rate='número' en el JSON."
             };
         case "ASK_PRIORS":
             return {
                 missing: "priors",
-                instruction: "En 'answer': Acusa recibo de la tasa. En 'question': Explica muy brevemente que necesitamos saber su historial para evaluar la pena y pregunta DIRECTAMENTE si tiene antecedentes penales previos. Si el usuario ya te ha respondido que NO tiene, no se lo vuelvas a preguntar y EXTRAE obligatoriamente priors='no'."
+                instruction: ""
+                //"En 'answer': Acusa recibo de la tasa. En 'question': Explica muy brevemente que necesitamos saber su historial para evaluar la pena y pregunta DIRECTAMENTE si tiene antecedentes penales previos. Si el usuario ya te ha respondido que NO tiene, no se lo vuelvas a preguntar y EXTRAE obligatoriamente priors='no'."
             };
         case "ASK_CITY":
             return {
                 missing: "city",
-                instruction: "En 'answer': Confirma que has tomado nota. En 'question': Explica que cada Juzgado tiene sus propios criterios, y por eso necesitas saber en qué ciudad o pueblo ocurrió."
+                instruction: ""
+                //"En 'answer': Confirma que has tomado nota. En 'question': Explica que cada Juzgado tiene sus propios criterios, y por eso necesitas saber en qué ciudad o pueblo ocurrió."
             };
         case "ASK_CITATION":
             // Case 1: has citation AND date are both set → fully complete
             if (slots.has_citation === true && !!slots.citation_date) {
-                return { missing: "none", instruction: "La citación ya está registrada." };
+                return {
+                    missing: "none", instruction: ""
+                    //"La citación ya está registrada." 
+                };
             }
             // Case 2: has citation but missing the date/time
             if (slots.has_citation === true && !slots.citation_date) {
                 return {
                     missing: "citation_date",
-                    instruction: "En 'answer': Acusa recibo de que sí tiene citación. En 'question': Pregunta DIRECTAMENTE qué DÍA y a qué HORA exacta le han dado para el Juicio Rápido. IMPORTANTE: Si el usuario dio una fecha incompleta (por ejemplo, solo dice 'mañana' o un día sin la hora), pídele que especifique la hora exacta para poder anotarlo."
+                    instruction: ""
+                    //"En 'answer': Acusa recibo de que sí tiene citación. En 'question': Pregunta DIRECTAMENTE qué DÍA y a qué HORA exacta le han dado para el Juicio Rápido. IMPORTANTE: Si el usuario dio una fecha incompleta (por ejemplo, solo dice 'mañana' o un día sin la hora), pídele que especifique la hora exacta para poder anotarlo."
                 };
             }
             // Case 3: has_citation not yet answered (null/undefined) → ask
             return {
                 missing: "has_citation",
-                instruction: "En 'question': Pregunta si la policía ya le ha dado fecha para el Juicio Rápido y, en caso afirmativo, qué DÍA y HORA exacta es. ATENCIÓN ESPECIAL: Si el usuario dice que NO tiene citación todavía, extrae has_citation=false OBLIGATORIAMENTE, deja el campo 'question' absolutamente VACÍO y en 'answer' solo di brevemente que entiendes que aún no tiene la citación y que le indicarás cómo proceder. NO preguntes nada más."
+                instruction: ""
+                //"En 'question': Pregunta si la policía ya le ha dado fecha para el Juicio Rápido y, en caso afirmativo, qué DÍA y HORA exacta es. ATENCIÓN ESPECIAL: Si el usuario dice que NO tiene citación todavía, extrae has_citation=false OBLIGATORIAMENTE, deja el campo 'question' absolutamente VACÍO y en 'answer' solo di brevemente que entiendes que aún no tiene la citación y que le indicarás cómo proceder. NO preguntes nada más."
             };
         case "ASK_DEPENDENTS":
             return {
                 missing: "dependents",
-                instruction: "En 'answer': Muestra empatía. En 'question': Explica que para conseguir una rebaja o atenuante necesitas cierta información personal, y pregunta si tiene hijos menores o familiares a su cargo."
+                instruction: ""
+                //"En 'answer': Muestra empatía. En 'question': Explica que para conseguir una rebaja o atenuante necesitas cierta información personal, y pregunta si tiene hijos menores o familiares a su cargo."
             };
         case "ASK_WORK":
             // Sub-step 1: get work_status
             if (!slots.work_status) {
                 return {
                     missing: "work_status",
-                    instruction: "En 'answer': Confirma que has anotado lo anterior. En 'question': Pregunta DIRECTAMENTE si actualmente está trabajando o no. No añadas ninguna otra pregunta."
+                    instruction: ""
+                    //"En 'answer': Confirma que has anotado lo anterior. En 'question': Pregunta DIRECTAMENTE si actualmente está trabajando o no. No añadas ninguna otra pregunta."
                 };
             }
             // Sub-step 2: get needs_license_for_work (required for correct price calculation)
             if (slots.needs_license_for_work === null || slots.needs_license_for_work === undefined) {
                 return {
                     missing: "needs_license_for_work",
-                    instruction: "En 'answer': Confirma su situación laboral. En 'question': Pregunta DIRECTAMENTE si para realizar su trabajo habitual necesita el carné de conducir. OBLIGATORIO: extrae needs_license_for_work=true si dice que sí, needs_license_for_work=false si dice que no."
+                    instruction: ""
+                    //"En 'answer': Confirma su situación laboral. En 'question': Pregunta DIRECTAMENTE si para realizar su trabajo habitual necesita el carné de conducir. OBLIGATORIO: extrae needs_license_for_work=true si dice que sí, needs_license_for_work=false si dice que no."
                 };
             }
             return { missing: "none", instruction: "Tienes toda la información laboral. Avanza al siguiente estado." };
+        case "ASK_QUESTIONS":
+            return {
+                missing: "questions_resolved",
+                instruction: "Hemos recogido toda la información necesaria. En 'answer': Indica brevemente que ya tienes todo lo que necesitas para preparar la defensa. En 'question': Pregunta si tiene alguna duda o pregunta antes de continuar. Si el usuario hace una pregunta, resuélvela con precisión en 'answer' y vuelve a preguntar si tiene algo más. Cuando confirme que no tiene más preguntas, extrae questions_resolved=true en extracted_slots."
+            };
         case "OFFER":
             const computedPrice = calculatePrice(slots);
             if (profile === 'general') {
                 return {
                     missing: "none",
-                    instruction: `Tienes toda la información. Tienes PROHIBIDO ofrecer estudios gratuitos.
-        PON TODO EN EL CAMPO 'answer'. El campo 'question' DEBE ESTAR VACÍO.
-        En 'answer' escribe en un solo párrafo fluido:
-        1. Indica que somos especialistas en ${slots.city || 'su zona'}
-        2. Informa que el Precio Cerrado y definitivo es de ${computedPrice}€ (IVA incluido)
-        3. Incluye directamente al final del párrafo: "¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?"
-        IMPORTANTE: Si el usuario ya ha dicho que sí acepta, pon "next_state_suggestion": "AGREEMENT" en el JSON.`
+                    instruction: `ESTADO: OFERTA. El precio ya se mostró (${computedPrice}€). En 'answer': responde brevemente. En 'question': pregunta si quiere activar su defensa ahora. CRÍTICO: Si el usuario dice "ok", "sí", "adelante" o acepta el precio, pon OBLIGATORIAMENTE "AGREEMENT" en next_state_suggestion.`
                 };
             }
             return {
                 missing: "none",
-                instruction: `Tienes toda la información. Tienes PROHIBIDO hacer resúmenes largos.
-        PON TODO EN EL CAMPO 'answer'. El campo 'question' DEBE ESTAR VACÍO.
-        En 'answer' escribe en un solo párrafo fluido:
-        1. Ancla el precio: la defensa penal por alcoholemia en ${slots.city || 'la zona'} suele rondar entre ${computedPrice + 100}€ y ${computedPrice + 400}€.
-        2. Informa del precio en Autoridad Legal: exactamente ${computedPrice}€ (IVA incluido).
-        3. Incluye directamente al final del mismo párrafo: "¿Quieres que activemos tu defensa ahora mismo para protegerte a este precio?"
-        IMPORTANTE: Si el usuario ya ha dicho que sí acepta, pon "next_state_suggestion": "AGREEMENT" en el JSON.`
+                instruction: `ESTADO: OFERTA. El precio ya se mostró (${computedPrice}€). Solo detecta aceptación. CRÍTICO: Si el usuario dice "ok", "sí", "adelante" o acepta, pon OBLIGATORIAMENTE "AGREEMENT" en next_state_suggestion. En 'answer': responde brevemente. En 'question': pregunta si quiere activar su defensa ahora.`
             };
         case "AGREEMENT":
             return {
                 missing: "none",
-                instruction: `El usuario ha aceptado pagar. Tienes PROHIBIDO pedir datos por aquí. TU ÚNICA RESPUESTA DEBE SER EXACTAMENTE ESTE TEXTO LETRA POR LETRA: "Excelente. Me alegra que quieras avanzar. Un abogado especialista de nuestro equipo analizará tu caso para ofrecerte la mejor estrategia y un presupuesto cerrado. Estamos aquí para ayudarte en este proceso. Por seguridad y cumplimiento de la LOPD, la recogida de tus datos personales (Nombre, DNI...) y la formalización de la reserva se hace en nuestro Servidor Seguro. Pulsa el botón de abajo para activar tu defensa ahora mismo: Una vez completado ese formulario, recibirás el contrato y tu abogado te llamará para la cita."`
+                instruction: `El usuario ha aceptado pagar. Tienes PROHIBIDO pedir datos por aquí. TU ÚNICA RESPUESTA DEBE SER EXACTAMENTE ESTE TEXTO LETRA POR LETRA: "Excelente. Me alegra que quieras avanzar. Un abogado especialista de nuestro equipo analizará tu caso para ofrecerte la mejor estrategia y un presupuesto cerrado. Estamos aquí para ayudarte en este proceso. Por seguridad y cumplimiento de la LOPD, la recogida de tus datos personales (Nombre, DNI...) y la formalización de la reserva se hace en nuestro Servidor Seguro. Pulsa el botón de abajo para activar tu defensa ahora mismo. Una vez completado ese formulario, recibirás el contrato y tu abogado te llamará para la cita."`
             };
         case "NO_CITATION":
             return {
@@ -203,7 +213,11 @@ export function getPromptInstructionsForState(state: ChatState, slots: ChatSlots
                 instruction: `El usuario no tiene aún la fecha y hora del Juicio Rápido. Explícale que para asignarle el abogado más adecuado necesitamos esos datos en cuanto los tenga. Indícale que puede dejarnos sus datos de contacto pulsando el botón que aparecerá en pantalla y que le llamaremos en cuanto reciba la citación. PON TODO EN 'answer'. El campo 'question' DEBE ESTAR VACÍO.`
             };
         default:
-            return { missing: "unknown", instruction: "Responde de forma profesional manteniendo el contexto del caso penal." };
+            return {
+                missing: "unknown", instruction: ""
+                //"Responde de forma profesional manteniendo el contexto del caso penal." 
+
+            };
     }
 }
 
@@ -221,7 +235,7 @@ export function getNextState(currentState: ChatState, slots: ChatSlots, aiSugges
             slots.needs_license_for_work !== undefined &&
             slots.has_citation !== null &&
             slots.has_citation !== undefined // citation answer is required — can be true or false
-          );
+        );
 
     // Lock terminal states
     if (currentState === "AGREEMENT" || currentState === "OFFER" || currentState === "NO_CITATION") {
@@ -239,8 +253,8 @@ export function getNextState(currentState: ChatState, slots: ChatSlots, aiSugges
 
     // Default Linear progression fallback
     const flow: ChatState[] = profile === 'general'
-        ? ["ASK_NAME", "ASK_WHAT_HAPPENED", "ASK_CITY", "OFFER"]
-        : ["ASK_NAME", "ASK_WHAT_HAPPENED", "ASK_RATE", "ASK_PRIORS", "ASK_CITY", "ASK_CITATION", "ASK_DEPENDENTS", "ASK_WORK", "OFFER"];
+        ? ["ASK_NAME", "ASK_WHAT_HAPPENED", "ASK_CITY", "ASK_QUESTIONS", "OFFER"]
+        : ["ASK_NAME", "ASK_WHAT_HAPPENED", "ASK_RATE", "ASK_PRIORS", "ASK_CITY", "ASK_CITATION", "ASK_DEPENDENTS", "ASK_WORK", "ASK_QUESTIONS", "OFFER"];
 
     // Force forward-only progression past fulfilled slots
     for (const state of flow) {
