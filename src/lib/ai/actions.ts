@@ -1,7 +1,8 @@
 'use server';
 
 import { streamObject } from 'ai';
-import { SYSTEM_PROMPT } from './config';
+import { DEFAULT_SYSTEM_PROMPT } from './config';
+import { createClient } from '@/lib/supabase/server';
 import { getModel, getAIProvider } from './providers';
 import { getVectorContext } from '@/lib/ai/get-context';
 import { ChatState, ChatSlots, AIResponseSchema, getPromptInstructionsForState, getNextState, ChatProfile, calculatePrice } from './state';
@@ -18,6 +19,16 @@ export async function* sendMessage(history: Message[], currentState: ChatState =
         console.log(`--- SendMessage AI Execution (${provider}) ---`);
         // 2. Identify State Instructions
         const { missing, instruction } = getPromptInstructionsForState(currentState, currentSlots, profile);
+        
+        // 1. Fetch Dynamic System Prompt from DB
+        const supabase = await createClient();
+        const { data: configData } = await supabase
+            .from('ai_config')
+            .select('value')
+            .eq('key', 'system_prompt')
+            .maybeSingle();
+        
+        const systemPrompt = configData?.value || DEFAULT_SYSTEM_PROMPT;
 
         // Build the state-specific override block (takes priority over the anti-loop rule for special states)
         const stateOverride = (currentState === 'ASK_QUESTIONS' || currentState === 'OFFER' || currentState === 'AGREEMENT')
@@ -66,14 +77,14 @@ RECUERDA TUS LÍMITES:
             // We only append State Context since Cache contains the rules
             dynamicSystemPrompt = cacheName 
                 ? `${stateContext}`
-                : `${SYSTEM_PROMPT}\n\n${stateContext}`;
+                : `${systemPrompt}\n\n${stateContext}`;
         } else {
             // 1. Get Dynamic Context (Vector RAG)
             const lastMessage = history[history.length - 1];
             const legalContext = await getVectorContext(lastMessage.content, undefined, profile);
             
             // Append RAG results to normal prompt
-            dynamicSystemPrompt = `${SYSTEM_PROMPT}\n\n[CONTEXTO LEGAL]:\n${legalContext}\n\n${stateContext}`;
+            dynamicSystemPrompt = `${systemPrompt}\n\n[CONTEXTO LEGAL]:\n${legalContext}\n\n${stateContext}`;
         }
 
         const result = await streamObject({

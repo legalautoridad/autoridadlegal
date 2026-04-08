@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
-import { SYSTEM_PROMPT } from './config';
+import { DEFAULT_SYSTEM_PROMPT } from './config';
 
 const CACHE_DISPLAY_NAME = 'al-context-cache-daily';
 // The cache will expire in 24 hours
@@ -7,6 +7,11 @@ const TTL_SECONDS = 24 * 60 * 60;
 
 let localCacheName: string | null = null;
 let localCacheExpiration: Date | null = null;
+
+export function invalidateLocalCache() {
+    localCacheName = null;
+    localCacheExpiration = null;
+}
 
 export async function getActiveCacheName(): Promise<string | null> {
     const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY! });
@@ -71,8 +76,17 @@ async function createNewCache(ai: GoogleGenAI): Promise<string | null> {
             return null;
         }
 
+        // Fetch System Prompt for Cache
+        const { data: configData } = await supabase
+            .from('ai_config')
+            .select('value')
+            .eq('key', 'system_prompt')
+            .maybeSingle();
+        
+        const systemPrompt = configData?.value || DEFAULT_SYSTEM_PROMPT;
+
         const contentsParts: any[] = [];
-        contentsParts.push({ text: `[INSTRUCCIONES DEL SISTEMA]\n${SYSTEM_PROMPT}\n\n[DOCUMENTOS DE REFERENCIA INFERIORES]:` });
+        contentsParts.push({ text: `[INSTRUCCIONES DEL SISTEMA]\n${systemPrompt}\n\n[DOCUMENTOS DE REFERENCIA INFERIORES]:` });
 
         for (const file of files) {
             if (file.name.startsWith('.') || file.id === null) continue;
