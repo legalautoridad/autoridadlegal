@@ -117,76 +117,118 @@ export async function deleteKnowledgeEntry(id: string) {
 }
 
 /**
- * Ingests a document (PDF or TXT), chunks it, and saves it to the knowledge base.
+ * Uploads a document to the al-context-cache bucket.
  */
-export async function ingestDocumentAction(formData: FormData) {
+export async function uploadToBucketAction(formData: FormData) {
     if (!await isAdmin()) throw new Error('Unauthorized');
 
     const file = formData.get('file') as File;
     if (!file) throw new Error('No se ha proporcionado ningún archivo');
 
-    const isGeneral = formData.get('is_general') === 'true';
-    const serviceType = formData.get('service_type') as string || null;
-    const locationId = formData.get('location_id') as string || null;
-    const courtId = formData.get('court_id') as string || null;
-    const region = formData.get('region') as string || null;
-
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    let text = '';
-
-    try {
-        if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
-            const pdf = require('pdf-parse');
-            const data = await pdf(buffer);
-            text = data.text;
-        } else {
-            // Assume text for everything else (like .txt)
-            text = new TextDecoder().decode(bytes);
-        }
-    } catch (error: any) {
-        console.error('Error extracting text from file:', error);
-        throw new Error('Error al extraer texto del archivo: ' + error.message);
+    if (!file.name.endsWith('.pdf') && !file.name.endsWith('.txt') && !file.name.endsWith('.md')) {
+        throw new Error('Solo se permiten archivos PDF, TXT o MD');
     }
 
-    if (!text || text.trim().length === 0) {
-        throw new Error('El archivo parece estar vacío o no se pudo extraer texto.');
+    const { createAdminClient } = await import('../supabase/server');
+    const supabase = await createAdminClient();
+
+    const { error } = await supabase.storage.from('al-context-cache').upload(file.name, file, {
+        upsert: true
+    });
+
+    if (error) {
+        console.error('Upload Error:', error);
+        throw new Error(`Error subiendo al bucket: ${error.message}`);
     }
 
-    // 1. Chunking
-    const chunks = chunkText(text, 1200, 200);
-    console.log(`Ingesting document: ${file.name}. Total chunks: ${chunks.length}`);
+    return { success: true, message: `Archivo ${file.name} subido correctamente al Bucket.` };
+}
 
-    // 2. Process chunks (in sequence or batch)
-    // To avoid rate limits and better tracking, we'll do them sequentially or in small batches
-    const results = [];
-    for (const chunk of chunks) {
+/**
+ * Syncs the entire bucket to the RAG database.
+ */
+export async function syncBucketToRAGAction() {
+    if (!await isAdmin()) throw new Error('Unauthorized');
+    
+    const { createAdminClient } = await import('../supabase/server');
+    const supabase = await createAdminClient();
+
+    // 1. Delete all knowledge
+    console.log('[SYNC] Deleting all from juristic_knowledge');
+    const { error: deleteError } = await supabase.from('juristic_knowledge').delete().not('id', 'is', null);
+    if (deleteError) throw new Error(`Error vaciando RAG: ${deleteError.message}`);
+
+    // 2. Fetch from bucket
+    console.log('[SYNC] Listing bucket files');
+    const { data: files, error: listError } = await supabase.storage.from('al-context-cache').list();
+    if (listError) throw new Error(`Error listando bucket: ${listError.message}`);
+
+    if (!files || files.length === 0) {
+        revalidatePath('/admin/knowledge');
+        return { success: true, message: 'Bucket vacío. RAG limpiado exitosamente.' };
+    }
+
+    let successCount = 0;
+    
+    for (const file of files) {
+        if (file.name.startsWith('.') || file.id === null) continue;
+        console.log(`[SYNC] Downloading ${file.name}`);
+        const { data: fileBlob, error: downloadError } = await supabase.storage.from('al-context-cache').download(file.name);
+        if (downloadError || !fileBlob) continue;
+
+        const buffer = Buffer.from(await fileBlob.arrayBuffer());
+        let text = '';
+        
         try {
-            await upsertKnowledgeEntry({
-                content: chunk,
-                is_general: isGeneral,
-                service_type: serviceType,
-                location_id: isGeneral ? null : locationId,
-                court_id: isGeneral ? null : courtId,
-                region: region,
-                metadata: {
-                    source_file: file.name,
-                    ingested_at: new Date().toISOString()
+            if (file.name.endsWith('.pdf')) {
+                const pdf = require('pdf-parse');
+                const data = await pdf(buffer);
+                text = data.text;
+            } else {
+                text = new TextDecoder('utf-8').decode(buffer);
+            }
+        } catch (err: any) {
+            console.error(`Error parseando ${file.name}:`, err);
+            continue;
+        }
+
+        if (!text || text.trim().length === 0) continue;
+
+        const chunks = chunkText(text, 1200, 200);
+        console.log(`[SYNC] Generando ${chunks.length} chunks para ${file.name}`);
+
+        const model = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
+
+        for (const chunk of chunks) {
+            try {
+                // Generar embedding
+                const result = await model.embedContent(chunk);
+                const embedding = result.embedding.values;
+
+                const knData = {
+                    content: chunk,
+                    embedding: embedding,
+                    is_general: true, // Para el volcado general lo asumimos
+                    service_type: 'alcoholemia', // By default general logic
+                    location_id: null,
+                    court_id: null,
+                    region: null,
+                    metadata: { source_file: file.name, ingested_at: new Date().toISOString() },
+                    updated_at: new Date().toISOString()
+                };
+
+                const { error: insertError } = await supabase.from('juristic_knowledge').insert(knData);
+                if (insertError) {
+                    console.error('Insert error:', insertError);
+                } else {
+                    successCount++;
                 }
-            });
-            results.push({ success: true });
-        } catch (error) {
-            console.error('Error processing chunk:', error);
-            results.push({ success: false, error });
+            } catch (err) {
+                console.error(`Error procesando chunk de ${file.name}:`, err);
+            }
         }
     }
 
     revalidatePath('/admin/knowledge');
-
-    const successCount = results.filter(r => r.success).length;
-    return {
-        success: true,
-        message: `Ingesta completada: ${successCount} de ${chunks.length} fragmentos procesados.`
-    };
+    return { success: true, message: `Sincronización completada: ${successCount} fragmentos generados e insertados.` };
 }

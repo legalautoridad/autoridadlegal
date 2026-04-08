@@ -239,19 +239,23 @@ export function ChatWidget() {
                                         <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                         Conectado
                                     </span>
-                                    {/* Debug Toggle */}
-                                    <button
-                                        onClick={() => setShowDebug(!showDebug)}
-                                        className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 hover:bg-slate-700"
-                                    >
-                                        {showDebug ? 'Ocultar Prompt' : 'Ver Prompt'}
-                                    </button>
-                                    <button
-                                        onClick={() => setShowSlots(!showSlots)}
-                                        className="text-[10px] bg-indigo-900/50 text-indigo-200 px-2 py-0.5 rounded border border-indigo-700/50 hover:bg-indigo-800/50"
-                                    >
-                                        {showSlots ? 'Ocultar Slots' : 'Ver Slots'}
-                                    </button>
+                                    {/* Debug Toggle - Only visible in DEV version */}
+                                    {process.env.NEXT_PUBLIC_APP_VERSION === 'dev' && (
+                                        <>
+                                            <button
+                                                onClick={() => setShowDebug(!showDebug)}
+                                                className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 hover:bg-slate-700"
+                                            >
+                                                {showDebug ? 'Ocultar Prompt' : 'Ver Prompt'}
+                                            </button>
+                                            <button
+                                                onClick={() => setShowSlots(!showSlots)}
+                                                className="text-[10px] bg-indigo-900/50 text-indigo-200 px-2 py-0.5 rounded border border-indigo-700/50 hover:bg-indigo-800/50"
+                                            >
+                                                {showSlots ? 'Ocultar Slots' : 'Ver Slots'}
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -288,7 +292,7 @@ export function ChatWidget() {
                             <div
                                 key={i}
                                 className={cn(
-                                    "flex w-full",
+                                    "flex w-full mb-4",
                                     msg.role === 'user' ? "justify-end" : "justify-start"
                                 )}
                             >
@@ -299,66 +303,74 @@ export function ChatWidget() {
                                         className="w-8 h-8 rounded-full border border-slate-200 shadow-sm self-end mb-1 mr-2 object-cover"
                                     />
                                 )}
-                                <div
-                                    className={cn(
-                                        "max-w-[85%] rounded-2xl p-3 text-sm shadow-sm",
-                                        msg.role === 'user'
-                                            ? "bg-slate-900 text-white rounded-br-none"
-                                            : "bg-slate-100 border border-slate-200 text-slate-900 rounded-bl-none"
-                                    )}
-                                >
-                                    {msg.content.replace(/\[LEAD_DATA:.*?\]/g, '').replace(/\[PAYMENT_BUTTON:.*?\]/g, '').replace(/\[LEAD_FORM:.*?\]/g, '').replace('[CLOSING_DEAL]', '').replace('[PAYMENT_LINK_DISCOUNT]', '').replace('[FREE_CALL_REQUEST]', '') || (
-                                        <span className="flex gap-1 items-center h-5">
-                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
-                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                                        </span>
+                                <div className={cn(
+                                    "flex flex-col gap-2 max-w-[85%]",
+                                    msg.role === 'user' ? "items-end" : "items-start"
+                                )}>
+                                    <div
+                                        className={cn(
+                                            "rounded-2xl p-3 text-sm shadow-sm",
+                                            msg.role === 'user'
+                                                ? "bg-slate-900 text-white rounded-br-none"
+                                                : "bg-slate-100 border border-slate-200 text-slate-900 rounded-bl-none"
+                                        )}
+                                    >
+                                        {msg.content.replace(/\[LEAD_DATA:.*?\]/g, '').replace(/\[PAYMENT_BUTTON:.*?\]/g, '').replace(/\[LEAD_FORM:.*?\]/g, '').replace('[CLOSING_DEAL]', '').replace('[PAYMENT_LINK_DISCOUNT]', '').replace('[FREE_CALL_REQUEST]', '') || (
+                                            <span className="flex gap-1 items-center h-5">
+                                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+                                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                                            </span>
+                                        )}
+                                    </div>
+                                    
+                                    {msg.role === 'model' && (
+                                        <>
+                                            {/* Dynamic Payment Button */}
+                                            {(() => {
+                                                const match = msg.content.match(/\[PAYMENT_BUTTON:\s*(.*?)\]/);
+                                                if (match) {
+                                                    return (
+                                                        <div className="w-full animate-in fade-in slide-in-from-bottom-2 duration-500">
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setIsCheckoutOpen(true);
+                                                                }}
+                                                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-indigo-200 transition-all flex items-center justify-center gap-2 transform hover:scale-[1.02]"
+                                                            >
+                                                                <span>⚡ ACTIVAR MI DEFENSA AHORA</span>
+                                                            </button>
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
+                                            })()}
+                                            {/* Dynamic Lead Form Button */}
+                                            {(() => {
+                                                const match = msg.content.match(/\[LEAD_FORM:\s*(.*?)\]/);
+                                                if (match) {
+                                                    return (
+                                                        <div className="w-full animate-in fade-in slide-in-from-bottom-2 duration-500">
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setIsLeadFormOpen(true);
+                                                                }}
+                                                                className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                                                            >
+                                                                📞 Dejar mis datos de contacto
+                                                            </button>
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
+                                            })()}
+                                        </>
                                     )}
                                 </div>
                             </div>
                         ))}
-
-                        {/* Intent Detection: Check for Tokens in the last AI message */}
-                        {messages.length > 0 &&
-                            messages[messages.length - 1].role === 'model' && (
-                                <>
-                                    {/* Dynamic Payment Button */}
-                                    {(() => {
-                                        const match = messages[messages.length - 1].content.match(/\[PAYMENT_BUTTON:\s*(.*?)\]/);
-                                        if (match) {
-                                            const url = match[1];
-                                            return (
-                                                <div className="mb-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                                    <button
-                                                        onClick={() => setIsCheckoutOpen(true)}
-                                                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-indigo-200 transition-all flex items-center justify-center gap-2 transform hover:scale-[1.02]"
-                                                    >
-                                                        <span>⚡ RESERVAR AHORA Y ACTIVAR DEFENSA</span>
-                                                    </button>
-                                                </div>
-                                            );
-                                        }
-                                        return null;
-                                    })()}
-                                    {/* Dynamic Lead Form Button (for no-citation case) */}
-                                    {(() => {
-                                        const match = messages[messages.length - 1].content.match(/\[LEAD_FORM:\s*(.*?)\]/);
-                                        if (match) {
-                                            return (
-                                                <div className="mt-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                                    <button
-                                                        onClick={() => setIsLeadFormOpen(true)}
-                                                        className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
-                                                    >
-                                                        📞 Dejar mis datos para cuando tenga la cita
-                                                    </button>
-                                                </div>
-                                            );
-                                        }
-                                        return null;
-                                    })()}
-                                </>
-                            )}
 
                         <div ref={messagesEndRef} />
                     </div>

@@ -2,8 +2,8 @@
 
 import { streamObject } from 'ai';
 import { SYSTEM_PROMPT } from './config';
-import { getVectorContext } from '@/lib/ai/get-context';
 import { getModel, getAIProvider } from './providers';
+import { getVectorContext } from '@/lib/ai/get-context';
 import { ChatState, ChatSlots, AIResponseSchema, getPromptInstructionsForState, getNextState, ChatProfile, calculatePrice } from './state';
 
 export interface Message {
@@ -14,30 +14,37 @@ export interface Message {
 export async function* sendMessage(history: Message[], currentState: ChatState = 'ASK_NAME', currentSlots: ChatSlots = {}, profile: ChatProfile = 'alcoholemia') {
     try {
         const provider = getAIProvider();
-        console.log(`--- SendMessage AI Execution (${provider}) ---`);
         const model = getModel();
-
-        // 1. Get Dynamic Context (Vector RAG)
-        const lastMessage = history[history.length - 1];
-        const legalContext = await getVectorContext(lastMessage.content, undefined, profile);
-
+        console.log(`--- SendMessage AI Execution (${provider}) ---`);
         // 2. Identify State Instructions
         const { missing, instruction } = getPromptInstructionsForState(currentState, currentSlots, profile);
+
+        // Build the state-specific override block (takes priority over the anti-loop rule for special states)
+        const stateOverride = (currentState === 'ASK_QUESTIONS' || currentState === 'OFFER' || currentState === 'AGREEMENT')
+            ? `
+⚠️ ANULACIÓN CRÍTICA — ESTADO ${currentState} ⚠️
+La regla anti-bucles NO aplica aquí. DEBES seguir la [INSTRUCCIÓN SUGERIDA] al pie de la letra.
+${currentState === 'OFFER' ? 'Tu misión es detectar si el usuario acepta (OK, sí, adelante...). Si acepta, DEBES poner "AGREEMENT" en next_state_suggestion.' : ''}
+${currentState === 'AGREEMENT' ? 'Ya han aceptado. No pidas más datos. Limítate a confirmar y guiar al botón.' : ''}
+${currentState === 'ASK_QUESTIONS' ? 'No pases de aquí hasta que el usuario confirme que no tiene más dudas.' : ''}`
+            : '';
 
         const stateContext = `
 [ESTADO ACTUAL DEL BOT]: ${currentState}
 [FALTAN DATOS ANTES DE ESTE MENSAJE]: ${missing}
 [DATOS CONOCIDOS ANTES DE ESTE MENSAJE]: ${JSON.stringify(currentSlots)}
-[FECHA ACTUAL PARA REFERENCIA]: ${new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}
+[FECHA ACTUAL PARA REFERENCIA (ESPAÑA)]: ${new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}
+⚠️ CRÍTICO: USA ESTA FECHA DE ESPAÑA COMO BASE PARA CUALQUIER CÁLCULO RELATIVO (ej. "mañana a las 10", "hoy a las 5", etc.).
 
 [INSTRUCCIÓN SUGERIDA PARA ESTE ESTADO]:
 ${instruction}
+${stateOverride}
 
 REGLA DE ORO ANTI-BUCLES (¡CRÍTICO!):
 Si en el mensaje del usuario ya encuentras la respuesta al dato que falta (ej. te dice la ciudad "Barcelona", la tasa "0.7", que "no tiene" antecedentes, etc.), **ESTÁ ESTRICTAMENTE PROHIBIDO volver a hacerle esa misma pregunta**.
 Si ves la respuesta:
 1. Extrae el dato en 'extracted_slots'.
-2. IGNORA por completo la "[INSTRUCCIÓN SUGERIDA PARA ESTE ESTADO]".
+2. IGNORA por completo la "[INSTRUCCIÓN SUGERIDA PARA ESTE ESTADO]" (excepto si hay una ANULACIÓN CRÍTICA activa).
 3. En 'answer', simplemente confirma que has entendido (ej. "Tomo nota de que fue en Barcelona").
 4. En 'question', avanza lógicamente al SIGUIENTE punto (citación, cargas familiares, trabajo...) o déjalo vacío si ya tienes los datos para la oferta.
 
@@ -47,26 +54,46 @@ RECUERDA TUS LÍMITES:
 - "extracted_slots": OBLIGATORIO extraer el dato si aparece en el mensaje del usuario.
         `;
 
-        const fullSystemPrompt = `${SYSTEM_PROMPT}\n\n[CONTEXTO LEGAL]:\n${legalContext}\n\n${stateContext}`;
+        const useContextCaching = process.env.USE_CONTEXT_CACHING === 'true';
+
+        let cacheName: string | null = null;
+        let dynamicSystemPrompt = "";
+
+        if (useContextCaching) {
+            const { getActiveCacheName } = await import('./cache-manager');
+            cacheName = await getActiveCacheName();
+            
+            // We only append State Context since Cache contains the rules
+            dynamicSystemPrompt = cacheName 
+                ? `${stateContext}`
+                : `${SYSTEM_PROMPT}\n\n${stateContext}`;
+        } else {
+            // 1. Get Dynamic Context (Vector RAG)
+            const lastMessage = history[history.length - 1];
+            const legalContext = await getVectorContext(lastMessage.content, undefined, profile);
+            
+            // Append RAG results to normal prompt
+            dynamicSystemPrompt = `${SYSTEM_PROMPT}\n\n[CONTEXTO LEGAL]:\n${legalContext}\n\n${stateContext}`;
+        }
 
         const result = await streamObject({
             // @ts-expect-error - Google Vertex provider type mismatch
             model: model,
-            messages: [
-                {
-                    role: 'system' as const,
-                    content: fullSystemPrompt
-                },
-                ...history.map(msg => ({
-                    role: (msg.role === 'model' ? 'assistant' : 'user') as 'assistant' | 'user',
-                    content: msg.content,
-                }))
-            ],
+            system: dynamicSystemPrompt,
+            messages: history.map(msg => ({
+                role: (msg.role === 'model' ? 'assistant' : 'user') as 'assistant' | 'user',
+                content: msg.content,
+            })),
             schema: AIResponseSchema,
+            experimental_providerMetadata: cacheName ? {
+                google: {
+                    cachedContent: cacheName
+                }
+            } : undefined
         });
 
         // Yield the full system prompt for debugging purposes on the frontend
-        yield JSON.stringify({ type: 'prompt-debug', content: fullSystemPrompt });
+        yield JSON.stringify({ type: 'prompt-debug', content: cacheName ? `[CACHE_ACTIVE: ${cacheName}]\n${dynamicSystemPrompt}` : dynamicSystemPrompt });
 
         // Yield partial object structures so the frontend can display them typing like a normal message stream
         let previousLength = 0;
@@ -158,13 +185,22 @@ RECUERDA TUS LÍMITES:
     } catch (error: unknown) {
         // Detailed logging for debugging
         const err = error as Record<string, unknown>;
-        console.error('[AI_ACTION] Critical Error:', {
-            message: err?.message,
-            stack: err?.stack,
-            cause: err?.cause,
-            digest: err?.digest,
-            raw: error
-        });
-        yield `[ERROR]: ${typeof err?.message === 'string' ? err?.message : 'Error al conectar con el asistente legal'}`;
+        
+        let errorDetails = "Unknown Error";
+        try {
+            if (error instanceof Error) {
+                errorDetails = JSON.stringify({ message: error.message, stack: error.stack, name: error.name });
+            } else {
+                errorDetails = JSON.stringify(error, Object.getOwnPropertyNames(error));
+            }
+        } catch (e) {
+            errorDetails = String(error);
+        }
+
+        console.error('[AI_ACTION] Critical Error Object:', error);
+        console.error('[AI_ACTION] Critical Error Details:', errorDetails);
+        
+        const friendlyMessage = err?.message || 'Error al conectar con el asistente legal';
+        yield `[ERROR]: ${typeof friendlyMessage === 'string' ? friendlyMessage : JSON.stringify(friendlyMessage)}`;
     }
 }
