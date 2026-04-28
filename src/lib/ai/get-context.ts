@@ -1,35 +1,38 @@
-import { createStaticClient } from '@/lib/supabase/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { createClient } from '../supabase/server';
+import { getEmbeddingModel } from './providers';
+import { embed } from 'ai';
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY!);
-
-export async function getVectorContext(query: string, locationId?: string, serviceType?: string) {
+/**
+ * Retrieves relevant context from the vector database based on a query.
+ */
+export async function getVectorContext(
+  query: string,
+  location_id?: string,
+  profile: 'alcoholemia' | 'general' = 'alcoholemia'
+): Promise<string> {
+  console.log(`[RAG] Generating context for: "${query.substring(0, 30)}..."`);
   try {
-    console.log('[RAG] Fetching context for:', query);
-
-    // Using static client with ANON key for read-only knowledge retrieval
-    const supabase = createStaticClient();
-
-    // Using gemini-embedding-001 as it supports up to 3072 dimensions which matches the DB
-    const model = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
+    const supabase = await createClient();
+    const embedModel = getEmbeddingModel();
+    console.log('[RAG] Using embedding model:', embedModel.modelId);
 
     // 1. Generate embedding for the user query
-    const result = await model.embedContent(query);
-    const embedding = result.embedding.values;
+    const { embedding } = await embed({
+      model: embedModel as any,
+      value: query,
+    });
 
-    if (!embedding || embedding.length === 0) {
-      console.error('[RAG] Failed to generate embedding');
-      return '';
-    }
+    // Manual slice to 768 as a safety measure for Supabase
+    const finalEmbedding = embedding.length > 768 ? embedding.slice(0, 768) : embedding;
 
-    // 2. Query Supabase for relevant context
-    // Added p_region: null to resolve ambiguity between overloaded match_knowledge functions
+    // 2. Search relevant knowledge in Supabase
+    // Using the match_knowledge RPC function
     const { data: matches, error } = await supabase.rpc('match_knowledge', {
-      query_embedding: embedding,
-      match_threshold: 0.5, // 50% similarity
-      match_count: 5,        // Top 5 results
-      p_location_id: locationId || null,
-      p_service_type: serviceType || null,
+      query_embedding: finalEmbedding,
+      match_threshold: 0.5,
+      match_count: 5,
+      p_location_id: location_id || null,
+      p_service_type: profile,
       p_region: null
     });
 

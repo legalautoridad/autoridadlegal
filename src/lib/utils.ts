@@ -11,3 +11,14 @@ export function formatCurrency(amount: number) {
         currency: "EUR",
     }).format(amount);
 }
+
+export function cleanMessageContent(content: string): string {
+    if (!content) return "";
+    return content
+        .replace(/\[LEAD_DATA:.*?\]/gs, "")
+        .replace(/\[PAYMENT_BUTTON:.*?\]/gs, "")
+        .replace(/\[LEAD_FORM:.*?\]/gs, "")
+        .replace(/\[FREE_CALL_REQUEST\]/gs, "")
+        .replace(/\[PAYMENT_LINK_DISCOUNT\]/gs, "")
+        .trim();
+}

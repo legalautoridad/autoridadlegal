@@ -1,16 +1,25 @@
 'use client';
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import { Message, sendMessage } from "@/lib/ai/actions";
-import { saveLead } from "@/lib/actions/leads"; // Import saveLead
+import { saveLead } from "@/lib/actions/leads";
 import { ChatState, ChatSlots, ChatProfile } from "@/lib/ai/state";
-import { cn } from "@/lib/utils";
+import { cn, cleanMessageContent } from "@/lib/utils";
 import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 import { LeadCaptureModal } from "@/components/checkout/LeadCaptureModal";
+import ReactMarkdown from "react-markdown";
 
 export function ChatWidget() {
+    return (
+        <Suspense fallback={null}>
+            <ChatWidgetContent />
+        </Suspense>
+    );
+}
+
+function ChatWidgetContent() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
@@ -23,10 +32,10 @@ export function ChatWidget() {
         pathname?.startsWith('/lawyer') ||
         pathname?.startsWith('/checkout/success');
 
-    // Default to 'alcoholemia' profile everywhere for now to ensure the full interrogatory flow runs during testing
+    // Default to 'alcoholemia' profile for now
     const profile: ChatProfile = 'alcoholemia';
 
-    // Extract city from URL path, e.g., /alcoholemia/barcelona -> Barcelona
+    // Extract city from URL path
     let initialCity = undefined;
     if (pathname) {
         const pathSegments = pathname.split('/').filter(Boolean);
@@ -37,12 +46,24 @@ export function ChatWidget() {
     }
 
     const [messages, setMessages] = useState<Message[]>([
-        { role: 'model', content: 'Hola, soy tu asistente especialista. Por favor, cuéntame qué te ha ocurrido y te orientaré en tu problema o consulta. Para empezar dime tu nombre para dirigirme a ti y cuéntame qué te ha ocurrido.' }
+        {
+            role: 'model',
+            content: `**Bienvenido a Autoridad Legal**
+            \n
+Estás en un entorno especializado y diseñado para asistirte en este momento crítico.\n
+Aquí podrás resolver de inmediato tus dudas sobre:\n
+✅ Tu Juicio Rápido: Cómo funciona la Conformidad con el Fiscal y qué esperar en el juzgado.\n
+✅ Sanciones: Cálculo real de tu multa, cómo fraccionarla o sustituirla por Trabajos en Beneficio de la Comunidad (TBC).\n
+✅ Tu Carnet: Estrategias legales para retrasar la entrega si lo necesitas para trabajar.
+También te informaremos sobre nuestra red de abogados especialistas con honorarios cerrados (sin sorpresas) y nuestras opciones de financiación en cuotas mensuales.
+Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime, ¿Qué es lo que más te preocupa en este momento?`
+        }
     ]);
     const [chatState, setChatState] = useState<ChatState>("ASK_NAME");
     const [chatSlots, setChatSlots] = useState<ChatSlots>(initialCity ? { city: initialCity } : {});
 
     if (isExcludedPath) return null;
+
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [leadData, setLeadData] = useState<{ name: string, phone: string, email?: string, city: string } | null>(null);
@@ -59,14 +80,13 @@ export function ChatWidget() {
     // Auto-focus on input when loading finishes
     useEffect(() => {
         if (!isLoading && isOpen) {
-            // Small timeout to ensure DOM is ready/state updated
             setTimeout(() => {
                 inputRef.current?.focus();
             }, 100);
         }
     }, [isLoading, isOpen]);
 
-    // Auto-open logic (Proactive)
+    // Auto-open logic
     useEffect(() => {
         if (!hasOpened.current) {
             const timer = setTimeout(() => {
@@ -95,28 +115,24 @@ export function ChatWidget() {
             recognition.maxAlternatives = 1;
 
             recognition.onstart = () => setIsListening(true);
-
             recognition.onresult = (event: any) => {
                 const transcript = event.results[0][0].transcript;
                 setInput(prev => prev + (prev ? " " : "") + transcript);
             };
-
             recognition.onend = () => setIsListening(false);
             recognition.onerror = () => setIsListening(false);
-
             recognition.start();
         } else {
             alert("Tu navegador no soporta entrada de voz.");
         }
     };
 
-    // EFFECT: Parse LEAD_DATA and Auto-Save on Intent
+    // Parse LEAD_DATA and Auto-Save
     useEffect(() => {
         if (messages.length === 0) return;
         const lastMsg = messages[messages.length - 1];
         if (lastMsg.role !== 'model') return;
 
-        // 1. Extract Lead Data if present
         const dataMatch = lastMsg.content.match(/\[LEAD_DATA:\s*({.*?})\]/);
         if (dataMatch && dataMatch[1]) {
             try {
@@ -128,22 +144,20 @@ export function ChatWidget() {
         }
     }, [messages]);
 
-    // EFFECT: Handle Actions (Free Call / Payment)
+    // Handle Actions
     useEffect(() => {
-        if (!leadData) return; // Need data to save
+        if (!leadData) return;
         const lastMsg = messages[messages.length - 1];
         if (lastMsg.role !== 'model') return;
 
         const handleSave = async (status: 'new' | 'reserved', price: number) => {
             try {
-                // Ensure we haven't saved this exact interaction yet? 
-                // Simple debounce/check could be good, but for now relies on upsert logic.
                 await saveLead({
                     name: leadData.name,
                     phone: leadData.phone,
-                    email: leadData.email, // Add email
+                    email: leadData.email,
                     city: leadData.city,
-                    service: 'alcoholemia', // Default for now
+                    service: 'alcoholemia',
                     status: status,
                     agreed_price: price
                 });
@@ -155,16 +169,10 @@ export function ChatWidget() {
         if (lastMsg.content.includes('[FREE_CALL_REQUEST]')) {
             handleSave('new', 1000);
         } else if (lastMsg.content.includes('[PAYMENT_LINK_DISCOUNT]')) {
-            handleSave('reserved', 900); // We save as reserved provisionally (or 'new' pending payment? User said Immediate Save)
-            // Let's save as 'new' first, and updating to 'reserved' happens on real payment?
-            // User request: "Ejecuta saveLead() INMEDIATAMENTE. No esperes al pago."
-            // "Si es PAGO: Muestra botón... Si es GRATIS: Muestra mensaje..."
-            // I'll save as 'new' with potential notes or just standard. 
-            // Actually, if it's "Free Call", status is 'new'. If "Payment", still 'new' until paid? 
-            // Use 'new' for both initially to capture the lead.
             handleSave('new', 900);
         }
     }, [messages, leadData]);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!input.trim() || isLoading) return;
@@ -196,14 +204,11 @@ export function ChatWidget() {
                         });
                     } else if (parsedChunk.type === 'prompt-debug') {
                         setDebugPrompt(parsedChunk.content);
-                        console.log("[CHAT_WIDGET] Prompt Debug Received");
                     } else if (parsedChunk.type === 'state-update') {
-                        console.log("[CHAT_WIDGET] State Update Received:", parsedChunk.state, parsedChunk.slots);
                         setChatState(parsedChunk.state);
                         setChatSlots(parsedChunk.slots);
                     }
                 } catch (e) {
-                    // Fallback for non-JSON string chunks if any bleed through
                     fullResponse += chunk;
                     setMessages(prev => {
                         const updated = [...prev];
@@ -213,8 +218,8 @@ export function ChatWidget() {
                 }
             }
         } catch (error: any) {
-            console.error('[CHAT_WIDGET] Submission Error:', JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
-            setMessages(prev => [...prev, { role: 'model', content: "Lo siento, ha ocurrido un error técnico al procesar tu mensaje. Por favor, inténtalo de nuevo en unos momentos." }]);
+            console.error('[CHAT_WIDGET] Error:', error);
+            setMessages(prev => [...prev, { role: 'model', content: "Lo siento, ha ocurrido un error técnico. Por favor, inténtalo de nuevo." }]);
         } finally {
             setIsLoading(false);
         }
@@ -224,8 +229,7 @@ export function ChatWidget() {
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
             {/* Chat Window */}
             {isOpen && (
-                <div className="mb-4 w-[350px] md:w-[400px] h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-10 duration-300">
-
+                <div className="mb-4 w-[380px] md:w-[450px] h-[700px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-10 duration-300">
                     {/* Header */}
                     <div className="bg-slate-900 p-4 flex justify-between items-center text-white">
                         <div className="flex items-center gap-3">
@@ -239,19 +243,12 @@ export function ChatWidget() {
                                         <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                         Conectado
                                     </span>
-                                    {/* Debug Toggle - Only visible in DEV version */}
                                     {process.env.NEXT_PUBLIC_APP_VERSION === 'dev' && (
                                         <>
-                                            <button
-                                                onClick={() => setShowDebug(!showDebug)}
-                                                className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 hover:bg-slate-700"
-                                            >
+                                            <button onClick={() => setShowDebug(!showDebug)} className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 hover:bg-slate-700">
                                                 {showDebug ? 'Ocultar Prompt' : 'Ver Prompt'}
                                             </button>
-                                            <button
-                                                onClick={() => setShowSlots(!showSlots)}
-                                                className="text-[10px] bg-indigo-900/50 text-indigo-200 px-2 py-0.5 rounded border border-indigo-700/50 hover:bg-indigo-800/50"
-                                            >
+                                            <button onClick={() => setShowSlots(!showSlots)} className="text-[10px] bg-indigo-900/50 text-indigo-200 px-2 py-0.5 rounded border border-indigo-700/50 hover:bg-indigo-800/50">
                                                 {showSlots ? 'Ocultar Slots' : 'Ver Slots'}
                                             </button>
                                         </>
@@ -259,17 +256,13 @@ export function ChatWidget() {
                                 </div>
                             </div>
                         </div>
-                        <button
-                            onClick={() => setIsOpen(false)}
-                            className="text-slate-400 hover:text-white transition-colors"
-                        >
+                        <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition-colors">
                             <X className="h-5 w-5" />
                         </button>
                     </div>
 
                     {/* Messages */}
                     <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 relative">
-                        {/* Debug Panel Overlay */}
                         {showDebug && debugPrompt && (
                             <div className="absolute inset-0 z-10 bg-slate-900/95 text-green-400 p-4 overflow-y-auto font-mono text-[10px] leading-relaxed break-words whitespace-pre-wrap">
                                 <h4 className="text-white font-bold mb-2">ÚLTIMO PROMPT ENVIADO AL LLM:</h4>
@@ -277,7 +270,6 @@ export function ChatWidget() {
                             </div>
                         )}
 
-                        {/* Slots Debug Panel Overlay */}
                         {showSlots && (
                             <div className="absolute inset-0 z-10 bg-indigo-950/95 text-indigo-300 p-4 overflow-y-auto font-mono text-[11px] leading-relaxed break-words whitespace-pre-wrap">
                                 <h4 className="text-white font-bold mb-2">MEMORIA ACTUAL (SLOTS JSON):</h4>
@@ -289,13 +281,7 @@ export function ChatWidget() {
                         )}
 
                         {messages.map((msg, i) => (
-                            <div
-                                key={i}
-                                className={cn(
-                                    "flex w-full mb-4",
-                                    msg.role === 'user' ? "justify-end" : "justify-start"
-                                )}
-                            >
+                            <div key={i} className={cn("flex w-full mb-4", msg.role === 'user' ? "justify-end" : "justify-start")}>
                                 {msg.role === 'model' && (
                                     <img
                                         src="https://ui-avatars.com/api/?name=Asistente+Legal&background=0D8ABC&color=fff&size=128"
@@ -303,159 +289,71 @@ export function ChatWidget() {
                                         className="w-8 h-8 rounded-full border border-slate-200 shadow-sm self-end mb-1 mr-2 object-cover"
                                     />
                                 )}
-                                <div className={cn(
-                                    "flex flex-col gap-2 max-w-[85%]",
-                                    msg.role === 'user' ? "items-end" : "items-start"
-                                )}>
-                                    <div
-                                        className={cn(
-                                            "rounded-2xl p-3 text-sm shadow-sm",
-                                            msg.role === 'user'
-                                                ? "bg-slate-900 text-white rounded-br-none"
-                                                : "bg-slate-100 border border-slate-200 text-slate-900 rounded-bl-none"
-                                        )}
-                                    >
-                                        {msg.content.replace(/\[LEAD_DATA:.*?\]/g, '').replace(/\[PAYMENT_BUTTON:.*?\]/g, '').replace(/\[LEAD_FORM:.*?\]/g, '').replace('[CLOSING_DEAL]', '').replace('[PAYMENT_LINK_DISCOUNT]', '').replace('[FREE_CALL_REQUEST]', '') || (
-                                            <span className="flex gap-1 items-center h-5">
-                                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
-                                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                                                <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                                            </span>
-                                        )}
-                                    </div>
-                                    
-                                    {msg.role === 'model' && (
-                                        <>
-                                            {/* Dynamic Payment Button */}
-                                            {(() => {
-                                                const match = msg.content.match(/\[PAYMENT_BUTTON:\s*(.*?)\]/);
-                                                if (match) {
-                                                    return (
-                                                        <div className="w-full animate-in fade-in slide-in-from-bottom-2 duration-500">
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    setIsCheckoutOpen(true);
-                                                                }}
-                                                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-indigo-200 transition-all flex items-center justify-center gap-2 transform hover:scale-[1.02]"
-                                                            >
-                                                                <span>⚡ ACTIVAR MI DEFENSA AHORA</span>
-                                                            </button>
-                                                        </div>
-                                                    );
-                                                }
-                                                return null;
-                                            })()}
-                                            {/* Dynamic Lead Form Button */}
-                                            {(() => {
-                                                const match = msg.content.match(/\[LEAD_FORM:\s*(.*?)\]/);
-                                                if (match) {
-                                                    return (
-                                                        <div className="w-full animate-in fade-in slide-in-from-bottom-2 duration-500">
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    setIsLeadFormOpen(true);
-                                                                }}
-                                                                className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
-                                                            >
-                                                                📞 Dejar mis datos de contacto
-                                                            </button>
-                                                        </div>
-                                                    );
-                                                }
-                                                return null;
-                                            })()}
-                                        </>
+                                <div className={cn("rounded-2xl p-3 text-sm shadow-sm break-words max-w-[85%]", msg.role === 'user' ? "bg-slate-900 text-white rounded-br-none" : "bg-slate-100 border border-slate-200 text-slate-900 rounded-bl-none")}>
+                                    {cleanMessageContent(msg.content) ? (
+                                        <div className="prose prose-sm prose-slate max-w-none prose-p:leading-relaxed prose-strong:font-bold">
+                                            <ReactMarkdown components={{
+                                                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                                                ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
+                                                ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
+                                                li: ({ children }) => <li className="mb-1">{children}</li>,
+                                                a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{children}</a>
+                                            }}>
+                                                {cleanMessageContent(msg.content)}
+                                            </ReactMarkdown>
+                                        </div>
+                                    ) : (
+                                        <span className="flex gap-1 items-center h-5">
+                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                                        </span>
                                     )}
                                 </div>
+
+                                {msg.role === 'model' && (
+                                    <div className="flex flex-col gap-2 mt-1">
+                                        {(() => {
+                                            const match = msg.content.match(/\[PAYMENT_BUTTON:\s*(.*?)\]/);
+                                            if (match) return (
+                                                <button onClick={() => setIsCheckoutOpen(true)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-xs">
+                                                    ⚡ ACTIVAR MI DEFENSA AHORA
+                                                </button>
+                                            );
+                                            return null;
+                                        })()}
+                                        {(() => {
+                                            const match = msg.content.match(/\[LEAD_FORM:\s*(.*?)\]/);
+                                            if (match) return (
+                                                <button onClick={() => setIsLeadFormOpen(true)} className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-xs">
+                                                    📞 Dejar mis datos de contacto
+                                                </button>
+                                            );
+                                            return null;
+                                        })()}
+                                    </div>
+                                )}
                             </div>
                         ))}
-
                         <div ref={messagesEndRef} />
                     </div>
 
-                    {/* Input */}
+                    {/* Input Area */}
                     <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-slate-100">
                         <div className="relative">
                             <textarea
                                 ref={inputRef}
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' && !e.shiftKey) {
-                                        e.preventDefault();
-                                        handleSubmit(e);
-                                    }
-                                }}
-                                placeholder="Escribe tu consulta legal... (Shift+Enter para salto de línea)"
+                                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSubmit(e); } }}
+                                placeholder="Escribe tu consulta..."
                                 disabled={isLoading}
-                                className="w-full pl-4 pr-20 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all resize-none min-h-[50px] max-h-[150px] scrollbar-hide"
+                                className="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 transition-all resize-none min-h-[50px] max-h-[150px]"
                                 rows={1}
                             />
-
-                            {/* File Upload Button */}
-                            <button
-                                type="button"
-                                disabled={isLoading}
-                                className={cn(
-                                    "absolute right-20 top-2 p-2 rounded-lg transition-colors",
-                                    isListening ? "text-red-600 bg-red-50 animate-pulse" : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
-                                )}
-                                title="Dictar por voz"
-                                onClick={startListening}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mic"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
-                            </button>
-                            <button
-                                type="button"
-                                disabled={isLoading}
-                                className="absolute right-12 top-2 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
-                                title="Adjuntar documento (PDF, IMG)"
-                                onClick={() => document.getElementById('file-upload')?.click()}
-                            >
-                                <Paperclip className="h-4 w-4" />
-                            </button>
-                            <input
-                                type="file"
-                                id="file-upload"
-                                className="hidden"
-                                accept=".pdf,.jpg,.jpeg,.png"
-                                onChange={(e) => {
-                                    const file = e.target.files?.[0];
-                                    if (file) {
-                                        // Mock upload for MVP - In real app, this goes to Supabase Storage
-                                        setMessages(prev => [...prev, {
-                                            role: 'model',
-                                            content: `📎 Analizando archivo: ${file.name} (${(file.size / 1024).toFixed(1)} KB)...`
-                                        }]);
-                                        // Simulate analysis delay
-                                        setTimeout(() => {
-                                            setMessages(prev => [...prev, {
-                                                role: 'model',
-                                                content: "He recibido el documento. Por favor, indícame qué aspecto legal te preocupa sobre este archivo."
-                                            }]);
-                                        }, 1500);
-                                    }
-                                }}
-                            />
-
-                            <button
-                                type="submit"
-                                disabled={isLoading || !input.trim()}
-                                className="absolute right-2 top-2 p-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
+                            <button type="submit" disabled={isLoading || !input.trim()} className="absolute right-2 top-2 p-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 disabled:opacity-50">
                                 <Send className="h-4 w-4" />
                             </button>
-                        </div>
-                        <div className="mt-2 text-center space-y-1">
-                            <p className="text-[10px] text-slate-400 flex items-center justify-center gap-1">
-                                <ShieldCheck className="h-3 w-3" />
-                                Conversación segura y encriptada
-                            </p>
-                            <p className="text-[9px] text-slate-300 italic">
-                                Asistente inteligente entrenado en legislación vigente. Orientación inicial supervisada por abogados colegiados.
-                            </p>
                         </div>
                     </form>
                 </div>
@@ -470,39 +368,22 @@ export function ChatWidget() {
                             <p className="text-sm font-bold">¿Qué te ha pasado?</p>
                             <p className="text-xs text-slate-300">Explícalo aquí (Respuesta Inmediata)</p>
                         </div>
-
-                        {/* Arrow */}
                         <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-900 rotate-45 border-r border-t border-slate-700"></div>
                     </div>
                 )}
-
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className={cn(
                         "h-20 w-20 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 border-4 border-white relative z-10",
-                        isOpen ? "bg-slate-700 text-white" : "bg-blue-600 text-white animate-pulse hover:animate-none"
+                        isOpen ? "bg-slate-700 text-white" : "bg-blue-600 text-white"
                     )}
                 >
                     {isOpen ? <X className="h-8 w-8" /> : <MessageSquare className="h-10 w-10" />}
-
-                    {/* Notification Dot */}
-                    {!isOpen && (
-                        <span className="absolute top-0 right-0 flex h-5 w-5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-5 w-5 bg-red-500 border-2 border-white"></span>
-                        </span>
-                    )}
                 </button>
             </div>
 
-            {/* Embedded Checkout Modal Overlay */}
-            <CheckoutModal 
-                isOpen={isCheckoutOpen} 
-                onClose={() => setIsCheckoutOpen(false)} 
-                slots={chatSlots} 
-            />
-
-            {/* Lead Capture Modal Overlay (No Citation) */}
+            {/* Modals */}
+            <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} slots={chatSlots} />
             {(() => {
                 const lastMsg = messages[messages.length - 1];
                 const match = lastMsg?.content?.match(/\[LEAD_FORM:\s*(.*?)\]/);

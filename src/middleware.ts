@@ -17,40 +17,27 @@ export async function middleware(request: NextRequest) {
                     return request.cookies.getAll();
                 },
                 setAll(cookiesToSet) {
-                    cookiesToSet.forEach(({ name, value, options }) => {
-                        request.cookies.set(name, value);
-                    });
+                    cookiesToSet.forEach(({ name, value, options }) =>
+                        request.cookies.set(name, value)
+                    );
                     response = NextResponse.next({
                         request: {
                             headers: request.headers,
                         },
                     });
-                    cookiesToSet.forEach(({ name, value, options }) => {
-                        response.cookies.set(name, value, options);
-                    });
+                    cookiesToSet.forEach(({ name, value, options }) =>
+                        response.cookies.set(name, value, options)
+                    );
                 },
             },
         }
     );
 
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
-    // Protected Routes Logic
-
-    // 1. Protection for ADMIN routes
-    if (request.nextUrl.pathname.startsWith('/admin') && !request.nextUrl.pathname.startsWith('/admin/login')) {
-        if (!user) {
-            return NextResponse.redirect(new URL('/admin/login', request.url));
-        }
-    }
-
-    // 2. Protection for LAWYER routes
-    if (request.nextUrl.pathname.startsWith('/lawyer') && !request.nextUrl.pathname.startsWith('/lawyer/register')) {
-        if (!user) {
-            return NextResponse.redirect(new URL('/login', request.url));
-        }
+    // This will refresh the session if it's expired
+    try {
+        await supabase.auth.getUser();
+    } catch (e) {
+        console.error('[MIDDLEWARE] Auth check failed:', e);
     }
 
     return response;

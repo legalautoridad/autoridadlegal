@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
-import { DEFAULT_SYSTEM_PROMPT } from './config';
+
 
 const CACHE_DISPLAY_NAME = 'al-context-cache-daily';
 // The cache will expire in 24 hours
@@ -83,7 +83,7 @@ async function createNewCache(ai: GoogleGenAI): Promise<string | null> {
             .eq('key', 'system_prompt')
             .maybeSingle();
         
-        const systemPrompt = configData?.value || DEFAULT_SYSTEM_PROMPT;
+        const systemPrompt = configData?.value || "Eres un asistente legal experto.";
 
         const contentsParts: any[] = [];
         contentsParts.push({ text: `[INSTRUCCIONES DEL SISTEMA]\n${systemPrompt}\n\n[DOCUMENTOS DE REFERENCIA INFERIORES]:` });
