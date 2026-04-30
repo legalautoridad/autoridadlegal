@@ -62,9 +62,7 @@ export function getEmbeddingModel() {
         const google = createGoogleGenerativeAI({
             apiKey: process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || '',
         });
-        return google.textEmbeddingModel('gemini-embedding-001', {
-            outputDimensionality: 768,
-        });
+        return google.textEmbeddingModel('gemini-embedding-001');
     }
 
     // Default to Vertex (Production)
@@ -73,7 +71,5 @@ export function getEmbeddingModel() {
         location: location,
     });
 
-    return vertex.textEmbeddingModel('text-embedding-005', {
-        outputDimensionality: 768,
-    });
+    return vertex.textEmbeddingModel('text-embedding-005');
 }

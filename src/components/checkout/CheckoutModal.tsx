@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { ShieldCheck, Lock, ChevronRight, X, Briefcase, CreditCard, User, CalendarDays, MapPin } from 'lucide-react';
 import { saveLead } from '@/lib/actions/leads';
-import { ChatSlots } from '@/lib/ai/state';
 import { createPaymentIntent } from '@/lib/actions/stripe';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -14,7 +13,6 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 interface CheckoutModalProps {
     isOpen: boolean;
     onClose: () => void;
-    slots: ChatSlots;
 }
 
 // Inner component that handles the actual Stripe payment
@@ -113,7 +111,7 @@ function StripePaymentForm({ price, clientSecret, formData, city, incidentType, 
 }
 
 
-export function CheckoutModal({ isOpen, onClose, slots }: CheckoutModalProps) {
+export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
     const [step, setStep] = useState<1 | 2>(1);
     const [isLoading, setIsLoading] = useState(false);
     const [clientSecret, setClientSecret] = useState<string | null>(null);
@@ -127,9 +125,9 @@ export function CheckoutModal({ isOpen, onClose, slots }: CheckoutModalProps) {
         email: ''
     });
 
-    const price = slots.calculated_price || 990;
-    const city = slots.city ? (slots.city.charAt(0).toUpperCase() + slots.city.slice(1).toLowerCase()) : 'tu zona';
-    const incidentType = slots.incident_type || 'Defensa Legal';
+    const price = 990;
+    const city = 'tu zona';
+    const incidentType = 'Defensa Legal';
 
     // Reset state when modal opens/closes
     useEffect(() => {
@@ -216,16 +214,6 @@ export function CheckoutModal({ isOpen, onClose, slots }: CheckoutModalProps) {
                                     <p className="text-xs text-slate-500">{city}</p>
                                 </div>
                             </div>
-
-                            {slots.citation_date && (
-                                <div className="flex gap-3">
-                                    <CalendarDays className="h-5 w-5 text-red-500 shrink-0" />
-                                    <div>
-                                        <p className="text-sm font-semibold text-slate-900">Fecha Citación</p>
-                                        <p className="text-xs text-red-600 font-medium">{slots.citation_date}</p>
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     </div>
 

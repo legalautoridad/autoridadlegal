@@ -2,9 +2,8 @@
 
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
-import { Message, sendMessage } from "@/lib/ai/actions";
-import { saveLead } from "@/lib/actions/leads";
-import { ChatState, ChatSlots, ChatProfile } from "@/lib/ai/state";
+import { Message, sendMessage, ChatProfile } from "@/lib/ai/actions";
+import { saveLead, updateLeadJson, transferJsonToDb } from "@/lib/actions/leads";
 import { cn, cleanMessageContent } from "@/lib/utils";
 import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
@@ -35,41 +34,58 @@ function ChatWidgetContent() {
     // Default to 'alcoholemia' profile for now
     const profile: ChatProfile = 'alcoholemia';
 
-    // Extract city from URL path
-    let initialCity = undefined;
-    if (pathname) {
-        const pathSegments = pathname.split('/').filter(Boolean);
-        if (pathSegments.length >= 2 && pathSegments[0] === 'alcoholemia') {
-            const rawCity = pathSegments[1];
-            initialCity = rawCity.charAt(0).toUpperCase() + rawCity.slice(1).toLowerCase();
-        }
-    }
-
     const [messages, setMessages] = useState<Message[]>([
         {
             role: 'model',
-            content: `**Bienvenido a Autoridad Legal**
-            \n
-Estás en un entorno especializado y diseñado para asistirte en este momento crítico.\n
-Aquí podrás resolver de inmediato tus dudas sobre:\n
-✅ Tu Juicio Rápido: Cómo funciona la Conformidad con el Fiscal y qué esperar en el juzgado.\n
-✅ Sanciones: Cálculo real de tu multa, cómo fraccionarla o sustituirla por Trabajos en Beneficio de la Comunidad (TBC).\n
-✅ Tu Carnet: Estrategias legales para retrasar la entrega si lo necesitas para trabajar.
-También te informaremos sobre nuestra red de abogados especialistas con honorarios cerrados (sin sorpresas) y nuestras opciones de financiación en cuotas mensuales.
-Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime, ¿Qué es lo que más te preocupa en este momento?`
+            content: `Hola. Si has llegado hasta aquí es porque probablemente te enfrentas a un juicio rápido por alcoholemia. Es una situación estresante, pero si trazamos una buena estrategia desde el principio, podemos minimizar los daños. Estoy aquí para orientarte.
+
+[BLOQUE]
+
+Para poder decirte a qué te enfrentas exactamente y cómo podemos defenderte, necesito que me respondas a estas 5 preguntas breves:
+
+1. ¿Qué tasa diste en el etilómetro?
+2. ¿En qué localidad fue?
+3. ¿Qué día y hora tienes el juicio?
+4. ¿Tienes antecedentes penales?
+5. ¿Tu trabajo depende del carnet (eres transportista, comercial, taxista...)?
+
+
+[BLOQUE]
+Y lo más importante para enfocar tu caso: ¿Qué es lo que más te preocupa ahora mismo? (Puedes escoger varios números):
+
+1. El tiempo que me pueden retirar el carnet.
+2. La cuantía de la multa.
+3. Cómo sustituir la multa por Trabajos a la Comunidad.
+4. No sé si ir con el abogado de oficio o contratar a un especialista.
+
+
+
+Respóndeme con tus datos y el número, y analizamos tu situación.`
         }
     ]);
-    const [chatState, setChatState] = useState<ChatState>("ASK_NAME");
-    const [chatSlots, setChatSlots] = useState<ChatSlots>(initialCity ? { city: initialCity } : {});
 
     if (isExcludedPath) return null;
 
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [leadData, setLeadData] = useState<{ name: string, phone: string, email?: string, city: string } | null>(null);
+    const [sessionId] = useState(() => Math.random().toString(36).substring(7));
+    const ALL_SLOTS = [
+        "name", "phone", "email", "work_status", "incident_date_time", 
+        "incident_type", "city", "needs_license_for_work", "rate", 
+        "judicial_district", "citation_date_time", "priors", 
+        "priors_details", "concerns", "calculated_price", 
+        "chosen_quota", "dependents", "income_data", 
+        "has_citation", "contact_date_time"
+    ];
+
+    const [currentSlots, setCurrentSlots] = useState<Record<string, string>>(
+        Object.fromEntries(ALL_SLOTS.map(s => [s, 'null']))
+    );
     const [debugPrompt, setDebugPrompt] = useState<string | null>(null);
     const [showDebug, setShowDebug] = useState(false);
-    const [showSlots, setShowSlots] = useState(false);
+    const [debugTab, setDebugTab] = useState<'prompt' | 'slots'>('prompt');
+    const [lastSavePayload, setLastSavePayload] = useState<any>(null);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -127,6 +143,13 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
         }
     };
 
+    // Handle [SAVE_LEAD: ...]
+    useEffect(() => {
+        if (Object.keys(currentSlots).length > 0 && sessionId) {
+            updateLeadJson(sessionId, currentSlots);
+        }
+    }, [currentSlots, sessionId]);
+
     // Parse LEAD_DATA and Auto-Save
     useEffect(() => {
         if (messages.length === 0) return;
@@ -140,6 +163,45 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
                 setLeadData(parsed);
             } catch (e) {
                 console.error("Failed to parse LEAD_DATA", e);
+            }
+        }
+
+        // Handle [SLOTS: ...]
+        const slotsMatch = lastMsg.content.match(/\[SLOTS:\s*(.*?)\]/);
+        if (slotsMatch && slotsMatch[1]) {
+            const pairs = slotsMatch[1].split(',').map(p => p.trim());
+            setCurrentSlots(prev => {
+                const updated = { ...prev };
+                pairs.forEach(pair => {
+                    // Handle both key=value and key:value
+                    let [key, val] = pair.split(/[=:]/).map(s => s.trim());
+                    
+                    // Strip quotes, braces, and other non-identifier chars from key
+                    if (key) key = key.replace(/['"{} [\]]+/g, '').trim();
+                    if (val) val = val.replace(/['"{} [\]]+/g, '').trim();
+
+                    if (key && (val !== 'null' || !updated[key])) {
+                        updated[key] = val || 'null';
+                    }
+                });
+                return updated;
+            });
+        }
+
+        // Handle [SAVE_LEAD: ...] - Flexible regex for multiline JSON
+        const saveMatch = lastMsg.content.match(/\[SAVE_LEAD:\s*({[\s\S]*?})\]/);
+        if (saveMatch && saveMatch[1]) {
+            try {
+                const payload = JSON.parse(saveMatch[1]);
+                setLastSavePayload(payload); // For debug visibility
+                console.log("[AUTO_SAVE] Finalizing lead. Transferring from JSON to DB...");
+                transferJsonToDb(sessionId).then(() => {
+                    console.log("[AUTO_SAVE] Lead transferred successfully");
+                }).catch(err => {
+                    console.error("[AUTO_SAVE] Error transferring lead:", err);
+                });
+            } catch (e) {
+                console.error("Failed to trigger SAVE_LEAD transfer", e);
             }
         }
     }, [messages]);
@@ -187,7 +249,7 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
         setIsLoading(true);
 
         try {
-            const stream = await sendMessage(newMessages, chatState, chatSlots, profile);
+            const stream = await sendMessage(newMessages, profile, showDebug);
             let fullResponse = "";
 
             setMessages(prev => [...prev, { role: 'model', content: '' }]);
@@ -204,9 +266,6 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
                         });
                     } else if (parsedChunk.type === 'prompt-debug') {
                         setDebugPrompt(parsedChunk.content);
-                    } else if (parsedChunk.type === 'state-update') {
-                        setChatState(parsedChunk.state);
-                        setChatSlots(parsedChunk.slots);
                     }
                 } catch (e) {
                     fullResponse += chunk;
@@ -229,7 +288,7 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
             {/* Chat Window */}
             {isOpen && (
-                <div className="mb-4 w-[380px] md:w-[450px] h-[700px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-10 duration-300">
+                <div className="mb-4 w-[400px] md:w-[600px] h-[800px] max-h-[90vh] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-10 duration-300">
                     {/* Header */}
                     <div className="bg-slate-900 p-4 flex justify-between items-center text-white">
                         <div className="flex items-center gap-3">
@@ -244,14 +303,37 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
                                         Conectado
                                     </span>
                                     {process.env.NEXT_PUBLIC_APP_VERSION === 'dev' && (
-                                        <>
-                                            <button onClick={() => setShowDebug(!showDebug)} className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 hover:bg-slate-700">
-                                                {showDebug ? 'Ocultar Prompt' : 'Ver Prompt'}
+                                        <div className="flex gap-1 ml-2">
+                                            <button 
+                                                onClick={() => { setShowDebug(!showDebug); setDebugTab('prompt'); }} 
+                                                className={cn(
+                                                    "text-[10px] px-2 py-0.5 rounded border transition-colors",
+                                                    showDebug && debugTab === 'prompt' ? "bg-white text-slate-900 border-white" : "bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700"
+                                                )}
+                                            >
+                                                {showDebug && debugTab === 'prompt' ? 'Cerrar Debug' : 'Prompt'}
                                             </button>
-                                            <button onClick={() => setShowSlots(!showSlots)} className="text-[10px] bg-indigo-900/50 text-indigo-200 px-2 py-0.5 rounded border border-indigo-700/50 hover:bg-indigo-800/50">
-                                                {showSlots ? 'Ocultar Slots' : 'Ver Slots'}
+                                            <button 
+                                                onClick={() => { setShowDebug(true); setDebugTab('slots'); }} 
+                                                className={cn(
+                                                    "text-[10px] px-2 py-0.5 rounded border transition-colors",
+                                                    showDebug && debugTab === 'slots' ? "bg-white text-slate-900 border-white" : "bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700"
+                                                )}
+                                            >
+                                                Slots
                                             </button>
-                                        </>
+                                            {lastSavePayload && (
+                                                <button 
+                                                    onClick={() => { setShowDebug(true); setDebugTab('commit' as any); }} 
+                                                    className={cn(
+                                                        "text-[10px] px-2 py-0.5 rounded border transition-colors",
+                                                        showDebug && debugTab === ('commit' as any) ? "bg-white text-slate-900 border-white" : "bg-amber-600 text-white border-amber-500 hover:bg-amber-500"
+                                                    )}
+                                                >
+                                                    Commit
+                                                </button>
+                                            )}
+                                        </div>
                                     )}
                                 </div>
                             </div>
@@ -263,78 +345,129 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
 
                     {/* Messages */}
                     <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 relative">
-                        {showDebug && debugPrompt && (
-                            <div className="absolute inset-0 z-10 bg-slate-900/95 text-green-400 p-4 overflow-y-auto font-mono text-[10px] leading-relaxed break-words whitespace-pre-wrap">
-                                <h4 className="text-white font-bold mb-2">ÚLTIMO PROMPT ENVIADO AL LLM:</h4>
-                                {debugPrompt}
-                            </div>
-                        )}
-
-                        {showSlots && (
-                            <div className="absolute inset-0 z-10 bg-indigo-950/95 text-indigo-300 p-4 overflow-y-auto font-mono text-[11px] leading-relaxed break-words whitespace-pre-wrap">
-                                <h4 className="text-white font-bold mb-2">MEMORIA ACTUAL (SLOTS JSON):</h4>
-                                <div className="mb-3 pb-2 border-b border-indigo-800/30">
-                                    <span className="text-indigo-400">ESTADO AI:</span> <span className="text-white">{chatState}</span>
-                                </div>
-                                {JSON.stringify(chatSlots, null, 2)}
-                            </div>
-                        )}
-
-                        {messages.map((msg, i) => (
-                            <div key={i} className={cn("flex w-full mb-4", msg.role === 'user' ? "justify-end" : "justify-start")}>
-                                {msg.role === 'model' && (
-                                    <img
-                                        src="https://ui-avatars.com/api/?name=Asistente+Legal&background=0D8ABC&color=fff&size=128"
-                                        alt="Asistente IA"
-                                        className="w-8 h-8 rounded-full border border-slate-200 shadow-sm self-end mb-1 mr-2 object-cover"
-                                    />
-                                )}
-                                <div className={cn("rounded-2xl p-3 text-sm shadow-sm break-words max-w-[85%]", msg.role === 'user' ? "bg-slate-900 text-white rounded-br-none" : "bg-slate-100 border border-slate-200 text-slate-900 rounded-bl-none")}>
-                                    {cleanMessageContent(msg.content) ? (
-                                        <div className="prose prose-sm prose-slate max-w-none prose-p:leading-relaxed prose-strong:font-bold">
-                                            <ReactMarkdown components={{
-                                                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                                                ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
-                                                ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
-                                                li: ({ children }) => <li className="mb-1">{children}</li>,
-                                                a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{children}</a>
-                                            }}>
-                                                {cleanMessageContent(msg.content)}
-                                            </ReactMarkdown>
+                        {showDebug && (
+                            <div className="absolute inset-0 z-10 bg-slate-900/95 text-green-400 p-4 overflow-y-auto">
+                                {debugTab === 'prompt' ? (
+                                    <div className="font-mono text-[10px] leading-relaxed break-words whitespace-pre-wrap">
+                                        <h4 className="text-white font-bold mb-2 uppercase tracking-widest border-b border-slate-700 pb-1">ÚLTIMO PROMPT ENVIADO AL LLM:</h4>
+                                        {debugPrompt}
+                                    </div>
+                                ) : debugTab === 'slots' ? (
+                                    <div className="animate-in fade-in slide-in-from-right-4">
+                                        <h4 className="text-white font-bold mb-4 uppercase tracking-widest border-b border-slate-700 pb-1">ESTADO DEL MAPA DE SLOTS:</h4>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {Object.entries(currentSlots).map(([key, val]) => (
+                                                <div key={key} className="bg-slate-800/50 p-2 rounded border border-slate-700 flex flex-col">
+                                                    <span className="text-[8px] text-slate-400 uppercase font-bold">{key}</span>
+                                                    <span className={cn(
+                                                        "text-[11px] truncate",
+                                                        val === 'null' || !val ? "text-slate-600 italic" : "text-amber-400 font-medium"
+                                                    )}>
+                                                        {val === 'null' || !val ? 'Pendiente' : val}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                            {Object.keys(currentSlots).length === 0 && (
+                                                <div className="col-span-2 text-center py-10 text-slate-500 italic">
+                                                    No se han detectado slots todavía.
+                                                </div>
+                                            )}
                                         </div>
-                                    ) : (
-                                        <span className="flex gap-1 items-center h-5">
-                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
-                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                                        </span>
-                                    )}
-                                </div>
-
-                                {msg.role === 'model' && (
-                                    <div className="flex flex-col gap-2 mt-1">
-                                        {(() => {
-                                            const match = msg.content.match(/\[PAYMENT_BUTTON:\s*(.*?)\]/);
-                                            if (match) return (
-                                                <button onClick={() => setIsCheckoutOpen(true)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-xs">
-                                                    ⚡ ACTIVAR MI DEFENSA AHORA
-                                                </button>
-                                            );
-                                            return null;
-                                        })()}
-                                        {(() => {
-                                            const match = msg.content.match(/\[LEAD_FORM:\s*(.*?)\]/);
-                                            if (match) return (
-                                                <button onClick={() => setIsLeadFormOpen(true)} className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-xs">
-                                                    📞 Dejar mis datos de contacto
-                                                </button>
-                                            );
-                                            return null;
-                                        })()}
+                                    </div>
+                                ) : (
+                                    <div className="animate-in fade-in slide-in-from-right-4">
+                                        <h4 className="text-white font-bold mb-4 uppercase tracking-widest border-b border-amber-700 pb-1 text-amber-500">ÚLTIMO PAYLOAD ENVIADO (COMMIT):</h4>
+                                        <pre className="bg-slate-800/80 p-3 rounded border border-slate-700 text-[10px] text-amber-200 overflow-x-auto">
+                                            {JSON.stringify(lastSavePayload, null, 2)}
+                                        </pre>
                                     </div>
                                 )}
                             </div>
-                        ))}
+                        )}
+
+                        {messages.map((msg, i) => {
+                            const parts = msg.content.split(/\[BLOQUE\]/i).map(p => p.trim());
+                            const isLastMessage = i === messages.length - 1;
+
+                            return (
+                                <div key={i} className={cn("flex flex-col w-full gap-4 mb-4", msg.role === 'user' ? "items-end" : "items-start")}>
+                                    {parts.map((part, partIndex) => {
+                                        const cleanPart = cleanMessageContent(part);
+                                        const isEmpty = !cleanPart;
+                                        const isLastPart = partIndex === parts.length - 1;
+                                        
+                                        // Do not render empty parts unless it's the last part of the last message and we are loading
+                                        if (isEmpty && !(isLastMessage && isLastPart && isLoading && msg.role === 'model')) {
+                                            return null;
+                                        }
+
+                                        return (
+                                            <div key={partIndex} className={cn("flex w-full", msg.role === 'user' ? "justify-end" : "justify-start")}>
+                                                {msg.role === 'model' && (
+                                                    partIndex === 0 ? (
+                                                        <img
+                                                            src="https://ui-avatars.com/api/?name=Asistente+Legal&background=0D8ABC&color=fff&size=128"
+                                                            alt="Asistente IA"
+                                                            className="w-8 h-8 rounded-full border border-slate-200 shadow-sm self-end mb-1 mr-2 object-cover shrink-0"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-8 mr-2 shrink-0" />
+                                                    )
+                                                )}
+                                                
+                                                <div className={cn("rounded-2xl p-3 text-sm shadow-sm break-words max-w-[85%]", msg.role === 'user' ? "bg-slate-900 text-white rounded-br-none" : "bg-slate-100 border border-slate-200 text-slate-900 rounded-bl-none")}>
+                                                    {!isEmpty ? (
+                                                        <div className="prose prose-sm prose-slate max-w-none prose-p:leading-relaxed prose-strong:font-bold">
+                                                            <ReactMarkdown components={{
+                                                                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                                                                ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
+                                                                ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
+                                                                li: ({ children }) => <li className="mb-1">{children}</li>,
+                                                                a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{children}</a>
+                                                            }}>
+                                                                {cleanPart}
+                                                            </ReactMarkdown>
+                                                        </div>
+                                                    ) : (
+                                                        <span className="flex gap-1 items-center h-5">
+                                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+                                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                                                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+
+                                    {/* Action buttons */}
+                                    {msg.role === 'model' && (
+                                        <div className={cn("flex w-full justify-start", "pl-10")}>
+                                            <div className="flex flex-col gap-2 mt-1">
+                                                {(() => {
+                                                    const match = msg.content.match(/\[PAYMENT_BUTTON:\s*(.*?)\]/);
+                                                    if (match) return (
+                                                        <button onClick={() => setIsCheckoutOpen(true)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-xs">
+                                                            ⚡ ACTIVAR MI DEFENSA AHORA
+                                                        </button>
+                                                    );
+                                                    return null;
+                                                })()}
+                                                {(() => {
+                                                    const match = msg.content.match(/\[LEAD_FORM:\s*(.*?)\]/);
+                                                    if (match) return (
+                                                        <button onClick={() => setIsLeadFormOpen(true)} className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-xs">
+                                                            📞 Dejar mis datos de contacto
+                                                        </button>
+                                                    );
+                                                    return null;
+                                                })()}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
                         <div ref={messagesEndRef} />
                     </div>
 
@@ -383,7 +516,7 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
             </div>
 
             {/* Modals */}
-            <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} slots={chatSlots} />
+            <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
             {(() => {
                 const lastMsg = messages[messages.length - 1];
                 const match = lastMsg?.content?.match(/\[LEAD_FORM:\s*(.*?)\]/);
@@ -392,9 +525,9 @@ Cuéntanos tu caso: Por favor, facilítame un nombre para dirigirme a ti y dime,
                     <LeadCaptureModal
                         isOpen={isLeadFormOpen}
                         onClose={() => setIsLeadFormOpen(false)}
-                        prefillName={params.name || chatSlots.name || ''}
-                        city={params.city || chatSlots.city || ''}
-                        rate={params.rate || chatSlots.rate || ''}
+                        prefillName={params.name || leadData?.name || ''}
+                        city={params.city || leadData?.city || ''}
+                        rate={params.rate || ''}
                     />
                 );
             })()}
