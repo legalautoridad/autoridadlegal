@@ -1,0 +1,112 @@
+{
+    "id": {
+        "lastUpdate": {
+            "value": null
+        },
+        "name": {
+            "value": null,
+            "spanish": "name",
+            "description": "Client name"
+        },
+        "phone": {
+            "value": null,
+            "spanish": "telefono",
+            "description": "Client Phone number"
+        },
+        "email": {
+            "value": null,
+            "spanish": "email",
+            "description": "Client Email"
+        },
+        "work_status": {
+            "value": null,
+            "spanish": "trabajo",
+            "description": "Client work stauts"
+        },
+        "incident_date_time": {
+            "value": null,
+            "spanish": "incidente_dia_hora",
+            "description": "Incident date an time where it happen"
+        },
+        "incident_type": {
+            "value": null,
+            "spanish": "incidente_tipo",
+            "description": "Incident Type (for example 'alcoholemia')"
+        },
+        "city": {
+            "value": null,
+            "spanish": "ciudad",
+            "description": "City where the incident happened"
+        },
+        "needs_license_for_work": {
+            "value": null,
+            "spanish": "carne_para_trabajo",
+            "description": "Boolean that tells if client need license to work",
+        },
+        "rate": {
+            "value": null,
+            "spanish": "tasa",
+            "description": "Alcohol rate"
+        },
+        "judicial_district": {
+            "value": null,
+            "spanish": "partido_judicial",
+            "description": "Judicial district correspondent to the city where happened de incident"
+        },
+        "citation_date_time": {
+            "value": null,
+            "spanish": "juicio_dia_hora",
+            "description": "Day and time where the client have the trial"
+        },
+        "priors": {
+            "value": null,
+            "spanish": "antecedentes",
+            "description": "Bool client Criminal records"
+        },
+        "priors_details": {
+            "value": null,
+            "spanish": "antededentes_detalle",
+            "description": "Criminal Records details: are them from alcohol too?"
+        },
+        "jail": {
+            "value": null,
+            "spanish": "riesgo_prision",
+            "description": "Bool that indicates jail risk"
+        },
+        "concerns": {
+            "value": null,
+            "spanish": "preocupacion",
+            "description": "What is the client concerned the most"
+        },
+        "calculated_price": {
+            "value": null,
+            "spanish": "precio",
+            "description": "Service price calculated"
+        },
+        "chosen_quota": {
+            "value": null,
+            "spanish": "cuota_financiacion",
+            "description": "Choosen quota in financing case"
+        },
+        "dependents": {
+            "value": null,
+            "spanish": "cargas",
+            "description": "Client dependents"
+        },
+        "income_data": {
+            "value": null,
+            "spanish": "ingresos",
+            "description": "Client income"
+        },
+        "has_citation": {
+            "value": null,
+            "spanish": "citacion",
+            "description": "Bool that indicates if has a trial citation"
+        },
+        "contact_date_time": {
+            "value": null,
+            "spanish": "dia_hora_contacto",
+            "description": "What is the best date and time to contact the client"
+        }
+    }
+}

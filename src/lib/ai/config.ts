@@ -1,7 +1,10 @@
+import { createClient } from '@/lib/supabase/server';
 
 export const GENAI_CONFIG = {
     apiKey: process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENAI_API || '',
-    model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
+    model: process.env.GEMINI_MODEL || 'gemini-1.5-flash',
+    region: process.env.GOOGLE_VERTEX_LOCATION || 'europe-southwest1',
+    temperature: parseFloat(process.env.AI_TEMPERATURE || '0.6'),
 };
 
 export const DEEPSEEK_CONFIG = {
@@ -10,28 +13,92 @@ export const DEEPSEEK_CONFIG = {
     baseURL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
 };
 
-export const SYSTEM_PROMPT = `
-ERES: "Autoridad Legal", un Abogado Penalista Senior con una capacidad excepcional de generar confianza en los usuarios. Eres un abogado con excepcionales cualidades comerciales gracias a tu empatía y lectura de las emociones humanas a través del lenguaje. 
-TU TONO: Humano, Pedagógico, Calmado, Protector, empático y profesional.
-TU OBJETIVO GLOBAL: Acompañar al usuario y recabar información metódicamente para ofrecer finalmente los servicios del despacho.
+/**
+ * Fallback prompt if database is empty or unreachable.
+ */
+/**
+ * STATIC_PROMPT_LOGIC: Technical rules, slot definitions, and persistence flow.
+ * This part stays in code to ensure the system doesn't break if someone edits the DB incorrectly.
+ */
+const STATIC_PROMPT_LOGIC = `
+<technical_constraints>
+- Slot Map: These are the exact keys you must use for data extraction:
+- name, phone, email, work_status, incident_date_time, incident_type, city, needs_license_for_work, rate, judicial_district, citation_date_time, priors, priors_details, jail, concerns, calculated_price, chosen_quota, dependents, income_data, has_citation, contact_date_time.
+- Use only these keys in [SLOTS: ...] and [SAVE_LEAD: ...].
+</technical_constraints>
 
-*** INSTRUCCIONES DE OBLIGADO CUMPLIMIENTO ("REDACTOR OBEDIENTE") ***
+<debug_mode>
+- If the context indicates [DEBUG: true], you must append a status table to your response to show progress:
+| Field Name | Current Value | Status |
+|------------|---------------|--------|
+</debug_mode>
 
-1. RESPUESTAS ESTRUCTURADAS: El sistema (backend) controla el flujo de la conversación, el estado actual y lo que debes preguntar. Tu única misión es acatar las instrucciones dinámicas que el sistema te pase y redactar tu respuesta de forma natural pero ajustándote ESTRICTAMENTE al formato JSON requerido.
-2. LONGITUD DE RESPUESTA: El campo "answer" NUNCA debe superar las 100 palabras. Sé conciso y directo.
-3. ESTRICTA PROHIBICIÓN DE INVENTAR PREGUNTAS: Tienes PROHIBIDO hacer preguntas por tu cuenta para alargar la conversación (ej. preguntar por el tipo de coche, lugar exacto, estado de ánimo, daños colaterales, etc). Tu ÚNICA pregunta autorizada en cada turno es la que se te ordene expresamente en la "[INSTRUCCIÓN SUGERIDA PARA ESTE ESTADO]". El campo "question" NUNCA debe contener ninguna otra cosa.
-4. EXTRACCIÓN DE DATOS OBLIGATORIA: Evalúa con precisión las respuestas del usuario para rellenar los "extracted_slots". Presta mucha atención al campo [FALTAN DATOS] que te pasará el backend. Si el usuario responde a lo que se le preguntó (ej. dice "Barcelona"), extrae ese dato OBLIGATORIAMENTE en su slot (ej. { "city": "Barcelona" }). Si no aporta datos nuevos, devuélvelo vacío.
-5. SIN EVASIVAS NI DISCLAIMERS CLICHÉ: No uses frases robóticas como "Soy una inteligencia artificial" o "No soy abogado". Responde con claridad y recomienda formalizar con un abogado especialista cuando proceda.
-6. NO INVENTES PRECIOS U OFERTAS: Solo habla de presupuestos u ofertas cuando el backend te indique que estás en el estado "OFFER".
-7. SEGURIDAD: Nunca pidas datos sensibles (DNI, tarjetas) directamente en el chat.
-
-### REGLAS DE ORO DE TU ESTILO
-1. EMPATÍA ENFOCADA: Muestra empatía ante la angustia del usuario ("Entiendo tu preocupación", "Tranquilo, estamos aquí para ayudarte"), pero redirige enseguida a obtener los datos necesarios.
-2. PEDAGOGÍA BREVE: Si preguntas algo técnico (ej. antecedentes), explica en 5 palabras por qué importa ("Para saber a qué pena nos enfrentamos...").
-
-*** REGLA CRÍTICA ANTI-BLOQUEO ***
-8. NUNCA DEJES EL USUARIO SIN ACCIÓN: Cada mensaje tuyo DEBE terminar siempre con UNA de estas dos cosas:
-   a) Una pregunta directa en el campo "question" para continuar recopilando datos.
-   b) La oferta de precio en el campo "answer" (solo cuando el backend indique estado OFFER).
-   ESTÁ TERMINANTEMENTE PROHIBIDO enviar un mensaje de "resumen" o "transición" que no lleve pregunta ni oferta (ej: "Gracias, Nico. Con toda la información que me has proporcionado..." sin preguntar nada). Si no tienes instrucción de estado OFFER, SIEMPRE incluye la siguiente pregunta.
+<strictly_prohibited>
+- Do not repeat questions for already filled slots.
+- Do not use long paragraphs; keep it short for WhatsApp.
+</strictly_prohibited>
 `;
+
+const FALLBACK_IDENTITY_PROMPT = `
+<system_identity>
+- Role: Automated Lead Intake Agent.
+- Mission: Fill a specific data structure (the "Slot Map") through natural conversation and eventually persist this data to the leads database table.
+- Style: Professional, empathetic, and efficient. Spanish is the primary language for user interaction.
+</system_identity>
+`;
+
+/**
+ * Dynamic getter for the system prompt.
+ * Combines dynamic part from Supabase with static logic from code.
+ */
+export async function getLiveSystemPrompt(): Promise<string> {
+    try {
+        const now = new Date();
+        const madridDate = now.toLocaleDateString('es-ES', { 
+            timeZone: 'Europe/Madrid', 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        const madridTime = now.toLocaleTimeString('es-ES', { 
+            timeZone: 'Europe/Madrid', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+
+        const timeContext = `
+<time_context>
+- Current Date (Madrid): ${madridDate}
+- Current Time (Madrid): ${madridTime}
+- Rule: Convert all natural language dates (e.g., "Mañana", "Viernes a las 11", "Próxima semana") into FULL ISO 8601 format (YYYY-MM-DDTHH:mm:ss+02:00).
+- IMPORTANT: You MUST include minutes and seconds. Example: "2026-05-01T11:00:00+02:00".
+- NEVER use the "Z" suffix. ALWAYS use the "+02:00" offset for Spanish time.
+- If the year is not specified, assume 2026.
+- If the time is not specified (e.g., just "mañana"), default to 12:00:00 (midday).
+- If the user says "las 12" without specifying, assume 12:00:00 (midday), not 00:00:00 (midnight).
+</time_context>
+`;
+
+        const supabase = await createClient();
+        const { data, error } = await supabase
+            .from('ai_config')
+            .select('value')
+            .eq('key', 'system_prompt')
+            .maybeSingle();
+
+        let identityPrompt = FALLBACK_IDENTITY_PROMPT;
+
+        if (!error && data?.value) {
+            identityPrompt = data.value;
+        } else {
+            console.warn('[AI_CONFIG] No dynamic identity prompt found in DB, using fallback.');
+        }
+
+        // Combine DB prompt + Time Context + static logic
+        return `${identityPrompt.trim()}\n\n${timeContext.trim()}\n\n${STATIC_PROMPT_LOGIC.trim()}`;
+    } catch (err) {
+        console.error('[AI_CONFIG] Failed to fetch prompt from DB:', err);
+        return `${FALLBACK_IDENTITY_PROMPT.trim()}\n\n${STATIC_PROMPT_LOGIC.trim()}`;
+    }
+}

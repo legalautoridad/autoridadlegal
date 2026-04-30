@@ -1,38 +1,51 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { getKnowledgeEntries, upsertKnowledgeEntry, deleteKnowledgeEntry, uploadToBucketAction, syncBucketToRAGAction, KnowledgeEntry } from '@/lib/actions/knowledge';
-import { getLocationsAdmin, getCourtsAdmin } from '@/lib/actions/locations';
+import { useEffect, useState, useTransition } from 'react';
+import { 
+    getKnowledgeRecords, 
+    upsertKnowledgeRecord, 
+    deleteKnowledgeRecord 
+} from '@/lib/actions/knowledge';
+import { getLocationsAdmin } from '@/lib/actions/locations';
 import {
     BookOpen,
+    Plus,
+    Search,
     Trash2,
     Edit2,
-    Plus,
+    Save,
     X,
-    Search,
-    ArrowLeft,
-    Info,
+    Loader2,
+    CheckCircle2,
+    AlertTriangle,
     Globe,
     MapPin,
-    Building2,
-    Database,
-    FileUp,
-    Loader2
+    Zap,
+    Filter,
+    ArrowLeft
 } from 'lucide-react';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
-export default function KnowledgeManagementPage() {
-    const [entries, setEntries] = useState<any[]>([]);
+export default function KnowledgePage() {
+    const [records, setRecords] = useState<any[]>([]);
     const [locations, setLocations] = useState<any[]>([]);
-    const [courts, setCourts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const [showUploadModal, setShowUploadModal] = useState(false);
-    const [editingEntry, setEditingEntry] = useState<any>(null);
-    const [formLoading, setFormLoading] = useState(false);
-    const [uploadLoading, setUploadLoading] = useState(false);
-    const [syncLoading, setSyncLoading] = useState(false);
+    const [isPending, startTransition] = useTransition();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filterType, setFilterType] = useState<'all' | 'alcoholemia' | 'general'>('all');
+    
+    // Modal state
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingRecord, setEditingRecord] = useState<any>(null);
+    const [formData, setFormData] = useState({
+        content: '',
+        service_type: 'alcoholemia',
+        is_general: true,
+        location_id: ''
+    });
+
+    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
     useEffect(() => {
         loadData();
@@ -40,436 +53,330 @@ export default function KnowledgeManagementPage() {
 
     const loadData = async () => {
         try {
-            const [knEntries, locs, crts] = await Promise.all([
-                getKnowledgeEntries(),
-                getLocationsAdmin(),
-                getCourtsAdmin()
+            setLoading(true);
+            const [recordsData, locationsData] = await Promise.all([
+                getKnowledgeRecords(),
+                getLocationsAdmin()
             ]);
-            setEntries(knEntries);
-            setLocations(locs);
-            setCourts(crts);
+            setRecords(recordsData);
+            setLocations(locationsData);
         } catch (error) {
-            console.error('Error loading data:', error);
+            console.error('Error loading knowledge data:', error);
         } finally {
             setLoading(false);
         }
     };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm('¿Estás seguro de eliminar este contenido? El chatbot ya no podrá usarlo como referencia.')) return;
-        try {
-            await deleteKnowledgeEntry(id);
-            loadData();
-        } catch (error: any) {
-            alert('Error deleting entry: ' + error.message);
-        }
-    };
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setFormLoading(true);
-        const formData = new FormData(e.currentTarget);
-
-        const isGeneral = formData.get('is_general') === 'on';
-
-        try {
-            await upsertKnowledgeEntry({
-                id: editingEntry?.id,
-                content: formData.get('content') as string,
-                service_type: formData.get('service_type') as string || null,
-                region: formData.get('region') as string || null,
-                is_general: isGeneral,
-                location_id: isGeneral ? null : (formData.get('location_id') as string || null),
-                court_id: isGeneral ? null : (formData.get('court_id') as string || null),
-                metadata: { updated_by: 'admin' }
+    const handleOpenModal = (record: any = null) => {
+        if (record) {
+            setEditingRecord(record);
+            setFormData({
+                content: record.content,
+                service_type: record.service_type || 'alcoholemia',
+                is_general: record.is_general,
+                location_id: record.location_id || ''
             });
-            setShowModal(false);
-            setEditingEntry(null);
-            loadData();
-        } catch (error: any) {
-            alert('Error al guardar: ' + error.message);
-        } finally {
-            setFormLoading(false);
+        } else {
+            setEditingRecord(null);
+            setFormData({
+                content: '',
+                service_type: 'alcoholemia',
+                is_general: true,
+                location_id: ''
+            });
         }
+        setIsModalOpen(true);
     };
 
-    const filteredEntries = entries.filter(e =>
-        e.content?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const openEdit = (entry: any) => {
-        setEditingEntry(entry);
-        setShowModal(true);
-    };
-
-    const openAdd = () => {
-        setEditingEntry(null);
-        setShowModal(true);
-    };
-
-    const handleUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
-        setUploadLoading(true);
-        const formData = new FormData(e.currentTarget);
-
-        try {
-            const result = await uploadToBucketAction(formData);
-            alert(result.message);
-            setShowUploadModal(false);
-        } catch (error: any) {
-            alert('Error al subir: ' + error.message);
-        } finally {
-            setUploadLoading(false);
-        }
+        setStatus('idle');
+        
+        startTransition(async () => {
+            try {
+                const recordToSave = {
+                    ...formData,
+                    id: editingRecord?.id,
+                    location_id: formData.is_general ? null : formData.location_id || null
+                };
+                
+                await upsertKnowledgeRecord(recordToSave);
+                setStatus('success');
+                setIsModalOpen(false);
+                loadData();
+                setTimeout(() => setStatus('idle'), 3000);
+            } catch (error) {
+                console.error('Error saving record:', error);
+                setStatus('error');
+            }
+        });
     };
 
-    const handleSync = async () => {
-        if (!confirm('Esto vaciará toda la base del RAG y la reconstruirá enteramente desde los archivos en el bucket al-context-cache. ¿Deseas continuar?')) return;
-        setSyncLoading(true);
+    const handleDelete = async (id: string) => {
+        if (!confirm('¿Estás seguro de que deseas eliminar este registro de conocimiento?')) return;
+        
         try {
-            const result = await syncBucketToRAGAction();
-            alert(result.message);
+            await deleteKnowledgeRecord(id);
             loadData();
-        } catch (error: any) {
-            alert('Error en la sincronización: ' + error.message);
-        } finally {
-            setSyncLoading(false);
+        } catch (error) {
+            console.error('Error deleting record:', error);
+            alert('Error al eliminar el registro');
         }
     };
+
+    const filteredRecords = records.filter(r => {
+        const matchesSearch = r.content.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesType = filterType === 'all' || r.service_type === filterType;
+        return matchesSearch && matchesType;
+    });
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <Loader2 className="h-10 w-10 text-rose-600 animate-spin" />
+                    <p className="font-medium text-slate-500">Cargando base de conocimiento RAG...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-slate-50 p-8">
             <div className="max-w-6xl mx-auto">
                 <header className="mb-8">
-                    <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 transition-colors mb-4 text-sm font-medium">
+                    <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-rose-600 transition-colors mb-4 text-sm font-medium">
                         <ArrowLeft className="h-4 w-4" />
                         Volver al Dashboard
                     </Link>
                     <div className="flex justify-between items-end">
-                        <div>
+                        <div className="flex-1">
                             <h1 className="text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
-                                <BookOpen className="h-8 w-8 text-indigo-600" />
-                                Base de Conocimiento RAG
+                                <BookOpen className="h-8 w-8 text-rose-600" />
+                                Base de Conocimiento (RAG)
                             </h1>
-                            <p className="text-slate-500 mt-1">Gestiona el cerebro legal del chatbot. Los cambios tardan pocos segundos en aplicarse.</p>
+                            <p className="text-slate-500 mt-1 max-w-2xl">
+                                Gestiona la información técnica y legal que el chatbot utiliza para responder. 
+                                Cada entrada se vectoriza automáticamente para búsqueda semántica.
+                            </p>
                         </div>
-                        <div className="flex gap-4">
-                            <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 px-4 h-11">
-                                <Search className="h-4 w-4 text-slate-400" />
-                                <input
-                                    type="text"
-                                    placeholder="Buscar conocimiento..."
-                                    className="bg-transparent border-none focus:ring-0 text-sm w-64"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-                            <button
-                                onClick={handleSync}
-                                disabled={syncLoading}
-                                className="bg-amber-600 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-amber-700 transition-all shadow-lg shadow-amber-100 h-11 disabled:opacity-50"
-                            >
-                                {syncLoading ? <Loader2 className="h-4 w-4 animate-spin"/> : <Database className="h-4 w-4" />}
-                                {syncLoading ? 'Sincronizando...' : 'Sincronizar Bucket'}
-                            </button>
-                            <button
-                                onClick={openAdd}
-                                className="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 h-11"
-                            >
-                                <Plus className="h-4 w-4" />
-                                Añadir Info
-                            </button>
-                            <button
-                                onClick={() => setShowUploadModal(true)}
-                                className="bg-emerald-600 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100 h-11"
-                            >
-                                <FileUp className="h-4 w-4" />
-                                Subir Archivo
-                            </button>
-                        </div>
+                        <button
+                            onClick={() => handleOpenModal()}
+                            className="bg-rose-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-rose-700 transition-all shadow-lg shadow-rose-100"
+                        >
+                            <Plus className="h-5 w-5" />
+                            Nuevo Registro
+                        </button>
                     </div>
                 </header>
 
-                {/* Info Card */}
-                <div className="mb-8 bg-indigo-50 border border-indigo-100 rounded-2xl p-6 flex gap-4">
-                    <div className="bg-indigo-600 h-10 w-10 shrink-0 rounded-xl flex items-center justify-center text-white">
-                        <Info className="h-6 w-6" />
+                {/* Filters & Search */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="md:col-span-2 relative">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                        <input
+                            type="text"
+                            placeholder="Buscar en el contenido..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-500 outline-none transition-all"
+                        />
                     </div>
-                    <div>
-                        <h4 className="font-bold text-indigo-900">¿Cómo funciona el RAG Vectorial?</h4>
-                        <p className="text-sm text-indigo-700/80 leading-relaxed max-w-4xl">
-                            Cuando guardas un fragmento, el sistema genera coordenadas matemáticas (*embeddings*) mediante IA.
-                            El chatbot busca semánticamente los fragmentos más parecidos a la pregunta del usuario para construir su respuesta.
-                        </p>
+                    <div className="relative">
+                        <Filter className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                        <select
+                            value={filterType}
+                            onChange={(e) => setFilterType(e.target.value as any)}
+                            className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-500 outline-none appearance-none transition-all"
+                        >
+                            <option value="all">Todos los Perfiles</option>
+                            <option value="alcoholemia">Alcoholemia</option>
+                            <option value="general">General</option>
+                        </select>
                     </div>
                 </div>
 
-                {/* Modal */}
-                {showModal && (
-                    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
-                            <div className="p-6 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="font-bold text-xl text-slate-900">
-                                    {editingEntry ? 'Editar Conocimiento' : 'Nuevo Conocimiento Legal'}
-                                </h3>
-                                <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors">
-                                    <X className="h-6 w-6" />
-                                </button>
-                            </div>
-                            <form onSubmit={handleSubmit} className="p-6 space-y-5">
-                                <div>
-                                    <label className="block text-xs font-bold text-slate-700 uppercase mb-2 ml-1">Contenido Legal (Contexto)</label>
-                                    <textarea
-                                        name="content"
-                                        required
-                                        rows={8}
-                                        defaultValue={editingEntry?.content}
-                                        placeholder="Ej: En un juicio rápido por alcoholemia, la reducción de la pena por conformidad es de un tercio..."
-                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-slate-50/50 text-sm leading-relaxed"
-                                    />
-                                    <p className="text-[10px] text-slate-400 mt-2 ml-1 flex items-center gap-1">
-                                        <Database className="h-3 w-3" />
-                                        Se generarán 3072 dimensiones vectoriales automáticamente al guardar.
-                                    </p>
-                                </div>
-
-                                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="flex items-center justify-between">
-                                            <label className="text-sm font-bold text-slate-700">¿Es general?</label>
-                                            <input
-                                                type="checkbox"
-                                                name="is_general"
-                                                defaultChecked={editingEntry ? editingEntry.is_general : true}
-                                                className="h-5 w-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                                            />
+                {/* Knowledge List */}
+                <div className="space-y-4">
+                    {filteredRecords.length > 0 ? (
+                        filteredRecords.map((record) => (
+                            <div key={record.id} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all group">
+                                <div className="flex justify-between items-start gap-4">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <span className={cn(
+                                                "px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider",
+                                                record.service_type === 'alcoholemia' ? "bg-rose-100 text-rose-700" : "bg-blue-100 text-blue-700"
+                                            )}>
+                                                {record.service_type}
+                                            </span>
+                                            {record.is_general ? (
+                                                <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-1 rounded-md">
+                                                    <Globe className="h-3 w-3" />
+                                                    GLOBAL
+                                                </span>
+                                            ) : (
+                                                <span className="flex items-center gap-1 text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-1 rounded-md">
+                                                    <MapPin className="h-3 w-3" />
+                                                    {locations.find(l => l.id === record.location_id)?.name || 'Localidad Específica'}
+                                                </span>
+                                            )}
                                         </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Región (Opcional)</label>
-                                            <select
-                                                name="region"
-                                                defaultValue={editingEntry?.region || ''}
-                                                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-white font-bold"
-                                            >
-                                                <option value="">Ninguna / Nacional</option>
-                                                <option value="Cataluña">Cataluña</option>
-                                                <option value="Madrid">Madrid</option>
-                                                <option value="Valencia">Valencia</option>
-                                                <option value="Andalucía">Andalucía</option>
-                                                <option value="Galicia">Galicia</option>
-                                                <option value="País Vasco">País Vasco</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Área Legal / Servicio</label>
-                                            <select
-                                                name="service_type"
-                                                defaultValue={editingEntry?.service_type || 'alcoholemia'}
-                                                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-white font-bold"
-                                            >
-                                                <option value="alcoholemia">Alcoholemia</option>
-                                                <option value="accidentes">Accidentes</option>
-                                                <option value="herencias">Herencias</option>
-                                                <option value="familia">Familia</option>
-                                                <option value="penal">Penal General</option>
-                                            </select>
-                                        </div>
+                                        <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap">
+                                            {record.content}
+                                        </p>
                                     </div>
-
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Sede (Opcional)</label>
-                                            <select
-                                                name="location_id"
-                                                defaultValue={editingEntry?.location_id || ''}
-                                                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-white"
-                                            >
-                                                <option value="">Aplica a todas</option>
-                                                {locations.map(loc => (
-                                                    <option key={loc.id} value={loc.id}>{loc.name}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Juzgado (Opcional)</label>
-                                            <select
-                                                name="court_id"
-                                                defaultValue={editingEntry?.court_id || ''}
-                                                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-white"
-                                            >
-                                                <option value="">Cualquier juzgado</option>
-                                                {courts.map(court => (
-                                                    <option key={court.id} value={court.id}>{court.name}</option>
-                                                ))}
-                                            </select>
-                                        </div>
+                                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button
+                                            onClick={() => handleOpenModal(record)}
+                                            className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                        >
+                                            <Edit2 className="h-4 w-4" />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(record.id)}
+                                            className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </button>
                                     </div>
                                 </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={formLoading}
-                                    className="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center justify-center gap-2 disabled:opacity-50"
-                                >
-                                    {formLoading ? 'Procesando Vectores...' : editingEntry ? 'Actualizar Conocimiento' : 'Crear y Vectorizar'}
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                )}
-
-                {/* Upload Modal */}
-                {showUploadModal && (
-                    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden animate-in fade-in zoom-in duration-200">
-                            <div className="p-6 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="font-bold text-xl text-slate-900 flex items-center gap-2">
-                                    <FileUp className="h-5 w-5 text-emerald-600" />
-                                    Subir e Ingerir Documento
-                                </h3>
-                                <button onClick={() => setShowUploadModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors">
-                                    <X className="h-6 w-6" />
-                                </button>
                             </div>
-                            <form onSubmit={handleUploadSubmit} className="p-6 space-y-5">
-                                <div className="p-8 border-2 border-dashed border-slate-200 rounded-2xl text-center bg-slate-50/50 hover:bg-slate-50 transition-colors cursor-pointer group relative">
-                                    <input
-                                        type="file"
-                                        name="file"
-                                        accept=".md,.txt,.pdf"
-                                        required
-                                        className="absolute inset-0 opacity-0 cursor-pointer"
-                                        onChange={(e) => {
-                                            const file = e.target.files?.[0];
-                                            if (file) {
-                                                const label = document.getElementById('file-label');
-                                                if (label) label.innerText = file.name;
-                                            }
-                                        }}
-                                    />
-                                    <FileUp className="h-10 w-10 text-slate-300 group-hover:text-emerald-500 mx-auto mb-3 transition-colors" />
-                                    <p id="file-label" className="text-sm font-medium text-slate-600">Haz click para seleccionar un documento MD, TXT o PDF</p>
-                                    <p className="text-xs text-slate-400 mt-1">Máximo 10MB. Idealmente usa Markdown (.md) para mejores resultados estructurales.</p>
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={uploadLoading}
-                                    className="w-full bg-emerald-600 text-white font-bold py-4 rounded-xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100 flex items-center justify-center gap-2 disabled:opacity-50"
-                                >
-                                    {uploadLoading ? (
-                                        <>
-                                            <Loader2 className="h-5 w-5 animate-spin" />
-                                            Subiendo al Bucket...
-                                        </>
-                                    ) : (
-                                        'Subir Documento'
-                                    )}
-                                </button>
-                                {uploadLoading && (
-                                    <p className="text-[10px] text-center text-slate-500 animate-pulse">
-                                        El archivo está siendo copiado a al-context-cache. Después tendrás que presionar "Sincronizar Bucket".
-                                    </p>
-                                )}
-                            </form>
+                        ))
+                    ) : (
+                        <div className="bg-white rounded-2xl border-2 border-dashed border-slate-200 p-12 text-center">
+                            <BookOpen className="h-12 w-12 text-slate-300 mx-auto mb-4" />
+                            <h3 className="text-lg font-bold text-slate-900">No se encontraron registros</h3>
+                            <p className="text-slate-500">Prueba con otra búsqueda o crea un nuevo registro de conocimiento.</p>
                         </div>
-                    </div>
-                )}
-
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left">
-                            <thead className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                <tr>
-                                    <th className="px-6 py-4">Servicio / Región</th>
-                                    <th className="px-6 py-4">Alcance</th>
-                                    <th className="px-6 py-4">Contenido / Fragmento</th>
-                                    <th className="px-6 py-4 text-right">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-100">
-                                {loading ? (
-                                    <tr>
-                                        <td colSpan={4} className="px-6 py-12 text-center text-slate-400 animate-pulse">Cargando base de conocimiento...</td>
-                                    </tr>
-                                ) : filteredEntries.length === 0 ? (
-                                    <tr>
-                                        <td colSpan={4} className="px-6 py-12 text-center text-slate-400">No hay datos en la base de vectorial. Añade el primer fragmento.</td>
-                                    </tr>
-                                ) : (
-                                    filteredEntries.map((entry: any) => (
-                                        <tr key={entry.id} className="hover:bg-slate-50/50 transition-colors">
-                                            <td className="px-6 py-4 align-top">
-                                                <div className="flex flex-col gap-1">
-                                                    <span className="inline-flex items-center px-2 py-1 rounded bg-slate-100 text-slate-700 text-[10px] font-black uppercase">
-                                                        {entry.service_type || 'unassigned'}
-                                                    </span>
-                                                    {entry.region && (
-                                                        <span className="inline-flex items-center px-2 py-1 rounded bg-indigo-50 text-indigo-700 text-[10px] font-bold uppercase border border-indigo-100">
-                                                            {entry.region}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 align-top whitespace-nowrap">
-                                                {entry.is_general ? (
-                                                    <span className="inline-flex items-center gap-1.5 bg-sky-50 text-sky-700 px-2 py-1 rounded-md text-[10px] font-bold uppercase border border-sky-100">
-                                                        <Globe className="h-3 w-3" /> General
-                                                    </span>
-                                                ) : (
-                                                    <div className="space-y-1">
-                                                        {entry.location_id && (
-                                                            <span className="flex items-center gap-1 text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-100 font-medium">
-                                                                <MapPin className="h-2.5 w-2.5" />
-                                                                {locations.find(l => l.id === entry.location_id)?.name || 'Sede'}
-                                                            </span>
-                                                        )}
-                                                        {entry.court_id && (
-                                                            <span className="flex items-center gap-1 text-[10px] text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 font-medium">
-                                                                <Building2 className="h-2.5 w-2.5" />
-                                                                {courts.find(c => c.id === entry.court_id)?.name || 'Juzgado'}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                )}
-                                            </td>
-                                            <td className="px-6 py-4 max-w-xl">
-                                                <p className="text-sm text-slate-700 line-clamp-3 leading-relaxed">
-                                                    {entry.content}
-                                                </p>
-                                                {entry.embedding && (
-                                                    <div className="flex items-center gap-1 mt-2 text-[10px] text-emerald-600 font-mono">
-                                                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                                        Vector Activo (3072 dims)
-                                                    </div>
-                                                )}
-                                            </td>
-                                            <td className="px-6 py-4 text-right align-top">
-                                                <div className="flex justify-end gap-2">
-                                                    <button
-                                                        onClick={() => openEdit(entry)}
-                                                        className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
-                                                        title="Editar"
-                                                    >
-                                                        <Edit2 className="h-4 w-4" />
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDelete(entry.id)}
-                                                        className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
-                                                        title="Eliminar"
-                                                    >
-                                                        <Trash2 className="h-4 w-4" />
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
+                    )}
                 </div>
             </div>
+
+            {/* Edit/Create Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in">
+                    <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+                        <form onSubmit={handleSave}>
+                            <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                <div>
+                                    <h2 className="text-xl font-bold text-slate-900">
+                                        {editingRecord ? 'Editar Registro' : 'Nuevo Registro de Conocimiento'}
+                                    </h2>
+                                    <p className="text-xs text-slate-500">Define información técnica para el RAG</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="p-2 text-slate-400 hover:text-slate-600 rounded-full transition-colors"
+                                >
+                                    <X className="h-6 w-6" />
+                                </button>
+                            </div>
+
+                            <div className="p-8 space-y-6">
+                                {/* Service Type & Scope */}
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Perfil de Servicio</label>
+                                        <select
+                                            value={formData.service_type}
+                                            onChange={(e) => setFormData({...formData, service_type: e.target.value})}
+                                            className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-rose-500"
+                                        >
+                                            <option value="alcoholemia">Alcoholemia</option>
+                                            <option value="general">General / Otros</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Alcance Geográfico</label>
+                                        <div className="flex gap-2 p-1 bg-slate-100 rounded-xl">
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData({...formData, is_general: true})}
+                                                className={cn(
+                                                    "flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all",
+                                                    formData.is_general ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                                                )}
+                                            >
+                                                Global
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData({...formData, is_general: false})}
+                                                className={cn(
+                                                    "flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all",
+                                                    !formData.is_general ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                                                )}
+                                            >
+                                                Específico
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Location (Conditional) */}
+                                {!formData.is_general && (
+                                    <div className="space-y-2 animate-in slide-in-from-top-2">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Localidad Asociada</label>
+                                        <select
+                                            value={formData.location_id}
+                                            onChange={(e) => setFormData({...formData, location_id: e.target.value})}
+                                            required
+                                            className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-rose-500"
+                                        >
+                                            <option value="">Selecciona una localidad...</option>
+                                            {locations.map(loc => (
+                                                <option key={loc.id} value={loc.id}>{loc.name} ({loc.region})</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
+
+                                {/* Content */}
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Contenido Técnico</label>
+                                    <textarea
+                                        value={formData.content}
+                                        onChange={(e) => setFormData({...formData, content: e.target.value})}
+                                        required
+                                        rows={6}
+                                        placeholder="Introduce aquí la información legal, plazos, leyes o datos específicos..."
+                                        className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-rose-500 resize-none text-sm leading-relaxed"
+                                    />
+                                    <p className="text-[10px] text-slate-400">
+                                        * Este texto será procesado por el modelo de IA para generar su representación vectorial (Embedding).
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="px-8 py-6 bg-slate-50 border-t border-slate-100 flex justify-end items-center gap-4">
+                                {status === 'error' && (
+                                    <div className="text-rose-600 text-xs font-bold flex items-center gap-2">
+                                        <AlertTriangle className="h-4 w-4" />
+                                        Error al guardar
+                                    </div>
+                                )}
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="text-slate-500 font-bold text-sm hover:text-slate-700 px-4"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isPending}
+                                    className="bg-rose-600 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-rose-700 transition-all shadow-lg shadow-rose-100 disabled:opacity-50"
+                                >
+                                    {isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+                                    {isPending ? 'Procesando...' : 'Guardar y Vectorizar'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

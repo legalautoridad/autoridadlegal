@@ -11,3 +11,17 @@ export function formatCurrency(amount: number) {
         currency: "EUR",
     }).format(amount);
 }
+
+export function cleanMessageContent(content: string): string {
+    if (!content) return "";
+    return content
+        .replace(/\[LEAD_DATA:[\s\S]*?\]/g, "")
+        .replace(/\[SLOTS:[\s\S]*?\]/g, "")
+        .replace(/\[PAYMENT_BUTTON:[\s\S]*?\]/g, "")
+        .replace(/\[LEAD_FORM:[\s\S]*?\]/g, "")
+        .replace(/\[SAVE_LEAD:[\s\S]*?\]/g, "")
+        .replace(/\[DEBUG:[\s\S]*?\]/g, "")
+        .replace(/\[FREE_CALL_REQUEST\]/g, "")
+        .replace(/\[PAYMENT_LINK_DISCOUNT\]/g, "")
+        .trim();
+}

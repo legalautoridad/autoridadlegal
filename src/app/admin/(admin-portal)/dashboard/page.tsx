@@ -148,6 +148,19 @@ export default async function AdminDashboard() {
                                 <p className="text-sm text-slate-500">Administrar el cerebro vectorial del chatbot.</p>
                             </div>
                         </Link>
+
+                        <Link
+                            href="/admin/ai-config"
+                            className="flex items-center gap-4 p-5 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 hover:border-indigo-200 transition-all group"
+                        >
+                            <div className="p-3 bg-rose-50 rounded-xl group-hover:bg-rose-100 transition-colors">
+                                <Settings className="h-6 w-6 text-rose-600 group-hover:text-rose-700" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-slate-900">Instrucciones IA</h4>
+                                <p className="text-sm text-slate-500">Configurar el prompt y la personalidad del sistema.</p>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>
