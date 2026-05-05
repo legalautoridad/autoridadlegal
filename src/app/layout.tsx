@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Suspense } from "react";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         {children}
         <Suspense fallback={null}>
           <ChatWidget />
+          <WhatsAppButton />
         </Suspense>
         <Footer />
         <script

@@ -1,5 +1,5 @@
 {
-  "8fito": {
+  "35uvgf": {
     "name": "null",
     "phone": "null",
     "email": "null",
@@ -13,6 +13,7 @@
     "citation_date_time": "null",
     "priors": "null",
     "priors_details": "null",
+    "jail": "null",
     "concerns": "null",
     "calculated_price": "null",
     "chosen_quota": "null",
@@ -21,10 +22,10 @@
     "has_citation": "null",
     "contact_date_time": "null",
     "systemin": "webchat",
-    "lastUpdate": "2026-04-29T18:27:29.988Z"
+    "lastUpdate": "2026-05-02T14:11:38.765Z"
   },
-  "t9iaho": {
-    "name": "null",
+  "zo3xot": {
+    "name": "Nico",
     "phone": "null",
     "email": "null",
     "work_status": "null",
@@ -37,6 +38,7 @@
     "citation_date_time": "null",
     "priors": "null",
     "priors_details": "null",
+    "jail": "null",
     "concerns": "null",
     "calculated_price": "null",
     "chosen_quota": "null",
@@ -45,33 +47,36 @@
     "has_citation": "null",
     "contact_date_time": "null",
     "systemin": "webchat",
-    "lastUpdate": "2026-04-29T18:31:31.474Z"
+    "lastUpdate": "2026-05-02T14:12:41.797Z"
   },
-  "8rurz9": {
-    "name": "null",
+  "b8ys2v": {
+    "name": "Pedro",
     "phone": "null",
     "email": "null",
     "work_status": "null",
     "incident_date_time": "null",
     "incident_type": "null",
-    "city": "null",
-    "needs_license_for_work": "null",
-    "rate": "null",
-    "judicial_district": "null",
-    "citation_date_time": "null",
-    "priors": "null",
+    "city": "Rubí",
+    "needs_license_for_work": "false",
+    "rate": "0.9",
+    "judicial_district": "Rubí",
+    "citation_date_time": "2026-05-06T16",
+    "priors": "false",
     "priors_details": "null",
-    "concerns": "null",
-    "calculated_price": "null",
-    "chosen_quota": "null",
+    "jail": "null",
+    "concerns": "retirada",
+    "calculated_price": "950",
+    "chosen_quota": "Pagoúnico",
     "dependents": "null",
     "income_data": "null",
-    "has_citation": "null",
+    "has_citation": "true",
     "contact_date_time": "null",
     "systemin": "webchat",
-    "lastUpdate": "2026-04-29T18:39:27.892Z"
+    "lastUpdate": "2026-05-02T14:23:59.353Z",
+    "ipaddress": "::1",
+    "multa": "null"
   },
-  "sawqpt": {
+  "bv4wub": {
     "name": "null",
     "phone": "null",
     "email": "null",
@@ -85,6 +90,7 @@
     "citation_date_time": "null",
     "priors": "null",
     "priors_details": "null",
+    "jail": "null",
     "concerns": "null",
     "calculated_price": "null",
     "chosen_quota": "null",
@@ -93,6 +99,122 @@
     "has_citation": "null",
     "contact_date_time": "null",
     "systemin": "webchat",
-    "lastUpdate": "2026-04-29T18:39:33.848Z"
+    "lastUpdate": "2026-05-02T14:16:15.338Z"
+  },
+  "56tyd": {
+    "name": "Ignacio",
+    "phone": "null",
+    "email": "null",
+    "work_status": "null",
+    "incident_date_time": "null",
+    "incident_type": "null",
+    "city": "null",
+    "needs_license_for_work": "null",
+    "rate": "null",
+    "judicial_district": "null",
+    "citation_date_time": "null",
+    "priors": "null",
+    "priors_details": "null",
+    "jail": "null",
+    "concerns": "null",
+    "calculated_price": "null",
+    "chosen_quota": "null",
+    "dependents": "null",
+    "income_data": "null",
+    "has_citation": "null",
+    "contact_date_time": "null",
+    "systemin": "webchat",
+    "lastUpdate": "2026-05-02T14:19:10.179Z",
+    "ipaddress": "216.252.222.12"
+  },
+  "18583809491": {
+    "systemin": "whatsapp",
+    "phone": "18583809491",
+    "history": [
+      {
+        "role": "user",
+        "content": "Hola, necesito ayuda con mi juicio rápido por alcoholemia."
+      },
+      {
+        "role": "model",
+        "content": "Entendido. Antes de nada, para poder ayudarte con tu caso, necesito saber tu nombre. ⚖️ [SLOTS: systemin=whatsapp, phone=18583809491]"
+      },
+      {
+        "role": "user",
+        "content": "Hola, necesito ayuda con mi juicio rápido por alcoholemia."
+      },
+      {
+        "role": "model",
+        "content": "Entendido. Para poder ayudarte con tu juicio rápido por alcoholemia, necesito tu nombre. ⚖️ [SLOTS: systemin=whatsapp, phone=18583809491]"
+      },
+      {
+        "role": "user",
+        "content": "Nico"
+      },
+      {
+        "role": "model",
+        "content": "Gracias, Nico. 🤝\n\nPara poder evaluar tu situación y ofrecerte la mejor estrategia, necesito que me facilites los siguientes datos:\n\n1.  *Tasa de alcoholemia* (mg/L en aire espirado).\n2.  *Localidad* donde ocurrió el incidente.\n3.  *Día y hora* del juicio.\n4.  ¿Tienes *antecedentes penales*?\n5.  ¿Cuál es tu *profesión*?\n\nY, por último, ¿qué es lo que *más te preocupa* de esta situación? (1. Retirada del carnet 2. Multa económica 3. Trabajos en Beneficio de la Comunidad 4. El coste del abogado 5. No quiero decir). 🚔 [SLOTS: name=Nico]"
+      },
+      {
+        "role": "user",
+        "content": "Hola, necesito ayuda con mi juicio rápido por alcoholemia."
+      },
+      {
+        "role": "model",
+        "content": "Entendido, Nico. Ya me has dicho tu nombre.\n\nPara poder avanzar con tu caso, necesito que me respondas a las preguntas que te hice antes sobre tu *tasa*, *localidad*, *día y hora del juicio*, si tienes *antecedentes* y tu *profesión*.\n\nTambién es importante saber qué es lo que *más te preocupa*. ⚖️"
+      }
+    ],
+    "lastUpdate": "2026-05-04T17:41:53.439Z",
+    "name": "Nico"
+  },
+  "4w28b5": {
+    "name": "null",
+    "phone": "null",
+    "email": "null",
+    "work_status": "null",
+    "incident_date_time": "null",
+    "incident_type": "null",
+    "city": "null",
+    "needs_license_for_work": "null",
+    "rate": "null",
+    "judicial_district": "null",
+    "citation_date_time": "null",
+    "priors": "null",
+    "priors_details": "null",
+    "jail": "null",
+    "concerns": "null",
+    "calculated_price": "null",
+    "chosen_quota": "null",
+    "dependents": "null",
+    "income_data": "null",
+    "has_citation": "null",
+    "contact_date_time": "null",
+    "systemin": "webchat",
+    "lastUpdate": "2026-05-04T14:08:17.815Z"
+  },
+  "ucmkbf": {
+    "name": "null",
+    "phone": "null",
+    "email": "null",
+    "work_status": "null",
+    "incident_date_time": "null",
+    "incident_type": "null",
+    "city": "null",
+    "needs_license_for_work": "null",
+    "rate": "null",
+    "judicial_district": "null",
+    "citation_date_time": "null",
+    "priors": "null",
+    "priors_details": "null",
+    "jail": "null",
+    "concerns": "null",
+    "calculated_price": "null",
+    "chosen_quota": "null",
+    "dependents": "null",
+    "income_data": "null",
+    "has_citation": "null",
+    "contact_date_time": "null",
+    "systemin": "webchat",
+    "lastUpdate": "2026-05-04T17:34:39.968Z"
   }
 }

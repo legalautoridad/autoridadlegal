@@ -2,6 +2,7 @@
 
 import { createClient, createAdminClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 
 /**
  * Updated Action: Writes to 'cases' table instead of 'leads'.
@@ -152,10 +153,21 @@ export async function updateLeadJson(session_id: string, data: any) {
             // File might not exist or be empty
         }
 
+        // Auto-capture IP for webchat if not provided
+        if (!data.ipaddress && (data.systemin === 'webchat' || currentData[session_id]?.systemin === 'webchat')) {
+            try {
+                const headersList = await headers();
+                const ip = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'unknown';
+                data.ipaddress = ip.split(',')[0].trim();
+            } catch (e) {
+                // Might fail if not in a request context
+            }
+        }
+
         currentData[session_id] = {
             ...currentData[session_id],
             ...data,
-            systemin: currentData[session_id]?.systemin || 'webchat',
+            systemin: data.systemin || currentData[session_id]?.systemin || 'webchat',
             lastUpdate: new Date().toISOString()
         };
 
@@ -164,6 +176,16 @@ export async function updateLeadJson(session_id: string, data: any) {
     } catch (err) {
         console.error('[LEADS_JSON] Error updating JSON:', err);
         throw err;
+    }
+}
+
+export async function getLeadJson(session_id: string) {
+    try {
+        const content = await fs.readFile(LEADS_JSON_PATH, 'utf-8');
+        const currentData = JSON.parse(content);
+        return currentData[session_id] || null;
+    } catch (e) {
+        return null;
     }
 }
 
@@ -183,7 +205,8 @@ export async function transferJsonToDb(session_id: string) {
             "judicial_district", "citation_date_time", "priors", 
             "priors_details", "jail", "concerns", "calculated_price", 
             "chosen_quota", "dependents", "income_data", 
-            "has_citation", "contact_date_time", "lastUpdate", "systemin"
+            "has_citation", "contact_date_time", "lastUpdate", "systemin",
+            "ipaddress"
         ];
 
         // Filter data to only include valid columns

@@ -74,7 +74,7 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
         "name", "phone", "email", "work_status", "incident_date_time", 
         "incident_type", "city", "needs_license_for_work", "rate", 
         "judicial_district", "citation_date_time", "priors", 
-        "priors_details", "concerns", "calculated_price", 
+        "priors_details", "jail", "concerns", "calculated_price", 
         "chosen_quota", "dependents", "income_data", 
         "has_citation", "contact_date_time"
     ];
@@ -249,7 +249,7 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
         setIsLoading(true);
 
         try {
-            const stream = await sendMessage(newMessages, profile, showDebug);
+            const stream = await sendMessage(newMessages, profile, showDebug, currentSlots);
             let fullResponse = "";
 
             setMessages(prev => [...prev, { role: 'model', content: '' }]);

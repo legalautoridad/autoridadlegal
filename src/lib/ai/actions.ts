@@ -4,6 +4,7 @@ console.log('[ACTIONS] File loaded at ' + new Date().toISOString());
 import { streamText } from 'ai';
 import { getModel, getAIProvider } from './providers';
 import { getVectorContext } from '@/lib/ai/get-context';
+import { headers } from 'next/headers';
 
 export type Message = {
     role: 'user' | 'model';
@@ -12,7 +13,7 @@ export type Message = {
 
 export type ChatProfile = 'alcoholemia' | 'general';
 
-export async function* sendMessage(history: Message[], profile: ChatProfile = 'alcoholemia', debug: boolean = false) {
+export async function* sendMessage(history: Message[], profile: ChatProfile = 'alcoholemia', debug: boolean = false, currentSlots?: Record<string, any>) {
     try {
         console.log(`--- SendMessage AI Execution ---`);
         
@@ -29,8 +30,38 @@ export async function* sendMessage(history: Message[], profile: ChatProfile = 'a
         
         const dateContext = `FECHA ACTUAL ESPAÑA: ${new Date().toLocaleDateString('es-ES', { timeZone: 'Europe/Madrid' })}`;
         
+        const isWhatsapp = currentSlots?.systemin === 'whatsapp';
+
+        if (!isWhatsapp && currentSlots) {
+            try {
+                const headersList = await headers();
+                const ip = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'unknown';
+                currentSlots.ipaddress = ip.split(',')[0].trim();
+            } catch (e) {
+                console.error('Failed to get IP address:', e);
+            }
+        }
+
         const debugContext = debug ? `[DEBUG: true]` : "";
-        const dynamicSystemPrompt = `${systemPrompt}\n\n${dateContext}\n\n${debugContext}\n\n[CONTEXTO LEGAL]:\n${legalContext}`;
+        const slotsContext = currentSlots ? `[ESTADO ACTUAL SLOTS]:\n${JSON.stringify(currentSlots, null, 2)}` : "";
+        
+        let dynamicSystemPrompt = `${systemPrompt}\n\n${dateContext}\n\n${debugContext}\n\n${slotsContext}\n\n[CONTEXTO LEGAL]:\n${legalContext}`;
+
+        // 2.1 Filter prompt by platform [WHATSAPP] or [WEBCHAT]
+        
+        if (isWhatsapp) {
+            // Keep [WHATSAPP] blocks, remove [WEBCHAT] blocks
+            dynamicSystemPrompt = dynamicSystemPrompt
+                .replace(/\[WEBCHAT\][\s\S]*?\[\/WEBCHAT\]/gi, "")
+                .replace(/\[WHATSAPP\]/gi, "")
+                .replace(/\[\/WHATSAPP\]/gi, "");
+        } else {
+            // Keep [WEBCHAT] blocks, remove [WHATSAPP] blocks
+            dynamicSystemPrompt = dynamicSystemPrompt
+                .replace(/\[WHATSAPP\][\s\S]*?\[\/WHATSAPP\]/gi, "")
+                .replace(/\[WEBCHAT\]/gi, "")
+                .replace(/\[\/WEBCHAT\]/gi, "");
+        }
 
         // 3. Send to LLM
         const model = getModel();
@@ -43,10 +74,12 @@ export async function* sendMessage(history: Message[], profile: ChatProfile = 'a
             model: model,
             temperature: GENAI_CONFIG.temperature,
             system: dynamicSystemPrompt,
-            messages: history.map(msg => ({
-                role: (msg.role === 'model' ? 'assistant' : 'user') as 'assistant' | 'user',
-                content: msg.content,
-            })),
+            messages: history
+                .filter(msg => msg.content && msg.content.trim() !== '')
+                .map(msg => ({
+                    role: (msg.role === 'model' ? 'assistant' : 'user') as 'assistant' | 'user',
+                    content: msg.content,
+                })),
         });
 
         // Yield debug info
