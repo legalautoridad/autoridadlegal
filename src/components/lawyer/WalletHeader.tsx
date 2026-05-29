@@ -8,9 +8,14 @@ import { toggleLawyerStatus, rechargeWallet } from '@/lib/actions/lawyer'
 interface WalletHeaderProps {
     balance: number
     isActive: boolean
+    isVerified?: boolean
+    profile?: {
+        full_name: string | null
+        email: string
+    } | null
 }
 
-export function WalletHeader({ balance, isActive }: WalletHeaderProps) {
+export function WalletHeader({ balance, isActive, isVerified = true, profile }: WalletHeaderProps) {
     const [active, setActive] = useState(isActive)
     const [isPending, startTransition] = useTransition()
     const [showRecharge, setShowRecharge] = useState(false)
@@ -69,9 +74,16 @@ export function WalletHeader({ balance, isActive }: WalletHeaderProps) {
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div className="flex items-center justify-between">
+                        {/* LEFT: Profile & Balance */}
+                        <div className="flex items-center space-x-8">
+                            {profile && (
+                                <div className="hidden md:flex flex-col border-r border-gray-100 pr-8">
+                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Especialista</p>
+                                    <h1 className="text-sm font-bold text-slate-900">{profile.full_name || 'Sin nombre'}</h1>
+                                    <p className="text-[10px] text-slate-500 font-medium">{profile.email}</p>
+                                </div>
+                            )}
 
-                        {/* LEFT: Balance & Action */}
-                        <div className="flex items-center space-x-6">
                             <div className="flex items-center space-x-4">
                                 <div className={`p-2 rounded-lg ${isLowBalance ? 'bg-amber-100' : 'bg-emerald-100'}`}>
                                     <Wallet className={`w-6 h-6 ${isLowBalance ? 'text-amber-600' : 'text-emerald-600'}`} />
@@ -85,9 +97,9 @@ export function WalletHeader({ balance, isActive }: WalletHeaderProps) {
                             </div>
 
                             <button
-                                onClick={() => isActive ? setShowRecharge(true) : null}
-                                disabled={!isActive}
-                                className={`hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${isActive
+                                onClick={() => (isActive && isVerified) ? setShowRecharge(true) : null}
+                                disabled={!isActive || !isVerified}
+                                className={`hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${isActive && isVerified
                                         ? 'bg-gray-900 text-white hover:bg-gray-800'
                                         : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                                     }`}
@@ -104,8 +116,8 @@ export function WalletHeader({ balance, isActive }: WalletHeaderProps) {
                             </span>
                             <button
                                 onClick={handleToggle}
-                                disabled={isPending || !isActive}
-                                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${!isActive ? 'bg-gray-200 cursor-not-allowed opacity-50' :
+                                disabled={isPending || !isVerified}
+                                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${!isVerified ? 'bg-gray-200 cursor-not-allowed opacity-50' :
                                         active ? 'bg-emerald-500' : 'bg-gray-200'
                                     }`}
                             >

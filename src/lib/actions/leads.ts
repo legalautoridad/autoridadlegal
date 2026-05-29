@@ -270,7 +270,7 @@ export async function transferJsonToDb(session_id: string) {
             }
         });
 
-        const supabase = await createClient();
+        const supabase = await createAdminClient();
         const { data, error } = await supabase
             .from('leads')
             .insert(filteredData)

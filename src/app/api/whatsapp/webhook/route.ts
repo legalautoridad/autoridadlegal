@@ -107,13 +107,11 @@ export async function POST(req: NextRequest) {
                 if (val) val = val.replace(/['"{} [\]]+/g, '').trim();
                 if (key && val) newSlots[key] = val;
             });
-
-            // Remove tag from response
-            cleanText = cleanText.replace(/\[SLOTS:.*?\]/g, "").trim();
         }
 
-        // Remove other technical tags
+        // ALWAYS remove technical tags from the user-facing text
         cleanText = cleanText
+            .replace(/\[SLOTS:.*?\]/g, "")
             .replace(/\[SAVE_LEAD:.*?\]/g, "")
             .replace(/\[LEAD_DATA:.*?\]/g, "")
             .replace(/\[PAYMENT_BUTTON:.*?\]/g, "")
@@ -132,12 +130,25 @@ export async function POST(req: NextRequest) {
 
         await updateLeadJson(phone, {
             ...newSlots,
+            phone: phone, // Ensure phone is always present
             history: finalHistory,
             lastUpdate: new Date().toISOString(),
             systemin: 'whatsapp'
         });
 
-        // 7. Send Response via WaSender
+        // 7. Check for Persistence Trigger [SAVE_LEAD: ...]
+        if (fullResponse.includes('[SAVE_LEAD:')) {
+            console.log(`[WHATSAPP_IA] Save lead trigger detected for ${phone}. Transferring to DB...`);
+            try {
+                const { transferJsonToDb } = await import('@/lib/actions/leads');
+                await transferJsonToDb(phone);
+                console.log(`[WHATSAPP_IA] Lead for ${phone} successfully transferred to DB.`);
+            } catch (saveErr) {
+                console.error(`[WHATSAPP_IA] Error transferring WhatsApp lead to DB:`, saveErr);
+            }
+        }
+
+        // 8. Send Response via WaSender
         await sendWhatsAppMessage(phone, cleanText);
 
         return NextResponse.json({ success: true });

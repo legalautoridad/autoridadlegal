@@ -31,7 +31,7 @@ export function HeroSection({ config }: { config: SiloConfig }) {
 
 
                     {/* Heading */}
-                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white font-serif leading-tight">
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white font-serif leading-tight">
                         {config.hero.title}
                     </h1>
 

@@ -11,6 +11,17 @@ import { LeadCaptureModal } from "@/components/checkout/LeadCaptureModal";
 import ReactMarkdown from "react-markdown";
 
 export function ChatWidget() {
+    const pathname = usePathname();
+    
+    // Check if we should hide the widget on specific paths
+    const isExcludedPath =
+        pathname === '/login' ||
+        pathname?.startsWith('/admin') ||
+        pathname?.startsWith('/lawyer') ||
+        pathname?.startsWith('/checkout/success');
+
+    if (isExcludedPath) return null;
+
     return (
         <Suspense fallback={null}>
             <ChatWidgetContent />
@@ -19,17 +30,9 @@ export function ChatWidget() {
 }
 
 function ChatWidgetContent() {
-    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
     const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
-
-    // Check if we should hide the widget on specific paths
-    const isExcludedPath =
-        pathname === '/login' ||
-        pathname?.startsWith('/admin') ||
-        pathname?.startsWith('/lawyer') ||
-        pathname?.startsWith('/checkout/success');
 
     // Default to 'alcoholemia' profile for now
     const profile: ChatProfile = 'alcoholemia';
@@ -64,8 +67,6 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
         }
     ]);
 
-    if (isExcludedPath) return null;
-
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [leadData, setLeadData] = useState<{ name: string, phone: string, email?: string, city: string } | null>(null);
@@ -93,6 +94,19 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
 
     const searchParams = useSearchParams();
 
+    // Prevent body scroll when chat is open on mobile
+    useEffect(() => {
+        const isMobile = window.innerWidth < 768;
+        if (isOpen && isMobile) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     // Auto-focus on input when loading finishes
     useEffect(() => {
         if (!isLoading && isOpen) {
@@ -102,15 +116,9 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
         }
     }, [isLoading, isOpen]);
 
-    // Auto-open logic
+    // Auto-open logic removed - Chat stays closed on page load
     useEffect(() => {
-        if (!hasOpened.current) {
-            const timer = setTimeout(() => {
-                setIsOpen(true);
-                hasOpened.current = true;
-            }, 2500);
-            return () => clearTimeout(timer);
-        }
+        hasOpened.current = true; // Mark as opened so it doesn't try to auto-open later if logic changes
     }, []);
 
     // Scroll to bottom
@@ -285,20 +293,37 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-            {/* Chat Window */}
+        <>
+            {/* Chat Window Container */}
             {isOpen && (
-                <div className="mb-4 w-[400px] md:w-[600px] h-[800px] max-h-[90vh] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-10 duration-300">
+                <div 
+                    className={cn(
+                        "z-[60] bg-white shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in fade-in duration-300",
+                        "fixed inset-0 rounded-none", // Mobile
+                        "md:fixed md:inset-auto md:bottom-24 md:right-6 md:w-[400px] lg:md:w-[600px] md:h-[700px] lg:md:h-[800px] md:max-h-[85vh] md:rounded-3xl" // Desktop
+                    )}
+                    style={{ height: '100dvh', maxHeight: '100dvh' }} // Lock mobile height
+                >
+                    {/* Responsive Desktop Height Adjustment */}
+                    <style jsx>{`
+                        @media (min-width: 768px) {
+                            div {
+                                height: auto !important;
+                                max-height: 85vh !important;
+                            }
+                        }
+                    `}</style>
+
                     {/* Header */}
-                    <div className="bg-slate-900 p-4 flex justify-between items-center text-white">
+                    <div className="bg-slate-900 p-4 md:p-5 flex justify-between items-center text-white shrink-0">
                         <div className="flex items-center gap-3">
                             <div className="bg-white/10 p-2 rounded-full">
                                 <Scale className="h-5 w-5 text-accent" />
                             </div>
                             <div>
-                                <h3 className="font-bold text-sm">Asistente Legal IA</h3>
+                                <h3 className="font-bold text-sm md:text-base">Asistente Legal IA</h3>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-xs text-slate-300 flex items-center gap-1">
+                                    <span className="text-[10px] md:text-xs text-slate-300 flex items-center gap-1">
                                         <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                         Conectado
                                     </span>
@@ -307,76 +332,60 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
                                             <button 
                                                 onClick={() => { setShowDebug(!showDebug); setDebugTab('prompt'); }} 
                                                 className={cn(
-                                                    "text-[10px] px-2 py-0.5 rounded border transition-colors",
+                                                    "text-[9px] px-1.5 py-0.5 rounded border transition-colors",
                                                     showDebug && debugTab === 'prompt' ? "bg-white text-slate-900 border-white" : "bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700"
                                                 )}
                                             >
-                                                {showDebug && debugTab === 'prompt' ? 'Cerrar Debug' : 'Prompt'}
+                                                {showDebug && debugTab === 'prompt' ? 'Cerrar' : 'Prompt'}
                                             </button>
                                             <button 
                                                 onClick={() => { setShowDebug(true); setDebugTab('slots'); }} 
                                                 className={cn(
-                                                    "text-[10px] px-2 py-0.5 rounded border transition-colors",
+                                                    "text-[9px] px-1.5 py-0.5 rounded border transition-colors",
                                                     showDebug && debugTab === 'slots' ? "bg-white text-slate-900 border-white" : "bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700"
                                                 )}
                                             >
                                                 Slots
                                             </button>
-                                            {lastSavePayload && (
-                                                <button 
-                                                    onClick={() => { setShowDebug(true); setDebugTab('commit' as any); }} 
-                                                    className={cn(
-                                                        "text-[10px] px-2 py-0.5 rounded border transition-colors",
-                                                        showDebug && debugTab === ('commit' as any) ? "bg-white text-slate-900 border-white" : "bg-amber-600 text-white border-amber-500 hover:bg-amber-500"
-                                                    )}
-                                                >
-                                                    Commit
-                                                </button>
-                                            )}
                                         </div>
                                     )}
                                 </div>
                             </div>
                         </div>
-                        <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition-colors">
-                            <X className="h-5 w-5" />
+                        <button onClick={() => setIsOpen(false)} className="p-2 text-slate-400 hover:text-white transition-colors">
+                            <X className="h-6 w-6" />
                         </button>
                     </div>
 
-                    {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 relative">
+                    {/* Messages Area */}
+                    <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 bg-slate-50 relative">
                         {showDebug && (
                             <div className="absolute inset-0 z-10 bg-slate-900/95 text-green-400 p-4 overflow-y-auto">
                                 {debugTab === 'prompt' ? (
                                     <div className="font-mono text-[10px] leading-relaxed break-words whitespace-pre-wrap">
-                                        <h4 className="text-white font-bold mb-2 uppercase tracking-widest border-b border-slate-700 pb-1">ÚLTIMO PROMPT ENVIADO AL LLM:</h4>
+                                        <h4 className="text-white font-bold mb-2 uppercase tracking-widest border-b border-slate-700 pb-1">ÚLTIMO PROMPT:</h4>
                                         {debugPrompt}
                                     </div>
                                 ) : debugTab === 'slots' ? (
                                     <div className="animate-in fade-in slide-in-from-right-4">
-                                        <h4 className="text-white font-bold mb-4 uppercase tracking-widest border-b border-slate-700 pb-1">ESTADO DEL MAPA DE SLOTS:</h4>
+                                        <h4 className="text-white font-bold mb-4 uppercase tracking-widest border-b border-slate-700 pb-1">MAPA DE SLOTS:</h4>
                                         <div className="grid grid-cols-2 gap-2">
                                             {Object.entries(currentSlots).map(([key, val]) => (
                                                 <div key={key} className="bg-slate-800/50 p-2 rounded border border-slate-700 flex flex-col">
                                                     <span className="text-[8px] text-slate-400 uppercase font-bold">{key}</span>
                                                     <span className={cn(
-                                                        "text-[11px] truncate",
+                                                        "text-[10px] truncate",
                                                         val === 'null' || !val ? "text-slate-600 italic" : "text-amber-400 font-medium"
                                                     )}>
                                                         {val === 'null' || !val ? 'Pendiente' : val}
                                                     </span>
                                                 </div>
                                             ))}
-                                            {Object.keys(currentSlots).length === 0 && (
-                                                <div className="col-span-2 text-center py-10 text-slate-500 italic">
-                                                    No se han detectado slots todavía.
-                                                </div>
-                                            )}
                                         </div>
                                     </div>
                                 ) : (
                                     <div className="animate-in fade-in slide-in-from-right-4">
-                                        <h4 className="text-white font-bold mb-4 uppercase tracking-widest border-b border-amber-700 pb-1 text-amber-500">ÚLTIMO PAYLOAD ENVIADO (COMMIT):</h4>
+                                        <h4 className="text-white font-bold mb-4 uppercase tracking-widest border-b border-amber-700 pb-1 text-amber-500">ÚLTIMO COMMIT:</h4>
                                         <pre className="bg-slate-800/80 p-3 rounded border border-slate-700 text-[10px] text-amber-200 overflow-x-auto">
                                             {JSON.stringify(lastSavePayload, null, 2)}
                                         </pre>
@@ -408,22 +417,25 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
                                                         <img
                                                             src="https://ui-avatars.com/api/?name=Asistente+Legal&background=0D8ABC&color=fff&size=128"
                                                             alt="Asistente IA"
-                                                            className="w-8 h-8 rounded-full border border-slate-200 shadow-sm self-end mb-1 mr-2 object-cover shrink-0"
+                                                            className="w-7 h-7 md:w-8 md:h-8 rounded-full border border-slate-200 shadow-sm self-end mb-1 mr-2 object-cover shrink-0"
                                                         />
                                                     ) : (
-                                                        <div className="w-8 mr-2 shrink-0" />
+                                                        <div className="w-7 md:w-8 mr-2 shrink-0" />
                                                     )
                                                 )}
                                                 
-                                                <div className={cn("rounded-2xl p-3 text-sm shadow-sm break-words max-w-[85%]", msg.role === 'user' ? "bg-slate-900 text-white rounded-br-none" : "bg-slate-100 border border-slate-200 text-slate-900 rounded-bl-none")}>
+                                                <div className={cn(
+                                                    "rounded-2xl p-3 md:p-4 text-sm shadow-sm break-words max-w-[90%] md:max-w-[85%]", 
+                                                    msg.role === 'user' ? "bg-slate-900 text-white rounded-br-none" : "bg-white border border-slate-200 text-slate-900 rounded-bl-none"
+                                                )}>
                                                     {!isEmpty ? (
-                                                        <div className="prose prose-sm prose-slate max-w-none prose-p:leading-relaxed prose-strong:font-bold">
+                                                        <div className="prose prose-sm prose-slate max-w-none prose-p:leading-relaxed prose-strong:font-bold prose-headings:font-bold prose-headings:text-slate-900">
                                                             <ReactMarkdown components={{
                                                                 p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
                                                                 ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
                                                                 ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
                                                                 li: ({ children }) => <li className="mb-1">{children}</li>,
-                                                                a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{children}</a>
+                                                                a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">{children}</a>
                                                             }}>
                                                                 {cleanPart}
                                                             </ReactMarkdown>
@@ -442,12 +454,12 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
 
                                     {/* Action buttons */}
                                     {msg.role === 'model' && (
-                                        <div className={cn("flex w-full justify-start", "pl-10")}>
-                                            <div className="flex flex-col gap-2 mt-1">
+                                        <div className={cn("flex w-full justify-start", "pl-9 md:pl-10")}>
+                                            <div className="flex flex-col gap-2 mt-1 w-full max-w-[90%] md:max-w-[85%]">
                                                 {(() => {
                                                     const match = msg.content.match(/\[PAYMENT_BUTTON:\s*(.*?)\]/);
                                                     if (match) return (
-                                                        <button onClick={() => setIsCheckoutOpen(true)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-xs">
+                                                        <button onClick={() => setIsCheckoutOpen(true)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all text-xs text-center">
                                                             ⚡ ACTIVAR MI DEFENSA AHORA
                                                         </button>
                                                     );
@@ -456,7 +468,7 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
                                                 {(() => {
                                                     const match = msg.content.match(/\[LEAD_FORM:\s*(.*?)\]/);
                                                     if (match) return (
-                                                        <button onClick={() => setIsLeadFormOpen(true)} className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-xs">
+                                                        <button onClick={() => setIsLeadFormOpen(true)} className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all text-xs text-center">
                                                             📞 Dejar mis datos de contacto
                                                         </button>
                                                     );
@@ -472,8 +484,8 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
                     </div>
 
                     {/* Input Area */}
-                    <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-slate-100">
-                        <div className="relative">
+                    <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-slate-100 shrink-0">
+                        <div className="relative max-w-5xl mx-auto">
                             <textarea
                                 ref={inputRef}
                                 value={input}
@@ -481,38 +493,54 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
                                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSubmit(e); } }}
                                 placeholder="Escribe tu consulta..."
                                 disabled={isLoading}
-                                className="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 transition-all resize-none min-h-[50px] max-h-[150px]"
+                                className="w-full pl-4 pr-12 py-3 md:py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 transition-all resize-none min-h-[52px] max-h-[150px] text-base" // Fixed to text-base for mobile
                                 rows={1}
                             />
-                            <button type="submit" disabled={isLoading || !input.trim()} className="absolute right-2 top-2 p-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 disabled:opacity-50">
-                                <Send className="h-4 w-4" />
+                            <button type="submit" disabled={isLoading || !input.trim()} className="absolute right-2 top-2 bottom-2 md:top-3 md:bottom-3 px-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 disabled:opacity-50 transition-colors">
+                                <Send className="h-4 w-4 md:h-5 md:w-5" />
                             </button>
                         </div>
+                        <p className="mt-2 text-[10px] text-center text-slate-400 md:hidden">Presiona el botón para enviar</p>
                     </form>
                 </div>
             )}
 
-            {/* Toggle Button */}
-            <div className="relative group">
+            {/* Toggle Buttons Container */}
+            <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end gap-3 md:gap-4">
+                {/* WhatsApp Button */}
                 {!isOpen && (
-                    <div className="absolute right-24 top-2 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-slate-700 whitespace-nowrap animate-in fade-in slide-in-from-right-8 duration-700 flex items-center gap-3">
-                        <div className="text-xl">🗣️</div>
-                        <div>
-                            <p className="text-sm font-bold">¿Qué te ha pasado?</p>
-                            <p className="text-xs text-slate-300">Explícalo aquí (Respuesta Inmediata)</p>
-                        </div>
-                        <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-900 rotate-45 border-r border-t border-slate-700"></div>
-                    </div>
+                    <a
+                        href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '34657420999'}?text=${encodeURIComponent("Hola, he tenido un problema con alcoholemia y necesito ayuda.")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="h-12 w-12 md:h-16 md:w-16 bg-[#25D366] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 border-4 border-white relative z-10 animate-in fade-in slide-in-from-bottom-4"
+                    >
+                        <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 md:h-8 md:w-8 text-white fill-current"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                    </a>
                 )}
-                <button
-                    onClick={() => setIsOpen(!isOpen)}
-                    className={cn(
-                        "h-20 w-20 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 border-4 border-white relative z-10",
-                        isOpen ? "bg-slate-700 text-white" : "bg-blue-600 text-white"
+
+                {/* Webchat Toggle Button */}
+                <div className="relative group">
+                    {!isOpen && (
+                        <div className="absolute right-16 md:right-24 top-1 md:top-2 bg-slate-900 text-white px-3 md:px-4 py-2 md:py-3 rounded-xl shadow-2xl border border-slate-700 whitespace-nowrap animate-in fade-in slide-in-from-right-8 duration-700 flex items-center gap-2 md:gap-3">
+                            <div className="text-lg md:text-xl">🗣️</div>
+                            <div>
+                                <p className="text-[10px] md:text-sm font-bold">¿Qué te ha pasado?</p>
+                                <p className="text-[9px] md:text-xs text-slate-300">Explícalo aquí</p>
+                            </div>
+                            <div className="absolute -right-1 md:-right-2 top-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 bg-slate-900 rotate-45 border-r border-t border-slate-700"></div>
+                        </div>
                     )}
-                >
-                    {isOpen ? <X className="h-8 w-8" /> : <MessageSquare className="h-10 w-10" />}
-                </button>
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className={cn(
+                            "h-14 w-14 md:h-20 md:w-20 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 border-4 border-white relative z-10",
+                            isOpen ? "bg-slate-700 text-white" : "bg-blue-600 text-white"
+                        )}
+                    >
+                        {isOpen ? <X className="h-6 w-6 md:h-8 md:w-8" /> : <MessageSquare className="h-8 w-8 md:h-10 md:w-10" />}
+                    </button>
+                </div>
             </div>
 
             {/* Modals */}
@@ -531,6 +559,6 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
                     />
                 );
             })()}
-        </div>
+        </>
     );
 }

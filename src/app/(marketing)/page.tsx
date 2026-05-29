@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { Lock } from "lucide-react";
-
 import { SchemaOrg } from "@/components/seo/SchemaOrg";
 
 export default function MarketingPage() {
@@ -29,17 +27,7 @@ export default function MarketingPage() {
                     Genesis Project 2025.
                 </p>
 
-                <div className="absolute top-6 right-6">
-                    <Link
-                        href="/login"
-                        className="text-sm font-medium text-slate-500 hover:text-slate-900 flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-100 transition-all"
-                    >
-                        <Lock className="w-4 h-4" />
-                        Acceso Abogados
-                    </Link>
-                </div>
-
-                <div className="flex gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                     <Link
                         href="/lawyer/dashboard"
                         className="rounded-full bg-primary px-8 py-3 text-white font-medium hover:bg-slate-800 transition-colors"
