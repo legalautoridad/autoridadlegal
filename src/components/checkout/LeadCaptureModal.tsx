@@ -48,8 +48,8 @@ export function LeadCaptureModal({ isOpen, onClose, prefillName = '', city = '',
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md relative overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 md:p-6 animate-in fade-in duration-300">
+            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md relative overflow-hidden max-h-[95vh] overflow-y-auto">
 
                 {/* Header */}
                 <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 p-6 text-white">

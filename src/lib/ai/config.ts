@@ -16,28 +16,7 @@ export const DEEPSEEK_CONFIG = {
 /**
  * Fallback prompt if database is empty or unreachable.
  */
-/**
- * STATIC_PROMPT_LOGIC: Technical rules, slot definitions, and persistence flow.
- * This part stays in code to ensure the system doesn't break if someone edits the DB incorrectly.
- */
-const STATIC_PROMPT_LOGIC = `
-<technical_constraints>
-- Slot Map: These are the exact keys you must use for data extraction:
-- name, phone, email, work_status, incident_date_time, incident_type, city, needs_license_for_work, rate, judicial_district, citation_date_time, priors, priors_details, jail, concerns, calculated_price, chosen_quota, dependents, income_data, has_citation, contact_date_time.
-- Use only these keys in [SLOTS: ...] and [SAVE_LEAD: ...].
-</technical_constraints>
-
-<debug_mode>
-- If the context indicates [DEBUG: true], you must append a status table to your response to show progress:
-| Field Name | Current Value | Status |
-|------------|---------------|--------|
-</debug_mode>
-
-<strictly_prohibited>
-- Do not repeat questions for already filled slots.
-- Do not use long paragraphs; keep it short for WhatsApp.
-</strictly_prohibited>
-`;
+const STATIC_PROMPT_LOGIC = ``;
 
 const FALLBACK_IDENTITY_PROMPT = `
 <system_identity>
@@ -54,17 +33,17 @@ const FALLBACK_IDENTITY_PROMPT = `
 export async function getLiveSystemPrompt(): Promise<string> {
     try {
         const now = new Date();
-        const madridDate = now.toLocaleDateString('es-ES', { 
-            timeZone: 'Europe/Madrid', 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
+        const madridDate = now.toLocaleDateString('es-ES', {
+            timeZone: 'Europe/Madrid',
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
-        const madridTime = now.toLocaleTimeString('es-ES', { 
-            timeZone: 'Europe/Madrid', 
-            hour: '2-digit', 
-            minute: '2-digit' 
+        const madridTime = now.toLocaleTimeString('es-ES', {
+            timeZone: 'Europe/Madrid',
+            hour: '2-digit',
+            minute: '2-digit'
         });
 
         const timeContext = `

@@ -1,5 +1,5 @@
 {
-  "8fito": {
+  "ss63n": {
     "name": "null",
     "phone": "null",
     "email": "null",
@@ -13,6 +13,7 @@
     "citation_date_time": "null",
     "priors": "null",
     "priors_details": "null",
+    "jail": "null",
     "concerns": "null",
     "calculated_price": "null",
     "chosen_quota": "null",
@@ -21,9 +22,9 @@
     "has_citation": "null",
     "contact_date_time": "null",
     "systemin": "webchat",
-    "lastUpdate": "2026-04-29T18:27:29.988Z"
+    "lastUpdate": "2026-05-12T14:03:22.125Z"
   },
-  "t9iaho": {
+  "3dnw1sp": {
     "name": "null",
     "phone": "null",
     "email": "null",
@@ -37,6 +38,7 @@
     "citation_date_time": "null",
     "priors": "null",
     "priors_details": "null",
+    "jail": "null",
     "concerns": "null",
     "calculated_price": "null",
     "chosen_quota": "null",
@@ -45,33 +47,24 @@
     "has_citation": "null",
     "contact_date_time": "null",
     "systemin": "webchat",
-    "lastUpdate": "2026-04-29T18:31:31.474Z"
+    "lastUpdate": "2026-05-12T16:05:20.630Z"
   },
-  "8rurz9": {
-    "name": "null",
-    "phone": "null",
-    "email": "null",
-    "work_status": "null",
-    "incident_date_time": "null",
-    "incident_type": "null",
-    "city": "null",
-    "needs_license_for_work": "null",
-    "rate": "null",
-    "judicial_district": "null",
-    "citation_date_time": "null",
-    "priors": "null",
-    "priors_details": "null",
-    "concerns": "null",
-    "calculated_price": "null",
-    "chosen_quota": "null",
-    "dependents": "null",
-    "income_data": "null",
-    "has_citation": "null",
-    "contact_date_time": "null",
-    "systemin": "webchat",
-    "lastUpdate": "2026-04-29T18:39:27.892Z"
+  "18583809491": {
+    "phone": "18583809491",
+    "history": [
+      {
+        "role": "user",
+        "content": "Hola, he tenido un problema con alcoholemia y necesito ayuda."
+      },
+      {
+        "role": "model",
+        "content": "Hola. Es normal sentirse así en estos momentos. Estoy aquí para ayudarte a recuperar el control.\n\nPara empezar, ¿podrías decirme tu nombre, por favor? ⚖️\n\n[SLOTS: ]"
+      }
+    ],
+    "lastUpdate": "2026-05-12T16:20:46.848Z",
+    "systemin": "whatsapp"
   },
-  "sawqpt": {
+  "z3edv": {
     "name": "null",
     "phone": "null",
     "email": "null",
@@ -85,6 +78,7 @@
     "citation_date_time": "null",
     "priors": "null",
     "priors_details": "null",
+    "jail": "null",
     "concerns": "null",
     "calculated_price": "null",
     "chosen_quota": "null",
@@ -93,6 +87,56 @@
     "has_citation": "null",
     "contact_date_time": "null",
     "systemin": "webchat",
-    "lastUpdate": "2026-04-29T18:39:33.848Z"
+    "lastUpdate": "2026-05-12T16:31:09.826Z"
+  },
+  "mpq7oc": {
+    "name": "null",
+    "phone": "null",
+    "email": "null",
+    "work_status": "null",
+    "incident_date_time": "null",
+    "incident_type": "null",
+    "city": "null",
+    "needs_license_for_work": "null",
+    "rate": "null",
+    "judicial_district": "null",
+    "citation_date_time": "null",
+    "priors": "null",
+    "priors_details": "null",
+    "jail": "null",
+    "concerns": "null",
+    "calculated_price": "null",
+    "chosen_quota": "null",
+    "dependents": "null",
+    "income_data": "null",
+    "has_citation": "null",
+    "contact_date_time": "null",
+    "systemin": "webchat",
+    "lastUpdate": "2026-05-29T04:40:00.529Z"
+  },
+  "b30wws": {
+    "name": "null",
+    "phone": "null",
+    "email": "null",
+    "work_status": "null",
+    "incident_date_time": "null",
+    "incident_type": "null",
+    "city": "null",
+    "needs_license_for_work": "null",
+    "rate": "null",
+    "judicial_district": "null",
+    "citation_date_time": "null",
+    "priors": "null",
+    "priors_details": "null",
+    "jail": "null",
+    "concerns": "null",
+    "calculated_price": "null",
+    "chosen_quota": "null",
+    "dependents": "null",
+    "income_data": "null",
+    "has_citation": "null",
+    "contact_date_time": "null",
+    "systemin": "webchat",
+    "lastUpdate": "2026-05-29T04:51:10.487Z"
   }
 }

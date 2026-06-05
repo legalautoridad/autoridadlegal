@@ -24,11 +24,8 @@ export async function submitOnboarding(data: OnboardingData) {
             bar_association: data.barAssociation,
             bar_number: data.barNumber,
             office_address: data.officeAddress,
-            notification_email: data.notificationEmail,
             notification_phone: data.notificationPhone,
-            website_url: data.websiteUrl,
-            is_verified: false,
-            verification_status: 'PENDING'
+            website_url: data.websiteUrl
         }, { onConflict: 'id' });
 
     if (profileError) {

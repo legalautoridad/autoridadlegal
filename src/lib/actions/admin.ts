@@ -23,15 +23,15 @@ export async function approveLawyer(lawyerId: string) {
 
     const adminClient = await createAdminClient();
 
-    const { error } = await adminClient
-        .from('lawyer_profiles')
-        .update({
-            is_verified: true,
-            verification_status: 'VERIFIED'
-        })
+    // Update both tables to keep them in sync
+    const { error: memberError } = await adminClient
+        .from('lawyer_members')
+        .update({ is_verified: true })
         .eq('id', lawyerId);
 
-    if (error) throw new Error(error.message);
+    if (memberError) throw new Error(memberError.message);
+
+    if (memberError) console.error('Error syncing lawyer_members verification:', memberError);
 
     revalidatePath('/admin/verifications');
     revalidatePath('/admin/lawyers');
@@ -44,15 +44,15 @@ export async function rejectLawyer(lawyerId: string) {
 
     const adminClient = await createAdminClient();
 
-    const { error } = await adminClient
-        .from('lawyer_profiles')
-        .update({
-            is_verified: false,
-            verification_status: 'REJECTED'
-        })
+    // Update both tables to keep them in sync
+    const { error: memberError } = await adminClient
+        .from('lawyer_members')
+        .update({ is_verified: false })
         .eq('id', lawyerId);
 
-    if (error) throw new Error(error.message);
+    if (memberError) throw new Error(memberError.message);
+
+    if (memberError) console.error('Error syncing lawyer_members verification:', memberError);
 
     revalidatePath('/admin/verifications');
     revalidatePath('/admin/lawyers');
@@ -72,12 +72,11 @@ export async function getLawyerMembers() {
             email,
             full_name,
             is_active,
+            is_verified,
             created_at,
+            specialties,
             lawyer_profiles (
-                is_verified,
-                verification_status,
-                notification_phone,
-                main_specialty
+                notification_phone
             )
         `)
         .order('created_at', { ascending: false });
@@ -100,6 +99,7 @@ export async function updateLawyerMember(id: string, updates: any) {
     const memberUpdates: any = {};
     if (updates.full_name !== undefined) memberUpdates.full_name = updates.full_name;
     if (updates.is_active !== undefined) memberUpdates.is_active = updates.is_active;
+    if (updates.is_verified !== undefined) memberUpdates.is_verified = updates.is_verified;
 
     if (Object.keys(memberUpdates).length > 0) {
         console.log('Updating lawyer_members:', memberUpdates);
@@ -113,11 +113,8 @@ export async function updateLawyerMember(id: string, updates: any) {
         }
     }
 
-    // 2. Prepare updates for lawyer_profiles
+    // 2. Prepare updates for lawyer_profiles (none currently needed for verification)
     const profileUpdates: any = {};
-    if (updates.verification_status !== undefined) profileUpdates.verification_status = updates.verification_status;
-    if (updates.is_verified !== undefined) profileUpdates.is_verified = updates.is_verified;
-    if (updates.main_specialty !== undefined) profileUpdates.main_specialty = updates.main_specialty;
 
     if (Object.keys(profileUpdates).length > 0) {
         console.log('Updating/Initializing lawyer_profiles:', profileUpdates);
@@ -148,14 +145,11 @@ export async function updateLawyerMember(id: string, updates: any) {
                 .insert({
                     id,
                     ...profileUpdates,
-                    notification_email: updates.email || '', // We might not have email here unless passed
                     document_number: '',
                     bar_association: '',
                     bar_number: '',
                     office_address: '',
-                    notification_phone: '',
-                    is_verified: profileUpdates.is_verified ?? false,
-                    verification_status: profileUpdates.verification_status ?? 'PENDING'
+                    notification_phone: ''
                 });
 
             if (insertError) {
@@ -217,9 +211,6 @@ export async function createLawyerMember(data: { email: string; full_name: strin
         .from('lawyer_profiles')
         .upsert({
             id: userId,
-            notification_email: data.email,
-            verification_status: 'PENDING',
-            is_verified: false,
             // Provide empty strings for required fields if they are still NOT NULL
             document_number: '',
             bar_association: '',

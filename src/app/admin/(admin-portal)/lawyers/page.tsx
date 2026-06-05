@@ -102,25 +102,25 @@ export default function LawyerManagementPage() {
                         <ArrowLeft className="h-4 w-4" />
                         Volver al Dashboard
                     </Link>
-                    <div className="flex justify-between items-end">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                         <div>
-                            <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Gestión de Abogados Miembros</h1>
-                            <p className="text-slate-500">Administra los accesos y perfiles de los especialistas.</p>
+                            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Gestión de Abogados Miembros</h1>
+                            <p className="text-slate-500 text-sm md:text-base">Administra los accesos y perfiles de los especialistas.</p>
                         </div>
-                        <div className="flex gap-4">
-                            <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 px-4 h-11">
+                        <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                            <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 px-4 h-11 flex-1 md:flex-none">
                                 <Search className="h-4 w-4 text-slate-400" />
                                 <input
                                     type="text"
-                                    placeholder="Buscar por nombre o email..."
-                                    className="bg-transparent border-none focus:ring-0 text-sm w-64"
+                                    placeholder="Buscar..."
+                                    className="bg-transparent border-none focus:ring-0 text-sm w-full md:w-64"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             </div>
                             <button
                                 onClick={() => setShowAddModal(true)}
-                                className="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 h-11"
+                                className="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 h-11 w-full sm:w-auto"
                             >
                                 <Plus className="h-4 w-4" />
                                 Añadir Miembro
@@ -201,13 +201,13 @@ export default function LawyerManagementPage() {
                                     <div>
                                         <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 ml-1">¿Verificado?</label>
                                         <select
-                                            name="is_verified"
-                                            defaultValue={editingLawyer.lawyer_profiles?.[0]?.is_verified ? 'true' : 'false'}
-                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-slate-50/50"
-                                        >
-                                            <option value="true">Sí (Badge azul)</option>
-                                            <option value="false">No</option>
-                                        </select>
+                                             name="is_verified"
+                                             defaultValue={editingLawyer.is_verified ? 'true' : 'false'}
+                                             className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all bg-slate-50/50"
+                                         >
+                                             <option value="true">Sí (Badge azul)</option>
+                                             <option value="false">No</option>
+                                         </select>
                                     </div>
                                 </div>
                                 <div>
@@ -252,7 +252,8 @@ export default function LawyerManagementPage() {
                 )}
 
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <table className="w-full text-left">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left">
                         <thead className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
                             <tr>
                                 <th className="px-6 py-4">Abogado</th>
@@ -303,15 +304,15 @@ export default function LawyerManagementPage() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-2">
-                                                {lawyer.lawyer_profiles?.[0]?.is_verified ? (
-                                                    <div className="flex items-center gap-1.5 text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg border border-blue-100">
-                                                        <ShieldCheck className="h-3 w-3" /> VERIFICADO
-                                                    </div>
-                                                ) : (
-                                                    <div className="flex items-center gap-1.5 text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-lg border border-amber-100">
-                                                        <ShieldAlert className="h-3 w-3" /> PENDIENTE
-                                                    </div>
-                                                )}
+                                                {lawyer.is_verified ? (
+                                                     <div className="flex items-center gap-1.5 text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg border border-blue-100">
+                                                         <ShieldCheck className="h-3 w-3" /> VERIFICADO
+                                                     </div>
+                                                 ) : (
+                                                     <div className="flex items-center gap-1.5 text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-lg border border-amber-100">
+                                                         <ShieldAlert className="h-3 w-3" /> PENDIENTE
+                                                     </div>
+                                                 )}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 text-right">
@@ -336,7 +337,8 @@ export default function LawyerManagementPage() {
                                 ))
                             )}
                         </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

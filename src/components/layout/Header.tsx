@@ -1,16 +1,13 @@
 import Link from "next/link";
-import { ShieldAlert, Menu, Phone } from "lucide-react";
+import { ShieldAlert, Menu, User, LayoutDashboard } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
-export function Header() {
+export async function Header() {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
     return (
         <header className="sticky top-0 z-50 bg-white shadow-sm font-sans">
-            {/* Urgency Protocol Strip */}
-            {/*<div className="bg-black text-white px-4 py-2 text-center text-xs md:text-sm font-bold tracking-widest uppercase">
-                <span className="animate-pulse text-red-500 mr-2">🚨 Protocolo de Urgencia Activado 24h</span>
-                <span className="hidden md:inline text-slate-400">|</span>
-                <span className="hidden md:inline ml-2 text-slate-300">Respuesta Garantizada en &lt; 30 min</span>
-            </div>
-
             {/* Main Navigation */}
             <div className="container mx-auto px-6 h-20 flex items-center justify-between">
                 {/* Logo */}
@@ -22,7 +19,7 @@ export function Header() {
                         AUTORIDAD <span className="font-bold">LEGAL</span>
                     </span>
                 </Link>
-
+ 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
                     <Link href="/alcoholemia" className="hover:text-blue-600 transition-colors">Alcoholemia</Link>
@@ -31,19 +28,33 @@ export function Header() {
                     <Link href="/recursos" className="hover:text-blue-600 transition-colors">Recursos</Link>
                 </nav>
 
-                {/* CTA Button */}
-                {/*<div className="flex items-center gap-4">
-                    <a
-                        href="tel:900000000"
-                        className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-full font-bold text-sm shadow-red-200 shadow-lg hover:bg-red-700 transition-all hover:scale-105"
-                    >
-                        <Phone className="h-4 w-4" />
-                        <span>URGENCIAS</span>
-                    </a>
-                    <button className="md:hidden p-2 text-slate-600">
+                {/* Right Side */}
+                <div className="flex items-center gap-4">
+                    {user ? (
+                        <Link
+                            href="/lawyer/dashboard"
+                            className="flex items-center gap-2 text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-lg transition-all border border-indigo-100 shadow-sm"
+                        >
+                            <LayoutDashboard className="w-4 h-4" />
+                            MI PANEL
+                            <span className="hidden lg:inline text-[10px] text-indigo-400 font-medium ml-2 border-l border-indigo-200 pl-2">
+                                {user.email}
+                            </span>
+                        </Link>
+                    ) : (
+                        <Link
+                            href="/login"
+                            className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-900 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100"
+                        >
+                            <ShieldAlert className="w-3.5 h-3.5" />
+                            ACCESO ABOGADOS
+                        </Link>
+                    )}
+                    
+                    <button className="md:hidden p-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors">
                         <Menu className="h-6 w-6" />
                     </button>
-                </div>*/}
+                </div>
             </div>
         </header>
     );

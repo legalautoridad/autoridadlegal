@@ -185,7 +185,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                     <X className="h-5 w-5" />
                 </button>
 
-                {/* Left Column - Summary */}
+                {/* Left Column - Summary (Desktop) */}
                 <div className="bg-slate-50 border-r border-slate-200 p-6 md:p-8 w-full md:w-[40%] flex-col justify-between hidden md:flex">
                     <div>
                         <div className="flex items-center gap-2 mb-8">
@@ -223,6 +223,19 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                             <span className="text-3xl font-black text-slate-900">{price.toFixed(2)} €</span>
                         </div>
                         <p className="text-[10px] text-slate-400 text-center">IVA Incluido. Pago procesado de forma segura.</p>
+                    </div>
+                </div>
+
+                {/* Mobile Summary */}
+                <div className="md:hidden bg-slate-50 border-b border-slate-200 p-5 mt-12">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h3 className="font-bold text-slate-900 text-sm">Activación de Defensa</h3>
+                            <p className="text-[10px] text-slate-500">{incidentType} • {city}</p>
+                        </div>
+                        <div className="text-right">
+                            <span className="text-xl font-black text-slate-900">{price.toFixed(2)} €</span>
+                        </div>
                     </div>
                 </div>
 

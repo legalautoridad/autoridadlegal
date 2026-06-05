@@ -1,30 +1,27 @@
 'use server'
 
-import { createClient } from '../supabase/server'
+import { createClient, createAdminClient } from '../supabase/server'
 import { revalidatePath } from 'next/cache'
 
 export type DashboardData = {
     wallet: {
         balance: number
-        is_active: boolean
     } | null
-    cases: {
+    status: {
+        is_active: boolean
+    }
+    profile: {
         id: string
-        client_name: string
-        client_phone: string
-        client_city: string
-        honorarios: number
-        status: string
-        created_at: string
-        ai_summary?: string
-        client_profile?: any
-        notes?: string
-    }[]
+        email: string
+        full_name: string | null
+    } | null
+    activeCases: any[]
+    historicalCases: any[]
     availability: any[]
     verification: {
         is_verified: boolean
-        status: string
     } | null
+    leads: any[]
 }
 
 export async function getLawyerDashboardData(): Promise<DashboardData> {
@@ -45,18 +42,16 @@ export async function getLawyerDashboardData(): Promise<DashboardData> {
 
     const { data: profileData } = await supabase
         .from('lawyer_members')
-        .select('is_active')
+        .select('id, email, full_name, is_active, is_verified')
         .eq('id', lawyerId)
         .single()
 
     // 3. Fetch Assigned Cases (Active ones mainly)
-    // We want cases that are ASSIGNED or CONTACTED. Maybe UNREACHABLE/CANCELLED for history?
-    // Let's grab all active ones for the Inbox.
     const { data: cases } = await supabase
         .from('cases')
         .select('*')
         .eq('assigned_lawyer_id', lawyerId)
-        .in('status', ['ASSIGNED', 'CONTACTED'])
+        .in('status', ['ASSIGNED', 'CONTACTED', 'OPEN', 'CLOSED_FINISHED', 'CLOSED_REJECTED'])
         .order('created_at', { ascending: false })
 
     // 4. Fetch Availability (Future dates)
@@ -67,24 +62,168 @@ export async function getLawyerDashboardData(): Promise<DashboardData> {
         .eq('lawyer_id', lawyerId)
         .gte('blocked_date', today)
 
-    const { data: lawyerProfile } = await supabase
-        .from('lawyer_profiles')
-        .select('is_verified, verification_status')
-        .eq('id', lawyerId)
-        .single()
+    // lawyer_profiles no longer has verification_status or is_verified (consolidated in lawyer_members)
+
+    // 5. Fetch Available Leads (Marketplace)
+    const { data: leads } = await supabase
+        .from('leads')
+        .select('*')
+        .eq('is_taken', false) // Only show leads that are NOT taken
+        .order('created_at', { ascending: false })
 
     return {
-        wallet: walletData ? {
-            balance: walletData.balance,
+        wallet: {
+            balance: walletData?.balance || 0
+        },
+        status: {
             is_active: profileData?.is_active || false
+        },
+        profile: profileData ? {
+            id: profileData.id,
+            email: profileData.email,
+            full_name: profileData.full_name
         } : null,
-        cases: cases || [],
+        activeCases: cases?.filter(c => !c.status.startsWith('CLOSED')) || [],
+        historicalCases: cases?.filter(c => c.status.startsWith('CLOSED')) || [],
         availability: availability || [],
-        verification: lawyerProfile ? {
-            is_verified: lawyerProfile.is_verified,
-            status: lawyerProfile.verification_status
-        } : null
+        verification: {
+            is_verified: profileData?.is_verified || false
+        },
+        leads: leads || []
     }
+}
+
+export async function claimLead(leadId: string) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('Unauthorized')
+
+    // 1. Get Lead Data
+    const { data: lead, error: leadError } = await supabase
+        .from('leads')
+        .select('*')
+        .eq('id', leadId)
+        .single()
+
+    if (leadError || !lead) throw new Error('Lead not found')
+    if (lead.is_taken) throw new Error('Lead already taken')
+
+    // 2. Mark lead as taken (Use Admin Client to bypass RLS on leads table)
+    const adminSupabase = await createAdminClient()
+    const { error: updateLeadError } = await adminSupabase
+        .from('leads')
+        .update({
+            is_taken: true,
+            claimed_by: user.id,
+            claimed_at: new Date().toISOString()
+        })
+        .eq('id', leadId)
+
+    if (updateLeadError) throw new Error('Failed to claim lead')
+
+    // 3. Copy to cases table
+    const { error: createCaseError } = await supabase
+        .from('cases')
+        .insert({
+            lead_id: lead.id,
+            assigned_lawyer_id: user.id,
+            status: 'OPEN',
+            client_name: lead.name,
+            client_phone: lead.phone,
+            client_email: lead.email,
+            client_city: lead.city,
+            honorarios: lead.calculated_price || 0,
+            incident_type: lead.incident_type,
+            incident_date_time: lead.incident_date_time,
+            judicial_district: lead.judicial_district,
+            priors: lead.priors,
+            priors_details: lead.priors_details,
+            concerns: lead.concerns,
+            calculated_price: lead.calculated_price,
+            chosen_quota: lead.chosen_quota,
+            dependents: lead.dependents,
+            income_data: lead.income_data,
+            has_citation: lead.has_citation,
+            work_status: lead.work_status,
+            needs_license_for_work: lead.needs_license_for_work,
+            contact_date_time: lead.contact_date_time,
+            jail: lead.jail,
+            ai_summary: lead.ai_summary,
+            citation_date_time: lead.citation_date_time,
+            rate: lead.rate,
+            systemin: lead.systemin
+        })
+
+    if (createCaseError) {
+        console.error('Error creating case:', createCaseError)
+        throw new Error('Failed to create case from lead')
+    }
+
+    revalidatePath('/lawyer/dashboard')
+    return { success: true }
+}
+
+export async function updateCase(caseId: string, data: { status?: string, observations?: string, notes?: string }) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('Unauthorized')
+
+    const { error } = await supabase
+        .from('cases')
+        .update(data)
+        .eq('id', caseId)
+        .eq('assigned_lawyer_id', user.id)
+
+    if (error) {
+        console.error('Error updating case:', error)
+        throw new Error(`Failed to update case: ${error.message}`)
+    }
+
+    revalidatePath('/lawyer/dashboard')
+    return { success: true }
+}
+
+export async function cancelCase(caseId: string) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('Unauthorized')
+
+    // 1. Get data from case
+    const { data: caseData } = await supabase
+        .from('cases')
+        .select('lead_id, assigned_lawyer_id, status')
+        .eq('id', caseId)
+        .single()
+
+    if (!caseData || caseData.assigned_lawyer_id !== user.id) {
+        throw new Error('Unauthorized access to case')
+    }
+
+    if (caseData.status !== 'OPEN') {
+        throw new Error('Solo se pueden cancelar casos en estado ABIERTO')
+    }
+
+    if (caseData.lead_id) {
+        // 2. Mark lead as NOT taken (using admin client to bypass RLS)
+        const adminSupabase = await createAdminClient()
+        await adminSupabase
+            .from('leads')
+            .update({
+                is_taken: false,
+                claimed_by: null,
+                claimed_at: null
+            })
+            .eq('id', caseData.lead_id)
+    }
+
+    // 3. Mark case as CANCELLED (so it disappears from active lists)
+    await supabase
+        .from('cases')
+        .update({ status: 'CANCELLED' })
+        .eq('id', caseId)
+
+    revalidatePath('/lawyer/dashboard')
+    return { success: true }
 }
 
 export async function confirmCaseContact(caseId: string) {

@@ -13,6 +13,11 @@
             "spanish": "telefono",
             "description": "Client Phone number"
         },
+        "ipaddress": {
+            "value": null,
+            "spanish": "ipaddress",
+            "description": "Client ipaddress"
+        },
         "email": {
             "value": null,
             "spanish": "email",
