@@ -1792,5 +1792,30 @@
     "contact_date_time": "null",
     "systemin": "webchat",
     "lastUpdate": "2026-06-11T15:18:36.620Z"
+  },
+  "dm336r": {
+    "name": "null",
+    "phone": "null",
+    "email": "null",
+    "work_status": "null",
+    "incident_date_time": "null",
+    "incident_type": "null",
+    "city": "null",
+    "needs_license_for_work": "null",
+    "rate": "null",
+    "judicial_district": "null",
+    "citation_date_time": "null",
+    "priors": "null",
+    "priors_details": "null",
+    "jail": "null",
+    "concerns": "null",
+    "calculated_price": "null",
+    "chosen_quota": "null",
+    "dependents": "null",
+    "income_data": "null",
+    "has_citation": "null",
+    "contact_date_time": "null",
+    "systemin": "webchat",
+    "lastUpdate": "2026-06-16T08:51:18.729Z"
   }
 }
