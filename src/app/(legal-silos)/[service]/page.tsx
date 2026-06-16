@@ -61,7 +61,7 @@ export default async function VerticalPage({ params }: Props) {
     ];
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-ice text-on-surface">
             <SchemaOrg
                 type="Service"
                 data={{
@@ -108,11 +108,6 @@ export default async function VerticalPage({ params }: Props) {
 
             {/* --- CTA FINAL --- */}
 
-            {/* Footer (Simple for now) */}
-            <footer className="bg-slate-900 text-slate-400 py-12 text-center text-sm border-t border-slate-800">
-                <p>© 2024 Autoridad Legal. Todos los derechos reservados.</p>
-                <p className="mt-2 text-slate-600">Especialistas en {config.hero.badge_text}</p>
-            </footer>
         </main>
     );
 }

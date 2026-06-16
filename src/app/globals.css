@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -14,6 +15,33 @@
   --color-primary: #0F172A;
   --color-accent: #C2410C;
   --color-surface: #F8FAFC;
+
+  /* Terra theme colors from Stitch */
+  --color-trust-navy: #0A192F;
+  --color-prestige-gold: #D4AF37;
+  --color-legal-ink: #1D1E20;
+  --color-surface-ice: #FAFBFF;
+  --color-surface-low: #f2f3fd;
+  --color-outline-variant: #c5c6cd;
+  --color-secondary-fixed-dim: #e9c349;
+  --color-secondary-fixed: #ffe088;
+  --color-surface-dim: #d8d9e3;
+
+  /* Custom typography mappings */
+  --font-headline-xl: var(--font-montserrat);
+  --font-headline-lg: var(--font-montserrat);
+  --font-headline-md: var(--font-montserrat);
+  --font-body-lg: var(--font-source-serif-4);
+  --font-body-md: var(--font-source-serif-4);
+  --font-label-md: var(--font-inter);
+  --font-label-sm: var(--font-inter);
+
+  /* Spacing */
+  --spacing-margin-mobile: 16px;
+  --spacing-gutter: 24px;
+  --spacing-base: 8px;
+  --spacing-max-width: 1200px;
+  --spacing-margin-desktop: 64px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,5 +54,31 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-source-serif-4), serif;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+button, input, select, textarea {
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Custom design system utilities */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #0A192F 0%, #1D1E20 100%);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+

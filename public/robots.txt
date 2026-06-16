@@ -1,0 +1,19 @@
+# Robots.txt for Autoridad.Legal
+
+# Allow AI crawlers explicitly for LLMO (LLM Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# General Search Engines and other crawlers
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /lawyer/dashboard
+
+Sitemap: https://autoridadlegal.com/sitemap.xml

@@ -11,7 +11,10 @@ import { SchemaOrg } from "@/components/seo/SchemaOrg";
 
 import { ARTICLES } from "@/data/articles";
 import Link from "next/link";
-import { FAQSection } from "@/components/seo/FAQSection";
+import { FAQS } from "@/data/faqs";
+import { LocalMapSelector } from "@/components/silo/LocalMapSelector";
+import { InteractiveVideoModal } from "@/components/silo/InteractiveVideoModal";
+import { InteractiveFaqAccordion } from "@/components/silo/InteractiveFaqAccordion";
 
 type Props = {
     params: Promise<{ service: string; city: string }>;
@@ -123,8 +126,22 @@ export default async function LocalLandingPage({ params }: Props) {
         }
     };
 
-    // Default FAQs (could be localized further if needed)
-    const faqs = [
+    // Background Image for Barcelona
+    const backgroundImage = location.slug === 'barcelona'
+        ? "https://lh3.googleusercontent.com/aida-public/AB6AXuBRFVsVFS6Sx29Zajb-J6YOJcxKaY-r3gHshqLiN0AOuyM_H_LYTiGTrZWj38oL4tzEx7jIvGA6Lu6mbbTIZPg3vGsKjHDdpgv3oTPYqv9t_fERJ_iirucEpn8e16RWynPA_cH2pvTqthHMRoKEvL3EBQsny1kRe9EPD1HCdhy3scw0VoHMSuw-QqEsoYC3tNhXOpIZiqFaKm7kunW1ztnWJJFrmRkykhfay5vXQM9d7BzRRLGylQY05Qbv30cFImuG45g2dTQl-J99"
+        : undefined;
+
+    // Map interest points from database schema to format expected by LocalMapSelector
+    const interestPoints = location.interest_points
+        ? location.interest_points.map(pt => ({
+            name: pt.name,
+            class: pt.class === 'policias' ? 'Policía' : pt.class === 'zonas_calientes' ? 'Control Habitual' : 'Comunicaciones',
+            details: pt.details
+        }))
+        : null;
+
+    // Default FAQs
+    const cityFaqs = [
         {
             question: `¿Actuáis en los ${location.courts?.name || 'juzgados'}?`,
             answer: `Sí, nuestros abogados penalistas asisten diariamente a detenidos y vistas en los ${location.courts?.name || 'juzgados'} y comisarías de ${location.name}.`
@@ -139,8 +156,25 @@ export default async function LocalLandingPage({ params }: Props) {
         }
     ];
 
+    // Filter general FAQs by service category
+    const generalFaqs = FAQS.filter(f => f.category === service).map(faq => ({
+        question: faq.question,
+        answer: faq.answer
+    }));
+
+    // Local FAQs from database (if present)
+    const localFaqs = location.seo_content?.faq_local
+        ? location.seo_content.faq_local.map(faq => ({
+            question: faq.q,
+            answer: faq.a
+        }))
+        : [];
+
+    // Merge them together (local first, then city-specific, then general)
+    const mergedFaqs = [...localFaqs, ...cityFaqs, ...generalFaqs];
+
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-ice text-on-surface">
             {/* Schema Injection */}
             <SchemaOrg
                 type="LegalService"
@@ -160,7 +194,7 @@ export default async function LocalLandingPage({ params }: Props) {
 
 
             {/* Hero with Localized Text */}
-            <HeroSection config={localConfig} />
+            <HeroSection config={localConfig} backgroundImage={backgroundImage} />
 
             {/* Jurisdiction Notice (e.g. for Abrera -> Martorell) */}
             {location.slug === 'martorell' && (
@@ -425,14 +459,35 @@ export default async function LocalLandingPage({ params }: Props) {
             )}
 
 
+            {/* Interactive Video Modal Guide */}
+            <InteractiveVideoModal 
+                specialty={config.hero.specialty} 
+                cityName={location.name} 
+            />
+
+            {/* Geographic & Local Map Intelligence */}
+            {interestPoints && interestPoints.length > 0 && (
+                <LocalMapSelector 
+                    cityName={location.name}
+                    zone={location.zone}
+                    courtName={location.courts?.name || null}
+                    courtAddress={location.courts?.address || null}
+                    interestPoints={interestPoints}
+                />
+            )}
+
             {/* Standard Conversion Stack */}
             <StatsRow config={config} />
             <TrustSignals />
             <PainPoints config={config} />
             <ValueProposition config={config} />
 
-            {/* --- FAQ SECTION (High Authority) --- */}
-            <FAQSection category={service} city={location.name} />
+            {/* --- FAQ SECTION (Interactive Accordion) --- */}
+            <InteractiveFaqAccordion 
+                faqs={mergedFaqs}
+                title={`Preguntas Frecuentes sobre ${config.hero.specialty} en ${location.name}`}
+                subtitle={`Respuestas directas basadas en el Código Penal y la jurisprudencia de ${location.courts?.name || 'los juzgados'}.`}
+            />
 
             {/* Related Articles (E-E-A-T) */}
             <section className="py-20 bg-white border-t border-slate-100">
@@ -480,11 +535,35 @@ export default async function LocalLandingPage({ params }: Props) {
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer className="bg-slate-900 text-slate-400 py-12 text-center text-sm border-t border-slate-800">
-                <p>© 2024 Autoridad Legal. Todos los derechos reservados.</p>
-                <p className="mt-2 text-slate-600">Servicio activo en {location.name} ({location.zone})</p>
-            </footer>
+            {/* CTA Urgencia Section */}
+            <section id="contacto" className="py-24 bg-trust-navy relative overflow-hidden text-center text-white border-y border-outline-variant/20 shadow-2xl">
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-prestige-gold/5 skew-x-12 pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 w-1/4 h-full bg-white/2 skew-x-12 pointer-events-none"></div>
+                
+                <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-16 space-y-8">
+                    <span className="text-prestige-gold text-xs font-bold uppercase tracking-widest">Consulta sin Compromiso</span>
+                    <h2 className="font-headline-xl text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">
+                        ¿Necesita defensa penal urgente?
+                    </h2>
+                    <p className="font-body-lg text-lg text-surface-variant max-w-2xl mx-auto leading-relaxed opacity-90">
+                        Nuestros abogados penalistas de guardia están listos para asistirle ahora mismo en comisaría o juzgado. No deje su libertad y sus derechos en manos del azar.
+                    </p>
+                    
+                    <div className="flex flex-col items-center gap-6 pt-4">
+                        <a 
+                            className="text-4xl md:text-5xl font-headline-xl text-prestige-gold hover:text-secondary-fixed hover:scale-105 active:scale-95 transition-all inline-block font-extrabold tracking-tight border-b-2 border-dashed border-prestige-gold/30 hover:border-secondary-fixed/50 pb-1" 
+                            href="tel:+34900000000"
+                        >
+                            900 000 000
+                        </a>
+                        <button 
+                            className="bg-prestige-gold text-trust-navy px-12 py-5 rounded-lg font-headline-md text-base font-extrabold shadow-2xl hover:bg-secondary-fixed hover:scale-105 transition-all active:scale-95 tracking-wide"
+                        >
+                            Solicitar Consulta Ahora
+                        </button>
+                    </div>
+                </div>
+            </section>
         </main>
     );
 }

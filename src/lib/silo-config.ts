@@ -1,4 +1,3 @@
-import { LucideIcon, Scale, ShieldAlert, HeartHandshake, Ambulance, Gavel, Scroll } from "lucide-react";
 
 export type SiloTheme = "urgency" | "trust" | "compensation";
 
@@ -33,6 +32,45 @@ export interface SiloConfig {
 }
 
 export const SILO_CONFIGS: Record<string, SiloConfig> = {
+    "juicios-rapidos": {
+        slug: "juicios-rapidos",
+        theme: "urgency",
+        colors: {
+            primary: "bg-trust-navy",
+            accent: "text-prestige-gold",
+            gradient: "from-trust-navy to-legal-ink",
+        },
+        seo: {
+            title: "Abogado Juicios Rápidos | Defensa Penal 24h Especializada",
+            description: "Especialistas en juicios rápidos. Defensa técnica de élite para situaciones de máxima urgencia judicial. Asistencia inmediata 24h en comisarías y juzgados.",
+        },
+        hero: {
+            title: "Juicios Rápidos: Defensa Legal 24h Especializada",
+            subtitle: "Defensa técnica de élite para situaciones de máxima urgencia judicial. Asistencia en menos de 15 minutos.",
+            badge_text: "Atención Inmediata 24h",
+            specialty: "Juicios Rápidos",
+            cta: "Consulta Urgente",
+        },
+        stats: [
+            { label: "Casos Gestionados", value: "+2.500" },
+            { label: "Sentencias Favorables", value: "98%" },
+            { label: "Tiempo de Respuesta", value: "< 15 min" },
+        ],
+        pain_points: {
+            title: "¿Qué pasa si no actúas rápido?",
+            items: [
+                "Retirada del permiso de conducir de forma inmediata",
+                "Antecedentes penales graves que afecten a tu vida laboral",
+                "Multas económicas muy elevadas y penas de prisión",
+                "Pérdida de la oportunidad de reducción de un tercio de la pena",
+            ],
+        },
+        features: [
+            "Asistencia en Comisaría y Juzgado de Guardia",
+            "Defensa Técnica de Élite en Tráfico y Seguridad Vial",
+            "Reducción de Condena y Negociación de Conformidades",
+        ],
+    },
     alcoholemia: {
         slug: "alcoholemia",
         theme: "urgency",
