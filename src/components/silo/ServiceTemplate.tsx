@@ -108,21 +108,6 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
                             <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-bold">
                                 Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales.
                             </p>
-
-                            <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                                <a
-                                    href="tel:+34900000000"
-                                    className="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold text-trust-navy bg-prestige-gold hover:bg-[#ffe088] shadow-lg shadow-prestige-gold/25 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
-                                >
-                                    LLamar abogado 24h (900 000 000)
-                                </a>
-                                <a
-                                    href={whatsappUrl}
-                                    className="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold text-trust-navy bg-emerald-500 hover:bg-emerald-400 shadow-lg shadow-emerald-500/25 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
-                                >
-                                    Whatsapp Asistente IA
-                                </a>
-                            </div>
                         </div>
 
                         {/* Facade Vertical Video */}

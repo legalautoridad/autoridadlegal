@@ -72,7 +72,7 @@ export default async function MarketingPage() {
                             },
                             {
                                 "@type": "FAQPage",
-                                "@id": "https://autoridadlegal.com/#faq",
+                                "@id": "https://autoridad.legal/#faq",
                                 "mainEntity": faqData.map(faq => ({
                                     "@type": "Question",
                                     "name": faq.q,
@@ -105,19 +105,6 @@ export default async function MarketingPage() {
                         <p className="font-body-lg text-lg sm:text-xl text-white/90 leading-relaxed max-w-2xl">
                             Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales.
                         </p>
-
-                        {/* Desktop CTA Button */}
-                        <div className="pt-4">
-                            <a
-                                href={waLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hidden md:inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold text-lg py-5 px-10 rounded-xl shadow-2xl hover:scale-105 active:scale-95 transition-all w-fit border border-white/10"
-                            >
-                                <MessageCircle className="w-5 h-5 text-white shrink-0" />
-                                Whatsapp Asistente IA
-                            </a>
-                        </div>
                     </div>
 
                     {/* Hero Right Column: Video Facade & Pricing Text */}
