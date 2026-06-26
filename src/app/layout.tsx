@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   description: "Plataforma de alto rendimiento para servicios legales.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

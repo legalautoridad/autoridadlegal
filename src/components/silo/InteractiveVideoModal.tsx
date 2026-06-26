@@ -178,10 +178,10 @@ export function InteractiveVideoModal({
                                 </p>
                                 <a 
                                     href="tel:+34900000000" 
-                                    className="bg-trust-navy text-white px-6 py-2.5 rounded-lg font-label-md text-xs font-bold hover:bg-legal-ink active:scale-95 transition-all shadow flex items-center gap-2 shrink-0"
+                                    className="bg-prestige-gold text-trust-navy px-6 py-2.5 rounded-lg font-label-md text-xs font-bold hover:bg-[#ffe088] active:scale-95 transition-all shadow flex items-center gap-2 shrink-0"
                                 >
                                     <Phone className="w-3.5 h-3.5 fill-current" />
-                                    Llamar Urgente (Gratis)
+                                    LLamar abogado 24h (900 000 000)
                                 </a>
                             </div>
                         </motion.div>

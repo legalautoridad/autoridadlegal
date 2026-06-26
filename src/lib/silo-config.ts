@@ -110,6 +110,162 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             "Recurso de Multas Tráfico",
         ],
     },
+    drogas: {
+        slug: "drogas",
+        theme: "urgency",
+        colors: {
+            primary: "bg-red-600",
+            accent: "text-red-600",
+            gradient: "from-red-50 to-red-100",
+        },
+        seo: {
+            title: "Abogados Delitos por Drogas | Defensa Penal 24h",
+            description: "Especialistas en defensa penal por conducir bajo la influencia de drogas. Evita penas de prisión y antecedentes penales. Asistencia en comisarías y juzgados.",
+        },
+        hero: {
+            title: "Defensa Especializada en Delitos por Drogas y Seguridad Vial",
+            subtitle: "¿Positivo en test de drogas? Protegemos tus derechos y defendemos tu libertad. Asistencia inmediata de guardia.",
+            badge_text: "Urgencia 24h",
+            specialty: "Drogas",
+            cta: "Abogado de Guardia por Drogas",
+        },
+        stats: [
+            { label: "Casos Gestionados", value: "+850" },
+            { label: "Sentencias Favorables", value: "92%" },
+            { label: "Tiempo de Asistencia", value: "< 30 min" },
+        ],
+        pain_points: {
+            title: "¿Qué consecuencias afrontas?",
+            items: [
+                "Retirada del permiso de conducir hasta 4 años",
+                "Penas de prisión de 3 a 6 meses",
+                "Multas de hasta 1.000€ y pérdida de 6 puntos",
+                "Antecedentes penales de larga duración",
+            ],
+        },
+        features: [
+            "Impugnación de Test de Saliva y Analítica de Sangre",
+            "Defensa en Juicio Rápido por Delito 379.2 CP",
+            "Asistencia Inmediata en Comisaría y Juzgado",
+        ],
+    },
+    "sin-carnet": {
+        slug: "sin-carnet",
+        theme: "urgency",
+        colors: {
+            primary: "bg-amber-600",
+            accent: "text-amber-600",
+            gradient: "from-amber-50 to-amber-100",
+        },
+        seo: {
+            title: "Abogados Conducir Sin Carnet | Defensa de Urgencia 24h",
+            description: "Abogados especialistas en delitos por conducir sin carné, pérdida de puntos o privación judicial. Evita la cárcel. Defensa penal inmediata.",
+        },
+        hero: {
+            title: "Defensa Penal por Conducir Sin Carnet o Sin Puntos",
+            subtitle: "¿Te han interceptado sin licencia de conducir? Actuamos de urgencia para evitar antecedentes penales y penas de prisión.",
+            badge_text: "Guardia 24h",
+            specialty: "Sin Carnet",
+            cta: "Abogado Sin Carnet Urgente",
+        },
+        stats: [
+            { label: "Casos Resueltos", value: "+950" },
+            { label: "Absoluciones/Archivo", value: "88%" },
+            { label: "Atención Telefónica", value: "24h/7d" },
+        ],
+        pain_points: {
+            title: "Gravedad de conducir sin permiso (Art. 384 CP)",
+            items: [
+                "Penas de prisión de 3 a 6 meses",
+                "Multas diarias severas durante meses",
+                "Trabajos en beneficio de la comunidad",
+                "Antecedentes penales que bloquean tu futuro",
+            ],
+        },
+        features: [
+            "Defensa en Juicios Rápidos en Toda Cataluña",
+            "Recurso por Notificaciones de Pérdida de Puntos",
+            "Negociación de Conformidades Mínimas",
+        ],
+    },
+    velocidad: {
+        slug: "velocidad",
+        theme: "urgency",
+        colors: {
+            primary: "bg-rose-600",
+            accent: "text-rose-600",
+            gradient: "from-rose-50 to-rose-100",
+        },
+        seo: {
+            title: "Abogados Exceso de Velocidad | Delito contra la Seguridad Vial",
+            description: "Especialistas en juicios rápidos por delitos de velocidad. Evita retirada de carné y antecedentes penales. Asistencia legal penal 24h.",
+        },
+        hero: {
+            title: "Abogados Especialistas en Delitos por Exceso de Velocidad",
+            subtitle: "¿Detectado por radar superando el límite penal? Defendemos tus derechos y evitamos la privación del permiso de conducir.",
+            badge_text: "Defensa de Radar",
+            specialty: "Velocidad",
+            cta: "Asistencia Penal por Radar",
+        },
+        stats: [
+            { label: "Casos por Radar", value: "+1.100" },
+            { label: "Márgenes de Radar Anulados", value: "95%" },
+            { label: "Asistencia de Guardia", value: "Inmediata" },
+        ],
+        pain_points: {
+            title: "Riesgos del delito de velocidad (Art. 379.1 CP)",
+            items: [
+                "Retirada forzosa del carné de 1 a 4 años",
+                "Pena de prisión de 3 a 6 meses",
+                "Multa económica muy elevada",
+                "Inscripción de antecedentes penales",
+            ],
+        },
+        features: [
+            "Impugnación de Homologación y Márgenes de Error de Radar",
+            "Defensa y Representación en Juicios Rápidos",
+            "Recurso de Multas en Vía Administrativa y Penal",
+        ],
+    },
+    profesionales: {
+        slug: "profesionales",
+        theme: "urgency",
+        colors: {
+            primary: "bg-blue-600",
+            accent: "text-blue-600",
+            gradient: "from-blue-50 to-blue-100",
+        },
+        seo: {
+            title: "Abogados Conductores Profesionales | Defensa de Guardia",
+            description: "Especialistas en defensa de transportistas, taxistas, comerciales y conductores profesionales. Protegemos tu medio de vida y tu carné.",
+        },
+        hero: {
+            title: "Defensa Legal Exclusiva para Conductores Profesionales",
+            subtitle: "Tu permiso de conducir es tu trabajo. Defendemos a transportistas y taxistas ante alcoholemias, drogas y pérdida de puntos.",
+            badge_text: "Protección Laboral",
+            specialty: "Profesionales",
+            cta: "Defender Mi Medio de Vida",
+        },
+        stats: [
+            { label: "Profesionales Defendidos", value: "+780" },
+            { label: "Licencias Salvadas", value: "96%" },
+            { label: "Atención Urgente", value: "24h" },
+        ],
+        pain_points: {
+            title: "¿Qué está en juego para ti?",
+            items: [
+                "Pérdida inmediata de tu puesto de trabajo y licencia",
+                "Límites de alcohol más estrictos (0.15 mg/l)",
+                "Responsabilidad civil y multas de la empresa",
+                "Inhabilitación profesional para conducir",
+            ],
+        },
+        features: [
+            "Defensa en Juicios Rápidos de Guardia",
+            "Gestión de Pérdida de Puntos y Suspensión",
+            "Sustitución de Penas para Mantener la Actividad",
+        ],
+    },
     herencias: {
         slug: "herencias",
         theme: "trust",

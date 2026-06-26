@@ -99,10 +99,10 @@ export default async function MarketingPage() {
                             Defensa Penal de Tráfico 24 Horas
                         </div>
                         <h1 className="font-headline-xl text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                            Abogado de Urgencia para Delitos de Alcoholemia en Barcelona
+                            Abogado de Urgencia para Delitos Contra la Seguridad Vial
                         </h1>
                         <p className="font-body-lg text-lg sm:text-xl text-white/90 leading-relaxed max-w-2xl">
-                            Evita la prisión y minimiza la retirada de carnet. Interceptamos tu atestado antes de que llegue al juez.
+                            Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales.
                         </p>
 
                         {/* Desktop CTA Button */}
@@ -114,7 +114,7 @@ export default async function MarketingPage() {
                                 className="hidden md:inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold text-lg py-5 px-10 rounded-xl shadow-2xl hover:scale-105 active:scale-95 transition-all w-fit border border-white/10"
                             >
                                 <MessageCircle className="w-5 h-5 text-white shrink-0" />
-                                Chat de Urgencia 24h (Respuesta en 2 seg)
+                                Whatsapp Asistente IA
                             </a>
                         </div>
                     </div>
@@ -315,16 +315,27 @@ export default async function MarketingPage() {
             </section>
 
             {/* STICKY MOBILE CTA BUTTON */}
-            <div className="fixed bottom-4 left-4 right-4 md:hidden z-50">
-                <a
-                    href={waLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold text-sm py-4 px-6 rounded-xl shadow-2xl border border-white/10 active:scale-95 transition-all text-center"
-                >
-                    <MessageCircle className="w-5 h-5 text-white shrink-0" />
-                    Chat de Urgencia 24h (Respuesta en 2 seg)
-                </a>
+            <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 bg-slate-950/95 backdrop-blur-md border-t border-white/10 p-3 shadow-2xl flex justify-center">
+                <div className="w-full grid grid-cols-2 gap-3">
+                    <a 
+                        href="tel:+34900000000"
+                        className="py-3.5 rounded-xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-extrabold text-[10px] min-[375px]:text-xs sm:text-sm text-center shadow-lg shadow-prestige-gold/25 flex items-center justify-center gap-2 transition-all active:scale-95"
+                        aria-label="Llamar a la línea de guardia de urgencia 24 horas"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        LLamar abogado 24h (900 000 000)
+                    </a>
+                    <a 
+                        href={waLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] min-[375px]:text-xs sm:text-sm text-center shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 transition-all active:scale-95"
+                        aria-label="Iniciar chat de urgencia por WhatsApp"
+                    >
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping shrink-0"></span>
+                        Whatsapp Asistente IA
+                    </a>
+                </div>
             </div>
         </main>
     );

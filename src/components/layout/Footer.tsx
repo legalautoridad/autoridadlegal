@@ -30,7 +30,10 @@ export function Footer() {
                         <h4 className="font-label-md text-xs font-bold text-white border-b border-white/10 pb-2 uppercase tracking-widest">Navegación</h4>
                         <ul className="space-y-3 text-xs">
                             <li><Link href="/alcoholemia" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Abogado Alcoholemia</Link></li>
-                            <li><Link href="/juicios-rapidos/barcelona" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-bold text-prestige-gold">Juicios Rápidos</Link></li>
+                            <li><Link href="/drogas" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Abogado Drogas</Link></li>
+                            <li><Link href="/sin-carnet" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Conducir Sin Carnet</Link></li>
+                            <li><Link href="/velocidad" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Delito de Velocidad</Link></li>
+                            <li><Link href="/profesionales" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-bold text-prestige-gold">Conductores Profesionales</Link></li>
                         </ul>
                     </div>
                     <div className="space-y-4">

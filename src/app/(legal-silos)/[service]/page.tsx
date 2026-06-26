@@ -1,120 +1,89 @@
-import { getSiloConfig, SILO_CONFIGS } from "@/lib/silo-config";
-import { notFound } from "next/navigation";
-import { HeroSection } from "@/components/silo/HeroSection";
-import { TrustSignals } from "@/components/silo/TrustSignals";
-import { ValueProposition } from "@/components/silo/ValueProposition";
-import { StatsRow } from "@/components/silo/StatsRow"; // New
-import { PainPoints } from "@/components/silo/PainPoints"; // New
-import { Metadata } from "next";
-import { SchemaOrg } from "@/components/seo/SchemaOrg";
-import { FAQAccordion } from "@/components/seo/FAQAccordion"; // Keep for now if needed, or remove?
-import { FAQSection } from "@/components/seo/FAQSection";
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { getSiloConfig } from '@/lib/silo-config';
+import ServiceTemplate from '@/components/silo/ServiceTemplate';
 
-type Props = {
+interface PageProps {
     params: Promise<{ service: string }>;
-};
+}
 
-// SEO: Generate Dynamic Metadata
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+const VALID_SERVICES = ['alcoholemia', 'drogas', 'sin-carnet', 'velocidad', 'profesionales'];
+
+// Validate service parameter
+function isValidService(service: string): boolean {
+    return VALID_SERVICES.includes(service.toLowerCase());
+}
+
+// 1. SEO: Generate Dynamic Metadata
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { service } = await params;
-    const config = getSiloConfig(service);
+    if (!isValidService(service)) {
+        return {};
+    }
 
+    const config = getSiloConfig(service);
     if (!config) {
-        return {
-            title: "Autoridad Legal | Especialistas",
-        };
+        return {};
     }
 
     return {
-        title: config.seo.title,
+        title: `${config.seo.title} | Autoridad Legal`,
         description: config.seo.description,
+        alternates: {
+            canonical: `https://autoridadlegal.com/${service}`,
+        }
     };
 }
 
-
-
-// Page Implementation
-// ...
-
-export default async function VerticalPage({ params }: Props) {
+// 2. Parent Service Hub Page Implementation
+export default async function ParentServicePage({ params }: PageProps) {
     const { service } = await params;
-    const config = getSiloConfig(service);
+    
+    if (!isValidService(service)) {
+        return notFound();
+    }
 
+    const config = getSiloConfig(service);
     if (!config) {
         return notFound();
     }
 
-    // Default FAQs based on config
-    const faqs = [
-        {
-            question: `¿Cuánto cuesta un abogado especialista en ${config.hero.badge_text}?`,
-            answer: "Nuestra plataforma analiza tu caso gratuitamente y te ofrece un presupuesto cerrado sin compromiso. Sin sorpresas ni letra pequeña."
+    // Generate JSON-LD for the Parent Service
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": `https://autoridadlegal.com/${service}#legal-service`,
+        "name": `Autoridad Legal - Abogados Especialistas en ${config.hero.specialty}`,
+        "description": config.seo.description,
+        "url": `https://autoridadlegal.com/${service}`,
+        "telephone": "+34900000000",
+        "priceRange": "980€",
+        "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
+        "areaServed": {
+            "@type": "AdministrativeArea",
+            "name": "Cataluña"
         },
-        {
-            question: "¿Cuánto tardan en contactarme?",
-            answer: "Nuestro sistema de IA procesa tu solicitud en tiempo real. Un abogado especializado te contactará en menos de 15 minutos."
-        },
-        {
-            question: "¿Es confidencial mi consulta?",
-            answer: "Absolutamente. Toda la información está encriptada y protegida bajo secreto profesional desde el primer clic."
+        "provider": {
+            "@type": "Organization",
+            "name": "Autoridad Legal",
+            "url": "https://autoridadlegal.com"
         }
-    ];
+    };
 
     return (
-        <main className="min-h-screen bg-surface-ice text-on-surface">
-            <SchemaOrg
-                type="Service"
-                data={{
-                    name: `Servicio de ${config.hero.title}`,
-                    provider: {
-                        "@type": "LegalService",
-                        "name": "Autoridad Legal"
-                    },
-                    areaServed: "España",
-                    description: config.seo.description
-                }}
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <SchemaOrg
-                type="FAQPage"
-                data={{
-                    mainEntity: faqs.map(faq => ({
-                        "@type": "Question",
-                        "name": faq.question,
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": faq.answer
-                        }
-                    }))
-                }}
-            />
-
-            {/* 1. Hero (Gradient & Urgency) */}
-            <HeroSection config={config} />
-
-            {/* 2. Stats (Authority Data) */}
-            <StatsRow config={config} />
-
-            {/* 3. Social Proof (Logos) */}
-            <TrustSignals />
-
-            {/* 4. Pain Points (Fear of Missing Out) */}
-            <PainPoints config={config} />
-
-            {/* 5. Process (How it works) */}
-            <ValueProposition config={config} />
-
-            {/* --- FAQ SECTION (National) --- */}
-            <FAQSection category={service} city="Cataluña" />
-
-            {/* --- CTA FINAL --- */}
-
-        </main>
+            <ServiceTemplate service={service} city={null} />
+        </>
     );
 }
 
-// Static Generation (Optional, but good for performance)
+// 3. Static Generation
 export function generateStaticParams() {
-    return Object.keys(SILO_CONFIGS).map((slug) => ({
-        service: slug,
+    return VALID_SERVICES.map((service) => ({
+        service,
     }));
 }

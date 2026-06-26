@@ -4,10 +4,19 @@
 User-agent: GPTBot
 Allow: /
 
+User-agent: ClaudeBot
+Allow: /
+
 User-agent: Claude-Web
 Allow: /
 
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 # General Search Engines and other crawlers

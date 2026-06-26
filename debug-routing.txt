@@ -1,0 +1,24 @@
+
+[2026-06-17T17:42:16.201Z] REQUEST LOG:
+Resolved Params: {"service":"alcoholemia","city":"barcelona"}
+isValidService: true
+configFound: true
+locationFound: true (Barcelona)
+
+[2026-06-17T17:42:16.201Z] REQUEST LOG:
+Resolved Params: {"service":"alcoholemia","city":"barcelona"}
+isValidService: true
+configFound: true
+locationFound: true (Barcelona)
+
+[2026-06-17T17:42:37.352Z] REQUEST LOG:
+Resolved Params: {"service":"alcoholemia","city":"barcelona"}
+isValidService: true
+configFound: true
+locationFound: true (Barcelona)
+
+[2026-06-17T17:42:37.352Z] REQUEST LOG:
+Resolved Params: {"service":"alcoholemia","city":"barcelona"}
+isValidService: true
+configFound: true
+locationFound: true (Barcelona)
