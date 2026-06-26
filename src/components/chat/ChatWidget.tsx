@@ -34,6 +34,13 @@ function ChatWidgetContent() {
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
     const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
 
+    const handleClose = () => {
+        setIsOpen(false);
+        if (typeof window !== 'undefined' && window.location.hash === '#chat-widget') {
+            window.history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+    };
+
     // Default to 'alcoholemia' profile for now
     const profile: ChatProfile = 'alcoholemia';
 
@@ -371,7 +378,7 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
                                 </div>
                             </div>
                         </div>
-                        <button onClick={() => setIsOpen(false)} className="p-2 text-slate-400 hover:text-white transition-colors">
+                        <button onClick={handleClose} className="p-2 text-slate-400 hover:text-white transition-colors">
                             <X className="h-6 w-6" />
                         </button>
                     </div>
@@ -524,7 +531,7 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
             )}
  
             {/* Toggle Buttons Container */}
-            <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-50 flex flex-col items-end gap-3 md:gap-4">
+            <div className="hidden md:flex fixed bottom-6 right-6 z-50 flex-col items-end gap-4">
                 {/* Webchat Toggle Button */}
                 <div className="relative group">
                     {!isOpen && (
