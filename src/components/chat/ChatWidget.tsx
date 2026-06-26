@@ -5,7 +5,7 @@ import { useSearchParams, usePathname } from "next/navigation";
 import { Message, sendMessage, ChatProfile } from "@/lib/ai/actions";
 import { saveLead, updateLeadJson, transferJsonToDb } from "@/lib/actions/leads";
 import { cn, cleanMessageContent } from "@/lib/utils";
-import { MessageSquare, X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
+import { X, Send, Scale, ShieldCheck, Paperclip } from "lucide-react";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 import { LeadCaptureModal } from "@/components/checkout/LeadCaptureModal";
 import ReactMarkdown from "react-markdown";
@@ -529,32 +529,7 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
                     </form>
                 </div>
             )}
- 
-            {/* Toggle Buttons Container */}
-            <div className="hidden md:flex fixed bottom-6 right-6 z-50 flex-col items-end gap-4">
-                {/* Webchat Toggle Button */}
-                <div className="relative group">
-                    {!isOpen && (
-                        <div className="absolute right-16 md:right-24 top-1 md:top-2 bg-slate-900 text-white px-3 md:px-4 py-2 md:py-3 rounded-xl shadow-2xl border border-slate-700 whitespace-nowrap animate-in fade-in slide-in-from-right-8 duration-700 flex items-center gap-2 md:gap-3">
-                            <div className="text-lg md:text-xl">🗣️</div>
-                            <div>
-                                <p className="text-[10px] md:text-sm font-bold">¿Qué te ha pasado?</p>
-                                <p className="text-[9px] md:text-xs text-slate-300">Explícalo aquí</p>
-                            </div>
-                            <div className="absolute -right-1 md:-right-2 top-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 bg-slate-900 rotate-45 border-r border-t border-slate-700"></div>
-                        </div>
-                    )}
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className={cn(
-                            "h-14 w-14 md:h-20 md:w-20 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 border-4 border-white relative z-10",
-                            isOpen ? "bg-slate-700 text-white" : "bg-blue-600 text-white"
-                        )}
-                    >
-                        {isOpen ? <X className="h-6 w-6 md:h-8 md:w-8" /> : <MessageSquare className="h-8 w-8 md:h-10 md:w-10" />}
-                    </button>
-                </div>
-            </div>
+
 
             {/* Modals */}
             <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
