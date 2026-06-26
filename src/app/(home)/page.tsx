@@ -316,7 +316,7 @@ export default async function MarketingPage() {
             </section>
 
             {/* STICKY MOBILE CTA BUTTON */}
-            <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 bg-slate-950/95 backdrop-blur-md border-t border-white/10 p-3 shadow-2xl flex justify-center">
+            <div className="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-t border-white/10 p-3 shadow-2xl flex justify-center">
                 <div className="w-full grid grid-cols-3 gap-2">
                     <a 
                         href="tel:+34900000000"
