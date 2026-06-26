@@ -524,7 +524,7 @@ Respóndeme con tus datos y el número, y analizamos tu situación.`
             )}
  
             {/* Toggle Buttons Container */}
-            <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end gap-3 md:gap-4">
+            <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-50 flex flex-col items-end gap-3 md:gap-4">
                 {/* Webchat Toggle Button */}
                 <div className="relative group">
                     {!isOpen && (
