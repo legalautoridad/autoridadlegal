@@ -27,13 +27,40 @@ import {
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
+const getServiceBadgeColors = (serviceType: string) => {
+    switch (serviceType) {
+        case 'alcoholemia':
+            return 'bg-orange-100 text-orange-700 border border-orange-200';
+        case 'drogas':
+            return 'bg-red-100 text-red-700 border border-red-200';
+        case 'sin-carnet':
+            return 'bg-amber-100 text-amber-700 border border-amber-200';
+        case 'velocidad':
+            return 'bg-rose-100 text-rose-700 border border-rose-200';
+        case 'general':
+        default:
+            return 'bg-slate-100 text-slate-700 border border-slate-200';
+    }
+};
+
+const getServiceLabel = (serviceType: string) => {
+    switch (serviceType) {
+        case 'alcoholemia': return 'Alcoholemia';
+        case 'drogas': return 'Drogas';
+        case 'sin-carnet': return 'Sin Carnet';
+        case 'velocidad': return 'Velocidad';
+        case 'general': return 'General / Otros';
+        default: return serviceType;
+    }
+};
+
 export default function KnowledgePage() {
     const [records, setRecords] = useState<any[]>([]);
     const [locations, setLocations] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isPending, startTransition] = useTransition();
     const [searchQuery, setSearchQuery] = useState('');
-    const [filterType, setFilterType] = useState<'all' | 'alcoholemia' | 'general'>('all');
+    const [filterType, setFilterType] = useState<'all' | 'alcoholemia' | 'drogas' | 'sin-carnet' | 'velocidad' | 'general'>('all');
     
     // Modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,6 +73,11 @@ export default function KnowledgePage() {
     });
 
     const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [expandedRecords, setExpandedRecords] = useState<Record<string, boolean>>({});
+
+    const toggleExpandRecord = (id: string) => {
+        setExpandedRecords(prev => ({ ...prev, [id]: !prev[id] }));
+    };
 
     useEffect(() => {
         loadData();
@@ -191,6 +223,9 @@ export default function KnowledgePage() {
                         >
                             <option value="all">Todos los Perfiles</option>
                             <option value="alcoholemia">Alcoholemia</option>
+                            <option value="drogas">Drogas</option>
+                            <option value="sin-carnet">Sin Carnet</option>
+                            <option value="velocidad">Velocidad</option>
                             <option value="general">General</option>
                         </select>
                     </div>
@@ -206,9 +241,9 @@ export default function KnowledgePage() {
                                         <div className="flex items-center gap-3 mb-3">
                                             <span className={cn(
                                                 "px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider",
-                                                record.service_type === 'alcoholemia' ? "bg-rose-100 text-rose-700" : "bg-blue-100 text-blue-700"
+                                                getServiceBadgeColors(record.service_type)
                                             )}>
-                                                {record.service_type}
+                                                {getServiceLabel(record.service_type)}
                                             </span>
                                             {record.is_general ? (
                                                 <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-1 rounded-md">
@@ -223,10 +258,20 @@ export default function KnowledgePage() {
                                             )}
                                         </div>
                                         <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap">
-                                            {record.content}
+                                            {expandedRecords[record.id] || record.content.length <= 300
+                                                ? record.content
+                                                : `${record.content.substring(0, 300)}...`}
                                         </p>
+                                        {record.content.length > 300 && (
+                                            <button
+                                                onClick={() => toggleExpandRecord(record.id)}
+                                                className="text-xs font-bold text-rose-600 hover:text-rose-700 mt-2 transition-colors focus:outline-none block"
+                                            >
+                                                {expandedRecords[record.id] ? 'Mostrar menos' : 'Leer más'}
+                                            </button>
+                                        )}
                                     </div>
-                                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                                         <button
                                             onClick={() => handleOpenModal(record)}
                                             className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
@@ -285,6 +330,9 @@ export default function KnowledgePage() {
                                             className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-rose-500"
                                         >
                                             <option value="alcoholemia">Alcoholemia</option>
+                                            <option value="drogas">Drogas</option>
+                                            <option value="sin-carnet">Sin Carnet</option>
+                                            <option value="velocidad">Velocidad</option>
                                             <option value="general">General / Otros</option>
                                         </select>
                                     </div>

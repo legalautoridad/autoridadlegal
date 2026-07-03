@@ -40,6 +40,7 @@ export function ContactMethod({ title, description, href, icon, isPrimary, ariaL
 }
 
 export function TriageContactPanel() {
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "34605118871";
     return (
         <section className="w-full max-w-md mx-auto p-6 bg-slate-900 border border-white/10 rounded-3xl shadow-xl space-y-6">
             <div className="space-y-2 text-center">
@@ -57,7 +58,7 @@ export function TriageContactPanel() {
                 <ContactMethod
                     title="Línea de Guardia Judicial 24h"
                     description="Hable con un abogado penalista ahora."
-                    href="tel:+34900000000"
+                    href="tel:+34605118871"
                     isPrimary={true}
                     ariaLabel="Llamar a la Línea de Guardia Judicial 24 horas"
                     icon={
@@ -82,7 +83,7 @@ export function TriageContactPanel() {
                 <ContactMethod
                     title="Evaluación de Caso Express (WhatsApp)"
                     description="Responda 5 preguntas y reciba viabilidad."
-                    href="https://wa.me/34900000000?text=Hola,%20necesito%20asistencia%20legal%20urgente%20por%20alcoholemia."
+                    href={`https://wa.me/${whatsappNumber}?text=Hola,%20necesito%20asistencia%20legal%20urgente%20por%20alcoholemia.`}
                     isPrimary={false}
                     ariaLabel="Iniciar evaluación de caso express por WhatsApp"
                     icon={

@@ -56,7 +56,7 @@ export default async function ParentServicePage({ params }: PageProps) {
         "name": `Autoridad Legal - Abogados Especialistas en ${config.hero.specialty}`,
         "description": config.seo.description,
         "url": `https://autoridadlegal.com/${service}`,
-        "telephone": "+34900000000",
+        "telephone": "+34605118871",
         "priceRange": "980€",
         "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
         "areaServed": {

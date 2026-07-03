@@ -28,7 +28,7 @@ class LegalServiceGenerator implements SchemaGenerator {
             "name": `Autoridad Legal - Abogados ${params.specialtyName} ${params.cityName}`,
             "description": `Defensa penal y asistencia urgente en ${params.cityName} por delitos de ${params.specialtyName}. Director jurídico: Santiago Giménez Olavarriaga.`,
             "url": pageUrl,
-            "telephone": "+34900000000",
+            "telephone": "+34605118871",
             "priceRange": "€€€",
             "image": "https://autoridadlegal.com/public/images/logo.png",
             "provider": {
@@ -277,7 +277,7 @@ export class SchemaFactory {
             "name": `Autoridad Legal - Abogado ${params.specialtyName} ${params.cityName}`,
             "description": `Defensa penal de guardia y asistencia 24h por delito de ${params.specialtyName} en ${params.cityName}.`,
             "url": `${base}/${params.service}/${city}`,
-            "telephone": "+34900000000",
+            "telephone": "+34605118871",
             "priceRange": "980€",
             "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
             "founder": founder,

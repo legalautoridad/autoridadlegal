@@ -177,11 +177,11 @@ export function InteractiveVideoModal({
                                     <strong>Recomendación del Director:</strong> &quot;No realice declaraciones ante la policía en el atestado inicial sin la asistencia de su abogado penalista especialista. Cada detalle del informe puede condicionar el resultado.&quot;
                                 </p>
                                 <a 
-                                    href="tel:+34900000000" 
+                                    href="tel:+34605118871" 
                                     className="bg-prestige-gold text-trust-navy px-6 py-2.5 rounded-lg font-label-md text-xs font-bold hover:bg-[#ffe088] active:scale-95 transition-all shadow flex items-center gap-2 shrink-0"
                                 >
                                     <Phone className="w-3.5 h-3.5 fill-current" />
-                                    LLamar abogado 24h (900 000 000)
+                                    LLamar abogado 24h (+34 605 118 871)
                                 </a>
                             </div>
                         </motion.div>

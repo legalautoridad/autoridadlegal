@@ -130,12 +130,12 @@ export default function JuiciosRapidosBarcelonaPage() {
               
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <a 
-                  href="tel:+34900000000" 
+                  href="tel:+34605118871" 
                   className="bg-prestige-gold text-trust-navy px-8 py-4 rounded-lg font-label-md text-sm font-bold hover:bg-secondary-fixed hover:scale-105 transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-prestige-gold/25"
                 >
                   <Phone className="w-4.5 h-4.5 fill-current" />
                   <div className="flex flex-col items-start">
-                    <span className="leading-none text-base">LLamar abogado 24h (900 000 000)</span>
+                    <span className="leading-none text-base">LLamar abogado 24h (+34 605 118 871)</span>
                     <span className="text-[10px] opacity-80 font-normal">Respuesta inmediata &lt; 15 min</span>
                   </div>
                 </a>
@@ -446,9 +446,9 @@ export default function JuiciosRapidosBarcelonaPage() {
             <div className="flex flex-col items-center gap-6 pt-4">
               <a 
                 className="text-4xl md:text-5xl font-headline-xl text-prestige-gold hover:text-secondary-fixed hover:scale-105 active:scale-95 transition-all inline-block font-extrabold tracking-tight border-b-2 border-dashed border-prestige-gold/30 hover:border-secondary-fixed/50 pb-1" 
-                href="tel:+34900000000"
+                href="tel:+34605118871"
               >
-                900 000 000
+                +34 605 118 871
               </a>
               <button 
                 onClick={handleUrgentAction}
@@ -551,11 +551,11 @@ export default function JuiciosRapidosBarcelonaPage() {
                   <strong>Recomendación del Director:</strong> "No declare ante la policía en el atestado inicial sin la presencia de su abogado especialista de confianza. Cada palabra del informe es crucial para el posterior juicio rápido."
                 </p>
                 <a 
-                  href="tel:+34900000000" 
+                  href="tel:+34605118871" 
                   className="bg-prestige-gold text-trust-navy px-6 py-2.5 rounded-lg font-label-md text-xs font-bold hover:bg-[#ffe088] active:scale-95 transition-all shadow flex items-center gap-2 shrink-0"
                 >
                   <Phone className="w-3.5 h-3.5 fill-current" />
-                  LLamar abogado 24h (900 000 000)
+                  LLamar abogado 24h (+34 605 118 871)
                 </a>
               </div>
             </motion.div>
