@@ -33,3 +33,20 @@ model Case {
   
   @@map("cases")
 }
+
+model Service {
+  id         String   @id @default(uuid())
+  slug       String   @unique
+  name       String
+  theme      String
+  colors     Json     @default("{}")
+  seo        Json     @default("{}")
+  hero       Json     @default("{}")
+  stats      Json     @default("[]")
+  painPoints Json     @default("{}") @map("pain_points")
+  features   Json     @default("[]")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @default(now()) @map("updated_at")
+
+  @@map("services")
+}
