@@ -16,7 +16,7 @@ export class OKFGitHubClient {
     private repo: string;
     private branch: string;
     private localFallbackPath: string;
-    private preferLocal: boolean;
+    private forceLocal: boolean;
 
     constructor() {
         this.token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN || '';
@@ -24,7 +24,14 @@ export class OKFGitHubClient {
         this.repo = process.env.OKF_REPO_NAME || 'OKF_AL';
         this.branch = process.env.OKF_REPO_BRANCH || 'main';
         this.localFallbackPath = '/Users/domingoimperatori/Documents/OKF_AL';
-        this.preferLocal = process.env.USE_LOCAL_OKF === 'true';
+        this.forceLocal = process.env.USE_LOCAL_OKF === 'true';
+    }
+
+    /**
+     * Determines whether remote GitHub API or local folder is currently active.
+     */
+    public isRemoteMode(): boolean {
+        return !this.forceLocal && Boolean(this.token);
     }
 
     /**
@@ -35,10 +42,20 @@ export class OKFGitHubClient {
     }
 
     /**
+     * Returns human-readable description of current sync mode.
+     */
+    public getSyncModeDescription(): string {
+        if (this.isRemoteMode()) {
+            return `🌐 Remote GitHub API Mode (Repo: ${this.owner}/${this.repo}, Branch: ${this.branch})`;
+        }
+        return `📦 Local Disk Mode (Path: ${this.localFallbackPath})`;
+    }
+
+    /**
      * Fetches entire Git tree recursively from GitHub API in 1 request.
      */
     public async getGitTree(): Promise<GitHubTreeItem[]> {
-        if (this.preferLocal && this.hasLocalRepository()) {
+        if (!this.isRemoteMode() && this.hasLocalRepository()) {
             return this.getLocalTree();
         }
 
@@ -73,8 +90,7 @@ export class OKFGitHubClient {
      * Reads file content from GitHub API or local disk fallback.
      */
     public async getFileContent(relativePath: string): Promise<string> {
-        // If local is explicitly preferred, read local first
-        if (this.preferLocal && this.hasLocalRepository()) {
+        if (!this.isRemoteMode() && this.hasLocalRepository()) {
             const localFilePath = path.join(this.localFallbackPath, relativePath);
             if (fs.existsSync(localFilePath)) {
                 return fs.readFileSync(localFilePath, 'utf-8');
@@ -115,7 +131,7 @@ export class OKFGitHubClient {
      * Lists directory contents from GitHub API or local disk.
      */
     public async listDirectory(relativePath: string): Promise<string[]> {
-        if (this.preferLocal && this.hasLocalRepository()) {
+        if (!this.isRemoteMode() && this.hasLocalRepository()) {
             const localDirPath = path.join(this.localFallbackPath, relativePath);
             if (fs.existsSync(localDirPath)) {
                 return fs.readdirSync(localDirPath);

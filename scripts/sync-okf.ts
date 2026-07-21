@@ -11,13 +11,8 @@ async function syncOKF() {
     console.log('🚀 Starting OKF Data Ingestion & Sync from GitHub...');
 
     const client = new OKFGitHubClient();
-    const isLocal = client.hasLocalRepository();
+    console.log(`Active Sync Mode: ${client.getSyncModeDescription()}`);
 
-    if (isLocal) {
-        console.log('📦 Local OKF repository detected at /Users/domingoimperatori/Documents/OKF_AL');
-    } else {
-        console.log('🌐 Fetching OKF repository from GitHub API using Personal Access Token...');
-    }
 
     const outputDir = path.join(__dirname, '../src/content/okf');
     if (!fs.existsSync(outputDir)) {
