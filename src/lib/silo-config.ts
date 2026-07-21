@@ -169,8 +169,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             cta: "Abogado Sin Carnet Urgente",
         },
         stats: [
-            { label: "Casos Resueltos", value: "+950" },
-            { label: "Absoluciones/Archivo", value: "88%" },
+            { label: "Casos Resueltos", value: "+150" },
             { label: "Atención Telefónica", value: "24h/7d" },
         ],
         pain_points: {

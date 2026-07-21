@@ -63,10 +63,11 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
     const okfPuntos = city ? OKFService.getPuntosDeInteres(city) : [];
 
 
-    // Build the dynamic H1 and subheadline
-    const h1 = city && location
+    // Build the dynamic H1 and subheadline from OKF cobertura data
+    const h1 = okfCobertura?.h1Title || okfCobertura?.frontmatter.title || (city && location
         ? `Abogado Especialista en ${config.hero.specialty} en ${location.name}`
-        : `Abogado Especialista en ${config.hero.specialty} | Asistencia de Guardia`;
+        : `Abogado Especialista en ${config.hero.specialty} | Asistencia de Guardia`);
+
 
     const bannerText = city && location
         ? `⚠️ ATENCIÓN: Teléfono de Urgencias Activo en ${location.name} (24 horas)`

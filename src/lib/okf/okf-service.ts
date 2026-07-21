@@ -70,11 +70,15 @@ export class OKFService {
         const coberturas = loadCoberturas();
         const normService = service.toLowerCase().trim();
         const normMunicipio = municipio.toLowerCase().trim();
+        const combinedSlug = `${normService}-${normMunicipio}`;
 
-        return coberturas.find(c =>
-            c.frontmatter.service.toLowerCase().trim() === normService &&
-            c.frontmatter.municipio.toLowerCase().trim() === normMunicipio
-        ) || null;
+        return coberturas.find(c => {
+            const s = (c.frontmatter.service || '').toLowerCase().trim();
+            const m = (c.frontmatter.municipio || '').toLowerCase().trim();
+            const slug = (c.frontmatter.slug || '').toLowerCase().trim();
+
+            return (s === normService && m === normMunicipio) || slug === combinedSlug || slug === normMunicipio;
+        }) || null;
     }
 
     /**
@@ -82,8 +86,15 @@ export class OKFService {
      */
     public static getFaqs(service: string, municipio: string): OKFFaq[] {
         const faqsMap = loadFaqs();
-        const key = `${service.toLowerCase().trim()}:${municipio.toLowerCase().trim()}`;
-        return faqsMap[key] || [];
+        const normService = service.toLowerCase().trim();
+        const normMunicipio = municipio.toLowerCase().trim();
+        const key = `${normService}:${normMunicipio}`;
+        
+        if (faqsMap[key]) return faqsMap[key];
+
+        // Direct lookup from Cobertura if key missing
+        const cobertura = OKFService.getCobertura(service, municipio);
+        return cobertura?.faqs || [];
     }
 
     /**

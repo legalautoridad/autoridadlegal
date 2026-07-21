@@ -36,25 +36,40 @@ async function getLeafData(params: LeafPageProps['params']) {
     return { config, location, okfCobertura, service, city };
 }
 
-// 2. SEO: Dynamic Metadata
+// 2. SEO & GEO: Dynamic Metadata
 export async function generateMetadata({ params }: LeafPageProps): Promise<Metadata> {
     const data = await getLeafData(params);
     if (!data) return {};
 
     const { config, location, okfCobertura, service, city } = data;
 
-    const title = okfCobertura?.frontmatter.title ||
-        (location ? `Abogado ${config?.hero.specialty} ${location.name} | Urgencias 24h` : `Abogado Especialista | Urgencias 24h`);
+    const title = okfCobertura?.h1Title || okfCobertura?.frontmatter.title ||
+        (location ? `Abogado Especialista en ${config?.hero.specialty} en ${location.name} | Urgencias 24h` : `Abogado Especialista | Urgencias 24h`);
 
     const description = okfCobertura?.frontmatter.description ||
-        (location ? `Asistencia legal 24h en ${location.name} por ${config?.hero.specialty}. Defensa en comisarías y juzgados locales.` : `Asistencia legal urgente 24h en Cataluña.`);
+        (location ? `Asistencia legal 24h en ${location.name} por ${config?.hero.specialty}. Defensa técnica en comisarías y juzgados locales.` : `Asistencia legal urgente 24h en Cataluña.`);
+
+    const canonicalUrl = `https://autoridadlegal.com/${service}/${city}`;
 
     return {
         title,
         description,
         alternates: {
-            canonical: `https://autoridadlegal.com/${service}/${city}`,
-        }
+            canonical: canonicalUrl,
+        },
+        openGraph: {
+            title,
+            description,
+            url: canonicalUrl,
+            siteName: 'Autoridad Legal',
+            locale: 'es_ES',
+            type: 'article',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+        },
     };
 }
 
@@ -75,14 +90,18 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
 
     const cityName = location?.name || city.replace(/-/g, ' ');
     const specialtyName = config?.hero.specialty || service;
+    const okfFaqs = OKFService.getFaqs(service, city);
 
-    // Generate JSON-LD Graph for SEO and Search Crawlers
+    // Generate JSON-LD Graph for SEO and Search Crawlers (GEO / LLM optimized)
     const jsonLdGraph = SchemaFactory.generateEmergencyGraph({
         baseUrl: "https://autoridadlegal.com",
         service: service,
         city: city,
         cityName: cityName,
-        specialtyName: specialtyName
+        specialtyName: specialtyName,
+        courtName: location?.courts?.name,
+        courtAddress: location?.courts?.address || undefined,
+        faqs: okfFaqs,
     });
 
     return (
@@ -95,6 +114,7 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
         </>
     );
 }
+
 
 // 4. Static Generation
 export async function generateStaticParams() {

@@ -72,7 +72,7 @@ VALUES
   '{"primary": "bg-amber-600", "accent": "text-amber-600", "gradient": "from-amber-50 to-amber-100"}'::jsonb,
   '{"title": "Abogados Conducir Sin Carnet | Defensa de Urgencia 24h", "description": "Abogados especialistas en delitos por conducir sin carné, pérdida de puntos o privación judicial. Evita la cárcel. Defensa penal inmediata."}'::jsonb,
   '{"title": "Defensa Penal por Conducir Sin Carnet o Sin Puntos", "subtitle": "¿Te han interceptado sin licencia de conducir? Actuamos de urgencia para evitar antecedentes penales y penas de prisión.", "badge_text": "Guardia 24h", "specialty": "Sin Carnet", "cta": "Abogado Sin Carnet Urgente"}'::jsonb,
-  '[{"label": "Casos Resueltos", "value": "+950"}, {"label": "Absoluciones/Archivo", "value": "88%"}, {"label": "Atención Telefónica", "value": "24h/7d"}]'::jsonb,
+  '[{"label": "Casos Resueltos", "value": "100"}, {"label": "Atención Telefónica", "value": "24h/7d"}]'::jsonb,
   '{"title": "Gravedad de conducir sin permiso (Art. 384 CP)", "items": ["Penas de prisión de 3 a 6 meses", "Multas diarias severas durante meses", "Trabajos en beneficio de la comunidad", "Antecedentes penales que bloquean tu futuro"]}'::jsonb,
   '["Defensa en Juicios Rápidos en Toda Cataluña", "Recurso por Notificaciones de Pérdida de Puntos", "Negociación de Conformidades Mínimas"]'::jsonb
 ),
