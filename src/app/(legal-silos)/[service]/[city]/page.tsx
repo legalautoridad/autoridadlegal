@@ -4,6 +4,7 @@ import { getSiloConfig } from '@/lib/silo-config';
 import { getLocationBySlug, getLocations } from '@/lib/db/locations';
 import { SchemaFactory } from '@/lib/seo/schema-factory';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
+import { OKFService } from '@/lib/okf/okf-service';
 
 interface LeafPageProps {
     params: Promise<{ service: string; city: string }>;
@@ -26,12 +27,13 @@ async function getLeafData(params: LeafPageProps['params']) {
 
     const config = getSiloConfig(service);
     const location = await getLocationBySlug(city);
+    const okfCobertura = OKFService.getCobertura(service, city);
 
-    if (!config || !location) {
+    if (!config && !okfCobertura) {
         return null;
     }
 
-    return { config, location, service, city };
+    return { config, location, okfCobertura, service, city };
 }
 
 // 2. SEO: Dynamic Metadata
@@ -39,15 +41,19 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
     const data = await getLeafData(params);
     if (!data) return {};
 
-    const { config, location, service } = data;
-    const title = `Abogado ${config.hero.specialty} ${location.name} | Urgencias 24h`;
-    const description = `Asistencia legal 24h en ${location.name} por ${config.hero.specialty}. Defensa en comisarías y en los ${location.courts?.name || 'Juzgados locales'}.`;
+    const { config, location, okfCobertura, service, city } = data;
+
+    const title = okfCobertura?.frontmatter.title ||
+        (location ? `Abogado ${config?.hero.specialty} ${location.name} | Urgencias 24h` : `Abogado Especialista | Urgencias 24h`);
+
+    const description = okfCobertura?.frontmatter.description ||
+        (location ? `Asistencia legal 24h en ${location.name} por ${config?.hero.specialty}. Defensa en comisarías y juzgados locales.` : `Asistencia legal urgente 24h en Cataluña.`);
 
     return {
         title,
         description,
         alternates: {
-            canonical: `https://autoridadlegal.com/${service}/${location.slug}`,
+            canonical: `https://autoridadlegal.com/${service}/${city}`,
         }
     };
 }
@@ -60,20 +66,23 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
         return notFound();
     }
 
-    const { config, location, service, city } = data;
+    const { config, location, okfCobertura, service, city } = data;
 
     // Handle redirection if the location has a redirect_slug
-    if (location.redirect_slug && city !== location.redirect_slug) {
+    if (location?.redirect_slug && city !== location.redirect_slug) {
         permanentRedirect(`/${service}/${location.redirect_slug}`);
     }
+
+    const cityName = location?.name || city.replace(/-/g, ' ');
+    const specialtyName = config?.hero.specialty || service;
 
     // Generate JSON-LD Graph for SEO and Search Crawlers
     const jsonLdGraph = SchemaFactory.generateEmergencyGraph({
         baseUrl: "https://autoridadlegal.com",
         service: service,
-        city: location.slug,
-        cityName: location.name,
-        specialtyName: config.hero.specialty
+        city: city,
+        cityName: cityName,
+        specialtyName: specialtyName
     });
 
     return (
@@ -89,6 +98,11 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
 
 // 4. Static Generation
 export async function generateStaticParams() {
+    const okfParams = OKFService.getStaticParams();
+    if (okfParams.length > 0) {
+        return okfParams;
+    }
+
     const dbLocations = await getLocations();
     const params: { service: string; city: string }[] = [];
 
@@ -102,3 +116,4 @@ export async function generateStaticParams() {
 
     return params;
 }
+

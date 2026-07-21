@@ -7,6 +7,9 @@ import { VideoFacade } from '@/components/silo/VideoFacade';
 import { ZeroLeakageMenu } from '@/components/silo/ZeroLeakageMenu';
 import { StatsRow } from '@/components/silo/StatsRow';
 import { TrustSignals } from '@/components/silo/TrustSignals';
+import { OKFService } from '@/lib/okf/okf-service';
+import { OKFPointsMap } from '@/components/silo/OKFPointsMap';
+
 
 interface ServiceTemplateProps {
     service: string;
@@ -54,6 +57,11 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
 
     const location = city ? await getLocationBySlug(city) : null;
     const strategy = city ? DefenseStrategySelector.getStrategy(city) : null;
+
+    const okfCobertura = city ? OKFService.getCobertura(service, city) : null;
+    const okfFaqs = city ? OKFService.getFaqs(service, city) : [];
+    const okfPuntos = city ? OKFService.getPuntosDeInteres(city) : [];
+
 
     // Build the dynamic H1 and subheadline
     const h1 = city && location
@@ -137,6 +145,19 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
                 <div className="container px-4 md:px-16 mx-auto">
                     <div className="max-w-3xl mx-auto space-y-12">
 
+                        {/* OKF Ground Truth BLUF Summary */}
+                        {okfCobertura?.bluf && (
+                            <div className="p-6 bg-slate-900/90 rounded-2xl border border-prestige-gold/40 shadow-xl space-y-3">
+                                <div className="flex items-center gap-2 text-prestige-gold font-semibold text-xs tracking-wider uppercase">
+                                    <span className="w-2 h-2 rounded-full bg-prestige-gold animate-pulse"></span>
+                                    Dictamen de Doctrina OKF (Fuente Oficial)
+                                </div>
+                                <p className="text-slate-100 text-sm md:text-base leading-relaxed font-medium italic">
+                                    "{okfCobertura.bluf}"
+                                </p>
+                            </div>
+                        )}
+
                         <div className="space-y-4">
                             <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
                                 ¿Por qué actuar en las primeras 24 horas?
@@ -170,6 +191,37 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
                             </p>
                         </div>
 
+                        {/* OKF Local FAQs Layer */}
+                        {okfFaqs.length > 0 && (
+                            <div className="space-y-6 pt-6 border-t border-white/10">
+                                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
+                                    Preguntas Frecuentes
+                                </h2>
+                                <div className="space-y-4">
+                                    {okfFaqs.map((faq, idx) => (
+                                        <div key={idx} className="p-5 rounded-xl bg-slate-900/60 border border-white/5 hover:border-prestige-gold/30 transition-all">
+                                            <h3 className="text-base font-bold text-prestige-gold mb-2">
+                                                {faq.question}
+                                            </h3>
+                                            <p className="text-slate-300 text-sm leading-relaxed">
+                                                {faq.answer}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* OKF Interactive Google Map & Puntos de Interés Layer */}
+                        {okfPuntos.length > 0 && (
+                            <OKFPointsMap
+                                cityName={location?.name || city || ''}
+                                points={okfPuntos}
+                            />
+                        )}
+
+
+
                         {/* Localized Strategy Layer */}
                         {city && location && strategy && (
                             <>
@@ -192,6 +244,7 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
                                 </div>
                             </>
                         )}
+
 
                     </div>
                 </div>
