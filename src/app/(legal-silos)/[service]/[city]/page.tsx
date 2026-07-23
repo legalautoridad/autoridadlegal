@@ -44,7 +44,11 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
     const { config, location, okfCobertura, service, city } = data;
 
     const title = okfCobertura?.h1Title || okfCobertura?.frontmatter.title ||
-        (location ? `Abogado Especialista en ${config?.hero.specialty} en ${location.name} | Urgencias 24h` : `Abogado Especialista | Urgencias 24h`);
+        (location
+            ? (service === 'alcoholemia'
+                ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name} | Asistencia de Guardia`
+                : `Abogado Especialista en ${config?.hero.specialty} en ${location.name} | Urgencias 24h`)
+            : `Abogado Especialista | Urgencias 24h`);
 
     const description = okfCobertura?.frontmatter.description ||
         (location ? `Asistencia legal 24h en ${location.name} por ${config?.hero.specialty}. Defensa técnica en comisarías y juzgados locales.` : `Asistencia legal urgente 24h en Cataluña.`);

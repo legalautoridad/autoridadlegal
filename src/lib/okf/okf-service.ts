@@ -115,6 +115,49 @@ export class OKFService {
     }
 
     /**
+     * Gets all covered municipios for a given service (or all services if omitted).
+     */
+    public static getCoveredMunicipios(service?: string): { slug: string; name: string; service: string; h1Title?: string }[] {
+        const coberturas = loadCoberturas();
+        const municipiosMap = loadMunicipios();
+        const normService = service ? service.toLowerCase().trim() : null;
+
+        const filtered = normService
+            ? coberturas.filter(c => (c.frontmatter.service || '').toLowerCase().trim() === normService)
+            : coberturas;
+
+        const map = new Map<string, { slug: string; name: string; service: string; h1Title?: string }>();
+
+        filtered.forEach(c => {
+            const slug = c.frontmatter.municipio;
+            const key = normService ? slug : `${c.frontmatter.service}:${slug}`;
+            
+            if (!map.has(key)) {
+                let name = slug
+                    .split('-')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+
+                if (c.frontmatter.title) {
+                    const match = c.frontmatter.title.match(/\sen\s+([A-ZÁÉÍÓÚÀÈÒL·LÑa-záéíóúàèòl·lñ\s'-]+)$/i);
+                    if (match && match[1]) {
+                        name = match[1].trim();
+                    }
+                }
+
+                map.set(key, {
+                    slug,
+                    name,
+                    service: c.frontmatter.service,
+                    h1Title: c.h1Title || c.frontmatter.title
+                });
+            }
+        });
+
+        return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name, 'es'));
+    }
+
+    /**
      * Returns static route parameters for dynamic Next.js pages.
      */
     public static getStaticParams(): { service: string; city: string }[] {

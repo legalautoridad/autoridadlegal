@@ -9,6 +9,7 @@ import { StatsRow } from '@/components/silo/StatsRow';
 import { TrustSignals } from '@/components/silo/TrustSignals';
 import { OKFService } from '@/lib/okf/okf-service';
 import { OKFPointsMap } from '@/components/silo/OKFPointsMap';
+import { MunicipalitySearch } from '@/components/silo/MunicipalitySearch';
 
 
 interface ServiceTemplateProps {
@@ -65,8 +66,10 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
 
     // Build the dynamic H1 and subheadline from OKF cobertura data
     const h1 = okfCobertura?.h1Title || okfCobertura?.frontmatter.title || (city && location
-        ? `Abogado Especialista en ${config.hero.specialty} en ${location.name}`
-        : `Abogado Especialista en ${config.hero.specialty} | Asistencia de Guardia`);
+        ? (service === 'alcoholemia'
+            ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name} | Asistencia de Guardia`
+            : `Abogado Especialista en ${config.hero.specialty} en ${location.name}`)
+        : config.hero.title);
 
 
     const bannerText = city && location
@@ -119,9 +122,9 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
                             </p>
                         </div>
 
-                        {/* Facade Vertical Video */}
+                        {/* Facade Vertical Image */}
                         <div className="lg:col-span-5 flex justify-center w-full">
-                            <VideoFacade />
+                            <VideoFacade service={service} />
                         </div>
 
                     </div>
@@ -278,36 +281,17 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
                 </section>
             )}
 
-            {/* Parent Service Page Topic Cluster Directory */}
-            {!city && (
-                <section className="py-20 bg-slate-900 border-b border-white/5">
-                    <div className="container px-4 md:px-16 mx-auto">
-                        <div className="max-w-4xl mx-auto space-y-8">
-                            <div className="space-y-2 text-center">
-                                <h2 className="text-3xl font-bold text-white">Directorio de Abogados de Guardia por Municipios</h2>
-                                <p className="text-slate-400 text-sm max-w-xl mx-auto">
-                                    Seleccione su municipio en Cataluña para acceder a asistencia jurídica especializada de urgencia adaptada a los juzgados locales.
-                                </p>
-                            </div>
-
-                            <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 pt-6">
-                                {activeLocations.map((loc) => (
-                                    <li key={loc.id}>
-                                        <Link
-                                            href={`/${service}/${loc.slug}`}
-                                            className="block p-4 rounded-xl bg-slate-950/50 hover:bg-slate-950 border border-white/5 hover:border-prestige-gold/50 transition-all text-center group"
-                                        >
-                                            <span className="text-sm font-semibold text-slate-300 group-hover:text-prestige-gold transition-colors">
-                                                {loc.name}
-                                            </span>
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-            )}
+            {/* Interactive Municipality Directory & Search Section */}
+            <section className="py-20 bg-slate-900 border-b border-white/5">
+                <div className="container px-4 md:px-12 mx-auto">
+                    <MunicipalitySearch
+                        initialService={service}
+                        initialMunicipios={OKFService.getCoveredMunicipios(service)}
+                        title={`Buscador de Municipios Cubiertos para ${config.hero.specialty}`}
+                        subtitle={`Busque su municipio en Cataluña para acceder a asistencia jurídica especializada de urgencia adaptada a los juzgados y comisarías locales.`}
+                    />
+                </div>
+            </section>
 
             {/* Standard Stats & Trust Signals */}
             <StatsRow config={config} />
@@ -315,32 +299,16 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
                 <TrustSignals />
             </div>
 
-            {/* STICKY BOTTOM EMERGENCY CTA */}
+            {/* STICKY BOTTOM EMERGENCY CTA (MVP TELEPHONE) */}
             <div className="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-t border-white/10 p-3 shadow-2xl flex justify-center">
-                <div className="w-full max-w-2xl grid grid-cols-3 gap-2">
+                <div className="w-full max-w-xl">
                     <a
                         href="tel:+34605118871"
-                        className="py-3.5 rounded-xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-sans font-extrabold text-[10px] min-[375px]:text-xs sm:text-sm md:text-base text-center shadow-lg shadow-prestige-gold/20 flex items-center justify-center gap-1.5 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                        className="py-4 px-6 rounded-2xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-sans font-black text-sm sm:text-base md:text-lg text-center shadow-xl shadow-prestige-gold/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.01] active:scale-[0.98]"
                         aria-label="Llamar a la línea de guardia de urgencia 24 horas"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        Llamar Abogado 24h (+34 605 118 871)
-                    </a>
-                    <a
-                        href={whatsappUrl}
-                        className="py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-extrabold text-[10px] min-[375px]:text-xs sm:text-sm md:text-base text-center shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-1.5 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-                        aria-label="Iniciar chat de urgencia por WhatsApp"
-                    >
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping shrink-0"></span>
-                        WhatsApp Asistente IA
-                    </a>
-                    <a
-                        href="#chat-widget"
-                        className="py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-sans font-extrabold text-[10px] min-[375px]:text-xs sm:text-sm md:text-base text-center shadow-lg shadow-blue-600/20 flex items-center justify-center gap-1.5 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-                        aria-label="Hablar con el Asistente IA"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                        Web Asistente IA
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        Llamar Abogado de Guardia 24h (+34 605 118 871)
                     </a>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Gavel, Shield, ShieldCheck } from 'lucide-react';
+import { Shield, ShieldCheck, Scale } from 'lucide-react';
+import { Logo } from '@/components/ui/Logo';
 
 export function Footer() {
     return (
@@ -8,19 +9,16 @@ export function Footer() {
                 
                 {/* Brand Column */}
                 <div className="space-y-6 md:col-span-5">
-                    <div className="flex items-center gap-2">
-                        <Gavel className="text-prestige-gold w-6 h-6 shrink-0" />
-                        <span className="font-headline-md text-lg font-bold text-white tracking-tight">
-                            Autoridad<span className="text-prestige-gold">.Legal</span>
-                        </span>
-                    </div>
+                    <Link href="/" className="inline-block group">
+                        <Logo size="lg" theme="dark" />
+                    </Link>
                     <p className="font-body-md text-sm text-white/70 leading-relaxed max-w-sm">
                         Plataforma tecnológica de gestión de servicios jurídicos de alta especialización y defensa penal de tráfico en el área metropolitana de Barcelona.
                     </p>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 items-center">
                         <ShieldCheck className="text-prestige-gold w-6 h-6 hover:opacity-85 cursor-pointer shrink-0" />
                         <Shield className="text-prestige-gold w-6 h-6 hover:opacity-85 cursor-pointer shrink-0" />
-                        <Gavel className="text-prestige-gold w-6 h-6 hover:opacity-85 cursor-pointer shrink-0" />
+                        <Scale className="text-prestige-gold w-6 h-6 hover:opacity-85 cursor-pointer shrink-0" />
                     </div>
                 </div>
 

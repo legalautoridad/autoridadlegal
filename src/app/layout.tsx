@@ -37,7 +37,16 @@ const sourceSerif4 = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: "Autoridad Legal | Plataforma Jurídica",
-  description: "Plataforma de alto rendimiento para servicios legales.",
+  description: "Plataforma de alto rendimiento para servicios legales de alta especialización.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default async function RootLayout({

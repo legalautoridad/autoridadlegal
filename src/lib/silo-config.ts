@@ -80,11 +80,11 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             gradient: "from-orange-50 to-orange-100",
         },
         seo: {
-            title: "Abogados Alcoholemia | Juicio Rápido y Defensa Urgente",
+            title: "Abogado Penalista para Juicio Rápido por Alcoholemia | Asistencia de Guardia",
             description: "Especialistas en juicios rápidos por alcoholemia. Minimizamos retirada de carné y multas. Atención inmediata en comisaría y juzgado.",
         },
         hero: {
-            title: "Defensa Especializada en Alcoholemia y Seguridad Vial",
+            title: "Abogado Penalista para Juicio Rápido por Alcoholemia | Asistencia de Guardia",
             subtitle: "¿Positivo en control? No dejes que un error arruine tu vida laboral. Minimizamos la retirada de carné y la multa.",
             badge_text: "Asistencia Inmediata",
             specialty: "Alcoholemia",

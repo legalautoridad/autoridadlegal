@@ -11,22 +11,8 @@ import { LeadCaptureModal } from "@/components/checkout/LeadCaptureModal";
 import ReactMarkdown from "react-markdown";
 
 export function ChatWidget() {
-    const pathname = usePathname();
-    
-    // Check if we should hide the widget on specific paths
-    const isExcludedPath =
-        pathname === '/login' ||
-        pathname?.startsWith('/admin') ||
-        pathname?.startsWith('/lawyer') ||
-        pathname?.startsWith('/checkout/success');
-
-    if (isExcludedPath) return null;
-
-    return (
-        <Suspense fallback={null}>
-            <ChatWidgetContent />
-        </Suspense>
-    );
+    // MVP Initial Version: Only Telephone contact (+34 605 118 871). AI Chatbot will be enabled in upcoming phase.
+    return null;
 }
 
 function ChatWidgetContent() {

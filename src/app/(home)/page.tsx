@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getLocations } from "@/lib/db/locations";
+import { OKFService } from "@/lib/okf/okf-service";
+import { MunicipalitySearch } from "@/components/silo/MunicipalitySearch";
 import {
     Gavel,
     ShieldCheck,
@@ -15,6 +17,7 @@ import {
 export default async function MarketingPage() {
     // Fetch locations from DB dynamically (strict SSR)
     const locations = await getLocations();
+    const municipiosAlcoholemia = OKFService.getCoveredMunicipios('alcoholemia');
 
     // Exact text for FAQs (responses under 40 words)
     const faqData = [
@@ -164,62 +167,16 @@ export default async function MarketingPage() {
             </article>
 
             {/* NUESTRA ZONA DE COBERTURA SECTION */}
-            <section className="w-full bg-white border-y border-outline-variant/30 py-16 md:py-20 flex justify-center">
-                <article className="max-w-4xl w-full px-6 space-y-8 flex flex-col items-center">
-                    <div className="w-full text-left">
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-trust-navy border-l-4 border-prestige-gold pl-4 tracking-tight">
-                            Nuestra Zona de Cobertura
-                        </h2>
-                        <p className="font-body-lg text-lg text-slate-700 leading-relaxed mt-6">
-                            Ofrecemos cobertura de defensa legal urgente en toda el área metropolitana y municipios limítrofes de la provincia de Barcelona. Nuestra red de abogados penalistas se desplaza inmediatamente a comisarías y juzgados de instrucción competentes, asegurando una representación eficaz en todos los partidos judiciales catalanes de nuestra jurisdicción territorial.
-                        </p>
-                    </div>
-
-                    {/* Two-column layout: Map on the left, locations list on the right */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center w-full mt-8">
-                        {/* Left Column: Smaller Map with Pulse */}
-                        <div className="md:col-span-5 flex justify-center">
-                            <div className="relative w-full max-w-[360px] rounded-2xl overflow-hidden shadow-lg border border-outline-variant/40 bg-surface-ice group">
-                                <img
-                                    src="/images/cobertura_mapa.png"
-                                    alt="Barcelona province coverage map"
-                                    className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-500"
-                                />
-                                {/* Soft Pulse Effect Overlay */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                                    <span className="flex h-10 w-10 relative">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-prestige-gold/20 opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-10 w-10 bg-prestige-gold/10"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Right Column: List of Populations */}
-                        <div className="md:col-span-7 w-full">
-                            <div className="bg-surface-ice border border-outline-variant/30 rounded-2xl p-6 shadow-inner w-full">
-                                <h3 className="font-headline-md text-base font-bold text-trust-navy mb-3">
-                                    Municipios cubiertos en la Provincia de Barcelona
-                                </h3>
-                                <p className="font-body-md text-xs text-slate-500 mb-4">
-                                    Prestamos asistencia legal inmediata en <strong className="text-trust-navy font-extrabold">{locations.length} poblaciones</strong> de la provincia. Seleccione su localidad para acceder a la información de su juzgado competente:
-                                </p>
-                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 max-h-[220px] overflow-y-auto pr-2 custom-scrollbar">
-                                    {locations.map((loc) => (
-                                        <Link
-                                            key={loc.id}
-                                            href={`/alcoholemia/${loc.slug}`}
-                                            className="text-slate-700 hover:text-prestige-gold transition-colors font-medium text-[11px] flex items-center gap-1.5"
-                                        >
-                                            <span className="w-1 h-1 rounded-full bg-prestige-gold/60 shrink-0"></span>
-                                            <span className="truncate">{loc.name}</span>
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+            <section className="w-full bg-slate-900 border-y border-white/10 py-16 md:py-24 flex justify-center">
+                <div className="max-w-7xl w-full px-6 lg:px-8">
+                    <MunicipalitySearch
+                        initialService="alcoholemia"
+                        initialMunicipios={municipiosAlcoholemia}
+                        showServiceSelector={true}
+                        title="Buscador de Cobertura Jurídica por Servicio y Municipio"
+                        subtitle="Ofrecemos asistencia legal urgente 24h en toda el área metropolitana y municipios de Cataluña. Seleccione la especialidad y busque su localidad para acceder a la página de su juzgado competente."
+                    />
+                </div>
             </section>
 
             {/* E-E-A-T SECTION */}
@@ -302,34 +259,16 @@ export default async function MarketingPage() {
                 </div>
             </section>
 
-            {/* STICKY MOBILE CTA BUTTON */}
+            {/* STICKY MOBILE CTA BUTTON (MVP TELEPHONE) */}
             <div className="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-t border-white/10 p-3 shadow-2xl flex justify-center">
-                <div className="w-full max-w-2xl grid grid-cols-3 gap-2">
+                <div className="w-full max-w-xl">
                     <a
                         href="tel:+34605118871"
-                        className="py-3.5 rounded-xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-sans font-extrabold text-[10px] min-[375px]:text-xs sm:text-sm md:text-base text-center shadow-lg shadow-prestige-gold/20 flex items-center justify-center gap-1.5 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                        className="py-4 px-6 rounded-2xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-sans font-black text-sm sm:text-base md:text-lg text-center shadow-xl shadow-prestige-gold/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.01] active:scale-[0.98]"
                         aria-label="Llamar a la línea de guardia de urgencia 24 horas"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        Llamar Abogado 24h (+34 605 118 871)
-                    </a>
-                    <a
-                        href={waLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-extrabold text-[10px] min-[375px]:text-xs sm:text-sm md:text-base text-center shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-1.5 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-                        aria-label="Iniciar chat de urgencia por WhatsApp"
-                    >
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping shrink-0"></span>
-                        WhatsApp Asistente IA
-                    </a>
-                    <a
-                        href="#chat-widget"
-                        className="py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-sans font-extrabold text-[10px] min-[375px]:text-xs sm:text-sm md:text-base text-center shadow-lg shadow-blue-600/20 flex items-center justify-center gap-1.5 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-                        aria-label="Hablar con el Asistente IA"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                        Web Asistente IA
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        Llamar Abogado de Guardia 24h (+34 605 118 871)
                     </a>
                 </div>
             </div>

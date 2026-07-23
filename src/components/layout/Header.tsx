@@ -2,20 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Gavel, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 
 export function Header() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-outline-variant w-full">
-            <div className="container mx-auto px-4 md:px-margin-desktop flex items-center justify-between w-full h-20">
+            <div className="container mx-auto px-4 md:px-margin-desktop flex items-center justify-between w-full h-28">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group" onClick={() => setIsOpen(false)}>
-                    <Gavel className="text-legal-ink w-7 h-7 group-hover:text-prestige-gold transition-colors shrink-0" />
-                    <span className="font-headline-md text-xl md:text-2xl font-bold text-legal-ink tracking-tight">
-                        Autoridad<span className="text-prestige-gold">.Legal</span>
-                    </span>
+                <Link href="/" className="group" onClick={() => setIsOpen(false)}>
+                    <Logo size="lg" theme="light" />
                 </Link>
  
                 <div className="flex items-center gap-2 sm:gap-3 lg:gap-6">
