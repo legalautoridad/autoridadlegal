@@ -1,69 +1,38 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getSiloConfig } from '@/lib/silo-config';
-import { getLocationBySlug, getLocations } from '@/lib/db/locations';
-import { SchemaFactory } from '@/lib/seo/schema-factory';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
-import { OKFService } from '@/lib/okf/okf-service';
+import { getCoberturaData, getLiveCoberturaParams, VALID_SERVICES } from '@/lib/db/cobertura';
+
+export const revalidate = 3600; // ISR revalidation every 1 hour
+export const dynamicParams = true; // Allow newly published DB rows to render dynamically via ISR without redeploy
 
 interface LeafPageProps {
     params: Promise<{ service: string; city: string }>;
 }
 
-const VALID_SERVICES = ['alcoholemia', 'drogas', 'sin-carnet', 'velocidad', 'profesionales'];
-
-// Validate service parameter
 function isValidService(service: string): boolean {
     return VALID_SERVICES.includes(service.toLowerCase());
 }
 
-// 1. Data Fetching & Validation Helper
-async function getLeafData(params: LeafPageProps['params']) {
-    const { service, city } = await params;
-    
-    if (!isValidService(service)) {
-        return null;
-    }
-
-    const config = getSiloConfig(service);
-    const location = await getLocationBySlug(city);
-    const okfCobertura = OKFService.getCobertura(service, city);
-
-    if (!config && !okfCobertura) {
-        return null;
-    }
-
-    return { config, location, okfCobertura, service, city };
-}
-
-// 2. SEO & GEO: Dynamic Metadata
+// 1. Dynamic SEO Metadata Generation (Single source of truth: web_published gate)
 export async function generateMetadata({ params }: LeafPageProps): Promise<Metadata> {
-    const data = await getLeafData(params);
-    if (!data) return {};
+    const { service, city } = await params;
+    if (!isValidService(service)) return {};
 
-    const { config, location, okfCobertura, service, city } = data;
+    const cobertura = await getCoberturaData(service, city);
+    if (!cobertura) return {};
 
-    const title = okfCobertura?.h1Title || okfCobertura?.frontmatter.title ||
-        (location
-            ? (service === 'alcoholemia'
-                ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name} | Asistencia de Guardia`
-                : `Abogado Especialista en ${config?.hero.specialty} en ${location.name} | Urgencias 24h`)
-            : `Abogado Especialista | Urgencias 24h`);
-
-    const description = okfCobertura?.frontmatter.description ||
-        (location ? `Asistencia legal 24h en ${location.name} por ${config?.hero.specialty}. Defensa técnica en comisarías y juzgados locales.` : `Asistencia legal urgente 24h en Cataluña.`);
-
-    const canonicalUrl = `https://autoridadlegal.com/${service}/${city}`;
+    const canonicalUrl = `https://autoridadlegal.com/${cobertura.service.slug}/${cobertura.location.slug}`;
 
     return {
-        title,
-        description,
+        title: `${cobertura.h1Title} | Autoridad Legal`,
+        description: cobertura.description,
         alternates: {
             canonical: canonicalUrl,
         },
         openGraph: {
-            title,
-            description,
+            title: cobertura.h1Title,
+            description: cobertura.description,
             url: canonicalUrl,
             siteName: 'Autoridad Legal',
             locale: 'es_ES',
@@ -71,37 +40,68 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
         },
         twitter: {
             card: 'summary_large_image',
-            title,
-            description,
+            title: cobertura.h1Title,
+            description: cobertura.description,
         },
     };
 }
 
-// 3. Localized Service Leaf Page Implementation
+// 2. Localized Service Leaf Page Component (Server Rendered)
 export default async function LocalizedServiceLeafPage({ params }: LeafPageProps) {
-    const data = await getLeafData(params);
+    const { service, city } = await params;
+    if (!isValidService(service)) return notFound();
 
-    if (!data) {
+    const cobertura = await getCoberturaData(service, city);
+    if (!cobertura) {
         return notFound();
     }
 
-    const { config, location, okfCobertura, service, city } = data;
+    const canonicalUrl = `https://autoridadlegal.com/${cobertura.service.slug}/${cobertura.location.slug}`;
 
-    const cityName = location?.name || city.replace(/-/g, ' ');
-    const specialtyName = config?.hero.specialty || service;
-    const okfFaqs = OKFService.getFaqs(service, city);
-
-    // Generate JSON-LD Graph for SEO and Search Crawlers (GEO / LLM optimized)
-    const jsonLdGraph = SchemaFactory.generateEmergencyGraph({
-        baseUrl: "https://autoridadlegal.com",
-        service: service,
-        city: city,
-        cityName: cityName,
-        specialtyName: specialtyName,
-        courtName: location?.courts?.name,
-        courtAddress: location?.courts?.address || undefined,
-        faqs: okfFaqs,
-    });
+    // Schema.org LegalService + FAQPage Graph
+    const jsonLdGraph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "LegalService",
+                "@id": `${canonicalUrl}#legal-service`,
+                "name": cobertura.h1Title,
+                "description": cobertura.description,
+                "url": canonicalUrl,
+                "telephone": "+34605118871",
+                "priceRange": "980€",
+                "areaServed": {
+                    "@type": "AdministrativeArea",
+                    "name": cobertura.location.name
+                },
+                "provider": {
+                    "@type": "Organization",
+                    "@id": "https://autoridadlegal.com/#organization",
+                    "name": "Autoridad Legal",
+                    "url": "https://autoridadlegal.com"
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": "Santiago Giménez Olavarriaga",
+                    "jobTitle": "Director Jurídico y Abogado Penalista",
+                    "identifier": "ICAB 31.389",
+                    "sameAs": "https://autoridadlegal.com/abogados/santiago-gimenez-olavarriaga"
+                }
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${canonicalUrl}#faq`,
+                "mainEntity": cobertura.faqs.map(faq => ({
+                    "@type": "Question",
+                    "name": faq.question,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": faq.answer
+                    }
+                }))
+            }
+        ]
+    };
 
     return (
         <>
@@ -109,28 +109,12 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
             />
-            <ServiceTemplate service={service} city={city} />
+            <ServiceTemplate service={cobertura.service.slug} city={cobertura.location.slug} />
         </>
     );
 }
 
-
-// 4. Static Generation
+// 3. Static Generation: Strictly LIVE combinations from location_services (web_published = true & faq_json non-empty)
 export async function generateStaticParams() {
-    const okfParams = OKFService.getStaticParams();
-    if (okfParams.length > 0) {
-        return okfParams;
-    }
-
-    const dbLocations = await getLocations();
-    const params: { service: string; city: string }[] = [];
-
-    VALID_SERVICES.forEach((service) => {
-        dbLocations.forEach((loc) => {
-            params.push({ service, city: loc.slug });
-        });
-    });
-
-    return params;
+    return await getLiveCoberturaParams();
 }
-

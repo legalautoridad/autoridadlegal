@@ -1,8 +1,6 @@
 import { Metadata } from 'next';
 import { OKFService } from '@/lib/okf/okf-service';
 import { MunicipalitySearch } from '@/components/silo/MunicipalitySearch';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
 import { Shield, Clock, MapPin, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -19,8 +17,6 @@ export default function MunicipiosHubPage() {
 
     return (
         <div className="min-h-screen bg-slate-900 text-white flex flex-col justify-between">
-            <Header />
-
             <main className="py-12 md:py-20 px-4 md:px-8 max-w-7xl mx-auto w-full space-y-16 flex-1">
                 {/* Hero Header */}
                 <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -77,8 +73,6 @@ export default function MunicipiosHubPage() {
                     subtitle="Filtre por especialidad legal y escriba el nombre de su localidad para acceder a la página de asistencia jurídica personalizada."
                 />
             </main>
-
-            <Footer />
         </div>
     );
 }

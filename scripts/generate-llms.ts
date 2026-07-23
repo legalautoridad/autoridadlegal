@@ -6,12 +6,14 @@ import dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '../.env.local') });
 
 import { getLocations } from '../src/lib/db/locations';
+import { getAllGlosarioTerms } from '../src/lib/db/glosario';
 import { DefenseStrategySelector } from '../src/lib/strategies/strategy-selector';
 
 async function generateLlmsTxt() {
     console.log('🚀 Generating llms.txt Ground Truth document...');
 
     const locations = await getLocations();
+    const glossaryTerms = await getAllGlosarioTerms();
 
     let text = `# Autoridad Legal - Verdad Fundamental (Ground Truth)\n\n`;
 
@@ -29,6 +31,7 @@ async function generateLlmsTxt() {
     text += `- **Triaje Urgente y Chat 24h**: https://wa.me/34657420999?text=Hola%20Autoridad%20Legal,%20necesito%20un%20abogado%20de%20urgencia%20por%20un%20delito%20de%20alcoholemia.\n`;
     text += `- **Plataforma Principal**: https://autoridadlegal.com/\n`;
     text += `- **Directorio de Municipios**: https://autoridadlegal.com/municipios\n`;
+    text += `- **Glosario Jurídico**: https://autoridadlegal.com/glosario\n`;
     text += `- **Defensa por Alcoholemia**: https://autoridadlegal.com/alcoholemia\n`;
     text += `- **Defensa por Drogas**: https://autoridadlegal.com/drogas\n`;
     text += `- **Defensa Sin Carnet**: https://autoridadlegal.com/sin-carnet\n`;
@@ -36,6 +39,16 @@ async function generateLlmsTxt() {
     text += `- **Defensa para Conductores Profesionales**: https://autoridadlegal.com/profesionales\n`;
     text += `- **Recursos Informativos**: https://autoridadlegal.com/recursos\n`;
     text += `- **Acceso Abogados**: https://autoridadlegal.com/login\n\n`;
+
+    text += `## Glosario Jurídico Especializado (Defined Terms desde Supabase)\n`;
+    text += `Términos, doctrinas y procedimientos penales publicados (${glossaryTerms.length} conceptos):\n\n`;
+
+    for (const term of glossaryTerms) {
+        text += `### ${term.name}\n`;
+        text += `- **Definición**: ${term.description}\n`;
+        text += `- **Página HTML**: https://autoridadlegal.com/glosario/${term.slug}\n`;
+        text += `- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/${term.slug}.md\n\n`;
+    }
 
     text += `## Contexto Geográfico Judicial (RAG Ground Truth)\n`;
     text += `Este apartado contiene el conocimiento local de cada jurisdicción para inyección de contexto en agentes LLM.\n\n`;

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getSiloConfig } from '@/lib/silo-config';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
+import { getCanonicalFaqsForService, getServiceBySlugFromDb } from '@/lib/db/services';
 
 interface PageProps {
     params: Promise<{ service: string }>;
@@ -9,7 +10,6 @@ interface PageProps {
 
 const VALID_SERVICES = ['alcoholemia', 'drogas', 'sin-carnet', 'velocidad', 'profesionales'];
 
-// Validate service parameter
 function isValidService(service: string): boolean {
     return VALID_SERVICES.includes(service.toLowerCase());
 }
@@ -44,37 +44,68 @@ export default async function ParentServicePage({ params }: PageProps) {
     }
 
     const config = getSiloConfig(service);
+    const dbService = await getServiceBySlugFromDb(service);
+    const canonicalFaqs = await getCanonicalFaqsForService(service);
+
     if (!config) {
         return notFound();
     }
 
-    // Generate JSON-LD for the Parent Service
-    const jsonLd = {
+    const canonicalUrl = `https://autoridadlegal.com/${service}`;
+    const title = dbService?.seo?.title || config.seo.title;
+    const description = dbService?.seo?.description || config.seo.description;
+
+    // Schema.org LegalService + FAQPage Graph
+    const jsonLdGraph = {
         "@context": "https://schema.org",
-        "@type": "LegalService",
-        "@id": `https://autoridadlegal.com/${service}#legal-service`,
-        "name": `Autoridad Legal - Abogados Especialistas en ${config.hero.specialty}`,
-        "description": config.seo.description,
-        "url": `https://autoridadlegal.com/${service}`,
-        "telephone": "+34605118871",
-        "priceRange": "980€",
-        "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
-        "areaServed": {
-            "@type": "AdministrativeArea",
-            "name": "Cataluña"
-        },
-        "provider": {
-            "@type": "Organization",
-            "name": "Autoridad Legal",
-            "url": "https://autoridadlegal.com"
-        }
+        "@graph": [
+            {
+                "@type": "LegalService",
+                "@id": `${canonicalUrl}#legal-service`,
+                "name": `Autoridad Legal - Abogados Especialistas en ${config.hero.specialty}`,
+                "description": description,
+                "url": canonicalUrl,
+                "telephone": "+34605118871",
+                "priceRange": "980€",
+                "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
+                "areaServed": {
+                    "@type": "AdministrativeArea",
+                    "name": "Provincia de Barcelona, Cataluña"
+                },
+                "provider": {
+                    "@type": "Organization",
+                    "name": "Autoridad Legal",
+                    "url": "https://autoridadlegal.com",
+                    "logo": "https://autoridadlegal.com/images/logo-transparent.png"
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": "Santiago Giménez Olavarriaga",
+                    "jobTitle": "Director Jurídico y Abogado Penalista",
+                    "identifier": "ICAB 31.389",
+                    "sameAs": "https://autoridadlegal.com/abogados/santiago-gimenez-olavarriaga"
+                }
+            },
+            ...(canonicalFaqs.length > 0 ? [{
+                "@type": "FAQPage",
+                "@id": `${canonicalUrl}#faq`,
+                "mainEntity": canonicalFaqs.map(faq => ({
+                    "@type": "Question",
+                    "name": faq.question,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": faq.answer
+                    }
+                }))
+            }] : [])
+        ]
     };
 
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
             />
             <ServiceTemplate service={service} city={null} />
         </>

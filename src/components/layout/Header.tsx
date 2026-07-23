@@ -24,6 +24,7 @@ export function Header() {
                         <Link href="/sin-carnet" className="hover:text-prestige-gold transition-colors font-medium">Sin Carnet</Link>
                         <Link href="/velocidad" className="hover:text-prestige-gold transition-colors font-medium">Velocidad</Link>
                         <Link href="/profesionales" className="hover:text-prestige-gold transition-colors font-semibold text-trust-navy">Profesionales</Link>
+                        <Link href="/glosario" className="hover:text-prestige-gold transition-colors font-medium">Glosario</Link>
                     </nav>
 
                     {/* Mobile Menu Button */}
@@ -75,6 +76,13 @@ export function Header() {
                             onClick={() => setIsOpen(false)}
                         >
                             Profesionales
+                        </Link>
+                        <Link 
+                            href="/glosario" 
+                            className="hover:text-prestige-gold transition-colors font-semibold py-3 px-4 rounded-xl hover:bg-slate-50 block"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Glosario
                         </Link>
                     </nav>
                 </div>

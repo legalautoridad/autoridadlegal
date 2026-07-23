@@ -85,8 +85,11 @@ export default async function RootLayout({
                 "addressCountry": "ES"
               },
               "sameAs": [
-                "https://www.linkedin.com/company/autoridad-legal",
-                "https://twitter.com/autoridadlegal"
+                "https://www.linkedin.com/company/autoridad-legal/",
+                "https://www.facebook.com/AutoridadLegal/",
+                "https://www.instagram.com/autoridad.legal/",
+                "https://x.com/AutoridadLegal_",
+                "https://www.youtube.com/@Autoridad_Legal"
               ],
               "paymentAccepted": "Credit Card, Stripe",
               "priceRange": "900€ - 1500€",
