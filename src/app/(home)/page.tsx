@@ -62,7 +62,7 @@ export default async function MarketingPage() {
                                     "addressCountry": "ES"
                                 },
                                 "priceRange": "980€",
-                                "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
+                                "image": "https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg",
                                 "founder": {
                                     "@type": "Person",
                                     "name": "Santiago Giménez Olavarriaga",
@@ -112,21 +112,29 @@ export default async function MarketingPage() {
 
                     {/* Hero Right Column: Video Facade & Pricing Text */}
                     <div className="md:col-span-5 flex flex-col items-center">
-                        {/* 9:16 Vertical Video Container Facade */}
+                        {/* 9:16 Vertical Portrait Photo Container */}
                         <div className="relative w-full max-w-[280px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-prestige-gold/30 bg-legal-ink group">
                             <img
-                                src="/images/lawyer_video_thumbnail.png"
-                                alt="Abogado penalista Santiago Giménez Olavarriaga"
-                                className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500"
+                                src="https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg"
+                                alt="Santiago Giménez Olavarriaga - Abogado Director Autoridad Legal"
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
-                            {/* Play Button Overlay */}
-                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
-                                <Play
-                                    className="w-16 h-16 text-white fill-white drop-shadow-2xl p-4 bg-prestige-gold/90 rounded-full hover:scale-110 active:scale-95 transition-all cursor-pointer shrink-0"
-                                />
-                                <span className="text-white text-xs font-bold mt-3 uppercase tracking-wider drop-shadow-md">
-                                    Ver vídeo explicativo
-                                </span>
+                            {/* Overlay Gradient for readability */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex flex-col justify-between p-5 pointer-events-none">
+                                {/* Badge */}
+                                <div className="self-start px-3 py-1 rounded-full bg-red-600/80 backdrop-blur-sm border border-red-500/30 text-white text-[10px] font-bold tracking-widest uppercase animate-pulse">
+                                    Defensa Penal 24h
+                                </div>
+
+                                {/* Info Overlay */}
+                                <div className="space-y-1">
+                                    <p className="text-white font-extrabold text-sm tracking-wide drop-shadow-md">
+                                        Santiago Giménez Olavarriaga
+                                    </p>
+                                    <p className="text-prestige-gold text-xs font-bold drop-shadow">
+                                        Letrado Director ICAB 31389
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
