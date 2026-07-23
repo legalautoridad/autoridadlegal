@@ -10,7 +10,8 @@ export async function getKnowledgeRecords() {
     const supabase = await createClient();
     if (!(await isAdmin())) throw new Error('Unauthorized');
 
-    const { data, error } = await supabase
+    const adminClient = await createAdminClient();
+    const { data, error } = await adminClient
         .from('juristic_knowledge')
         .select('*')
         .order('created_at', { ascending: false });

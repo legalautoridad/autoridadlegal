@@ -18,6 +18,25 @@ export interface Location {
     zone: string | null
     redirect_slug: string | null
     created_at: string
+    region?: string | null
+    population?: number | null
+    interest_points?: {
+        name: string;
+        class: string;
+        details: string;
+        lat?: number;
+        lng?: number;
+    }[] | null;
+    seo_content?: {
+        faq_local?: { q: string; a: string }[] | null;
+        local_intro?: string | null;
+        context_stats?: string | null;
+    } | null;
+    gps_center?: any;
+    surface_km2?: number | null;
+    density_hab_km2?: number | null;
+    census_year?: number | null;
+    census_source?: string | null;
 }
 
 /**

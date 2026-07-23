@@ -1,0 +1,52 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Profile {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  fullName         String?  @map("full_name")
+  reputationScore  Int      @default(0) @map("reputation_score")
+  creditBalance    Decimal  @default(0.00) @map("credit_balance")
+  createdAt        DateTime @default(now()) @map("created_at")
+  
+  @@map("profiles")
+}
+
+model Case {
+  id                String   @id @default(uuid())
+  clientName        String   @map("client_name")
+  clientPhone       String   @map("client_phone")
+  clientEmail       String?  @map("client_email")
+  clientCity        String   @map("client_city")
+  honorarios        Decimal
+  reservationAmount Decimal  @default(0) @map("reservation_amount")
+  status            String   @default("NEW")
+  notes             String?
+  aiSummary         String?  @map("ai_summary")
+  createdAt         DateTime @default(now()) @map("created_at")
+  
+  @@map("cases")
+}
+
+model Service {
+  id         String   @id @default(uuid())
+  slug       String   @unique
+  name       String
+  theme      String
+  colors     Json     @default("{}")
+  seo        Json     @default("{}")
+  hero       Json     @default("{}")
+  stats      Json     @default("[]")
+  painPoints Json     @default("{}") @map("pain_points")
+  features   Json     @default("[]")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @default(now()) @map("updated_at")
+
+  @@map("services")
+}

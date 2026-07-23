@@ -1,61 +1,84 @@
-import Link from "next/link";
-import { ShieldAlert, Menu, User, LayoutDashboard } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+'use client';
 
-export async function Header() {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+import { useState } from "react";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
+
+export function Header() {
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 bg-white shadow-sm font-sans">
-            {/* Main Navigation */}
-            <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+        <header className="sticky top-0 z-50 bg-white border-b border-outline-variant w-full">
+            <div className="container mx-auto px-4 md:px-margin-desktop flex items-center justify-between w-full h-28">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group">
-                    <div className="bg-slate-900 text-white p-2 rounded-lg group-hover:bg-blue-900 transition-colors">
-                        <ShieldAlert className="h-6 w-6" />
-                    </div>
-                    <span className="text-xl md:text-2xl font-serif text-slate-900 tracking-tight">
-                        AUTORIDAD <span className="font-bold">LEGAL</span>
-                    </span>
+                <Link href="/" className="group" onClick={() => setIsOpen(false)}>
+                    <Logo size="lg" theme="light" />
                 </Link>
  
-                {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-                    <Link href="/alcoholemia" className="hover:text-blue-600 transition-colors">Alcoholemia</Link>
-                    <Link href="/accidentes" className="hover:text-blue-600 transition-colors">Accidentes</Link>
-                    <Link href="/herencias" className="hover:text-blue-600 transition-colors">Herencias</Link>
-                    <Link href="/recursos" className="hover:text-blue-600 transition-colors">Recursos</Link>
-                </nav>
+                <div className="flex items-center gap-2 sm:gap-3 lg:gap-6">
+                    {/* Desktop Nav */}
+                    <nav className="hidden lg:flex items-center gap-6 text-sm font-label-md text-on-surface-variant">
+                        <Link href="/alcoholemia" className="hover:text-prestige-gold transition-colors font-medium">Alcoholemia</Link>
+                        <Link href="/drogas" className="hover:text-prestige-gold transition-colors font-medium">Drogas</Link>
+                        <Link href="/sin-carnet" className="hover:text-prestige-gold transition-colors font-medium">Sin Carnet</Link>
+                        <Link href="/velocidad" className="hover:text-prestige-gold transition-colors font-medium">Velocidad</Link>
+                        <Link href="/profesionales" className="hover:text-prestige-gold transition-colors font-semibold text-trust-navy">Profesionales</Link>
+                    </nav>
 
-                {/* Right Side */}
-                <div className="flex items-center gap-4">
-                    {user ? (
-                        <Link
-                            href="/lawyer/dashboard"
-                            className="flex items-center gap-2 text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-lg transition-all border border-indigo-100 shadow-sm"
-                        >
-                            <LayoutDashboard className="w-4 h-4" />
-                            MI PANEL
-                            <span className="hidden lg:inline text-[10px] text-indigo-400 font-medium ml-2 border-l border-indigo-200 pl-2">
-                                {user.email}
-                            </span>
-                        </Link>
-                    ) : (
-                        <Link
-                            href="/login"
-                            className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-900 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100"
-                        >
-                            <ShieldAlert className="w-3.5 h-3.5" />
-                            ACCESO ABOGADOS
-                        </Link>
-                    )}
-                    
-                    <button className="md:hidden p-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors">
-                        <Menu className="h-6 w-6" />
+                    {/* Mobile Menu Button */}
+                    <button 
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="lg:hidden p-2 text-legal-ink hover:text-prestige-gold transition-colors rounded-xl hover:bg-slate-50 focus:outline-none"
+                        aria-label="Toggle menu"
+                    >
+                        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                     </button>
                 </div>
             </div>
+
+            {/* Mobile Nav Dropdown */}
+            {isOpen && (
+                <div className="lg:hidden bg-white border-t border-outline-variant px-4 py-4 shadow-lg animate-in slide-in-from-top-4 duration-200">
+                    <nav className="flex flex-col gap-1.5 text-sm font-label-md text-on-surface-variant">
+                        <Link 
+                            href="/alcoholemia" 
+                            className="hover:text-prestige-gold transition-colors font-semibold py-3 px-4 rounded-xl hover:bg-slate-50 block"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Alcoholemia
+                        </Link>
+                        <Link 
+                            href="/drogas" 
+                            className="hover:text-prestige-gold transition-colors font-semibold py-3 px-4 rounded-xl hover:bg-slate-50 block"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Drogas
+                        </Link>
+                        <Link 
+                            href="/sin-carnet" 
+                            className="hover:text-prestige-gold transition-colors font-semibold py-3 px-4 rounded-xl hover:bg-slate-50 block"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Sin Carnet
+                        </Link>
+                        <Link 
+                            href="/velocidad" 
+                            className="hover:text-prestige-gold transition-colors font-semibold py-3 px-4 rounded-xl hover:bg-slate-50 block"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Velocidad
+                        </Link>
+                        <Link 
+                            href="/profesionales" 
+                            className="hover:text-prestige-gold transition-colors font-bold text-trust-navy py-3 px-4 rounded-xl bg-prestige-gold/15 hover:bg-prestige-gold/20 block"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Profesionales
+                        </Link>
+                    </nav>
+                </div>
+            )}
         </header>
     );
 }

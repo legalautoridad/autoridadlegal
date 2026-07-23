@@ -1,6 +1,4 @@
-
 import { SiloConfig } from "@/lib/silo-config";
-import { cn } from "@/lib/utils";
 import { BrainCircuit, UserCheck, Gavel } from "lucide-react";
 
 export function ValueProposition({ config }: { config: SiloConfig }) {
@@ -18,21 +16,20 @@ export function ValueProposition({ config }: { config: SiloConfig }) {
         {
             icon: Gavel,
             title: "3. Defensa Inmediata",
-            description: config.theme === 'urgency'
+            description: config.theme === 'urgency' || config.slug === 'juicios-rapidos'
                 ? "Actuación urgente en comisaría o juzgado para proteger tus derechos desde el minuto cero."
                 : "Estrategia legal sólida diseñada para maximizar tus resultados y proteger tus intereses."
         }
     ];
 
     return (
-        <section id="como-funciona" className="py-24 bg-white relative overflow-hidden">
-            {/* Background Pattern */}
+        <section id="como-funciona" className="bg-white py-24 relative overflow-hidden">
             <div className="container mx-auto px-4">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
+                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-headline-lg">
                         ¿Cómo funciona Autoridad Legal?
                     </h2>
-                    <p className="mt-4 text-lg text-slate-600">
+                    <p className="mt-4 text-lg text-slate-600 font-body-lg">
                         Simplificamos el acceso a la justicia de alto nivel en 3 pasos claros.
                     </p>
                 </div>
@@ -42,19 +39,13 @@ export function ValueProposition({ config }: { config: SiloConfig }) {
                         const Icon = step.icon;
                         return (
                             <div key={idx} className="relative group">
-                                <div className="absolute inset-0 bg-surface rounded-2xl transform transition-transform group-hover:-translate-y-2 group-hover:shadow-xl border border-transparent group-hover:border-slate-100 duration-300"></div>
+                                <div className="absolute inset-0 bg-surface rounded-2xl transform transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl border border-outline-variant hover:border-prestige-gold/45"></div>
                                 <div className="relative p-8 text-center">
-                                    <div className={cn(
-                                        "mx-auto h-16 w-16 rounded-full flex items-center justify-center mb-6 transition-colors duration-300",
-                                        "bg-surface group-hover:bg-white border-2",
-                                        config.theme === 'urgency' ? "border-orange-100 group-hover:border-orange-500 text-orange-600" :
-                                            config.theme === 'trust' ? "border-slate-100 group-hover:border-slate-500 text-slate-600" :
-                                                "border-blue-100 group-hover:border-blue-500 text-blue-600"
-                                    )}>
+                                    <div className="mx-auto h-16 w-16 rounded-full flex items-center justify-center mb-6 transition-colors duration-300 border-2 bg-white border-prestige-gold/25 text-trust-navy group-hover:bg-trust-navy group-hover:text-white group-hover:border-trust-navy">
                                         <Icon className="h-8 w-8" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3 font-serif">{step.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3 font-headline-md">{step.title}</h3>
+                                    <p className="text-slate-600 leading-relaxed font-body-md">
                                         {step.description}
                                     </p>
                                 </div>

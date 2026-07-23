@@ -24,9 +24,13 @@ async function applyMigration() {
     // or just inform the user that this specific DDL might need manual application if the client fails.
 
     // Attempting to execute via a common pattern:
-    const { error } = await supabase.rpc('exec_sql', { sql_query: sql }).catch(() => {
-        return { error: { message: 'RPC exec_sql not found. This is normal. I will attempt another way.' } };
-    });
+    let error;
+    try {
+        const { error: rpcError } = await supabase.rpc('exec_sql', { sql_query: sql });
+        error = rpcError;
+    } catch (e) {
+        error = { message: 'RPC exec_sql not found. This is normal. I will attempt another way.' };
+    }
 
     if (error) {
         console.log('Note: RPC execution failed. This usually requires manual application in the Supabase Dashboard SQL Editor.');
