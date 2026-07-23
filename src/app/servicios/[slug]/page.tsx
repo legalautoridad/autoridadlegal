@@ -5,7 +5,7 @@ import ServiceTemplate from '@/components/silo/ServiceTemplate';
 import { getCanonicalFaqsForService, getServiceBySlugFromDb } from '@/lib/db/services';
 
 interface PageProps {
-    params: Promise<{ service: string }>;
+    params: Promise<{ slug: string }>;
 }
 
 const VALID_SERVICES = ['alcoholemia', 'drogas', 'sin-carnet', 'velocidad', 'profesionales'];
@@ -14,14 +14,13 @@ function isValidService(service: string): boolean {
     return VALID_SERVICES.includes(service.toLowerCase());
 }
 
-// 1. SEO: Generate Dynamic Metadata
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { service } = await params;
-    if (!isValidService(service)) {
+    const { slug } = await params;
+    if (!isValidService(slug)) {
         return {};
     }
 
-    const config = getSiloConfig(service);
+    const config = getSiloConfig(slug);
     if (!config) {
         return {};
     }
@@ -30,32 +29,30 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: `${config.seo.title} | Autoridad Legal`,
         description: config.seo.description,
         alternates: {
-            canonical: `https://autoridadlegal.com/${service}`,
+            canonical: `https://autoridadlegal.com/servicios/${slug}`,
         }
     };
 }
 
-// 2. Parent Service Hub Page Implementation
-export default async function ParentServicePage({ params }: PageProps) {
-    const { service } = await params;
+export default async function ServicioSlugPage({ params }: PageProps) {
+    const { slug } = await params;
     
-    if (!isValidService(service)) {
+    if (!isValidService(slug)) {
         return notFound();
     }
 
-    const config = getSiloConfig(service);
-    const dbService = await getServiceBySlugFromDb(service);
-    const canonicalFaqs = await getCanonicalFaqsForService(service);
+    const config = getSiloConfig(slug);
+    const dbService = await getServiceBySlugFromDb(slug);
+    const canonicalFaqs = await getCanonicalFaqsForService(slug);
 
     if (!config) {
         return notFound();
     }
 
-    const canonicalUrl = `https://autoridadlegal.com/${service}`;
+    const canonicalUrl = `https://autoridadlegal.com/servicios/${slug}`;
     const title = dbService?.seo?.title || config.seo.title;
     const description = dbService?.seo?.description || config.seo.description;
 
-    // Schema.org LegalService + FAQPage Graph
     const jsonLdGraph = {
         "@context": "https://schema.org",
         "@graph": [
@@ -107,14 +104,13 @@ export default async function ParentServicePage({ params }: PageProps) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
             />
-            <ServiceTemplate service={service} city={null} />
+            <ServiceTemplate service={slug} city={null} />
         </>
     );
 }
 
-// 3. Static Generation
 export function generateStaticParams() {
-    return VALID_SERVICES.map((service) => ({
-        service,
+    return VALID_SERVICES.map((slug) => ({
+        slug,
     }));
 }

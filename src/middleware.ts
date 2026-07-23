@@ -32,6 +32,23 @@ export async function middleware(request: NextRequest) {
         });
     }
 
+    // Handle raw markdown requests for localized coverage: /[service]/[city].md (e.g. /alcoholemia/barcelona.md)
+    const coberturaMatch = pathname.match(/^\/(alcoholemia|drogas|sin-carnet|velocidad|profesionales)\/([a-z0-9-]+)\.md$/);
+    if (coberturaMatch) {
+        const service = coberturaMatch[1];
+        const city = coberturaMatch[2];
+        const requestHeaders = new Headers(request.headers);
+        requestHeaders.set('x-cobertura-service', service);
+        requestHeaders.set('x-cobertura-city', city);
+        requestHeaders.set('x-pathname', pathname);
+        const rawUrl = new URL('/api/cobertura-raw', request.url);
+        return NextResponse.rewrite(rawUrl, {
+            request: {
+                headers: requestHeaders,
+            },
+        });
+    }
+
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', pathname);
 
