@@ -35,7 +35,7 @@ ${cobertura.content ? `${cobertura.content}\n\n` : ''}## Información Judicial L
 
 - **Municipio:** ${cobertura.location.name}
 - **Órgano Judicial Competente:** ${cobertura.courtName || 'Juzgados de la Jurisdicción'}
-${cobertura.courtAddress ? `- **Dirección del Juzgado:** ${cobertura.courtAddress}\n` : ''}${cobertura.courtSlug ? `- **Partido Judicial:** [Ver ${cobertura.courtName}](/geografia/juzgados/${cobertura.courtSlug})\n` : ''}
+${cobertura.courtAddress ? `- **Dirección del Juzgado:** ${cobertura.courtAddress}\n` : ''}
 ## Preguntas frecuentes
 
 `;
@@ -43,14 +43,6 @@ ${cobertura.courtAddress ? `- **Dirección del Juzgado:** ${cobertura.courtAddre
     cobertura.faqs.forEach(faq => {
         markdown += `### ${faq.question}\n\n${faq.answer}\n\n`;
     });
-
-    markdown += `## Enlaces de Interés\n\n`;
-    markdown += `- Servicio Principal: [Abogados de ${cobertura.service.name}](/servicios/${cobertura.service.slug})\n`;
-    if (cobertura.courtSlug) {
-        markdown += `- Juzgado Competente: [${cobertura.courtName}](/geografia/juzgados/${cobertura.courtSlug})\n`;
-    }
-    markdown += `- Directorio de Municipios: [Ver Cobertura](/municipios)\n`;
-    markdown += `- Doctrina y Términos: [Glosario Jurídico](/glosario)\n`;
 
     return new NextResponse(markdown, {
         headers: {
