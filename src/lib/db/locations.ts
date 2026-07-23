@@ -86,8 +86,7 @@ export async function getLocationBySlug(slug: string): Promise<Location | null> 
 }
 
 /**
- * Fetches the active location (the one that should be displayed),
- * handling redirections if the current slug is a redirect.
+ * Fetches the active location (the one that should be displayed).
  */
 export async function getActiveLocation(slug: string): Promise<{
     location: Location | null
@@ -97,13 +96,6 @@ export async function getActiveLocation(slug: string): Promise<{
 
     if (!location) {
         return { location: null, redirectUrl: null }
-    }
-
-    if (location.redirect_slug) {
-        return {
-            location: null,
-            redirectUrl: location.redirect_slug
-        }
     }
 
     return { location, redirectUrl: null }

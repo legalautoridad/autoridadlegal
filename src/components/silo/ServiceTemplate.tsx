@@ -91,7 +91,7 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
 
     // Get all locations for the cluster directory
     const allLocations = await getLocations();
-    const activeLocations = allLocations.filter(loc => !loc.redirect_slug);
+    const activeLocations = allLocations;
 
     return (
         <main className="min-h-screen bg-slate-900 text-white pb-32">
@@ -240,7 +240,11 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
 
                                 <div className="space-y-4">
                                     <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-emerald-500 pl-4">
-                                        Consejos en los Juzgados de {location.name}
+                                        {location.courts?.name
+                                            ? (location.courts.name.toLowerCase().startsWith('juzgado')
+                                                ? `Consejos en los ${location.courts.name}`
+                                                : `Consejos en los Juzgados de ${location.courts.name}`)
+                                            : `Consejos en los Juzgados de ${location.name}`}
                                     </h2>
                                     <p className="text-slate-355 text-sm md:text-base leading-relaxed font-medium">
                                         {toBlufParagraph(strategy.getCourthouseTips(), `Utilizan habitualmente el alcoholímetro de tipo ${strategy.getEtilometroType()}.`)}

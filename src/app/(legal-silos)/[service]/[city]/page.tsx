@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { notFound, permanentRedirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getSiloConfig } from '@/lib/silo-config';
 import { getLocationBySlug, getLocations } from '@/lib/db/locations';
 import { SchemaFactory } from '@/lib/seo/schema-factory';
@@ -87,11 +87,6 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
 
     const { config, location, okfCobertura, service, city } = data;
 
-    // Handle redirection if the location has a redirect_slug
-    if (location?.redirect_slug && city !== location.redirect_slug) {
-        permanentRedirect(`/${service}/${location.redirect_slug}`);
-    }
-
     const cityName = location?.name || city.replace(/-/g, ' ');
     const specialtyName = config?.hero.specialty || service;
     const okfFaqs = OKFService.getFaqs(service, city);
@@ -132,9 +127,7 @@ export async function generateStaticParams() {
 
     VALID_SERVICES.forEach((service) => {
         dbLocations.forEach((loc) => {
-            if (!loc.redirect_slug) {
-                params.push({ service, city: loc.slug });
-            }
+            params.push({ service, city: loc.slug });
         });
     });
 

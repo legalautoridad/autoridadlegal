@@ -26,9 +26,8 @@ export async function GET() {
         text += `## Contexto Geográfico Judicial (RAG Ground Truth)\n`;
         text += `Este apartado contiene el conocimiento local de cada jurisdicción para inyección de contexto en agentes LLM.\n\n`;
 
-        // Loop through all active jurisdictions in Barcelona
+        // Loop through all jurisdictions in Barcelona
         for (const loc of locations) {
-            if (loc.redirect_slug) continue;
             
             const strategy = DefenseStrategySelector.getStrategy(loc.slug);
             
