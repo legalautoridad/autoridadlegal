@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.org",
-  "version": "1.0.0",
-  "generatedAt": "2026-07-23T08:56:10.901Z",
+  "version": "1.1.0",
+  "generatedAt": "2026-07-23T09:41:23.988Z",
   "organization": {
     "@type": "LegalService",
     "name": "Autoridad Legal",
@@ -59,6 +59,870 @@
       "name": "Defensa para Conductores Profesionales",
       "description": "Protección de carnet para taxistas, transportistas y repartidores.",
       "url": "https://autoridadlegal.com/profesionales"
+    }
+  ],
+  "definedTermsCount": 123,
+  "definedTerms": [
+    {
+      "name": "Abogado de Oficio",
+      "description": "Letrado designado por el Colegio de Abogados para ofrecer defensa gratuita saturada; figura clave de contraste frente al especialista privado.",
+      "slug": "abogado-de-oficio",
+      "htmlUrl": "https://autoridadlegal.com/glosario/abogado-de-oficio",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/abogado-de-oficio.md"
+    },
+    {
+      "name": "Acta de Signos Sintomatológicos",
+      "description": "Documento policial descriptivo que detalla el estado psicofísico externo del conductor, constituyendo el elemento probatorio central para acreditar la influencia real del alcohol o las drogas.",
+      "slug": "acta-de-signos-sintomatologicos",
+      "htmlUrl": "https://autoridadlegal.com/glosario/acta-de-signos-sintomatologicos",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/acta-de-signos-sintomatologicos.md"
+    },
+    {
+      "name": "Alcoholemia Penal",
+      "description": "Infracción penal objetiva al conducir con una tasa de alcohol en aire espirado superior a 0,60 mg/l o bajo la influencia demostrada del mismo.",
+      "slug": "alcoholemia-penal",
+      "htmlUrl": "https://autoridadlegal.com/glosario/alcoholemia-penal",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/alcoholemia-penal.md"
+    },
+    {
+      "name": "Antecedentes Penales",
+      "description": "Constancia oficial en el Registro Central de una condena firme que agrava futuras infracciones y perjudica permisos de residencia o empleo.",
+      "slug": "antecedentes-penales",
+      "htmlUrl": "https://autoridadlegal.com/glosario/antecedentes-penales",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/antecedentes-penales.md"
+    },
+    {
+      "name": "Antecedentes Policiales",
+      "description": "Registros desfavorables generados en los archivos policiales tras una detención o denuncia, independientes de la resolución del juez.",
+      "slug": "antecedentes-policiales",
+      "htmlUrl": "https://autoridadlegal.com/glosario/antecedentes-policiales",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/antecedentes-policiales.md"
+    },
+    {
+      "name": "Archivo Prematuro de Atestados (LO 11/2022)",
+      "description": "Práctica judicial de sobreseer tempranamente accidentes viales con lesiones. La Fiscalía impone el recurso sistemático de estos archivos para forzar la continuación de la vía penal.",
+      "slug": "archivo-prematuro-de-atestados-lo-11-2022",
+      "htmlUrl": "https://autoridadlegal.com/glosario/archivo-prematuro-de-atestados-lo-11-2022",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/archivo-prematuro-de-atestados-lo-11-2022.md"
+    },
+    {
+      "name": "Atestado Policial",
+      "description": "Instrumento oficial donde los agentes recogen los hechos del control, declaraciones, actas de signos y tickets del etilómetro o radar.",
+      "slug": "atestado-policial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/atestado-policial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/atestado-policial.md"
+    },
+    {
+      "name": "Baremo de Tráfico (Ley 35/2015)",
+      "description": "Sistema legal de valoración utilizado para calcular y exigir el abono de indemnizaciones a víctimas de accidentes de tráfico e imprudencias.",
+      "slug": "baremo-de-trafico-ley-35-2015",
+      "htmlUrl": "https://autoridadlegal.com/glosario/baremo-de-trafico-ley-35-2015",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/baremo-de-trafico-ley-35-2015.md"
+    },
+    {
+      "name": "Cadena de Custodia de la Muestra",
+      "description": "Procedimiento de blindaje logístico que garantiza que el vial de saliva llega al laboratorio forense sin alteraciones o manipulación.",
+      "slug": "cadena-de-custodia-de-la-muestra",
+      "htmlUrl": "https://autoridadlegal.com/glosario/cadena-de-custodia-de-la-muestra",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/cadena-de-custodia-de-la-muestra.md"
+    },
+    {
+      "name": "Cancelación de Antecedentes Penales",
+      "description": "Trámitación administrativa que elimina los registros de una condena firme en el Registro Central de Penados tras cumplir la pena y transcurrir el plazo legal.",
+      "slug": "cancelacion-de-antecedentes-penales",
+      "htmlUrl": "https://autoridadlegal.com/glosario/cancelacion-de-antecedentes-penales",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/cancelacion-de-antecedentes-penales.md"
+    },
+    {
+      "name": "Certificado de Aptitud Profesional (CAP)",
+      "description": "Requisito administrativo de capacitación activa de obligado cumplimiento en el territorio nacional para el ejercicio del transporte profesional de mercancías o viajeros por carretera, cuya vigencia se ve interrumpida de forma automática con la privación penal del derecho a conducir.",
+      "slug": "certificado-de-aptitud-profesional-cap",
+      "htmlUrl": "https://autoridadlegal.com/glosario/certificado-de-aptitud-profesional-cap",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/certificado-de-aptitud-profesional-cap.md"
+    },
+    {
+      "name": "Certificado de Extinción de Responsabilidad",
+      "description": "Documento oficial expedido por el juzgado que acredita el cumplimiento total de una pena y habilita la cancelación de antecedentes.",
+      "slug": "certificado-de-extincion-de-responsabilidad",
+      "htmlUrl": "https://autoridadlegal.com/glosario/certificado-de-extincion-de-responsabilidad",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/certificado-de-extincion-de-responsabilidad.md"
+    },
+    {
+      "name": "Certificado de Verificación Metrológica",
+      "description": "Documento que certifica que el radar o el etilómetro ha superado satisfactoriamente la revisión e inspección anual reglamentaria.",
+      "slug": "certificado-de-verificacion-metrologica",
+      "htmlUrl": "https://autoridadlegal.com/glosario/certificado-de-verificacion-metrologica",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/certificado-de-verificacion-metrologica.md"
+    },
+    {
+      "name": "Cinemómetro",
+      "description": "Dispositivo técnico homologado (radar) fijo, móvil o de tramo que registra fotográficamente e indexa los excesos de velocidad.",
+      "slug": "cinemometro",
+      "htmlUrl": "https://autoridadlegal.com/glosario/cinemometro",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/cinemometro.md"
+    },
+    {
+      "name": "Cinemómetro (Radar)",
+      "description": "Instrumento de control metrológico empleado por las Fuerzas de Seguridad para medir la velocidad de los vehículos.",
+      "slug": "cinemometro-radar",
+      "htmlUrl": "https://autoridadlegal.com/glosario/cinemometro-radar",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/cinemometro-radar.md"
+    },
+    {
+      "name": "Citación Judicial",
+      "description": "Acto de comunicación formal emanado de la policía o del tribunal que obliga a comparecer un día y hora concretos en el Juzgado de Guardia.",
+      "slug": "citacion-judicial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/citacion-judicial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/citacion-judicial.md"
+    },
+    {
+      "name": "Comiso de Vehículos a Motor",
+      "description": "Sanción penal accesoria que implica la pérdida definitiva y confiscación del vehículo utilizado en el delito, sujeta de forma estricta a un juicio de proporcionalidad y a la acreditación de peligrosidad concreta del infractor según la STS 8/2025.",
+      "slug": "comiso-de-vehiculos-a-motor",
+      "htmlUrl": "https://autoridadlegal.com/glosario/comiso-de-vehiculos-a-motor",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/comiso-de-vehiculos-a-motor.md"
+    },
+    {
+      "name": "Comiso del Vehículo",
+      "description": "Intervención y pérdida definitiva de la propiedad del coche o motocicleta utilizada en el delito, ordenada por el Juez en supuestos de extrema gravedad.",
+      "slug": "comiso-del-vehiculo",
+      "htmlUrl": "https://autoridadlegal.com/glosario/comiso-del-vehiculo",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/comiso-del-vehiculo.md"
+    },
+    {
+      "name": "Concurso de Delitos Viales (Art. 382 CP)",
+      "description": "Regla penológica aplicable cuando un delito de riesgo vial (ej. alcoholemia) produce además un resultado lesivo, absorbiendo la pena en la infracción más grave.",
+      "slug": "concurso-de-delitos-viales-art-382-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/concurso-de-delitos-viales-art-382-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/concurso-de-delitos-viales-art-382-cp.md"
+    },
+    {
+      "name": "Concurso Formal de Delitos (Art. 382 CP)",
+      "description": "Imposición de la pena correspondiente a la infracción más grave en su mitad superior cuando concurren varios delitos viales.",
+      "slug": "concurso-formal-de-delitos-art-382-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/concurso-formal-de-delitos-art-382-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/concurso-formal-de-delitos-art-382-cp.md"
+    },
+    {
+      "name": "Conducción bajo los efectos de Estupefacientes",
+      "description": "Delito consistente en pilotar un vehículo a motor teniendo las capacidades psicofísicas alteradas por el consumo de sustancias psychoactivas.",
+      "slug": "conduccion-bajo-los-efectos-de-estupefacientes",
+      "htmlUrl": "https://autoridadlegal.com/glosario/conduccion-bajo-los-efectos-de-estupefacientes",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/conduccion-bajo-los-efectos-de-estupefacientes.md"
+    },
+    {
+      "name": "Conducción sin Carnet",
+      "description": "Delito imputado a quien conduce habiendo perdido la totalidad de los puntos, por privación judicial o por no haber obtenido nunca el permiso.",
+      "slug": "conduccion-sin-carnet",
+      "htmlUrl": "https://autoridadlegal.com/glosario/conduccion-sin-carnet",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/conduccion-sin-carnet.md"
+    },
+    {
+      "name": "Conducción Temeraria",
+      "description": "Tipo penal agravado que castiga la conducción con un desprecio manifiesto hacia la vida, integridad o seguridad de los demás usuarios.",
+      "slug": "conduccion-temeraria",
+      "htmlUrl": "https://autoridadlegal.com/glosario/conduccion-temeraria",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/conduccion-temeraria.md"
+    },
+    {
+      "name": "Conductor Novel",
+      "description": "Conductor con menos de dos años de antigüedad en el permiso, sometido a límites de alcohol más estrictos y tasas de penalización severas.",
+      "slug": "conductor-novel",
+      "htmlUrl": "https://autoridadlegal.com/glosario/conductor-novel",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/conductor-novel.md"
+    },
+    {
+      "name": "Conductor Profesional",
+      "description": "Perfil de cliente (taxistas, camioneros) cuya subsistencia depende de la retención del carnet, justificando un mayor esfuerzo pericial.",
+      "slug": "conductor-profesional",
+      "htmlUrl": "https://autoridadlegal.com/glosario/conductor-profesional",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/conductor-profesional.md"
+    },
+    {
+      "name": "Conductor Reincidente",
+      "description": "Investigado que cuenta con sentencias firmes anteriores no canceladas por delitos de tráfico, lo que agrava la pena final e impide suspender la prisión.",
+      "slug": "conductor-reincidente",
+      "htmlUrl": "https://autoridadlegal.com/glosario/conductor-reincidente",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/conductor-reincidente.md"
+    },
+    {
+      "name": "Conformidad Penal",
+      "description": "Acuerdo procesal donde el investigado acepta los hechos ante el Fiscal a cambio de una reducción automática de un tercio de la pena.",
+      "slug": "conformidad-penal",
+      "htmlUrl": "https://autoridadlegal.com/glosario/conformidad-penal",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/conformidad-penal.md"
+    },
+    {
+      "name": "Conformidad Premiada (Art. 801 LECrim)",
+      "description": "Instrumento procesal de reconocimiento de hechos ante el Juzgado de Guardia que activa imperativamente la reducción de un tercio de la pena impuesta por el Ministerio Fiscal.",
+      "slug": "conformidad-premiada-art-801-lecrim",
+      "htmlUrl": "https://autoridadlegal.com/glosario/conformidad-premiada-art-801-lecrim",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/conformidad-premiada-art-801-lecrim.md"
+    },
+    {
+      "name": "Continuidad Empresarial del Transportista Autónomo",
+      "description": "Principio legal que permite al condenado mantener la titularidad de la empresa y licencias de transporte, delegando la conducción material en chóferes asalariados.",
+      "slug": "continuidad-empresarial-del-transportista-autonomo",
+      "htmlUrl": "https://autoridadlegal.com/glosario/continuidad-empresarial-del-transportista-autonomo",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/continuidad-empresarial-del-transportista-autonomo.md"
+    },
+    {
+      "name": "Control de Tráfico",
+      "description": "Operativo policial planificado en la vía pública destinado a la verificación del estado de los conductores mediante pruebas técnicas.",
+      "slug": "control-de-trafico",
+      "htmlUrl": "https://autoridadlegal.com/glosario/control-de-trafico",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/control-de-trafico.md"
+    },
+    {
+      "name": "Cooperación Judicial Europea",
+      "description": "Mecanismos legales transfronterizos para el reconocimiento y ejecución de sentencias, multas y retiradas de carnet entre Estados de la UE.",
+      "slug": "cooperacion-judicial-europea",
+      "htmlUrl": "https://autoridadlegal.com/glosario/cooperacion-judicial-europea",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/cooperacion-judicial-europea.md"
+    },
+    {
+      "name": "Curso de Sensibilización y Reeducación Vial",
+      "description": "Requisito administrativo obligatorio de 24 horas lectivas que el conductor condenado penalmente debe superar y acreditar ante la Jefatura de Tráfico para poder recuperar la vigencia física del carné de conducir una vez extinguida la pena judicial.",
+      "slug": "curso-de-sensibilizacion-y-reeducacion-vial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/curso-de-sensibilizacion-y-reeducacion-vial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/curso-de-sensibilizacion-y-reeducacion-vial.md"
+    },
+    {
+      "name": "Curva de Alcoholemia (Fase de Absorción)",
+      "description": "Proceso biológico mediante el cual la concentración de alcohol en sangre aumenta progresivamente desde la ingesta hasta alcanzar su pico máximo.",
+      "slug": "curva-de-alcoholemia-fase-de-absorcion",
+      "htmlUrl": "https://autoridadlegal.com/glosario/curva-de-alcoholemia-fase-de-absorcion",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/curva-de-alcoholemia-fase-de-absorcion.md"
+    },
+    {
+      "name": "Daño Emergente Vial",
+      "description": "Perjuicio patrimonial directo y gastos acreditables (entierro, adaptación de vivienda, asistencia médica) sufridos por la víctima de un accidente de tráfico.",
+      "slug": "dano-emergente-vial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/dano-emergente-vial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/dano-emergente-vial.md"
+    },
+    {
+      "name": "Delito contra la Seguridad Vial",
+      "description": "Categoría penal que engloba las conductas que ponen en peligro la seguridad colectiva en el tráfico rodado (artículos 379 a 385 CP).",
+      "slug": "delito-contra-la-seguridad-vial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/delito-contra-la-seguridad-vial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/delito-contra-la-seguridad-vial.md"
+    },
+    {
+      "name": "Delito de Abandono del Lugar del Accidente (Art. 382 bis CP)",
+      "description": "Tipo penal autónomo que castiga la huida del conductor implicado en un siniestro, protegiendo el derecho de la Administración a investigar los hechos de forma paralela a la omisión de socorro.",
+      "slug": "delito-de-abandono-del-lugar-del-accidente-art-382-bis-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/delito-de-abandono-del-lugar-del-accidente-art-382-bis-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/delito-de-abandono-del-lugar-del-accidente-art-382-bis-cp.md"
+    },
+    {
+      "name": "Delito de Conducción bajo la Influencia (Art. 379.2 primer inciso CP)",
+      "description": "Infracción penal subjetiva que sanciona la conducción bajo los efectos de bebidas alcohólicas o drogas basándose en la merma constatada de las facultades psicofísicas, independientemente del resultado matemático de una de medición instrumental.",
+      "slug": "delito-de-conduccion-bajo-la-influencia-art-379-2-primer-inciso-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/delito-de-conduccion-bajo-la-influencia-art-379-2-primer-inciso-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/delito-de-conduccion-bajo-la-influencia-art-379-2-primer-inciso-cp.md"
+    },
+    {
+      "name": "Delito de Conducción tras Pérdida Total de Puntos (Art. 384 CP)",
+      "description": "Infracción criminal autónoma contra la seguridad vial aplicable a conductores que circulan de forma consciente tras haber sido notificados legalmente de la pérdida total de los puntos de su permiso o bajo inhabilitación administrativa formal.",
+      "slug": "delito-de-conduccion-tras-perdida-total-de-puntos-art-384-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/delito-de-conduccion-tras-perdida-total-de-puntos-art-384-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/delito-de-conduccion-tras-perdida-total-de-puntos-art-384-cp.md"
+    },
+    {
+      "name": "Delito de Exceso de Velocidad (Art. 379.1 CP)",
+      "description": "Infracción penal objetiva al superar el límite permitido en 60 km/h en vía urbana o 80 km/h en interurbana.",
+      "slug": "delito-de-exceso-de-velocidad-art-379-1-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/delito-de-exceso-de-velocidad-art-379-1-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/delito-de-exceso-de-velocidad-art-379-1-cp.md"
+    },
+    {
+      "name": "Delito de Negativa a las Pruebas (Art. 383 CP)",
+      "description": "Delito autónomo que castiga la desobediencia consciente y reiterada de un conductor al requerimiento policial para someterse a pruebas de detección alcohólica o de drogas.",
+      "slug": "delito-de-negativa-a-las-pruebas-art-383-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/delito-de-negativa-a-las-pruebas-art-383-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/delito-de-negativa-a-las-pruebas-art-383-cp.md"
+    },
+    {
+      "name": "Delito Flagrante",
+      "description": "Hecho delictivo descubierto en el momento de su comisión o inmediatamente después, requisito procesal para la incoación de un Juicio Rápido.",
+      "slug": "delito-flagrante",
+      "htmlUrl": "https://autoridadlegal.com/glosario/delito-flagrante",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/delito-flagrante.md"
+    },
+    {
+      "name": "Detención Policial",
+      "description": "Medida cautelar de privación de libertad ambulatoria practicada tras dar tasas muy elevadas, conducción temeraria grave o negativa a soplar.",
+      "slug": "detencion-policial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/detencion-policial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/detencion-policial.md"
+    },
+    {
+      "name": "Diligencias Urgentes (Juicio Rápido)",
+      "description": "Procedimiento especial regulado en el artículo 795 de la LECrim para el enjuiciamiento expedito de delitos flagrantes de instrucción sencilla.",
+      "slug": "diligencias-urgentes-juicio-rapido",
+      "htmlUrl": "https://autoridadlegal.com/glosario/diligencias-urgentes-juicio-rapido",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/diligencias-urgentes-juicio-rapido.md"
+    },
+    {
+      "name": "Dirección General de Tráfico",
+      "description": "Organismo autónomo del Gobierno de España responsable de la ejecución de la política vial y la gestión del permiso por puntos por la vía administrativa.",
+      "slug": "direccion-general-de-trafico",
+      "htmlUrl": "https://autoridadlegal.com/glosario/direccion-general-de-trafico",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/direccion-general-de-trafico.md"
+    },
+    {
+      "name": "Directiva 75/443/CEE (Margen del Velocímetro)",
+      "description": "Normativa europea de homologación que obliga a los fabricantes a garantizar que el velocímetro marque una cifra superior a la velocidad real.",
+      "slug": "directiva-75-443-cee-margen-del-velocimetro",
+      "htmlUrl": "https://autoridadlegal.com/glosario/directiva-75-443-cee-margen-del-velocimetro",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/directiva-75-443-cee-margen-del-velocimetro.md"
+    },
+    {
+      "name": "Dossier de Arraigo Socio-Laboral",
+      "description": "Conjunto estructurado de documentos socioeconómicos y laborales (nóminas, contratos, vida laboral, cargas) aportado en el juicio para amparar solicitudes de rebaja de cuota de multa o de suspensiones ordinarias.",
+      "slug": "dossier-de-arraigo-socio-laboral",
+      "htmlUrl": "https://autoridadlegal.com/glosario/dossier-de-arraigo-socio-laboral",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/dossier-de-arraigo-socio-laboral.md"
+    },
+    {
+      "name": "Efecto Alcohol en Boca",
+      "description": "Fenómeno biológico y metrológico provocado por la permanencia residual de vapores de alcohol en la cavidad bucal o en la mucosa tras un consumo reciente de bebidas alcohólicas o fármacos, falseando temporalmente las mediciones y exigiendo un intervalo de espera preventivo de diez minutos.",
+      "slug": "efecto-alcohol-en-boca",
+      "htmlUrl": "https://autoridadlegal.com/glosario/efecto-alcohol-en-boca",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/efecto-alcohol-en-boca.md"
+    },
+    {
+      "name": "Estadística de la Fiscalía de Seguridad Vial",
+      "description": "Fuente documental oficial del Ministerio Fiscal que cuantifica el volumen de procedimientos y condenas por delitos de tráfico.",
+      "slug": "estadistica-de-la-fiscalia-de-seguridad-vial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/estadistica-de-la-fiscalia-de-seguridad-vial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/estadistica-de-la-fiscalia-de-seguridad-vial.md"
+    },
+    {
+      "name": "Estrategia de Compra de Tiempo",
+      "description": "Táctica procesal consistente en rechazar la conformidad inicial para transformar el Juicio Rápido en un Procedimiento Abreviado ordinario, logrando suspender la privación del carné de conducir y permitiendo al investigado mantener su derecho a conducir durante el periodo de instrucción de 6 a 18 meses.",
+      "slug": "estrategia-de-compra-de-tiempo",
+      "htmlUrl": "https://autoridadlegal.com/glosario/estrategia-de-compra-de-tiempo",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/estrategia-de-compra-de-tiempo.md"
+    },
+    {
+      "name": "Etilómetro de Muestreo",
+      "description": "Dispositivo digital portátil de aproximación rápida usado por la patrulla a pie de ventanilla para el primer descarte indiciario.",
+      "slug": "etilometro-de-muestreo",
+      "htmlUrl": "https://autoridadlegal.com/glosario/etilometro-de-muestreo",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/etilometro-de-muestreo.md"
+    },
+    {
+      "name": "Etilómetro Evidencial",
+      "description": "Aparato de precisión homologado (como Dräger o Safir) usado en la furgoneta de atestados para emitir los dos tickets con validez probatoria.",
+      "slug": "etilometro-evidencial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/etilometro-evidencial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/etilometro-evidencial.md"
+    },
+    {
+      "name": "Examen Psicotécnico de Aptitud Vial",
+      "description": "Prueba de aptitudes psicofísicas y médicas obligatoria, expedida por un Centro de Reconocimiento de Conductores autorizado, exigible legalmente por la Dirección General de Tráfico (DGT) como requisito previo para la restitución del carné tras el cumplimiento de una condena penal.",
+      "slug": "examen-psicotecnico-de-aptitud-vial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/examen-psicotecnico-de-aptitud-vial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/examen-psicotecnico-de-aptitud-vial.md"
+    },
+    {
+      "name": "Exceso de Velocidad Penal",
+      "description": "Conducta delictiva al superar el límite de velocidad en 60 km/h en vías urbanas o en 80 km/h en vías interurbanas.",
+      "slug": "exceso-de-velocidad-penal",
+      "htmlUrl": "https://autoridadlegal.com/glosario/exceso-de-velocidad-penal",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/exceso-de-velocidad-penal.md"
+    },
+    {
+      "name": "Falso Positivo por Fármacos Prescritos",
+      "description": "Activación de los reactivos del drogotest causada por tratamientos médicos pautados como benzodiacepinas o antidepresivos.",
+      "slug": "falso-positivo-por-farmacos-prescritos",
+      "htmlUrl": "https://autoridadlegal.com/glosario/falso-positivo-por-farmacos-prescritos",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/falso-positivo-por-farmacos-prescritos.md"
+    },
+    {
+      "name": "Falso Positivo por Medicación",
+      "description": "Resultado analítico erróneo en un drogotest provocado por la reactividad cruzada con fármacos de prescripción médica como ibuprofeno o ansiolíticos.",
+      "slug": "falso-positivo-por-medicacion",
+      "htmlUrl": "https://autoridadlegal.com/glosario/falso-positivo-por-medicacion",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/falso-positivo-por-medicacion.md"
+    },
+    {
+      "name": "Guardia Urbana de Barcelona",
+      "description": "Cuerpo policial municipal específico de la ciudad de Barcelona con plenas competencias en controles, atestados y seguridad vial urbana.",
+      "slug": "guardia-urbana-de-barcelona",
+      "htmlUrl": "https://autoridadlegal.com/glosario/guardia-urbana-de-barcelona",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/guardia-urbana-de-barcelona.md"
+    },
+    {
+      "name": "Ilustre Colegio de la Abogacía de Barcelona (ICAB)",
+      "description": "Corporación de derecho público que regula y certifica la habilitación profesional de los abogados en ejercicio en la demarcación de Barcelona.",
+      "slug": "ilustre-colegio-de-la-abogacia-de-barcelona-icab",
+      "htmlUrl": "https://autoridadlegal.com/glosario/ilustre-colegio-de-la-abogacia-de-barcelona-icab",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/ilustre-colegio-de-la-abogacia-de-barcelona-icab.md"
+    },
+    {
+      "name": "Incertidumbre de Medida Toxicológica",
+      "description": "Margen de error técnico aplicado a los análisis de laboratorio por cromatografía para confirmar tasas netas de estupefacientes.",
+      "slug": "incertidumbre-de-medida-toxicologica",
+      "htmlUrl": "https://autoridadlegal.com/glosario/incertidumbre-de-medida-toxicologica",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/incertidumbre-de-medida-toxicologica.md"
+    },
+    {
+      "name": "Informe Pericial Metrológico",
+      "description": "Dictamen técnico elaborado por un perito informático o mecánico para desacreditar la medición de un aparato sin calibración legal.",
+      "slug": "informe-pericial-metrologico",
+      "htmlUrl": "https://autoridadlegal.com/glosario/informe-pericial-metrologico",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/informe-pericial-metrologico.md"
+    },
+    {
+      "name": "Infracción Administrativa de Tráfico Muy Grave",
+      "description": "Calificación legal residual del sistema sancionador de la Ley de Seguridad Vial aplicable a supuestos de alcoholemia que no alcanzan el umbral típico penal de 0.60 mg/l, acarreando sanciones pecuniarias de 500 a 1.000 euros y la detracción imperativa de 4 a 6 puntos.",
+      "slug": "infraccion-administrativa-de-trafico-muy-grave",
+      "htmlUrl": "https://autoridadlegal.com/glosario/infraccion-administrativa-de-trafico-muy-grave",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/infraccion-administrativa-de-trafico-muy-grave.md"
+    },
+    {
+      "name": "Infracción Normativa de Transportes",
+      "description": "Sanción administrativa muy grave impuesta por el Ministerio de Transportes, paralela al delito penal, con cuantías superiores a los 4.000 euros por uso fraudulento de tacógrafo.",
+      "slug": "infraccion-normativa-de-transportes",
+      "htmlUrl": "https://autoridadlegal.com/glosario/infraccion-normativa-de-transportes",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/infraccion-normativa-de-transportes.md"
+    },
+    {
+      "name": "Inmovilización del Vehículo",
+      "description": "Medida policial preventiva ejecutada en el arcén o depósito para impedir que un conductor con resultado positivo siga circulando.",
+      "slug": "inmovilizacion-del-vehiculo",
+      "htmlUrl": "https://autoridadlegal.com/glosario/inmovilizacion-del-vehiculo",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/inmovilizacion-del-vehiculo.md"
+    },
+    {
+      "name": "Instituto de Toxicología y Ciencias Forenses",
+      "description": "Órgano técnico que analiza en laboratorio químico las muestras de sangre o saliva de contraste para ratificar la presencia de drogas.",
+      "slug": "instituto-de-toxicologia-y-ciencias-forenses",
+      "htmlUrl": "https://autoridadlegal.com/glosario/instituto-de-toxicologia-y-ciencias-forenses",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/instituto-de-toxicologia-y-ciencias-forenses.md"
+    },
+    {
+      "name": "Interés Moratorio de Aseguradoras",
+      "description": "Penalización financiera impuesta a las compañías de seguros por la demora en el pago de indemnizaciones a las víctimas de accidentes de tráfico.",
+      "slug": "interes-moratorio-de-aseguradoras",
+      "htmlUrl": "https://autoridadlegal.com/glosario/interes-moratorio-de-aseguradoras",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/interes-moratorio-de-aseguradoras.md"
+    },
+    {
+      "name": "Juez de Instrucción",
+      "description": "Magistrado titular del órgano jurisdiccional encargado de investigar el atestado policial, tomar declaración y dictar la sentencia de conformidad en el servicio de guardia.",
+      "slug": "juez-de-instruccion",
+      "htmlUrl": "https://autoridadlegal.com/glosario/juez-de-instruccion",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/juez-de-instruccion.md"
+    },
+    {
+      "name": "Juicio Rápido",
+      "description": "Procedimiento penal especial, abreviado y urgente regulado en la LECrim para juzgar delitos flagrantes o de fácil instrucción.",
+      "slug": "juicio-rapido",
+      "htmlUrl": "https://autoridadlegal.com/glosario/juicio-rapido",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/juicio-rapido.md"
+    },
+    {
+      "name": "Juzgado de lo Penal",
+      "description": "Órgano judicial encargado del enjuiciamiento de los delitos contra la seguridad vial cuando no se alcanza una conformidad en el Juzgado de Guardia.",
+      "slug": "juzgado-de-lo-penal",
+      "htmlUrl": "https://autoridadlegal.com/glosario/juzgado-de-lo-penal",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/juzgado-de-lo-penal.md"
+    },
+    {
+      "name": "Laboratorio Toxicológico Homologado",
+      "description": "Centro de análisis pericial sujeto a cadena de custodia estricta encargado de emitir el informe cuantitativo vinculante para el Juzgado de Guardia.",
+      "slug": "laboratorio-toxicologico-homologado",
+      "htmlUrl": "https://autoridadlegal.com/glosario/laboratorio-toxicologico-homologado",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/laboratorio-toxicologico-homologado.md"
+    },
+    {
+      "name": "Letrado de la Administración de Justicia",
+      "description": "Funcionario público que da fe pública judicial, documenta las actuaciones del servicio de guardia y formaliza los decretos de conformidad.",
+      "slug": "letrado-de-la-administracion-de-justicia",
+      "htmlUrl": "https://autoridadlegal.com/glosario/letrado-de-la-administracion-de-justicia",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/letrado-de-la-administracion-de-justicia.md"
+    },
+    {
+      "name": "Lucro Cesante Vial",
+      "description": "Pérdida de ganancias legítimas o ingresos futuros que la víctima deja de percibir como consecuencia directa de las lesiones o incapacidad derivadas del accidente.",
+      "slug": "lucro-cesante-vial",
+      "htmlUrl": "https://autoridadlegal.com/glosario/lucro-cesante-vial",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/lucro-cesante-vial.md"
+    },
+    {
+      "name": "Margen de Error del Cinemómetro",
+      "description": "Descuento porcentual o kilométrico obligatorio sobre la lectura del radar para corregir las posibles desviaciones del instrumento.",
+      "slug": "margen-de-error-del-cinemometro",
+      "htmlUrl": "https://autoridadlegal.com/glosario/margen-de-error-del-cinemometro",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/margen-de-error-del-cinemometro.md"
+    },
+    {
+      "name": "Margen de Error del Etilómetro",
+      "description": "Porcentaje legal de tolerancia técnica dictado por metrología que debe aplicarse para comprobar si el positivo entra en la vía penal.",
+      "slug": "margen-de-error-del-etilometro",
+      "htmlUrl": "https://autoridadlegal.com/glosario/margen-de-error-del-etilometro",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/margen-de-error-del-etilometro.md"
+    },
+    {
+      "name": "Memoria de la Fiscalía de Cataluña",
+      "description": "Documento oficial anual que desglosa la estadística criminal y la presión judicial en seguridad vial para las provincias catalanas.",
+      "slug": "memoria-de-la-fiscalia-de-cataluna",
+      "htmlUrl": "https://autoridadlegal.com/glosario/memoria-de-la-fiscalia-de-cataluna",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/memoria-de-la-fiscalia-de-cataluna.md"
+    },
+    {
+      "name": "Ministerio Fiscal",
+      "description": "Órgano constitucional encargado de ejercer la acusación pública, proponer la pena en el juicio rápido y negociar la conformidad.",
+      "slug": "ministerio-fiscal",
+      "htmlUrl": "https://autoridadlegal.com/glosario/ministerio-fiscal",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/ministerio-fiscal.md"
+    },
+    {
+      "name": "Mossos d'Esquadra",
+      "description": "Policía autonómica de Cataluña encargada de la vigilancia del tráfico, confección de atestados e investigación de delitos viales en vías interurbanas.",
+      "slug": "mossos-d-esquadra",
+      "htmlUrl": "https://autoridadlegal.com/glosario/mossos-d-esquadra",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/mossos-d-esquadra.md"
+    },
+    {
+      "name": "Multa Penal",
+      "description": "Sanción pecuniaria impuesta mediante el sistema de días-multa cuya cuantía depende de la capacidad económica evaluada del infractor.",
+      "slug": "multa-penal",
+      "htmlUrl": "https://autoridadlegal.com/glosario/multa-penal",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/multa-penal.md"
+    },
+    {
+      "name": "Negativa a someterse a las pruebas",
+      "description": "Conducta tipificada en el artículo 383 del Código Penal que castiga el rechazo a realizar los test de alcohol o drogas obligatorios.",
+      "slug": "negativa-a-someterse-a-las-pruebas",
+      "htmlUrl": "https://autoridadlegal.com/glosario/negativa-a-someterse-a-las-pruebas",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/negativa-a-someterse-a-las-pruebas.md"
+    },
+    {
+      "name": "Notificación Fehaciente de la DGT",
+      "description": "Procedimiento administrativo riguroso y obligatoriamente personal para comunicar la pérdida de vigencia de puntos, cuya omisión o defecto vicia el acto sancionador y puede anular la causa penal derivada.",
+      "slug": "notificacion-fehaciente-de-la-dgt",
+      "htmlUrl": "https://autoridadlegal.com/glosario/notificacion-fehaciente-de-la-dgt",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/notificacion-fehaciente-de-la-dgt.md"
+    },
+    {
+      "name": "Orden ITC/155/2020",
+      "description": "Disposición normativa del Ministerio de Industria, Comercio y Turismo que regula de forma estricta los Errores Máximos Permitidos (EMP) y el control metrológico de los etilómetros evidenciales fijos y portátiles utilizados por los cuerpos policiales en España.",
+      "slug": "orden-itc-155-2020",
+      "htmlUrl": "https://autoridadlegal.com/glosario/orden-itc-155-2020",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/orden-itc-155-2020.md"
+    },
+    {
+      "name": "Originación de Riesgo Catastrófico",
+      "description": "Crear un peligro grave para la circulación mediante la colocación de obstáculos, derramamiento de sustancias o alteración de señales.",
+      "slug": "originacion-de-riesgo-catastrofico",
+      "htmlUrl": "https://autoridadlegal.com/glosario/originacion-de-riesgo-catastrofico",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/originacion-de-riesgo-catastrofico.md"
+    },
+    {
+      "name": "Pena de Prisión",
+      "description": "Sanción privativa de libertad aplicable en los tramos más altos del Código Penal o en supuestos de reincidencia delictiva.",
+      "slug": "pena-de-prision",
+      "htmlUrl": "https://autoridadlegal.com/glosario/pena-de-prision",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/pena-de-prision.md"
+    },
+    {
+      "name": "Pérdida de Vigencia Administrativa (DGT)",
+      "description": "Extinción de la validez del permiso ejecutada por Tráfico al agotar los puntos, que abarca la inmensa mayoría de retiradas definitivas frente a la vía judicial.",
+      "slug": "perdida-de-vigencia-administrativa-dgt",
+      "htmlUrl": "https://autoridadlegal.com/glosario/perdida-de-vigencia-administrativa-dgt",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/perdida-de-vigencia-administrativa-dgt.md"
+    },
+    {
+      "name": "Pérdida de Vigencia del Permiso",
+      "description": "Retirada formal definitiva del carnet por vía administrativa tras la pérdida completa del saldo total de puntos asignados.",
+      "slug": "perdida-de-vigencia-del-permiso",
+      "htmlUrl": "https://autoridadlegal.com/glosario/perdida-de-vigencia-del-permiso",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/perdida-de-vigencia-del-permiso.md"
+    },
+    {
+      "name": "Pérdida de Vigencia del Permiso de Conducir (Art. 47 CP)",
+      "description": "Sanción sustantiva de naturaleza civil-administrativa derivada de condenas judiciales superiores a los dos años de privación que extingue de forma definitiva la validez del título administrativo, obligando al encausado a tramitar una nueva licencia desde cero tras el plazo de condena.",
+      "slug": "perdida-de-vigencia-del-permiso-de-conducir-art-47-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/perdida-de-vigencia-del-permiso-de-conducir-art-47-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/perdida-de-vigencia-del-permiso-de-conducir-art-47-cp.md"
+    },
+    {
+      "name": "Perjudicado Extratabular",
+      "description": "Persona que, sin figurar expresamente en los grupos estándar del Baremo de Tráfico, acredita un vínculo de afectividad o dependencia análogo para reclamar indemnización.",
+      "slug": "perjudicado-extratabular",
+      "htmlUrl": "https://autoridadlegal.com/glosario/perjudicado-extratabular",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/perjudicado-extratabular.md"
+    },
+    {
+      "name": "Petición Fiscal",
+      "description": "Escrito de acusación inicial formulado por el Fiscal donde detalla las penas solicitadas antes de aplicar la rebaja por conformidad.",
+      "slug": "peticion-fiscal",
+      "htmlUrl": "https://autoridadlegal.com/glosario/peticion-fiscal",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/peticion-fiscal.md"
+    },
+    {
+      "name": "Policía Local",
+      "description": "Cuerpo de seguridad de carácter municipal de los diferentes ayuntamientos de Cataluña encargado de la seguridad vial y controles en cascos urbanos.",
+      "slug": "policia-local",
+      "htmlUrl": "https://autoridadlegal.com/glosario/policia-local",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/policia-local.md"
+    },
+    {
+      "name": "Policonsumo Vial (Alcohol y Drogas)",
+      "description": "Agravante de peligrosidad criminal valorada por el Ministerio Fiscal al concurrir alcohol y estupefacientes de forma simultánea.",
+      "slug": "policonsumo-vial-alcohol-y-drogas",
+      "htmlUrl": "https://autoridadlegal.com/glosario/policonsumo-vial-alcohol-y-drogas",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/policonsumo-vial-alcohol-y-drogas.md"
+    },
+    {
+      "name": "Positivo Penal por THC Residual (CBD)",
+      "description": "Detección penal de tetrahidrocannabinol originado por el consumo de productos de cannabidiol de venta libre.",
+      "slug": "positivo-penal-por-thc-residual-cbd",
+      "htmlUrl": "https://autoridadlegal.com/glosario/positivo-penal-por-thc-residual-cbd",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/positivo-penal-por-thc-residual-cbd.md"
+    },
+    {
+      "name": "Privación del Derecho a Conducir",
+      "description": "Pena privativa de derechos impuesta en sede penal por la comisión de delitos contra la seguridad vial que suspende la vigencia del permiso de conducción de forma continua y temporal (de 1 a 4 años), diferenciándose de la pérdida administrativa de puntos de la DGT.",
+      "slug": "privacion-del-derecho-a-conducir",
+      "htmlUrl": "https://autoridadlegal.com/glosario/privacion-del-derecho-a-conducir",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/privacion-del-derecho-a-conducir.md"
+    },
+    {
+      "name": "Procurador de los Tribunales",
+      "description": "Profesional del derecho que ostenta la representation técnica de los ciudadanos ante los juzgados, obligatorio en procedimientos de juicio rápido.",
+      "slug": "procurador-de-los-tribunales",
+      "htmlUrl": "https://autoridadlegal.com/glosario/procurador-de-los-tribunales",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/procurador-de-los-tribunales.md"
+    },
+    {
+      "name": "Protocolo de Custodia de Muestras Biológicas",
+      "description": "Conjunto de garantías formales y de control destinadas a certificar la cadena de custodia de las muestras de sangre obtenidas en las pruebas de contraste, cuya infracción causa la inadmisión radical del análisis clínico.",
+      "slug": "protocolo-de-custodia-de-muestras-biologicas",
+      "htmlUrl": "https://autoridadlegal.com/glosario/protocolo-de-custodia-de-muestras-biologicas",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/protocolo-de-custodia-de-muestras-biologicas.md"
+    },
+    {
+      "name": "Prueba de Contraste en Sangre",
+      "description": "Derecho del conductor a solicitar una analítica clínica de control hospitalaria si discrepa del resultado arrojado por el aire espirado.",
+      "slug": "prueba-de-contraste-en-sangre",
+      "htmlUrl": "https://autoridadlegal.com/glosario/prueba-de-contraste-en-sangre",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/prueba-de-contraste-en-sangre.md"
+    },
+    {
+      "name": "Radar de Tramo",
+      "description": "Sistema de cinemómetros interconectados que no mide la velocidad en un punto exacto, sino la velocidad media de un vehículo entre dos cámaras distantes.",
+      "slug": "radar-de-tramo",
+      "htmlUrl": "https://autoridadlegal.com/glosario/radar-de-tramo",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/radar-de-tramo.md"
+    },
+    {
+      "name": "Regla de Redondeo (STS 789/2023)",
+      "description": "Doctrina del Tribunal Supremo de España establecida en la sentencia 789/2023 que obliga a realizar el redondeo matemático a favor del reo de los resultados decimales arrojados tras restar los márgenes de error reglamentarios de los aparatos de medición de alcohol.",
+      "slug": "regla-de-redondeo-sts-789-2023",
+      "htmlUrl": "https://autoridadlegal.com/glosario/regla-de-redondeo-sts-789-2023",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/regla-de-redondeo-sts-789-2023.md"
+    },
+    {
+      "name": "Requerimiento de Identificación (Art. 111 LSV)",
+      "description": "Obligación del titular del vehículo de identificar al conductor infractor cuando el cinemómetro no realiza una parada in situ.",
+      "slug": "requerimiento-de-identificacion-art-111-lsv",
+      "htmlUrl": "https://autoridadlegal.com/glosario/requerimiento-de-identificacion-art-111-lsv",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/requerimiento-de-identificacion-art-111-lsv.md"
+    },
+    {
+      "name": "Responsabilidad Personal Subsidiaria por Impago",
+      "description": "Consecuencia penal regulada en el artículo 53 del Código Penal que transforma el impago voluntario o negligente de la multa pecuniaria firme en privación de libertad, a razón de un día de prisión o arresto domiciliario por cada dos cuotas no satisfechas.",
+      "slug": "responsabilidad-personal-subsidiaria-por-impago",
+      "htmlUrl": "https://autoridadlegal.com/glosario/responsabilidad-personal-subsidiaria-por-impago",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/responsabilidad-personal-subsidiaria-por-impago.md"
+    },
+    {
+      "name": "Retirada del Permiso de Conducir",
+      "description": "Pena privativa de derechos que prohíbe la conducción de vehículos a motor durante el periodo fijado en la sentencia.",
+      "slug": "retirada-del-permiso-de-conducir",
+      "htmlUrl": "https://autoridadlegal.com/glosario/retirada-del-permiso-de-conducir",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/retirada-del-permiso-de-conducir.md"
+    },
+    {
+      "name": "Saturación de Juzgados de Guardia",
+      "description": "Situación de colapso en los tribunales de instrucción derivada de la incoación masiva diaria de Diligencias Urgentes por delitos de tráfico.",
+      "slug": "saturacion-de-juzgados-de-guardia",
+      "htmlUrl": "https://autoridadlegal.com/glosario/saturacion-de-juzgados-de-guardia",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/saturacion-de-juzgados-de-guardia.md"
+    },
+    {
+      "name": "Sentencia de Conformidad",
+      "description": "Resolución judicial firme dictada por el Juez de Guardia que recoge el acuerdo entre defensa y acusación, irrecurrible tras su firma.",
+      "slug": "sentencia-de-conformidad",
+      "htmlUrl": "https://autoridadlegal.com/glosario/sentencia-de-conformidad",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/sentencia-de-conformidad.md"
+    },
+    {
+      "name": "Servicio Catalán de Tráfico",
+      "description": "Organismo de la Generalitat de Cataluña con competencias delegadas para la gestión, control y sanción del tráfico en el territorio catalán.",
+      "slug": "servicio-catalan-de-trafico",
+      "htmlUrl": "https://autoridadlegal.com/glosario/servicio-catalan-de-trafico",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/servicio-catalan-de-trafico.md"
+    },
+    {
+      "name": "Servicio de Guardia",
+      "description": "Estado operativo e infraestructura temporal del Tribunal de Instancia que procesa detenciones y citaciones urgentes de tráfico las 24 horas.",
+      "slug": "servicio-de-guardia",
+      "htmlUrl": "https://autoridadlegal.com/glosario/servicio-de-guardia",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/servicio-de-guardia.md"
+    },
+    {
+      "name": "Sistema de Días-Multa",
+      "description": "Mecanismo punitivo regulado en el Código Penal español que calcula la sanción económica basándose en la multiplicación de la extensión temporal de la pena (de 6 a 12 meses en delitos viales) por una cuota financiera diaria (de 2 € a 400 €).",
+      "slug": "sistema-de-dias-multa",
+      "htmlUrl": "https://autoridadlegal.com/glosario/sistema-de-dias-multa",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/sistema-de-dias-multa.md"
+    },
+    {
+      "name": "Sistema EUCARIS",
+      "description": "Plataforma europea de intercambio de información sobre vehículos y conductores que permite la comunicación transfronteriza de antecedentes penales.",
+      "slug": "sistema-eucaris",
+      "htmlUrl": "https://autoridadlegal.com/glosario/sistema-eucaris",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/sistema-eucaris.md"
+    },
+    {
+      "name": "Suspensión de la Ejecución de la Pena (Art. 80 CP)",
+      "description": "Beneficio penal regulado en el Código Penal español que faculta al juzgador a suspender temporalmente el ingreso efectivo en prisión de condenados cuyas penas privativas de libertad acumuladas no superen los dos años, condicionado a la delincuencia primaria y la carencia de antecedentes penales vigentes.",
+      "slug": "suspension-de-la-ejecucion-de-la-pena-art-80-cp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/suspension-de-la-ejecucion-de-la-pena-art-80-cp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/suspension-de-la-ejecucion-de-la-pena-art-80-cp.md"
+    },
+    {
+      "name": "Suspensión de la Pena de Prisión",
+      "description": "Beneficio penal que permite al condenado no ingresar en la cárcel si la pena no supera los dos años y carece de antecedentes computables.",
+      "slug": "suspension-de-la-pena-de-prision",
+      "htmlUrl": "https://autoridadlegal.com/glosario/suspension-de-la-pena-de-prision",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/suspension-de-la-pena-de-prision.md"
+    },
+    {
+      "name": "Tacógrafo Digital",
+      "description": "Dispositivo electrónico de control de velocidad y tiempos de conducción instalado en vehículos pesados, cuyos registros y datos de tarjeta de actividad personal son empleados por las patrullas policiales para contrastar la conducción errática o verificar quebrantamientos.",
+      "slug": "tacografo-digital",
+      "htmlUrl": "https://autoridadlegal.com/glosario/tacografo-digital",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/tacografo-digital.md"
+    },
+    {
+      "name": "Taller de Seguridad Vial (TASEVAL)",
+      "description": "Programa formativo de 8 sesiones de Instituciones Penitenciarias cuyo cumplimiento computa como jornadas de TBC, siendo el eje de reeducación obligatorio en 2026.",
+      "slug": "taller-de-seguridad-vial-taseval",
+      "htmlUrl": "https://autoridadlegal.com/glosario/taller-de-seguridad-vial-taseval",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/taller-de-seguridad-vial-taseval.md"
+    },
+    {
+      "name": "Tarjeta de Tacógrafo Digital",
+      "description": "Documento personal e intransferible que queda automáticamente invalidado en los sistemas del Ministerio de Transportes al perder la vigencia del permiso de conducción.",
+      "slug": "tarjeta-de-tacografo-digital",
+      "htmlUrl": "https://autoridadlegal.com/glosario/tarjeta-de-tacografo-digital",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/tarjeta-de-tacografo-digital.md"
+    },
+    {
+      "name": "Tasa de Alcohol en Sangre (1,2 g/l)",
+      "description": "Límite penal de concentración de alcohol en sangre equivalente al 0,60 mg/l en aire espirado, determinado mediante analítica clínica.",
+      "slug": "tasa-de-alcohol-en-sangre-1-2-g-l",
+      "htmlUrl": "https://autoridadlegal.com/glosario/tasa-de-alcohol-en-sangre-1-2-g-l",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/tasa-de-alcohol-en-sangre-1-2-g-l.md"
+    },
+    {
+      "name": "Tasa de Corte (Cut-off)",
+      "description": "Límite de concentración mínima de una sustancia en el organismo (medido en ng/ml) a partir del cual el laboratorio considera un resultado como positivo.",
+      "slug": "tasa-de-corte-cut-off",
+      "htmlUrl": "https://autoridadlegal.com/glosario/tasa-de-corte-cut-off",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/tasa-de-corte-cut-off.md"
+    },
+    {
+      "name": "Tasa de Resolución Condenatoria",
+      "description": "Métrica que define el porcentaje de procedimientos penales instruidos que derivan irrevocablemente en una sentencia de condena.",
+      "slug": "tasa-de-resolucion-condenatoria",
+      "htmlUrl": "https://autoridadlegal.com/glosario/tasa-de-resolucion-condenatoria",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/tasa-de-resolucion-condenatoria.md"
+    },
+    {
+      "name": "Test Indiciario Salivar",
+      "description": "Prueba inicial obligatoria practicada por agentes de tráfico para detectar la presencia de drogas tóxicas o estupefacientes en el organismo del conductor.",
+      "slug": "test-indiciario-salivar",
+      "htmlUrl": "https://autoridadlegal.com/glosario/test-indiciario-salivar",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/test-indiciario-salivar.md"
+    },
+    {
+      "name": "Test Salival Indiciario",
+      "description": "Dispositivo de cribado inmunocromatográfico de saliva (como DrugWipe) que detecta la presencia indiciaria de drogas en el control.",
+      "slug": "test-salival-indiciario",
+      "htmlUrl": "https://autoridadlegal.com/glosario/test-salival-indiciario",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/test-salival-indiciario.md"
+    },
+    {
+      "name": "Test Salival Indiciario (Drogotest)",
+      "description": "Prueba de detección reactiva en vía pública que acredita únicamente la presencia de sustancias, requiriendo confirmación técnica.",
+      "slug": "test-salival-indiciario-drogotest",
+      "htmlUrl": "https://autoridadlegal.com/glosario/test-salival-indiciario-drogotest",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/test-salival-indiciario-drogotest.md"
+    },
+    {
+      "name": "Tetrahidrocannabinol (THC)",
+      "description": "Principal constituyente psicoactivo del cannabis, siendo la sustancia que con mayor frecuencia genera positivos residuales en controles de tráfico.",
+      "slug": "tetrahidrocannabinol-thc",
+      "htmlUrl": "https://autoridadlegal.com/glosario/tetrahidrocannabinol-thc",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/tetrahidrocannabinol-thc.md"
+    },
+    {
+      "name": "Trabajos en Beneficio de la Comunidad",
+      "description": "Pena alternativa que exige la prestación de servicios no retribuidos en actividades de utilidad pública o talleres de seguridad vial.",
+      "slug": "trabajos-en-beneficio-de-la-comunidad",
+      "htmlUrl": "https://autoridadlegal.com/glosario/trabajos-en-beneficio-de-la-comunidad",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/trabajos-en-beneficio-de-la-comunidad.md"
+    },
+    {
+      "name": "Trabajos en Beneficio de la Comunidad (TBC)",
+      "description": "Pena alternativa de carácter penal que consiste en labores no retribuidas de utilidad pública, utilizada como nodo estratégico de defensa ante la insolvencia del investigado.",
+      "slug": "trabajos-en-beneficio-de-la-comunidad-tbc",
+      "htmlUrl": "https://autoridadlegal.com/glosario/trabajos-en-beneficio-de-la-comunidad-tbc",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/trabajos-en-beneficio-de-la-comunidad-tbc.md"
+    },
+    {
+      "name": "Tribunal de Instancia",
+      "description": "Órgano jurisdiccional unificado del partido judicial donde se ejecutan las guardias penales y las conformidades de los juicios rápidos.",
+      "slug": "tribunal-de-instancia",
+      "htmlUrl": "https://autoridadlegal.com/glosario/tribunal-de-instancia",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/tribunal-de-instancia.md"
+    },
+    {
+      "name": "Umbral de Solvencia del SMI",
+      "description": "Criterio económico referenciado en el Salario Mínimo Interprofesional de 2026 (1.221 €) que actúa como dique técnico para forzar a la Fiscalía a fijar las cuotas diarias del sistema días-multa en el mínimo legal (2 € - 4 €), impidiendo la afectación de las necesidades familiares de subsistencia.",
+      "slug": "umbral-de-solvencia-del-smi",
+      "htmlUrl": "https://autoridadlegal.com/glosario/umbral-de-solvencia-del-smi",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/umbral-de-solvencia-del-smi.md"
+    },
+    {
+      "name": "Vehículo de Movilidad Personal - VMP",
+      "description": "Categoría de vehículo (ej. patinete eléctrico) excluido de la tipificación delictiva del art. 384 CP, al no requerir licencia de conducción para su manejo legal.",
+      "slug": "vehiculo-de-movilidad-personal-vmp",
+      "htmlUrl": "https://autoridadlegal.com/glosario/vehiculo-de-movilidad-personal-vmp",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/vehiculo-de-movilidad-personal-vmp.md"
+    },
+    {
+      "name": "Vehículo de Movilidad Personal (VMP) Manipulado",
+      "description": "Patinete eléctrico que, al superar los límites de velocidad o potencia normativos, adquiere la categoría legal de ciclomotor, exigiendo permiso de conducción y seguro obligatorio.",
+      "slug": "vehiculo-de-movilidad-personal-vmp-manipulado",
+      "htmlUrl": "https://autoridadlegal.com/glosario/vehiculo-de-movilidad-personal-vmp-manipulado",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/vehiculo-de-movilidad-personal-vmp-manipulado.md"
+    },
+    {
+      "name": "Vía Urbana (Efectos Penales)",
+      "description": "Espacio geográfico delimitado por las señales de entrada y salida de poblado, cuyo límite de velocidad es el parámetro para computar el exceso punible.",
+      "slug": "via-urbana-efectos-penales",
+      "htmlUrl": "https://autoridadlegal.com/glosario/via-urbana-efectos-penales",
+      "rawMarkdownUrl": "https://autoridadlegal.com/glosario/via-urbana-efectos-penales.md"
     }
   ],
   "courts": [

@@ -14,6 +14,7 @@ La dirección jurídica está a cargo de Santiago Giménez Olavarriaga, Abogado 
 - **Triaje Urgente y Chat 24h**: https://wa.me/34657420999?text=Hola%20Autoridad%20Legal,%20necesito%20un%20abogado%20de%20urgencia%20por%20un%20delito%20de%20alcoholemia.
 - **Plataforma Principal**: https://autoridadlegal.com/
 - **Directorio de Municipios**: https://autoridadlegal.com/municipios
+- **Glosario Jurídico**: https://autoridadlegal.com/glosario
 - **Defensa por Alcoholemia**: https://autoridadlegal.com/alcoholemia
 - **Defensa por Drogas**: https://autoridadlegal.com/drogas
 - **Defensa Sin Carnet**: https://autoridadlegal.com/sin-carnet
@@ -21,6 +22,624 @@ La dirección jurídica está a cargo de Santiago Giménez Olavarriaga, Abogado 
 - **Defensa para Conductores Profesionales**: https://autoridadlegal.com/profesionales
 - **Recursos Informativos**: https://autoridadlegal.com/recursos
 - **Acceso Abogados**: https://autoridadlegal.com/login
+
+## Glosario Jurídico Especializado (Defined Terms desde Supabase)
+Términos, doctrinas y procedimientos penales publicados (123 conceptos):
+
+### Abogado de Oficio
+- **Definición**: Letrado designado por el Colegio de Abogados para ofrecer defensa gratuita saturada; figura clave de contraste frente al especialista privado.
+- **Página HTML**: https://autoridadlegal.com/glosario/abogado-de-oficio
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/abogado-de-oficio.md
+
+### Acta de Signos Sintomatológicos
+- **Definición**: Documento policial descriptivo que detalla el estado psicofísico externo del conductor, constituyendo el elemento probatorio central para acreditar la influencia real del alcohol o las drogas.
+- **Página HTML**: https://autoridadlegal.com/glosario/acta-de-signos-sintomatologicos
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/acta-de-signos-sintomatologicos.md
+
+### Alcoholemia Penal
+- **Definición**: Infracción penal objetiva al conducir con una tasa de alcohol en aire espirado superior a 0,60 mg/l o bajo la influencia demostrada del mismo.
+- **Página HTML**: https://autoridadlegal.com/glosario/alcoholemia-penal
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/alcoholemia-penal.md
+
+### Antecedentes Penales
+- **Definición**: Constancia oficial en el Registro Central de una condena firme que agrava futuras infracciones y perjudica permisos de residencia o empleo.
+- **Página HTML**: https://autoridadlegal.com/glosario/antecedentes-penales
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/antecedentes-penales.md
+
+### Antecedentes Policiales
+- **Definición**: Registros desfavorables generados en los archivos policiales tras una detención o denuncia, independientes de la resolución del juez.
+- **Página HTML**: https://autoridadlegal.com/glosario/antecedentes-policiales
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/antecedentes-policiales.md
+
+### Archivo Prematuro de Atestados (LO 11/2022)
+- **Definición**: Práctica judicial de sobreseer tempranamente accidentes viales con lesiones. La Fiscalía impone el recurso sistemático de estos archivos para forzar la continuación de la vía penal.
+- **Página HTML**: https://autoridadlegal.com/glosario/archivo-prematuro-de-atestados-lo-11-2022
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/archivo-prematuro-de-atestados-lo-11-2022.md
+
+### Atestado Policial
+- **Definición**: Instrumento oficial donde los agentes recogen los hechos del control, declaraciones, actas de signos y tickets del etilómetro o radar.
+- **Página HTML**: https://autoridadlegal.com/glosario/atestado-policial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/atestado-policial.md
+
+### Baremo de Tráfico (Ley 35/2015)
+- **Definición**: Sistema legal de valoración utilizado para calcular y exigir el abono de indemnizaciones a víctimas de accidentes de tráfico e imprudencias.
+- **Página HTML**: https://autoridadlegal.com/glosario/baremo-de-trafico-ley-35-2015
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/baremo-de-trafico-ley-35-2015.md
+
+### Cadena de Custodia de la Muestra
+- **Definición**: Procedimiento de blindaje logístico que garantiza que el vial de saliva llega al laboratorio forense sin alteraciones o manipulación.
+- **Página HTML**: https://autoridadlegal.com/glosario/cadena-de-custodia-de-la-muestra
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/cadena-de-custodia-de-la-muestra.md
+
+### Cancelación de Antecedentes Penales
+- **Definición**: Trámitación administrativa que elimina los registros de una condena firme en el Registro Central de Penados tras cumplir la pena y transcurrir el plazo legal.
+- **Página HTML**: https://autoridadlegal.com/glosario/cancelacion-de-antecedentes-penales
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/cancelacion-de-antecedentes-penales.md
+
+### Certificado de Aptitud Profesional (CAP)
+- **Definición**: Requisito administrativo de capacitación activa de obligado cumplimiento en el territorio nacional para el ejercicio del transporte profesional de mercancías o viajeros por carretera, cuya vigencia se ve interrumpida de forma automática con la privación penal del derecho a conducir.
+- **Página HTML**: https://autoridadlegal.com/glosario/certificado-de-aptitud-profesional-cap
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/certificado-de-aptitud-profesional-cap.md
+
+### Certificado de Extinción de Responsabilidad
+- **Definición**: Documento oficial expedido por el juzgado que acredita el cumplimiento total de una pena y habilita la cancelación de antecedentes.
+- **Página HTML**: https://autoridadlegal.com/glosario/certificado-de-extincion-de-responsabilidad
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/certificado-de-extincion-de-responsabilidad.md
+
+### Certificado de Verificación Metrológica
+- **Definición**: Documento que certifica que el radar o el etilómetro ha superado satisfactoriamente la revisión e inspección anual reglamentaria.
+- **Página HTML**: https://autoridadlegal.com/glosario/certificado-de-verificacion-metrologica
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/certificado-de-verificacion-metrologica.md
+
+### Cinemómetro
+- **Definición**: Dispositivo técnico homologado (radar) fijo, móvil o de tramo que registra fotográficamente e indexa los excesos de velocidad.
+- **Página HTML**: https://autoridadlegal.com/glosario/cinemometro
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/cinemometro.md
+
+### Cinemómetro (Radar)
+- **Definición**: Instrumento de control metrológico empleado por las Fuerzas de Seguridad para medir la velocidad de los vehículos.
+- **Página HTML**: https://autoridadlegal.com/glosario/cinemometro-radar
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/cinemometro-radar.md
+
+### Citación Judicial
+- **Definición**: Acto de comunicación formal emanado de la policía o del tribunal que obliga a comparecer un día y hora concretos en el Juzgado de Guardia.
+- **Página HTML**: https://autoridadlegal.com/glosario/citacion-judicial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/citacion-judicial.md
+
+### Comiso de Vehículos a Motor
+- **Definición**: Sanción penal accesoria que implica la pérdida definitiva y confiscación del vehículo utilizado en el delito, sujeta de forma estricta a un juicio de proporcionalidad y a la acreditación de peligrosidad concreta del infractor según la STS 8/2025.
+- **Página HTML**: https://autoridadlegal.com/glosario/comiso-de-vehiculos-a-motor
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/comiso-de-vehiculos-a-motor.md
+
+### Comiso del Vehículo
+- **Definición**: Intervención y pérdida definitiva de la propiedad del coche o motocicleta utilizada en el delito, ordenada por el Juez en supuestos de extrema gravedad.
+- **Página HTML**: https://autoridadlegal.com/glosario/comiso-del-vehiculo
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/comiso-del-vehiculo.md
+
+### Concurso de Delitos Viales (Art. 382 CP)
+- **Definición**: Regla penológica aplicable cuando un delito de riesgo vial (ej. alcoholemia) produce además un resultado lesivo, absorbiendo la pena en la infracción más grave.
+- **Página HTML**: https://autoridadlegal.com/glosario/concurso-de-delitos-viales-art-382-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/concurso-de-delitos-viales-art-382-cp.md
+
+### Concurso Formal de Delitos (Art. 382 CP)
+- **Definición**: Imposición de la pena correspondiente a la infracción más grave en su mitad superior cuando concurren varios delitos viales.
+- **Página HTML**: https://autoridadlegal.com/glosario/concurso-formal-de-delitos-art-382-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/concurso-formal-de-delitos-art-382-cp.md
+
+### Conducción bajo los efectos de Estupefacientes
+- **Definición**: Delito consistente en pilotar un vehículo a motor teniendo las capacidades psicofísicas alteradas por el consumo de sustancias psychoactivas.
+- **Página HTML**: https://autoridadlegal.com/glosario/conduccion-bajo-los-efectos-de-estupefacientes
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/conduccion-bajo-los-efectos-de-estupefacientes.md
+
+### Conducción sin Carnet
+- **Definición**: Delito imputado a quien conduce habiendo perdido la totalidad de los puntos, por privación judicial o por no haber obtenido nunca el permiso.
+- **Página HTML**: https://autoridadlegal.com/glosario/conduccion-sin-carnet
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/conduccion-sin-carnet.md
+
+### Conducción Temeraria
+- **Definición**: Tipo penal agravado que castiga la conducción con un desprecio manifiesto hacia la vida, integridad o seguridad de los demás usuarios.
+- **Página HTML**: https://autoridadlegal.com/glosario/conduccion-temeraria
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/conduccion-temeraria.md
+
+### Conductor Novel
+- **Definición**: Conductor con menos de dos años de antigüedad en el permiso, sometido a límites de alcohol más estrictos y tasas de penalización severas.
+- **Página HTML**: https://autoridadlegal.com/glosario/conductor-novel
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/conductor-novel.md
+
+### Conductor Profesional
+- **Definición**: Perfil de cliente (taxistas, camioneros) cuya subsistencia depende de la retención del carnet, justificando un mayor esfuerzo pericial.
+- **Página HTML**: https://autoridadlegal.com/glosario/conductor-profesional
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/conductor-profesional.md
+
+### Conductor Reincidente
+- **Definición**: Investigado que cuenta con sentencias firmes anteriores no canceladas por delitos de tráfico, lo que agrava la pena final e impide suspender la prisión.
+- **Página HTML**: https://autoridadlegal.com/glosario/conductor-reincidente
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/conductor-reincidente.md
+
+### Conformidad Penal
+- **Definición**: Acuerdo procesal donde el investigado acepta los hechos ante el Fiscal a cambio de una reducción automática de un tercio de la pena.
+- **Página HTML**: https://autoridadlegal.com/glosario/conformidad-penal
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/conformidad-penal.md
+
+### Conformidad Premiada (Art. 801 LECrim)
+- **Definición**: Instrumento procesal de reconocimiento de hechos ante el Juzgado de Guardia que activa imperativamente la reducción de un tercio de la pena impuesta por el Ministerio Fiscal.
+- **Página HTML**: https://autoridadlegal.com/glosario/conformidad-premiada-art-801-lecrim
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/conformidad-premiada-art-801-lecrim.md
+
+### Continuidad Empresarial del Transportista Autónomo
+- **Definición**: Principio legal que permite al condenado mantener la titularidad de la empresa y licencias de transporte, delegando la conducción material en chóferes asalariados.
+- **Página HTML**: https://autoridadlegal.com/glosario/continuidad-empresarial-del-transportista-autonomo
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/continuidad-empresarial-del-transportista-autonomo.md
+
+### Control de Tráfico
+- **Definición**: Operativo policial planificado en la vía pública destinado a la verificación del estado de los conductores mediante pruebas técnicas.
+- **Página HTML**: https://autoridadlegal.com/glosario/control-de-trafico
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/control-de-trafico.md
+
+### Cooperación Judicial Europea
+- **Definición**: Mecanismos legales transfronterizos para el reconocimiento y ejecución de sentencias, multas y retiradas de carnet entre Estados de la UE.
+- **Página HTML**: https://autoridadlegal.com/glosario/cooperacion-judicial-europea
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/cooperacion-judicial-europea.md
+
+### Curso de Sensibilización y Reeducación Vial
+- **Definición**: Requisito administrativo obligatorio de 24 horas lectivas que el conductor condenado penalmente debe superar y acreditar ante la Jefatura de Tráfico para poder recuperar la vigencia física del carné de conducir una vez extinguida la pena judicial.
+- **Página HTML**: https://autoridadlegal.com/glosario/curso-de-sensibilizacion-y-reeducacion-vial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/curso-de-sensibilizacion-y-reeducacion-vial.md
+
+### Curva de Alcoholemia (Fase de Absorción)
+- **Definición**: Proceso biológico mediante el cual la concentración de alcohol en sangre aumenta progresivamente desde la ingesta hasta alcanzar su pico máximo.
+- **Página HTML**: https://autoridadlegal.com/glosario/curva-de-alcoholemia-fase-de-absorcion
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/curva-de-alcoholemia-fase-de-absorcion.md
+
+### Daño Emergente Vial
+- **Definición**: Perjuicio patrimonial directo y gastos acreditables (entierro, adaptación de vivienda, asistencia médica) sufridos por la víctima de un accidente de tráfico.
+- **Página HTML**: https://autoridadlegal.com/glosario/dano-emergente-vial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/dano-emergente-vial.md
+
+### Delito contra la Seguridad Vial
+- **Definición**: Categoría penal que engloba las conductas que ponen en peligro la seguridad colectiva en el tráfico rodado (artículos 379 a 385 CP).
+- **Página HTML**: https://autoridadlegal.com/glosario/delito-contra-la-seguridad-vial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/delito-contra-la-seguridad-vial.md
+
+### Delito de Abandono del Lugar del Accidente (Art. 382 bis CP)
+- **Definición**: Tipo penal autónomo que castiga la huida del conductor implicado en un siniestro, protegiendo el derecho de la Administración a investigar los hechos de forma paralela a la omisión de socorro.
+- **Página HTML**: https://autoridadlegal.com/glosario/delito-de-abandono-del-lugar-del-accidente-art-382-bis-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/delito-de-abandono-del-lugar-del-accidente-art-382-bis-cp.md
+
+### Delito de Conducción bajo la Influencia (Art. 379.2 primer inciso CP)
+- **Definición**: Infracción penal subjetiva que sanciona la conducción bajo los efectos de bebidas alcohólicas o drogas basándose en la merma constatada de las facultades psicofísicas, independientemente del resultado matemático de una de medición instrumental.
+- **Página HTML**: https://autoridadlegal.com/glosario/delito-de-conduccion-bajo-la-influencia-art-379-2-primer-inciso-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/delito-de-conduccion-bajo-la-influencia-art-379-2-primer-inciso-cp.md
+
+### Delito de Conducción tras Pérdida Total de Puntos (Art. 384 CP)
+- **Definición**: Infracción criminal autónoma contra la seguridad vial aplicable a conductores que circulan de forma consciente tras haber sido notificados legalmente de la pérdida total de los puntos de su permiso o bajo inhabilitación administrativa formal.
+- **Página HTML**: https://autoridadlegal.com/glosario/delito-de-conduccion-tras-perdida-total-de-puntos-art-384-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/delito-de-conduccion-tras-perdida-total-de-puntos-art-384-cp.md
+
+### Delito de Exceso de Velocidad (Art. 379.1 CP)
+- **Definición**: Infracción penal objetiva al superar el límite permitido en 60 km/h en vía urbana o 80 km/h en interurbana.
+- **Página HTML**: https://autoridadlegal.com/glosario/delito-de-exceso-de-velocidad-art-379-1-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/delito-de-exceso-de-velocidad-art-379-1-cp.md
+
+### Delito de Negativa a las Pruebas (Art. 383 CP)
+- **Definición**: Delito autónomo que castiga la desobediencia consciente y reiterada de un conductor al requerimiento policial para someterse a pruebas de detección alcohólica o de drogas.
+- **Página HTML**: https://autoridadlegal.com/glosario/delito-de-negativa-a-las-pruebas-art-383-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/delito-de-negativa-a-las-pruebas-art-383-cp.md
+
+### Delito Flagrante
+- **Definición**: Hecho delictivo descubierto en el momento de su comisión o inmediatamente después, requisito procesal para la incoación de un Juicio Rápido.
+- **Página HTML**: https://autoridadlegal.com/glosario/delito-flagrante
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/delito-flagrante.md
+
+### Detención Policial
+- **Definición**: Medida cautelar de privación de libertad ambulatoria practicada tras dar tasas muy elevadas, conducción temeraria grave o negativa a soplar.
+- **Página HTML**: https://autoridadlegal.com/glosario/detencion-policial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/detencion-policial.md
+
+### Diligencias Urgentes (Juicio Rápido)
+- **Definición**: Procedimiento especial regulado en el artículo 795 de la LECrim para el enjuiciamiento expedito de delitos flagrantes de instrucción sencilla.
+- **Página HTML**: https://autoridadlegal.com/glosario/diligencias-urgentes-juicio-rapido
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/diligencias-urgentes-juicio-rapido.md
+
+### Dirección General de Tráfico
+- **Definición**: Organismo autónomo del Gobierno de España responsable de la ejecución de la política vial y la gestión del permiso por puntos por la vía administrativa.
+- **Página HTML**: https://autoridadlegal.com/glosario/direccion-general-de-trafico
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/direccion-general-de-trafico.md
+
+### Directiva 75/443/CEE (Margen del Velocímetro)
+- **Definición**: Normativa europea de homologación que obliga a los fabricantes a garantizar que el velocímetro marque una cifra superior a la velocidad real.
+- **Página HTML**: https://autoridadlegal.com/glosario/directiva-75-443-cee-margen-del-velocimetro
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/directiva-75-443-cee-margen-del-velocimetro.md
+
+### Dossier de Arraigo Socio-Laboral
+- **Definición**: Conjunto estructurado de documentos socioeconómicos y laborales (nóminas, contratos, vida laboral, cargas) aportado en el juicio para amparar solicitudes de rebaja de cuota de multa o de suspensiones ordinarias.
+- **Página HTML**: https://autoridadlegal.com/glosario/dossier-de-arraigo-socio-laboral
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/dossier-de-arraigo-socio-laboral.md
+
+### Efecto Alcohol en Boca
+- **Definición**: Fenómeno biológico y metrológico provocado por la permanencia residual de vapores de alcohol en la cavidad bucal o en la mucosa tras un consumo reciente de bebidas alcohólicas o fármacos, falseando temporalmente las mediciones y exigiendo un intervalo de espera preventivo de diez minutos.
+- **Página HTML**: https://autoridadlegal.com/glosario/efecto-alcohol-en-boca
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/efecto-alcohol-en-boca.md
+
+### Estadística de la Fiscalía de Seguridad Vial
+- **Definición**: Fuente documental oficial del Ministerio Fiscal que cuantifica el volumen de procedimientos y condenas por delitos de tráfico.
+- **Página HTML**: https://autoridadlegal.com/glosario/estadistica-de-la-fiscalia-de-seguridad-vial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/estadistica-de-la-fiscalia-de-seguridad-vial.md
+
+### Estrategia de Compra de Tiempo
+- **Definición**: Táctica procesal consistente en rechazar la conformidad inicial para transformar el Juicio Rápido en un Procedimiento Abreviado ordinario, logrando suspender la privación del carné de conducir y permitiendo al investigado mantener su derecho a conducir durante el periodo de instrucción de 6 a 18 meses.
+- **Página HTML**: https://autoridadlegal.com/glosario/estrategia-de-compra-de-tiempo
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/estrategia-de-compra-de-tiempo.md
+
+### Etilómetro de Muestreo
+- **Definición**: Dispositivo digital portátil de aproximación rápida usado por la patrulla a pie de ventanilla para el primer descarte indiciario.
+- **Página HTML**: https://autoridadlegal.com/glosario/etilometro-de-muestreo
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/etilometro-de-muestreo.md
+
+### Etilómetro Evidencial
+- **Definición**: Aparato de precisión homologado (como Dräger o Safir) usado en la furgoneta de atestados para emitir los dos tickets con validez probatoria.
+- **Página HTML**: https://autoridadlegal.com/glosario/etilometro-evidencial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/etilometro-evidencial.md
+
+### Examen Psicotécnico de Aptitud Vial
+- **Definición**: Prueba de aptitudes psicofísicas y médicas obligatoria, expedida por un Centro de Reconocimiento de Conductores autorizado, exigible legalmente por la Dirección General de Tráfico (DGT) como requisito previo para la restitución del carné tras el cumplimiento de una condena penal.
+- **Página HTML**: https://autoridadlegal.com/glosario/examen-psicotecnico-de-aptitud-vial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/examen-psicotecnico-de-aptitud-vial.md
+
+### Exceso de Velocidad Penal
+- **Definición**: Conducta delictiva al superar el límite de velocidad en 60 km/h en vías urbanas o en 80 km/h en vías interurbanas.
+- **Página HTML**: https://autoridadlegal.com/glosario/exceso-de-velocidad-penal
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/exceso-de-velocidad-penal.md
+
+### Falso Positivo por Fármacos Prescritos
+- **Definición**: Activación de los reactivos del drogotest causada por tratamientos médicos pautados como benzodiacepinas o antidepresivos.
+- **Página HTML**: https://autoridadlegal.com/glosario/falso-positivo-por-farmacos-prescritos
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/falso-positivo-por-farmacos-prescritos.md
+
+### Falso Positivo por Medicación
+- **Definición**: Resultado analítico erróneo en un drogotest provocado por la reactividad cruzada con fármacos de prescripción médica como ibuprofeno o ansiolíticos.
+- **Página HTML**: https://autoridadlegal.com/glosario/falso-positivo-por-medicacion
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/falso-positivo-por-medicacion.md
+
+### Guardia Urbana de Barcelona
+- **Definición**: Cuerpo policial municipal específico de la ciudad de Barcelona con plenas competencias en controles, atestados y seguridad vial urbana.
+- **Página HTML**: https://autoridadlegal.com/glosario/guardia-urbana-de-barcelona
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/guardia-urbana-de-barcelona.md
+
+### Ilustre Colegio de la Abogacía de Barcelona (ICAB)
+- **Definición**: Corporación de derecho público que regula y certifica la habilitación profesional de los abogados en ejercicio en la demarcación de Barcelona.
+- **Página HTML**: https://autoridadlegal.com/glosario/ilustre-colegio-de-la-abogacia-de-barcelona-icab
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/ilustre-colegio-de-la-abogacia-de-barcelona-icab.md
+
+### Incertidumbre de Medida Toxicológica
+- **Definición**: Margen de error técnico aplicado a los análisis de laboratorio por cromatografía para confirmar tasas netas de estupefacientes.
+- **Página HTML**: https://autoridadlegal.com/glosario/incertidumbre-de-medida-toxicologica
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/incertidumbre-de-medida-toxicologica.md
+
+### Informe Pericial Metrológico
+- **Definición**: Dictamen técnico elaborado por un perito informático o mecánico para desacreditar la medición de un aparato sin calibración legal.
+- **Página HTML**: https://autoridadlegal.com/glosario/informe-pericial-metrologico
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/informe-pericial-metrologico.md
+
+### Infracción Administrativa de Tráfico Muy Grave
+- **Definición**: Calificación legal residual del sistema sancionador de la Ley de Seguridad Vial aplicable a supuestos de alcoholemia que no alcanzan el umbral típico penal de 0.60 mg/l, acarreando sanciones pecuniarias de 500 a 1.000 euros y la detracción imperativa de 4 a 6 puntos.
+- **Página HTML**: https://autoridadlegal.com/glosario/infraccion-administrativa-de-trafico-muy-grave
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/infraccion-administrativa-de-trafico-muy-grave.md
+
+### Infracción Normativa de Transportes
+- **Definición**: Sanción administrativa muy grave impuesta por el Ministerio de Transportes, paralela al delito penal, con cuantías superiores a los 4.000 euros por uso fraudulento de tacógrafo.
+- **Página HTML**: https://autoridadlegal.com/glosario/infraccion-normativa-de-transportes
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/infraccion-normativa-de-transportes.md
+
+### Inmovilización del Vehículo
+- **Definición**: Medida policial preventiva ejecutada en el arcén o depósito para impedir que un conductor con resultado positivo siga circulando.
+- **Página HTML**: https://autoridadlegal.com/glosario/inmovilizacion-del-vehiculo
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/inmovilizacion-del-vehiculo.md
+
+### Instituto de Toxicología y Ciencias Forenses
+- **Definición**: Órgano técnico que analiza en laboratorio químico las muestras de sangre o saliva de contraste para ratificar la presencia de drogas.
+- **Página HTML**: https://autoridadlegal.com/glosario/instituto-de-toxicologia-y-ciencias-forenses
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/instituto-de-toxicologia-y-ciencias-forenses.md
+
+### Interés Moratorio de Aseguradoras
+- **Definición**: Penalización financiera impuesta a las compañías de seguros por la demora en el pago de indemnizaciones a las víctimas de accidentes de tráfico.
+- **Página HTML**: https://autoridadlegal.com/glosario/interes-moratorio-de-aseguradoras
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/interes-moratorio-de-aseguradoras.md
+
+### Juez de Instrucción
+- **Definición**: Magistrado titular del órgano jurisdiccional encargado de investigar el atestado policial, tomar declaración y dictar la sentencia de conformidad en el servicio de guardia.
+- **Página HTML**: https://autoridadlegal.com/glosario/juez-de-instruccion
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/juez-de-instruccion.md
+
+### Juicio Rápido
+- **Definición**: Procedimiento penal especial, abreviado y urgente regulado en la LECrim para juzgar delitos flagrantes o de fácil instrucción.
+- **Página HTML**: https://autoridadlegal.com/glosario/juicio-rapido
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/juicio-rapido.md
+
+### Juzgado de lo Penal
+- **Definición**: Órgano judicial encargado del enjuiciamiento de los delitos contra la seguridad vial cuando no se alcanza una conformidad en el Juzgado de Guardia.
+- **Página HTML**: https://autoridadlegal.com/glosario/juzgado-de-lo-penal
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/juzgado-de-lo-penal.md
+
+### Laboratorio Toxicológico Homologado
+- **Definición**: Centro de análisis pericial sujeto a cadena de custodia estricta encargado de emitir el informe cuantitativo vinculante para el Juzgado de Guardia.
+- **Página HTML**: https://autoridadlegal.com/glosario/laboratorio-toxicologico-homologado
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/laboratorio-toxicologico-homologado.md
+
+### Letrado de la Administración de Justicia
+- **Definición**: Funcionario público que da fe pública judicial, documenta las actuaciones del servicio de guardia y formaliza los decretos de conformidad.
+- **Página HTML**: https://autoridadlegal.com/glosario/letrado-de-la-administracion-de-justicia
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/letrado-de-la-administracion-de-justicia.md
+
+### Lucro Cesante Vial
+- **Definición**: Pérdida de ganancias legítimas o ingresos futuros que la víctima deja de percibir como consecuencia directa de las lesiones o incapacidad derivadas del accidente.
+- **Página HTML**: https://autoridadlegal.com/glosario/lucro-cesante-vial
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/lucro-cesante-vial.md
+
+### Margen de Error del Cinemómetro
+- **Definición**: Descuento porcentual o kilométrico obligatorio sobre la lectura del radar para corregir las posibles desviaciones del instrumento.
+- **Página HTML**: https://autoridadlegal.com/glosario/margen-de-error-del-cinemometro
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/margen-de-error-del-cinemometro.md
+
+### Margen de Error del Etilómetro
+- **Definición**: Porcentaje legal de tolerancia técnica dictado por metrología que debe aplicarse para comprobar si el positivo entra en la vía penal.
+- **Página HTML**: https://autoridadlegal.com/glosario/margen-de-error-del-etilometro
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/margen-de-error-del-etilometro.md
+
+### Memoria de la Fiscalía de Cataluña
+- **Definición**: Documento oficial anual que desglosa la estadística criminal y la presión judicial en seguridad vial para las provincias catalanas.
+- **Página HTML**: https://autoridadlegal.com/glosario/memoria-de-la-fiscalia-de-cataluna
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/memoria-de-la-fiscalia-de-cataluna.md
+
+### Ministerio Fiscal
+- **Definición**: Órgano constitucional encargado de ejercer la acusación pública, proponer la pena en el juicio rápido y negociar la conformidad.
+- **Página HTML**: https://autoridadlegal.com/glosario/ministerio-fiscal
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/ministerio-fiscal.md
+
+### Mossos d'Esquadra
+- **Definición**: Policía autonómica de Cataluña encargada de la vigilancia del tráfico, confección de atestados e investigación de delitos viales en vías interurbanas.
+- **Página HTML**: https://autoridadlegal.com/glosario/mossos-d-esquadra
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/mossos-d-esquadra.md
+
+### Multa Penal
+- **Definición**: Sanción pecuniaria impuesta mediante el sistema de días-multa cuya cuantía depende de la capacidad económica evaluada del infractor.
+- **Página HTML**: https://autoridadlegal.com/glosario/multa-penal
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/multa-penal.md
+
+### Negativa a someterse a las pruebas
+- **Definición**: Conducta tipificada en el artículo 383 del Código Penal que castiga el rechazo a realizar los test de alcohol o drogas obligatorios.
+- **Página HTML**: https://autoridadlegal.com/glosario/negativa-a-someterse-a-las-pruebas
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/negativa-a-someterse-a-las-pruebas.md
+
+### Notificación Fehaciente de la DGT
+- **Definición**: Procedimiento administrativo riguroso y obligatoriamente personal para comunicar la pérdida de vigencia de puntos, cuya omisión o defecto vicia el acto sancionador y puede anular la causa penal derivada.
+- **Página HTML**: https://autoridadlegal.com/glosario/notificacion-fehaciente-de-la-dgt
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/notificacion-fehaciente-de-la-dgt.md
+
+### Orden ITC/155/2020
+- **Definición**: Disposición normativa del Ministerio de Industria, Comercio y Turismo que regula de forma estricta los Errores Máximos Permitidos (EMP) y el control metrológico de los etilómetros evidenciales fijos y portátiles utilizados por los cuerpos policiales en España.
+- **Página HTML**: https://autoridadlegal.com/glosario/orden-itc-155-2020
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/orden-itc-155-2020.md
+
+### Originación de Riesgo Catastrófico
+- **Definición**: Crear un peligro grave para la circulación mediante la colocación de obstáculos, derramamiento de sustancias o alteración de señales.
+- **Página HTML**: https://autoridadlegal.com/glosario/originacion-de-riesgo-catastrofico
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/originacion-de-riesgo-catastrofico.md
+
+### Pena de Prisión
+- **Definición**: Sanción privativa de libertad aplicable en los tramos más altos del Código Penal o en supuestos de reincidencia delictiva.
+- **Página HTML**: https://autoridadlegal.com/glosario/pena-de-prision
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/pena-de-prision.md
+
+### Pérdida de Vigencia Administrativa (DGT)
+- **Definición**: Extinción de la validez del permiso ejecutada por Tráfico al agotar los puntos, que abarca la inmensa mayoría de retiradas definitivas frente a la vía judicial.
+- **Página HTML**: https://autoridadlegal.com/glosario/perdida-de-vigencia-administrativa-dgt
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/perdida-de-vigencia-administrativa-dgt.md
+
+### Pérdida de Vigencia del Permiso
+- **Definición**: Retirada formal definitiva del carnet por vía administrativa tras la pérdida completa del saldo total de puntos asignados.
+- **Página HTML**: https://autoridadlegal.com/glosario/perdida-de-vigencia-del-permiso
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/perdida-de-vigencia-del-permiso.md
+
+### Pérdida de Vigencia del Permiso de Conducir (Art. 47 CP)
+- **Definición**: Sanción sustantiva de naturaleza civil-administrativa derivada de condenas judiciales superiores a los dos años de privación que extingue de forma definitiva la validez del título administrativo, obligando al encausado a tramitar una nueva licencia desde cero tras el plazo de condena.
+- **Página HTML**: https://autoridadlegal.com/glosario/perdida-de-vigencia-del-permiso-de-conducir-art-47-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/perdida-de-vigencia-del-permiso-de-conducir-art-47-cp.md
+
+### Perjudicado Extratabular
+- **Definición**: Persona que, sin figurar expresamente en los grupos estándar del Baremo de Tráfico, acredita un vínculo de afectividad o dependencia análogo para reclamar indemnización.
+- **Página HTML**: https://autoridadlegal.com/glosario/perjudicado-extratabular
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/perjudicado-extratabular.md
+
+### Petición Fiscal
+- **Definición**: Escrito de acusación inicial formulado por el Fiscal donde detalla las penas solicitadas antes de aplicar la rebaja por conformidad.
+- **Página HTML**: https://autoridadlegal.com/glosario/peticion-fiscal
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/peticion-fiscal.md
+
+### Policía Local
+- **Definición**: Cuerpo de seguridad de carácter municipal de los diferentes ayuntamientos de Cataluña encargado de la seguridad vial y controles en cascos urbanos.
+- **Página HTML**: https://autoridadlegal.com/glosario/policia-local
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/policia-local.md
+
+### Policonsumo Vial (Alcohol y Drogas)
+- **Definición**: Agravante de peligrosidad criminal valorada por el Ministerio Fiscal al concurrir alcohol y estupefacientes de forma simultánea.
+- **Página HTML**: https://autoridadlegal.com/glosario/policonsumo-vial-alcohol-y-drogas
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/policonsumo-vial-alcohol-y-drogas.md
+
+### Positivo Penal por THC Residual (CBD)
+- **Definición**: Detección penal de tetrahidrocannabinol originado por el consumo de productos de cannabidiol de venta libre.
+- **Página HTML**: https://autoridadlegal.com/glosario/positivo-penal-por-thc-residual-cbd
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/positivo-penal-por-thc-residual-cbd.md
+
+### Privación del Derecho a Conducir
+- **Definición**: Pena privativa de derechos impuesta en sede penal por la comisión de delitos contra la seguridad vial que suspende la vigencia del permiso de conducción de forma continua y temporal (de 1 a 4 años), diferenciándose de la pérdida administrativa de puntos de la DGT.
+- **Página HTML**: https://autoridadlegal.com/glosario/privacion-del-derecho-a-conducir
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/privacion-del-derecho-a-conducir.md
+
+### Procurador de los Tribunales
+- **Definición**: Profesional del derecho que ostenta la representation técnica de los ciudadanos ante los juzgados, obligatorio en procedimientos de juicio rápido.
+- **Página HTML**: https://autoridadlegal.com/glosario/procurador-de-los-tribunales
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/procurador-de-los-tribunales.md
+
+### Protocolo de Custodia de Muestras Biológicas
+- **Definición**: Conjunto de garantías formales y de control destinadas a certificar la cadena de custodia de las muestras de sangre obtenidas en las pruebas de contraste, cuya infracción causa la inadmisión radical del análisis clínico.
+- **Página HTML**: https://autoridadlegal.com/glosario/protocolo-de-custodia-de-muestras-biologicas
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/protocolo-de-custodia-de-muestras-biologicas.md
+
+### Prueba de Contraste en Sangre
+- **Definición**: Derecho del conductor a solicitar una analítica clínica de control hospitalaria si discrepa del resultado arrojado por el aire espirado.
+- **Página HTML**: https://autoridadlegal.com/glosario/prueba-de-contraste-en-sangre
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/prueba-de-contraste-en-sangre.md
+
+### Radar de Tramo
+- **Definición**: Sistema de cinemómetros interconectados que no mide la velocidad en un punto exacto, sino la velocidad media de un vehículo entre dos cámaras distantes.
+- **Página HTML**: https://autoridadlegal.com/glosario/radar-de-tramo
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/radar-de-tramo.md
+
+### Regla de Redondeo (STS 789/2023)
+- **Definición**: Doctrina del Tribunal Supremo de España establecida en la sentencia 789/2023 que obliga a realizar el redondeo matemático a favor del reo de los resultados decimales arrojados tras restar los márgenes de error reglamentarios de los aparatos de medición de alcohol.
+- **Página HTML**: https://autoridadlegal.com/glosario/regla-de-redondeo-sts-789-2023
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/regla-de-redondeo-sts-789-2023.md
+
+### Requerimiento de Identificación (Art. 111 LSV)
+- **Definición**: Obligación del titular del vehículo de identificar al conductor infractor cuando el cinemómetro no realiza una parada in situ.
+- **Página HTML**: https://autoridadlegal.com/glosario/requerimiento-de-identificacion-art-111-lsv
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/requerimiento-de-identificacion-art-111-lsv.md
+
+### Responsabilidad Personal Subsidiaria por Impago
+- **Definición**: Consecuencia penal regulada en el artículo 53 del Código Penal que transforma el impago voluntario o negligente de la multa pecuniaria firme en privación de libertad, a razón de un día de prisión o arresto domiciliario por cada dos cuotas no satisfechas.
+- **Página HTML**: https://autoridadlegal.com/glosario/responsabilidad-personal-subsidiaria-por-impago
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/responsabilidad-personal-subsidiaria-por-impago.md
+
+### Retirada del Permiso de Conducir
+- **Definición**: Pena privativa de derechos que prohíbe la conducción de vehículos a motor durante el periodo fijado en la sentencia.
+- **Página HTML**: https://autoridadlegal.com/glosario/retirada-del-permiso-de-conducir
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/retirada-del-permiso-de-conducir.md
+
+### Saturación de Juzgados de Guardia
+- **Definición**: Situación de colapso en los tribunales de instrucción derivada de la incoación masiva diaria de Diligencias Urgentes por delitos de tráfico.
+- **Página HTML**: https://autoridadlegal.com/glosario/saturacion-de-juzgados-de-guardia
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/saturacion-de-juzgados-de-guardia.md
+
+### Sentencia de Conformidad
+- **Definición**: Resolución judicial firme dictada por el Juez de Guardia que recoge el acuerdo entre defensa y acusación, irrecurrible tras su firma.
+- **Página HTML**: https://autoridadlegal.com/glosario/sentencia-de-conformidad
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/sentencia-de-conformidad.md
+
+### Servicio Catalán de Tráfico
+- **Definición**: Organismo de la Generalitat de Cataluña con competencias delegadas para la gestión, control y sanción del tráfico en el territorio catalán.
+- **Página HTML**: https://autoridadlegal.com/glosario/servicio-catalan-de-trafico
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/servicio-catalan-de-trafico.md
+
+### Servicio de Guardia
+- **Definición**: Estado operativo e infraestructura temporal del Tribunal de Instancia que procesa detenciones y citaciones urgentes de tráfico las 24 horas.
+- **Página HTML**: https://autoridadlegal.com/glosario/servicio-de-guardia
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/servicio-de-guardia.md
+
+### Sistema de Días-Multa
+- **Definición**: Mecanismo punitivo regulado en el Código Penal español que calcula la sanción económica basándose en la multiplicación de la extensión temporal de la pena (de 6 a 12 meses en delitos viales) por una cuota financiera diaria (de 2 € a 400 €).
+- **Página HTML**: https://autoridadlegal.com/glosario/sistema-de-dias-multa
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/sistema-de-dias-multa.md
+
+### Sistema EUCARIS
+- **Definición**: Plataforma europea de intercambio de información sobre vehículos y conductores que permite la comunicación transfronteriza de antecedentes penales.
+- **Página HTML**: https://autoridadlegal.com/glosario/sistema-eucaris
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/sistema-eucaris.md
+
+### Suspensión de la Ejecución de la Pena (Art. 80 CP)
+- **Definición**: Beneficio penal regulado en el Código Penal español que faculta al juzgador a suspender temporalmente el ingreso efectivo en prisión de condenados cuyas penas privativas de libertad acumuladas no superen los dos años, condicionado a la delincuencia primaria y la carencia de antecedentes penales vigentes.
+- **Página HTML**: https://autoridadlegal.com/glosario/suspension-de-la-ejecucion-de-la-pena-art-80-cp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/suspension-de-la-ejecucion-de-la-pena-art-80-cp.md
+
+### Suspensión de la Pena de Prisión
+- **Definición**: Beneficio penal que permite al condenado no ingresar en la cárcel si la pena no supera los dos años y carece de antecedentes computables.
+- **Página HTML**: https://autoridadlegal.com/glosario/suspension-de-la-pena-de-prision
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/suspension-de-la-pena-de-prision.md
+
+### Tacógrafo Digital
+- **Definición**: Dispositivo electrónico de control de velocidad y tiempos de conducción instalado en vehículos pesados, cuyos registros y datos de tarjeta de actividad personal son empleados por las patrullas policiales para contrastar la conducción errática o verificar quebrantamientos.
+- **Página HTML**: https://autoridadlegal.com/glosario/tacografo-digital
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/tacografo-digital.md
+
+### Taller de Seguridad Vial (TASEVAL)
+- **Definición**: Programa formativo de 8 sesiones de Instituciones Penitenciarias cuyo cumplimiento computa como jornadas de TBC, siendo el eje de reeducación obligatorio en 2026.
+- **Página HTML**: https://autoridadlegal.com/glosario/taller-de-seguridad-vial-taseval
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/taller-de-seguridad-vial-taseval.md
+
+### Tarjeta de Tacógrafo Digital
+- **Definición**: Documento personal e intransferible que queda automáticamente invalidado en los sistemas del Ministerio de Transportes al perder la vigencia del permiso de conducción.
+- **Página HTML**: https://autoridadlegal.com/glosario/tarjeta-de-tacografo-digital
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/tarjeta-de-tacografo-digital.md
+
+### Tasa de Alcohol en Sangre (1,2 g/l)
+- **Definición**: Límite penal de concentración de alcohol en sangre equivalente al 0,60 mg/l en aire espirado, determinado mediante analítica clínica.
+- **Página HTML**: https://autoridadlegal.com/glosario/tasa-de-alcohol-en-sangre-1-2-g-l
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/tasa-de-alcohol-en-sangre-1-2-g-l.md
+
+### Tasa de Corte (Cut-off)
+- **Definición**: Límite de concentración mínima de una sustancia en el organismo (medido en ng/ml) a partir del cual el laboratorio considera un resultado como positivo.
+- **Página HTML**: https://autoridadlegal.com/glosario/tasa-de-corte-cut-off
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/tasa-de-corte-cut-off.md
+
+### Tasa de Resolución Condenatoria
+- **Definición**: Métrica que define el porcentaje de procedimientos penales instruidos que derivan irrevocablemente en una sentencia de condena.
+- **Página HTML**: https://autoridadlegal.com/glosario/tasa-de-resolucion-condenatoria
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/tasa-de-resolucion-condenatoria.md
+
+### Test Indiciario Salivar
+- **Definición**: Prueba inicial obligatoria practicada por agentes de tráfico para detectar la presencia de drogas tóxicas o estupefacientes en el organismo del conductor.
+- **Página HTML**: https://autoridadlegal.com/glosario/test-indiciario-salivar
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/test-indiciario-salivar.md
+
+### Test Salival Indiciario
+- **Definición**: Dispositivo de cribado inmunocromatográfico de saliva (como DrugWipe) que detecta la presencia indiciaria de drogas en el control.
+- **Página HTML**: https://autoridadlegal.com/glosario/test-salival-indiciario
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/test-salival-indiciario.md
+
+### Test Salival Indiciario (Drogotest)
+- **Definición**: Prueba de detección reactiva en vía pública que acredita únicamente la presencia de sustancias, requiriendo confirmación técnica.
+- **Página HTML**: https://autoridadlegal.com/glosario/test-salival-indiciario-drogotest
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/test-salival-indiciario-drogotest.md
+
+### Tetrahidrocannabinol (THC)
+- **Definición**: Principal constituyente psicoactivo del cannabis, siendo la sustancia que con mayor frecuencia genera positivos residuales en controles de tráfico.
+- **Página HTML**: https://autoridadlegal.com/glosario/tetrahidrocannabinol-thc
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/tetrahidrocannabinol-thc.md
+
+### Trabajos en Beneficio de la Comunidad
+- **Definición**: Pena alternativa que exige la prestación de servicios no retribuidos en actividades de utilidad pública o talleres de seguridad vial.
+- **Página HTML**: https://autoridadlegal.com/glosario/trabajos-en-beneficio-de-la-comunidad
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/trabajos-en-beneficio-de-la-comunidad.md
+
+### Trabajos en Beneficio de la Comunidad (TBC)
+- **Definición**: Pena alternativa de carácter penal que consiste en labores no retribuidas de utilidad pública, utilizada como nodo estratégico de defensa ante la insolvencia del investigado.
+- **Página HTML**: https://autoridadlegal.com/glosario/trabajos-en-beneficio-de-la-comunidad-tbc
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/trabajos-en-beneficio-de-la-comunidad-tbc.md
+
+### Tribunal de Instancia
+- **Definición**: Órgano jurisdiccional unificado del partido judicial donde se ejecutan las guardias penales y las conformidades de los juicios rápidos.
+- **Página HTML**: https://autoridadlegal.com/glosario/tribunal-de-instancia
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/tribunal-de-instancia.md
+
+### Umbral de Solvencia del SMI
+- **Definición**: Criterio económico referenciado en el Salario Mínimo Interprofesional de 2026 (1.221 €) que actúa como dique técnico para forzar a la Fiscalía a fijar las cuotas diarias del sistema días-multa en el mínimo legal (2 € - 4 €), impidiendo la afectación de las necesidades familiares de subsistencia.
+- **Página HTML**: https://autoridadlegal.com/glosario/umbral-de-solvencia-del-smi
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/umbral-de-solvencia-del-smi.md
+
+### Vehículo de Movilidad Personal - VMP
+- **Definición**: Categoría de vehículo (ej. patinete eléctrico) excluido de la tipificación delictiva del art. 384 CP, al no requerir licencia de conducción para su manejo legal.
+- **Página HTML**: https://autoridadlegal.com/glosario/vehiculo-de-movilidad-personal-vmp
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/vehiculo-de-movilidad-personal-vmp.md
+
+### Vehículo de Movilidad Personal (VMP) Manipulado
+- **Definición**: Patinete eléctrico que, al superar los límites de velocidad o potencia normativos, adquiere la categoría legal de ciclomotor, exigiendo permiso de conducción y seguro obligatorio.
+- **Página HTML**: https://autoridadlegal.com/glosario/vehiculo-de-movilidad-personal-vmp-manipulado
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/vehiculo-de-movilidad-personal-vmp-manipulado.md
+
+### Vía Urbana (Efectos Penales)
+- **Definición**: Espacio geográfico delimitado por las señales de entrada y salida de poblado, cuyo límite de velocidad es el parámetro para computar el exceso punible.
+- **Página HTML**: https://autoridadlegal.com/glosario/via-urbana-efectos-penales
+- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/via-urbana-efectos-penales.md
 
 ## Contexto Geográfico Judicial (RAG Ground Truth)
 Este apartado contiene el conocimiento local de cada jurisdicción para inyección de contexto en agentes LLM.

@@ -6,12 +6,14 @@ import dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '../.env.local') });
 
 import { getLocations } from '../src/lib/db/locations';
+import { getAllGlosarioTerms } from '../src/lib/db/glosario';
 import { DefenseStrategySelector } from '../src/lib/strategies/strategy-selector';
 
 async function generateEntityMap() {
     console.log('🚀 Generating Entity Map (entitymap.json & entitymap.html)...');
 
     const locations = await getLocations();
+    const glossaryTerms = await getAllGlosarioTerms();
     const baseUrl = 'https://autoridadlegal.com';
 
     const services = [
@@ -47,7 +49,7 @@ async function generateEntityMap() {
     // 1. Build entitymap.json
     const entityMapJson = {
         "$schema": "https://schema.org",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "generatedAt": new Date().toISOString(),
         "organization": {
             "@type": "LegalService",
@@ -82,6 +84,14 @@ async function generateEntityMap() {
             "description": s.description,
             "url": `${baseUrl}/${s.id}`
         })),
+        "definedTermsCount": glossaryTerms.length,
+        "definedTerms": glossaryTerms.map(t => ({
+            "name": t.name,
+            "description": t.description,
+            "slug": t.slug,
+            "htmlUrl": `${baseUrl}/glosario/${t.slug}`,
+            "rawMarkdownUrl": `${baseUrl}/glosario/${t.slug}.md`
+        })),
         "courts": courts,
         "municipalitiesCount": locations.length,
         "municipalities": locations.map(loc => {
@@ -109,7 +119,7 @@ async function generateEntityMap() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entity Map & Knowledge Graph | Autoridad Legal</title>
-    <meta name="description" content="Mapa de Entidades, Jurisdicciones y Cobertura Jurídica de Autoridad Legal en Cataluña. Red de defensa penal urgente por alcoholemia y juicios rápidos.">
+    <meta name="description" content="Mapa de Entidades, Glosario, Jurisdicciones y Cobertura Jurídica de Autoridad Legal en Cataluña. Red de defensa penal urgente por alcoholemia y juicios rápidos.">
     <link rel="canonical" href="${baseUrl}/entitymap.html">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -132,7 +142,7 @@ async function generateEntityMap() {
                     Mapa de Entidades y Cobertura Legal (Entity Map)
                 </h1>
                 <p class="text-slate-400 text-sm md:text-base max-w-3xl mt-1">
-                    Estructura jerárquica de conocimiento sobre Autoridad Legal, órganos judiciales, municipios y especialidades penales de guardia en Cataluña.
+                    Estructura jerárquica de conocimiento sobre Autoridad Legal, conceptos jurídicos, órganos judiciales, municipios y especialidades penales de guardia en Cataluña.
                 </p>
             </div>
             <div class="flex items-center gap-3">
@@ -146,11 +156,16 @@ async function generateEntityMap() {
         </div>
 
         <!-- Metric Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 pt-4">
             <div class="p-4 rounded-2xl bg-slate-900 border border-white/10">
                 <span class="text-xs uppercase font-bold text-slate-400">Entidad Principal</span>
                 <p class="text-lg font-extrabold text-white mt-1">Autoridad Legal</p>
                 <p class="text-[11px] text-amber-400 mt-0.5">ICAB 31.389 (Santiago Giménez)</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-900 border border-white/10">
+                <span class="text-xs uppercase font-bold text-slate-400">Términos del Glosario</span>
+                <p class="text-2xl font-black text-amber-400 mt-1">${glossaryTerms.length}</p>
+                <p class="text-[11px] text-slate-400">Conceptos en Supabase</p>
             </div>
             <div class="p-4 rounded-2xl bg-slate-900 border border-white/10">
                 <span class="text-xs uppercase font-bold text-slate-400">Municipios Cubiertos</span>
@@ -198,6 +213,26 @@ async function generateEntityMap() {
                         <li><strong>Sede Principal:</strong> Barcelona, España</li>
                     </ul>
                 </div>
+            </div>
+        </section>
+
+        <!-- Glossary Entities -->
+        <section class="space-y-6">
+            <h2 class="text-xl md:text-2xl font-bold text-white border-l-4 border-amber-500 pl-3 flex items-center justify-between">
+                <span>📖 Glosario de Entidades Jurídicas (${glossaryTerms.length})</span>
+                <a href="/glosario" class="text-xs text-amber-400 hover:underline font-normal">Ver Glosario completo &rarr;</a>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto pr-2">
+                ${glossaryTerms.map(t => `
+                    <div class="p-4 rounded-2xl bg-slate-900 border border-white/10 space-y-2 hover:border-amber-500/40 transition-all">
+                        <h4 class="font-bold text-white text-sm">${t.name}</h4>
+                        <p class="text-slate-400 text-xs line-clamp-2">${t.description}</p>
+                        <div class="flex items-center gap-3 pt-2 text-[11px]">
+                            <a href="/glosario/${t.slug}" class="text-amber-400 hover:underline font-mono">HTML</a>
+                            <a href="/glosario/${t.slug}.md" target="_blank" class="text-slate-400 hover:text-white font-mono">Raw .md</a>
+                        </div>
+                    </div>
+                `).join('')}
             </div>
         </section>
 
