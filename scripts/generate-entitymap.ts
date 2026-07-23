@@ -61,6 +61,13 @@ async function generateEntityMap() {
             "email": "contacto@autoridadlegal.com",
             "areaServed": "Cataluña, España",
             "priceRange": "980€",
+            "sameAs": [
+                "https://www.linkedin.com/company/autoridad-legal/",
+                "https://www.facebook.com/AutoridadLegal/",
+                "https://www.instagram.com/autoridad.legal/",
+                "https://x.com/AutoridadLegal_",
+                "https://www.youtube.com/@Autoridad_Legal"
+            ],
             "director": {
                 "@type": "Person",
                 "name": "Santiago Giménez Olavarriaga",

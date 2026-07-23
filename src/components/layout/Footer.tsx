@@ -36,6 +36,36 @@ export function Footer() {
                         </ul>
                     </div>
                     <div className="space-y-4">
+                        <h4 className="font-label-md text-xs font-bold text-white border-b border-white/10 pb-2 uppercase tracking-widest">Redes Sociales</h4>
+                        <ul className="space-y-3 text-xs">
+                            <li>
+                                <a href="https://www.linkedin.com/company/autoridad-legal/" target="_blank" rel="noopener noreferrer" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors flex items-center gap-2">
+                                    <span>LinkedIn</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/AutoridadLegal/" target="_blank" rel="noopener noreferrer" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors flex items-center gap-2">
+                                    <span>Facebook</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/autoridad.legal/" target="_blank" rel="noopener noreferrer" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors flex items-center gap-2">
+                                    <span>Instagram</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://x.com/AutoridadLegal_" target="_blank" rel="noopener noreferrer" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors flex items-center gap-2">
+                                    <span>X (Twitter)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/@Autoridad_Legal" target="_blank" rel="noopener noreferrer" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors flex items-center gap-2">
+                                    <span>YouTube</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="space-y-4">
                         <h4 className="font-label-md text-xs font-bold text-white border-b border-white/10 pb-2 uppercase tracking-widest">Legal</h4>
                         <ul className="space-y-3 text-xs">
                             <li><Link href="/legal/legal-notice" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Aviso Legal</Link></li>

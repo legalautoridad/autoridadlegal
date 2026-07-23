@@ -1,12 +1,20 @@
 import { createStaticClient } from '@/lib/supabase/server';
 import { getLocationBySlug, Location } from '@/lib/db/locations';
 import { getServiceBySlugFromDb, normalizeServiceSlug, DbService } from '@/lib/db/services';
+import { OKFService } from '@/lib/okf/okf-service';
 
 export interface LocalizedFaq {
     id?: string;
     question: string;
     answer: string;
     specific_topic?: string;
+}
+
+export interface InterestPoint {
+    category?: string;
+    name: string;
+    description?: string;
+    gps?: string;
 }
 
 export interface CoberturaData {
@@ -17,6 +25,7 @@ export interface CoberturaData {
     courtSlug?: string;
     courtAddress?: string;
     faqs: LocalizedFaq[];
+    interestPoints: InterestPoint[];
     h1Title: string;
     description: string;
     summary: string;
@@ -47,7 +56,7 @@ function serviceDbName(slug: string): string {
 }
 
 /**
- * Fetches single CoberturaData combining location_services row, location, service, court and faqs.
+ * Fetches single CoberturaData combining location_services row, location, service, court, faqs, and interest points.
  * RETURNS NULL if web_published != true OR faq_json is empty.
  */
 export async function getCoberturaData(serviceSlug: string, citySlug: string): Promise<CoberturaData | null> {
@@ -89,6 +98,20 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
     const courtSlug = court?.slug || undefined;
     const courtAddress = court?.address || undefined;
 
+    const interestPoints: InterestPoint[] = (location.interest_points && location.interest_points.length > 0)
+        ? location.interest_points.map((p: any) => ({
+            category: p.class || p.category,
+            name: p.name,
+            description: p.details || p.description,
+            gps: p.gps,
+        }))
+        : OKFService.getPuntosDeInteres(location.slug).map(p => ({
+            category: p.category,
+            name: p.name,
+            description: p.description,
+            gps: p.gps,
+        }));
+
     const h1Title = row.h1_headline || (service.slug === 'alcoholemia'
         ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name}`
         : `Abogado Especialista en ${service.name} en ${location.name} | Urgencias 24h`);
@@ -104,6 +127,7 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
         courtSlug,
         courtAddress,
         faqs,
+        interestPoints,
         h1Title,
         description,
         summary,

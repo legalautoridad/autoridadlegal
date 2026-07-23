@@ -36,9 +36,18 @@ ${cobertura.content ? `${cobertura.content}\n\n` : ''}## Información Judicial L
 - **Municipio:** ${cobertura.location.name}
 - **Órgano Judicial Competente:** ${cobertura.courtName || 'Juzgados de la Jurisdicción'}
 ${cobertura.courtAddress ? `- **Dirección del Juzgado:** ${cobertura.courtAddress}\n` : ''}
-## Preguntas frecuentes
-
 `;
+
+    if (cobertura.interestPoints && cobertura.interestPoints.length > 0) {
+        markdown += `## Puntos de Interés y Control Local\n\n`;
+        cobertura.interestPoints.forEach(pt => {
+            const catInfo = pt.category ? ` (${pt.category})` : '';
+            markdown += `- **${pt.name}**${catInfo}: ${pt.description || ''}\n`;
+        });
+        markdown += `\n`;
+    }
+
+    markdown += `## Preguntas frecuentes\n\n`;
 
     cobertura.faqs.forEach(faq => {
         markdown += `### ${faq.question}\n\n${faq.answer}\n\n`;

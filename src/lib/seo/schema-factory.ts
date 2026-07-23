@@ -280,6 +280,13 @@ export class SchemaFactory {
             "telephone": "+34605118871",
             "priceRange": "980€",
             "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
+            "sameAs": [
+                "https://www.linkedin.com/company/autoridad-legal/",
+                "https://www.facebook.com/AutoridadLegal/",
+                "https://www.instagram.com/autoridad.legal/",
+                "https://x.com/AutoridadLegal_",
+                "https://www.youtube.com/@Autoridad_Legal"
+            ],
             "founder": founder,
             "hasOfferCatalog": offerCatalog,
             "areaServed": {
