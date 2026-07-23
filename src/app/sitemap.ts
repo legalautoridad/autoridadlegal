@@ -62,9 +62,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.85,
         });
 
-        // /servicios/[slug].md Raw Markdown for LLMs
+        // /[service].md Raw Markdown for LLMs
         staticPages.push({
-            url: `${BASE_URL}/servicios/${service}.md`,
+            url: `${BASE_URL}/${service}.md`,
             lastModified,
             changeFrequency: 'weekly',
             priority: 0.6,

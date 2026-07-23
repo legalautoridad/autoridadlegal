@@ -40,11 +40,6 @@ ${description}
         });
     }
 
-    markdown += `## Enlaces de Interés\n\n`;
-    markdown += `- Director Jurídico: [Santiago Giménez Olavarriaga](/abogados/santiago-gimenez-olavarriaga)\n`;
-    markdown += `- Directorio de Cobertura Local: [Ver Municipios](/municipios)\n`;
-    markdown += `- Términos Doctrinarios: [Glosario Jurídico](/glosario)\n`;
-
     return new NextResponse(markdown, {
         headers: {
             'Content-Type': 'text/markdown; charset=utf-8',

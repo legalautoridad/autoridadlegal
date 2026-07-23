@@ -18,9 +18,10 @@ export async function middleware(request: NextRequest) {
         });
     }
 
-    // Handle raw markdown requests for services: /servicios/[slug].md or /[service].md
-    if ((pathname.startsWith('/servicios/') || pathname.match(/^\/(alcoholemia|drogas|sin-carnet|velocidad|profesionales)\.md$/)) && pathname.endsWith('.md')) {
-        const slug = pathname.split('/').pop()?.replace(/\.md$/, '') || '';
+    // Handle raw markdown requests for services: /[service].md (e.g. /alcoholemia.md)
+    const serviceRawMatch = pathname.match(/^\/(alcoholemia|drogas|sin-carnet|velocidad|profesionales)\.md$/);
+    if (serviceRawMatch) {
+        const slug = serviceRawMatch[1];
         const requestHeaders = new Headers(request.headers);
         requestHeaders.set('x-servicio-slug', slug);
         requestHeaders.set('x-pathname', pathname);
