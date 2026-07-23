@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "playwright test",
-    "okf:sync": "npx tsx scripts/sync-okf.ts"
+    "okf:sync": "npx tsx scripts/sync-okf.ts",
+    "generate:llms": "npx tsx scripts/generate-llms.ts",
+    "generate:entitymap": "npx tsx scripts/generate-entitymap.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.60",
