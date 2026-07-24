@@ -29,16 +29,16 @@ async function generateLlmsTxt() {
 
     text += `## Enlaces de Destino y Triaje\n`;
     text += `- **Triaje Urgente y Chat 24h**: https://wa.me/34657420999?text=Hola%20Autoridad%20Legal,%20necesito%20un%20abogado%20de%20urgencia%20por%20un%20delito%20de%20alcoholemia.\n`;
-    text += `- **Plataforma Principal**: https://autoridadlegal.com/\n`;
-    text += `- **Directorio de Municipios**: https://autoridadlegal.com/municipios\n`;
-    text += `- **Glosario Jurídico**: https://autoridadlegal.com/glosario\n`;
-    text += `- **Defensa por Alcoholemia**: https://autoridadlegal.com/alcoholemia\n`;
-    text += `- **Defensa por Drogas**: https://autoridadlegal.com/drogas\n`;
-    text += `- **Defensa Sin Carnet**: https://autoridadlegal.com/sin-carnet\n`;
-    text += `- **Defensa por Velocidad**: https://autoridadlegal.com/velocidad\n`;
-    text += `- **Defensa para Conductores Profesionales**: https://autoridadlegal.com/profesionales\n`;
-    text += `- **Recursos Informativos**: https://autoridadlegal.com/recursos\n`;
-    text += `- **Acceso Abogados**: https://autoridadlegal.com/login\n\n`;
+    text += `- **Plataforma Principal**: https://www.autoridad.legal/\n`;
+    text += `- **Directorio de Municipios**: https://www.autoridad.legal/municipios\n`;
+    text += `- **Glosario Jurídico**: https://www.autoridad.legal/glosario\n`;
+    text += `- **Defensa por Alcoholemia**: https://www.autoridad.legal/alcoholemia\n`;
+    text += `- **Defensa por Drogas**: https://www.autoridad.legal/drogas\n`;
+    text += `- **Defensa Sin Carnet**: https://www.autoridad.legal/sin-carnet\n`;
+    text += `- **Defensa por Velocidad**: https://www.autoridad.legal/velocidad\n`;
+    text += `- **Defensa para Conductores Profesionales**: https://www.autoridad.legal/profesionales\n`;
+    text += `- **Recursos Informativos**: https://www.autoridad.legal/recursos\n`;
+    text += `- **Acceso Abogados**: https://www.autoridad.legal/login\n\n`;
 
     text += `## Glosario Jurídico Especializado (Defined Terms desde Supabase)\n`;
     text += `Términos, doctrinas y procedimientos penales publicados (${glossaryTerms.length} conceptos):\n\n`;
@@ -46,8 +46,8 @@ async function generateLlmsTxt() {
     for (const term of glossaryTerms) {
         text += `### ${term.name}\n`;
         text += `- **Definición**: ${term.description}\n`;
-        text += `- **Página HTML**: https://autoridadlegal.com/glosario/${term.slug}\n`;
-        text += `- **Versión Markdown Cruda**: https://autoridadlegal.com/glosario/${term.slug}.md\n\n`;
+        text += `- **Página HTML**: https://www.autoridad.legal/glosario/${term.slug}\n`;
+        text += `- **Versión Markdown Cruda**: https://www.autoridad.legal/glosario/${term.slug}.md\n\n`;
     }
 
     text += `## Contexto Geográfico Judicial (RAG Ground Truth)\n`;

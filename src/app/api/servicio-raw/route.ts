@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     }
 
     const canonicalFaqs = await getCanonicalFaqsForService(slug);
-    const canonicalUrl = `https://autoridadlegal.com/servicios/${service.slug}`;
+    const canonicalUrl = `https://www.autoridad.legal/${service.slug}`;
 
     const title = service.seo?.title || service.hero?.title || service.name;
     const description = service.seo?.description || service.hero?.subtitle || '';

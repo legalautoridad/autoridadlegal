@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
         return new NextResponse(`Coverage page for "${serviceSlug}/${citySlug}" is not published or does not exist`, { status: 404 });
     }
 
-    const canonicalUrl = `https://autoridadlegal.com/${cobertura.service.slug}/${cobertura.location.slug}`;
+    const canonicalUrl = `https://www.autoridad.legal/${cobertura.service.slug}/${cobertura.location.slug}`;
     const escapedTitle = cobertura.h1Title.replace(/"/g, '\\"');
     const escapedDescription = cobertura.description.replace(/"/g, '\\"');
 

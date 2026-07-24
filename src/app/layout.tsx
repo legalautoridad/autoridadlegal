@@ -76,9 +76,9 @@ export default async function RootLayout({
               "legalName": "Autoridad Legal S.L.",
               "taxID": "B-12345678",
               "telephone": "+34 900 000 000",
-              "email": "legal@autoridadlegal.com",
-              "url": "https://autoridadlegal.com",
-              "image": "https://autoridadlegal.com/logo.png",
+              "email": "legal@autoridad.legal",
+              "url": "https://www.autoridad.legal",
+              "image": "https://www.autoridad.legal/logo.png",
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Barcelona",
