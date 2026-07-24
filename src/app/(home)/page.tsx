@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getLocations } from "@/lib/db/locations";
 import { OKFService } from "@/lib/okf/okf-service";
@@ -15,6 +16,29 @@ import {
 } from "lucide-react";
 
 export const revalidate = 3600; // ISR revalidation for homepage FAQs
+
+export const metadata: Metadata = {
+    title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
+    description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
+    alternates: {
+        canonical: "https://www.autoridad.legal/",
+    },
+    openGraph: {
+        type: "website",
+        locale: "es_ES",
+        url: "https://www.autoridad.legal/",
+        siteName: "Autoridad Legal",
+        title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
+        description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
+        images: ["https://www.autoridad.legal/logo.png"],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
+        description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
+        images: ["https://www.autoridad.legal/logo.png"],
+    },
+};
 
 export default async function MarketingPage() {
     // Fetch locations and brand FAQs from DB dynamically (strict SSR)
@@ -45,9 +69,22 @@ export default async function MarketingPage() {
                                 "image": "https://www.autoridad.legal/logo.png",
                                 "address": {
                                     "@type": "PostalAddress",
+                                    "streetAddress": "Avenida Diagonal 437, Principal 3ª",
+                                    "postalCode": "08036",
                                     "addressLocality": "Barcelona",
                                     "addressRegion": "Cataluña",
                                     "addressCountry": "ES"
+                                },
+                                "areaServed": {
+                                    "@type": "AdministrativeArea",
+                                    "name": "Provincia de Barcelona"
+                                },
+                                "makesOffer": {
+                                    "@type": "Offer",
+                                    "priceCurrency": "EUR",
+                                    "price": "980",
+                                    "description": "Defensa penal en juicio rápido por delitos contra la seguridad vial (IVA y procurador incluidos)",
+                                    "availability": "https://schema.org/InStock"
                                 },
                                 "priceRange": "€€",
                                 "openingHoursSpecification": [
