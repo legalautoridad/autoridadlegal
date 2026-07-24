@@ -2,45 +2,32 @@ import Link from "next/link";
 import { getLocations } from "@/lib/db/locations";
 import { OKFService } from "@/lib/okf/okf-service";
 import { MunicipalitySearch } from "@/components/silo/MunicipalitySearch";
+import { getHomepageFaqs } from "@/lib/db/homepage-faqs";
 import {
     Gavel,
     ShieldCheck,
     Clock,
-    MessageCircle,
-    Play,
     Linkedin,
     GraduationCap,
     ChevronDown,
-    CheckCircle2
+    CheckCircle2,
+    ArrowRight
 } from "lucide-react";
 
+export const revalidate = 3600; // ISR revalidation for homepage FAQs
+
 export default async function MarketingPage() {
-    // Fetch locations from DB dynamically (strict SSR)
+    // Fetch locations and brand FAQs from DB dynamically (strict SSR)
     const locations = await getLocations();
     const municipiosAlcoholemia = OKFService.getCoveredMunicipios('alcoholemia');
-
-    // Exact text for FAQs (responses under 40 words)
-    const faqData = [
-        {
-            q: "¿Qué pasa si me niego a soplar?",
-            a: "Negarse a soplar constituye un delito autónomo castigado con penas de prisión de seis meses a un año y retirada del carnet de uno a cuatro años. Siempre aconsejamos someterse a la prueba de alcoholemia."
-        },
-        {
-            q: "¿Puedo fraccionar la retirada del carnet?",
-            a: "No. La retirada del carnet impuesta en sentencia judicial es de cumplimiento obligatorio y continuo. La ley prohíbe fraccionar la condena por periodos, meses o fines de semana."
-        },
-        {
-            q: "¿Me avisarán del juzgado a mi empresa?",
-            a: "No. Los juzgados no comunican las condenas por alcoholemia a las empresas empleadoras, salvo que usted sea conductor profesional en ejercicio o funcionario público y afecte directamente a sus funciones."
-        }
-    ];
+    const homepageFaqs = await getHomepageFaqs();
 
     const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "34657420999";
     const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola Autoridad Legal, necesito un abogado de urgencia por un delito de alcoholemia en Barcelona.")}`;
 
     return (
         <main className="min-h-screen bg-surface-ice text-legal-ink font-sans flex flex-col items-center">
-            {/* JSON-LD Schema: Combined LegalService & FAQPage with Founder sameAs */}
+            {/* Single Consolidated JSON-LD Schema Graph: LegalService + FAQPage */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -49,39 +36,61 @@ export default async function MarketingPage() {
                         "@graph": [
                             {
                                 "@type": "LegalService",
-                                "@id": "https://autoridadlegal.com/#organization",
+                                "@id": "https://www.autoridad.legal/#organization",
                                 "name": "Autoridad Legal",
                                 "legalName": "Autoridad Legal",
-                                "url": "https://autoridadlegal.com",
+                                "url": "https://www.autoridad.legal",
                                 "telephone": "+34 605 118 871",
-                                "email": "urgencias@autoridadlegal.com",
+                                "email": "redes@autoridad.legal",
+                                "image": "https://www.autoridad.legal/logo.png",
                                 "address": {
                                     "@type": "PostalAddress",
                                     "addressLocality": "Barcelona",
                                     "addressRegion": "Cataluña",
                                     "addressCountry": "ES"
                                 },
-                                "priceRange": "980€",
-                                "image": "https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg",
+                                "priceRange": "€€",
+                                "openingHoursSpecification": [
+                                    {
+                                        "@type": "OpeningHoursSpecification",
+                                        "dayOfWeek": [
+                                            "Monday",
+                                            "Tuesday",
+                                            "Wednesday",
+                                            "Thursday",
+                                            "Friday",
+                                            "Saturday",
+                                            "Sunday"
+                                        ],
+                                        "opens": "00:00",
+                                        "closes": "23:59"
+                                    }
+                                ],
+                                "sameAs": [
+                                    "https://www.linkedin.com/company/autoridad-legal/",
+                                    "https://www.facebook.com/AutoridadLegal/",
+                                    "https://www.instagram.com/autoridad.legal/",
+                                    "https://x.com/AutoridadLegal_",
+                                    "https://www.youtube.com/@Autoridad_Legal"
+                                ],
                                 "founder": {
                                     "@type": "Person",
                                     "name": "Santiago Giménez Olavarriaga",
                                     "jobTitle": "Director Jurídico y Abogado Penalista",
                                     "sameAs": [
-                                        "https://www.linkedin.com/in/santiago-gimenez-olavarriaga",
-                                        "https://www.abogacia.es"
+                                        "https://www.linkedin.com/in/santiagogimenezolavarriaga/"
                                     ]
                                 }
                             },
                             {
                                 "@type": "FAQPage",
-                                "@id": "https://autoridad.legal/#faq",
-                                "mainEntity": faqData.map(faq => ({
+                                "@id": "https://www.autoridad.legal/#faq",
+                                "mainEntity": homepageFaqs.map(faq => ({
                                     "@type": "Question",
-                                    "name": faq.q,
+                                    "name": faq.question,
                                     "acceptedAnswer": {
                                         "@type": "Answer",
-                                        "text": faq.a
+                                        "text": faq.answer
                                     }
                                 }))
                             }
@@ -170,7 +179,7 @@ export default async function MarketingPage() {
                     Defensa Premium frente a Juicios Rápidos
                 </h2>
                 <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                    Garantizamos su defense penal integral por un precio cerrado desde 980€, que incluye honorarios de abogado, IVA y procurador. Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
+                    Garantizamos su defensa penal integral por un precio cerrado desde 980€, que incluye honorarios de abogado, IVA y procurador. Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
                 </p>
             </article>
 
@@ -194,7 +203,7 @@ export default async function MarketingPage() {
                         Dirección Jurídica Verificada
                     </h2>
                     <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                        La dirección jurídica de la plataforma está a cargo del letrado Santiago Giménez Olavarriaga, especialista en seguridad vial y alcoholemias. Ejerce la defensa directa ante tribunals penales, coordinando la estrategia procesal y garantizando una asistencia inmediata y presencial de urgencia las veinticuatro horas del día en comisarías.
+                        La dirección jurídica de la plataforma está a cargo del letrado Santiago Giménez Olavarriaga, especialista en seguridad vial y alcoholemias. Ejerce la defensa directa ante tribunales penales, coordinando la estrategia procesal y garantizando una asistencia inmediata y presencial de urgencia las veinticuatro horas del día en comisarías.
                     </p>
 
                     {/* Verified Address & Trust Links */}
@@ -216,7 +225,7 @@ export default async function MarketingPage() {
 
                         <div className="pt-4 border-t border-outline-variant/20 flex flex-col sm:flex-row gap-4 text-xs font-label-md">
                             <a
-                                href="https://www.linkedin.com/in/santiago-gimenez-olavarriaga"
+                                href="https://www.linkedin.com/in/santiagogimenezolavarriaga/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-2 text-trust-navy hover:text-prestige-gold transition-colors font-bold"
@@ -240,28 +249,45 @@ export default async function MarketingPage() {
             </section>
 
             {/* FAQ SEMANTIC SECTION */}
-            <section className="w-full max-w-4xl px-6 py-16 md:py-20 border-t border-outline-variant/30 space-y-8">
+            <section id="faq" className="w-full max-w-4xl px-6 py-16 md:py-20 border-t border-outline-variant/30 space-y-8 scroll-mt-20">
                 <h2 className="text-3xl md:text-4xl font-extrabold text-trust-navy border-l-4 border-prestige-gold pl-4 tracking-tight">
-                    Preguntas Frecuentes sobre Juicios por Alcoholemia
+                    Preguntas Frecuentes sobre Delitos Contra la Seguridad Vial
                 </h2>
                 <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                    Resolvemos de forma inmediata sus dudas sobre juicios rápidos por alcoholemia, retirada de carnet, multas y consecuencias penales en Barcelona. Nuestro equipo de letrados proporciona respuestas claras y directas basadas en la reforma del Código Penal y la jurisprudencia de seguridad vial que rige actualmente.
+                    Resolvemos de forma transparente sus dudas sobre la defensa penal en delitos contra la seguridad vial, costes, honorarios, cobertura geográfica y procedimiento legal ante los Juzgados de Instrucción.
                 </p>
 
                 {/* SSR FAQ Accordion */}
                 <div className="space-y-4 pt-4">
-                    {faqData.map((faq, idx) => (
+                    {homepageFaqs.map((faq) => (
                         <details
-                            key={idx}
+                            key={faq.id}
                             className="group border border-outline-variant/40 rounded-xl bg-white p-5 shadow-sm hover:border-prestige-gold/50 transition-colors"
                         >
                             <summary className="flex justify-between items-center cursor-pointer font-bold font-headline-md text-trust-navy hover:text-prestige-gold transition-colors select-none list-none [&::-webkit-details-marker]:hidden">
-                                <span className="pr-4">{faq.q}</span>
+                                <span className="pr-4 flex items-center gap-2">
+                                    <span>{faq.question}</span>
+                                </span>
                                 <ChevronDown className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform shrink-0" />
                             </summary>
-                            <p className="mt-4 font-body-md text-base text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                                {faq.a}
-                            </p>
+                            <div className="mt-4 font-body-md text-base text-slate-600 leading-relaxed border-t border-slate-100 pt-3 space-y-3">
+                                <p>{faq.answer}</p>
+                                
+                                {faq.category === 'servicio' && faq.service_slug && (
+                                    <div className="pt-2 flex items-center justify-between text-xs">
+                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-prestige-gold/10 text-trust-navy font-bold uppercase tracking-wider text-[10px] border border-prestige-gold/30">
+                                            Especialidad: {faq.service_slug}
+                                        </span>
+                                        <Link
+                                            href={`/${faq.service_slug}`}
+                                            className="inline-flex items-center gap-1 text-prestige-gold font-bold hover:underline"
+                                        >
+                                            <span>Más información</span>
+                                            <ArrowRight className="w-3.5 h-3.5" />
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
                         </details>
                     ))}
                 </div>

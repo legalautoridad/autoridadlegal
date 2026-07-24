@@ -66,50 +66,6 @@ export default async function RootLayout({
           <ChatWidget />
         </Suspense>
         <Footer />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LegalService",
-              "name": "Autoridad Legal",
-              "legalName": "Autoridad Legal S.L.",
-              "taxID": "B-12345678",
-              "telephone": "+34 900 000 000",
-              "email": "legal@autoridad.legal",
-              "url": "https://www.autoridad.legal",
-              "image": "https://www.autoridad.legal/logo.png",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Barcelona",
-                "addressCountry": "ES"
-              },
-              "sameAs": [
-                "https://www.linkedin.com/company/autoridad-legal/",
-                "https://www.facebook.com/AutoridadLegal/",
-                "https://www.instagram.com/autoridad.legal/",
-                "https://x.com/AutoridadLegal_",
-                "https://www.youtube.com/@Autoridad_Legal"
-              ],
-              "paymentAccepted": "Credit Card, Stripe",
-              "priceRange": "900€ - 1500€",
-              "openingHoursSpecification": [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday"
-                  ],
-                  "opens": "09:00",
-                  "closes": "20:00"
-                }
-              ]
-            })
-          }}
-        />
       </body>
     </html>
   );
