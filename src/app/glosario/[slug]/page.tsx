@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: GlosarioPageProps): Promise<M
 
     const title = `${term.name} - Definición Jurídica y Doctrina | Glosario Autoridad Legal`;
     const description = term.description || `Definición de ${term.name} en el ámbito de la seguridad vial y juicios rápidos por Santiago Giménez Olavarriaga (ICAB 31.389).`;
-    const canonicalUrl = `https://autoridadlegal.com/glosario/${term.slug}`;
+    const canonicalUrl = `https://www.autoridad.legal/glosario/${term.slug}`;
 
     return {
         title,
@@ -60,7 +60,7 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
         return notFound();
     }
 
-    const canonicalUrl = `https://autoridadlegal.com/glosario/${term.slug}`;
+    const canonicalUrl = `https://www.autoridad.legal/glosario/${term.slug}`;
     const rawMarkdownUrl = `/glosario/${term.slug}.md`;
     const relatedLinks = await getPublicRelatedLinks(term.id);
 
@@ -84,16 +84,16 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
                 ...(sameAs ? { 'sameAs': sameAs } : {}),
                 'inDefinedTermSet': {
                     '@type': 'DefinedTermSet',
-                    '@id': 'https://autoridadlegal.com/glosario#termset',
+                    '@id': 'https://www.autoridad.legal/glosario#termset',
                     'name': 'Glosario de Derecho Penal y Seguridad Vial',
-                    'url': 'https://autoridadlegal.com/glosario'
+                    'url': 'https://www.autoridad.legal/glosario'
                 },
                 'author': {
                     '@type': 'Person',
                     'name': 'Santiago Giménez Olavarriaga',
                     'jobTitle': 'Director Jurídico y Abogado Penalista',
                     'identifier': 'ICAB 31.389',
-                    'sameAs': 'https://autoridadlegal.com/abogados/santiago-gimenez-olavarriaga'
+                    'sameAs': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga'
                 }
             }
         ]

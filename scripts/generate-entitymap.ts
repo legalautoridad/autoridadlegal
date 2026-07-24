@@ -14,7 +14,7 @@ async function generateEntityMap() {
 
     const locations = await getLocations();
     const glossaryTerms = await getAllGlosarioTerms();
-    const baseUrl = 'https://autoridadlegal.com';
+    const baseUrl = 'https://www.autoridad.legal';
 
     const services = [
         { id: 'alcoholemia', name: 'Delito de Alcoholemia y Juicio Rápido', description: 'Defensa penal urgente por alcoholemia positiva al volante.' },

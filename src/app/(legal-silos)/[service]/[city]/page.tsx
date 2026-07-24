@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
     const cobertura = await getCoberturaData(service, city);
     if (!cobertura) return {};
 
-    const canonicalUrl = `https://autoridadlegal.com/${cobertura.service.slug}/${cobertura.location.slug}`;
+    const canonicalUrl = `https://www.autoridad.legal/${cobertura.service.slug}/${cobertura.location.slug}`;
 
     return {
         title: `${cobertura.h1Title} | Autoridad Legal`,
@@ -56,7 +56,7 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
         return notFound();
     }
 
-    const canonicalUrl = `https://autoridadlegal.com/${cobertura.service.slug}/${cobertura.location.slug}`;
+    const canonicalUrl = `https://www.autoridad.legal/${cobertura.service.slug}/${cobertura.location.slug}`;
 
     // Schema.org LegalService + FAQPage Graph
     const jsonLdGraph = {
@@ -76,16 +76,16 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
                 },
                 "provider": {
                     "@type": "Organization",
-                    "@id": "https://autoridadlegal.com/#organization",
+                    "@id": "https://www.autoridad.legal/#organization",
                     "name": "Autoridad Legal",
-                    "url": "https://autoridadlegal.com"
+                    "url": "https://www.autoridad.legal"
                 },
                 "author": {
                     "@type": "Person",
                     "name": "Santiago Giménez Olavarriaga",
                     "jobTitle": "Director Jurídico y Abogado Penalista",
                     "identifier": "ICAB 31.389",
-                    "sameAs": "https://autoridadlegal.com/abogados/santiago-gimenez-olavarriaga"
+                    "sameAs": "https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga"
                 }
             },
             {

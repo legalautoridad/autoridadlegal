@@ -19,7 +19,7 @@ export interface SchemaGenerator {
 // 1. Concrete Generator for LegalService (Local Business specialization)
 class LegalServiceGenerator implements SchemaGenerator {
     generate(params: SchemaParams): Record<string, any> {
-        const base = params.baseUrl || "https://autoridadlegal.com";
+        const base = params.baseUrl || "https://www.autoridad.legal";
         const pageUrl = `${base}/${params.service}/${params.city}`;
         
         return {
@@ -30,7 +30,7 @@ class LegalServiceGenerator implements SchemaGenerator {
             "url": pageUrl,
             "telephone": "+34605118871",
             "priceRange": "€€€",
-            "image": "https://autoridadlegal.com/public/images/logo.png",
+            "image": "https://www.autoridad.legal/public/images/logo.png",
             "provider": {
                 "@type": "Person",
                 "@id": `${base}/#attorney`
@@ -52,7 +52,7 @@ class LegalServiceGenerator implements SchemaGenerator {
 // 2. Concrete Generator for Attorney Person
 class AttorneyGenerator implements SchemaGenerator {
     generate(params: SchemaParams): Record<string, any> {
-        const base = params.baseUrl || "https://autoridadlegal.com";
+        const base = params.baseUrl || "https://www.autoridad.legal";
         
         return {
             "@type": "Person",
@@ -80,7 +80,7 @@ class AttorneyGenerator implements SchemaGenerator {
 // 3. Concrete Generator for Courthouse (Government Building)
 class CourthouseGenerator implements SchemaGenerator {
     generate(params: SchemaParams): Record<string, any> {
-        const base = params.baseUrl || "https://autoridadlegal.com";
+        const base = params.baseUrl || "https://www.autoridad.legal";
         const pageUrl = `${base}/${params.service}/${params.city}`;
         
         if (!params.courtName) {
@@ -104,7 +104,7 @@ class CourthouseGenerator implements SchemaGenerator {
 // 4. Concrete Generator for FAQPage
 class FAQPageGenerator implements SchemaGenerator {
     generate(params: SchemaParams): Record<string, any> {
-        const base = params.baseUrl || "https://autoridadlegal.com";
+        const base = params.baseUrl || "https://www.autoridad.legal";
         const pageUrl = `${base}/${params.service}/${params.city}`;
         
         if (!params.faqs || params.faqs.length === 0) {
@@ -129,7 +129,7 @@ class FAQPageGenerator implements SchemaGenerator {
 // 5. Concrete Generator for VideoObject (Interactive video guides)
 class VideoObjectGenerator implements SchemaGenerator {
     generate(params: SchemaParams): Record<string, any> {
-        const base = params.baseUrl || "https://autoridadlegal.com";
+        const base = params.baseUrl || "https://www.autoridad.legal";
         const pageUrl = `${base}/${params.service}/${params.city}`;
         
         const videoUrl = params.videoUrl || "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Placeholder/Fallback
@@ -141,7 +141,7 @@ class VideoObjectGenerator implements SchemaGenerator {
             "@id": `${pageUrl}#video`,
             "name": name,
             "description": desc,
-            "thumbnailUrl": "https://autoridadlegal.com/images/video-thumbnail.jpg",
+            "thumbnailUrl": "https://www.autoridad.legal/images/video-thumbnail.jpg",
             "uploadDate": "2026-01-08T08:00:00+01:00",
             "contentUrl": videoUrl,
             "embedUrl": videoUrl.replace("watch?v=", "embed/")
@@ -174,7 +174,7 @@ export class SchemaFactory {
      * High-level helper to generate the entire interconnected SEO Graph of entities
      */
     public static generateEntityGraph(params: SchemaParams): Record<string, any> {
-        const base = params.baseUrl || "https://autoridadlegal.com";
+        const base = params.baseUrl || "https://www.autoridad.legal";
         const pageUrl = `${base}/${params.service}/${params.city}`;
 
         const graph: any[] = [];
@@ -236,7 +236,7 @@ export class SchemaFactory {
      * Helper to generate specialized nested JSON-LD for emergency landing pages
      */
     public static generateEmergencyGraph(params: SchemaParams): Record<string, any> {
-        const base = params.baseUrl || "https://autoridadlegal.com";
+        const base = params.baseUrl || "https://www.autoridad.legal";
         const city = params.city;
         
         const servicesList = [
@@ -279,7 +279,7 @@ export class SchemaFactory {
             "url": `${base}/${params.service}/${city}`,
             "telephone": "+34605118871",
             "priceRange": "980€",
-            "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
+            "image": "https://www.autoridad.legal/images/lawyer_video_thumbnail.png",
             "sameAs": [
                 "https://www.linkedin.com/company/autoridad-legal/",
                 "https://www.facebook.com/AutoridadLegal/",

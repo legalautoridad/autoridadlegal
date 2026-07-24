@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
         return new NextResponse(`Term "${slug}" not found in Supabase glossary`, { status: 404 });
     }
 
-    const canonicalUrl = `https://autoridadlegal.com/glosario/${term.slug}`;
+    const canonicalUrl = `https://www.autoridad.legal/glosario/${term.slug}`;
     const relatedLinks = await getPublicRelatedLinks(term.id);
 
     // Escape quotes for YAML frontmatter

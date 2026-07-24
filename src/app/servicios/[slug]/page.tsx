@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: `${config.seo.title} | Autoridad Legal`,
         description: config.seo.description,
         alternates: {
-            canonical: `https://autoridadlegal.com/servicios/${slug}`,
+            canonical: `https://www.autoridad.legal/servicios/${slug}`,
         }
     };
 }
@@ -49,7 +49,7 @@ export default async function ServicioSlugPage({ params }: PageProps) {
         return notFound();
     }
 
-    const canonicalUrl = `https://autoridadlegal.com/servicios/${slug}`;
+    const canonicalUrl = `https://www.autoridad.legal/servicios/${slug}`;
     const title = dbService?.seo?.title || config.seo.title;
     const description = dbService?.seo?.description || config.seo.description;
 
@@ -64,7 +64,7 @@ export default async function ServicioSlugPage({ params }: PageProps) {
                 "url": canonicalUrl,
                 "telephone": "+34605118871",
                 "priceRange": "980€",
-                "image": "https://autoridadlegal.com/images/lawyer_video_thumbnail.png",
+                "image": "https://www.autoridad.legal/images/lawyer_video_thumbnail.png",
                 "areaServed": {
                     "@type": "AdministrativeArea",
                     "name": "Provincia de Barcelona, Cataluña"
@@ -72,15 +72,15 @@ export default async function ServicioSlugPage({ params }: PageProps) {
                 "provider": {
                     "@type": "Organization",
                     "name": "Autoridad Legal",
-                    "url": "https://autoridadlegal.com",
-                    "logo": "https://autoridadlegal.com/images/logo-transparent.png"
+                    "url": "https://www.autoridad.legal",
+                    "logo": "https://www.autoridad.legal/images/logo-transparent.png"
                 },
                 "author": {
                     "@type": "Person",
                     "name": "Santiago Giménez Olavarriaga",
                     "jobTitle": "Director Jurídico y Abogado Penalista",
                     "identifier": "ICAB 31.389",
-                    "sameAs": "https://autoridadlegal.com/abogados/santiago-gimenez-olavarriaga"
+                    "sameAs": "https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga"
                 }
             },
             ...(canonicalFaqs.length > 0 ? [{

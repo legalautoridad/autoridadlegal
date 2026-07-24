@@ -5,7 +5,7 @@ import { getLiveCoberturaParams } from '@/lib/db/cobertura';
 export const revalidate = 3600; // Recalculate sitemap every hour via ISR when web_published rows are activated
 
 const SERVICES = ['alcoholemia', 'drogas', 'sin-carnet', 'velocidad', 'profesionales'];
-const BASE_URL = 'https://autoridadlegal.com';
+const BASE_URL = 'https://www.autoridad.legal';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const lastModified = new Date();

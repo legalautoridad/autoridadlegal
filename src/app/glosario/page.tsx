@@ -7,12 +7,12 @@ export const metadata: Metadata = {
     title: 'Glosario de Derecho Penal y Seguridad Vial | Autoridad Legal',
     description: 'Diccionario jurídico especializado en delitos de alcoholemia, drogas al volante, conducción sin carnet, juicios rápidos y metrología legal.',
     alternates: {
-        canonical: 'https://autoridadlegal.com/glosario',
+        canonical: 'https://www.autoridad.legal/glosario',
     },
     openGraph: {
         title: 'Glosario de Derecho Penal y Seguridad Vial | Autoridad Legal',
         description: 'Diccionario y guía de términos jurídicos en delitos contra la seguridad vial y juicios rápidos en Cataluña.',
-        url: 'https://autoridadlegal.com/glosario',
+        url: 'https://www.autoridad.legal/glosario',
         siteName: 'Autoridad Legal',
         locale: 'es_ES',
         type: 'website',
@@ -38,23 +38,23 @@ export default async function GlosarioIndexPage() {
     const definedTermSetSchema = {
         '@context': 'https://schema.org',
         '@type': 'DefinedTermSet',
-        '@id': 'https://autoridadlegal.com/glosario#termset',
+        '@id': 'https://www.autoridad.legal/glosario#termset',
         'name': 'Glosario de Derecho Penal y Seguridad Vial',
         'description': 'Diccionario de términos legales en delitos contra la seguridad vial, atestados metrológicos y juicios rápidos.',
-        'url': 'https://autoridadlegal.com/glosario',
+        'url': 'https://www.autoridad.legal/glosario',
         'author': {
             '@type': 'Person',
             'name': 'Santiago Giménez Olavarriaga',
             'jobTitle': 'Director Jurídico y Abogado Penalista',
             'identifier': 'ICAB 31.389',
-            'sameAs': 'https://autoridadlegal.com/abogados/santiago-gimenez-olavarriaga'
+            'sameAs': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga'
         },
         'hasDefinedTerm': terms.map(t => ({
             '@type': 'DefinedTerm',
-            '@id': `https://autoridadlegal.com/glosario/${t.slug}#term`,
+            '@id': `https://www.autoridad.legal/glosario/${t.slug}#term`,
             'name': t.name,
             'description': t.description,
-            'url': `https://autoridadlegal.com/glosario/${t.slug}`
+            'url': `https://www.autoridad.legal/glosario/${t.slug}`
         }))
     };
 
