@@ -38,9 +38,12 @@ export default async function MarketingPage() {
     const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "34657420999";
     const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola Autoridad Legal, necesito un abogado de urgencia por un delito de alcoholemia en Barcelona.")}`;
 
+// TODO: Replace CIF_PLACEHOLDER with the real CIF of Autoridad Legal S.L.
+const CIF_PLACEHOLDER = "B-12345678";
+
     return (
         <main className="min-h-screen bg-surface-ice text-legal-ink font-sans flex flex-col items-center">
-            {/* JSON-LD Schema: Combined LegalService & FAQPage with Founder sameAs */}
+            {/* Single Consolidated JSON-LD Schema Graph: LegalService + FAQPage */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -49,33 +52,56 @@ export default async function MarketingPage() {
                         "@graph": [
                             {
                                 "@type": "LegalService",
-                                "@id": "https://autoridadlegal.com/#organization",
+                                "@id": "https://www.autoridad.legal/#organization",
                                 "name": "Autoridad Legal",
-                                "legalName": "Autoridad Legal",
-                                "url": "https://autoridadlegal.com",
+                                "legalName": "Autoridad Legal S.L.",
+                                "taxID": CIF_PLACEHOLDER,
+                                "url": "https://www.autoridad.legal",
                                 "telephone": "+34 605 118 871",
-                                "email": "urgencias@autoridadlegal.com",
+                                "email": "urgencias@autoridad.legal",
+                                "image": "https://www.autoridad.legal/logo.png",
                                 "address": {
                                     "@type": "PostalAddress",
                                     "addressLocality": "Barcelona",
                                     "addressRegion": "Cataluña",
                                     "addressCountry": "ES"
                                 },
-                                "priceRange": "980€",
-                                "image": "https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg",
+                                "priceRange": "€€",
+                                "openingHoursSpecification": [
+                                    {
+                                        "@type": "OpeningHoursSpecification",
+                                        "dayOfWeek": [
+                                            "Monday",
+                                            "Tuesday",
+                                            "Wednesday",
+                                            "Thursday",
+                                            "Friday",
+                                            "Saturday",
+                                            "Sunday"
+                                        ],
+                                        "opens": "00:00",
+                                        "closes": "23:59"
+                                    }
+                                ],
+                                "sameAs": [
+                                    "https://www.linkedin.com/company/autoridad-legal/",
+                                    "https://www.facebook.com/AutoridadLegal/",
+                                    "https://www.instagram.com/autoridad.legal/",
+                                    "https://x.com/AutoridadLegal_",
+                                    "https://www.youtube.com/@Autoridad_Legal"
+                                ],
                                 "founder": {
                                     "@type": "Person",
                                     "name": "Santiago Giménez Olavarriaga",
                                     "jobTitle": "Director Jurídico y Abogado Penalista",
                                     "sameAs": [
-                                        "https://www.linkedin.com/in/santiago-gimenez-olavarriaga",
-                                        "https://www.abogacia.es"
+                                        "https://www.linkedin.com/in/santiago-gimenez-olavarriaga"
                                     ]
                                 }
                             },
                             {
                                 "@type": "FAQPage",
-                                "@id": "https://autoridad.legal/#faq",
+                                "@id": "https://www.autoridad.legal/#faq",
                                 "mainEntity": faqData.map(faq => ({
                                     "@type": "Question",
                                     "name": faq.q,
