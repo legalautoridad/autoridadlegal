@@ -36,6 +36,7 @@ const sourceSerif4 = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.autoridad.legal"),
   title: "Autoridad Legal | Plataforma Jurídica",
   description: "Plataforma de alto rendimiento para servicios legales de alta especialización.",
   icons: {
