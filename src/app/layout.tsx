@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { CookieConsent } from "@/components/layout/CookieConsent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,7 +68,9 @@ export default async function RootLayout({
           <ChatWidget />
         </Suspense>
         <Footer />
+        <CookieConsent gaId={process.env.NEXT_PUBLIC_GA_ID || "G-3NLK4X21QL"} />
       </body>
     </html>
   );
 }
+

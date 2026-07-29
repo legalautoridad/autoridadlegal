@@ -70,6 +70,7 @@ export function Footer() {
                         <ul className="space-y-3 text-xs">
                             <li><Link href="/legal/legal-notice" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Aviso Legal</Link></li>
                             <li><Link href="/legal/privacy" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Política de Privacidad</Link></li>
+                            <li><Link href="/legal/cookies" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Política de Cookies</Link></li>
                             <li><Link href="/legal/terms" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Términos de Contratación</Link></li>
                         </ul>
                     </div>
