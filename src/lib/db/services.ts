@@ -20,12 +20,11 @@ export interface DbService {
     updated_at?: string;
 }
 
-export interface CanonicalFaq {
-    id: string;
-    service: string;
-    specific_topic: string;
+export interface ServiceFaq {
+    id?: string;
     question: string;
     answer: string;
+    topic?: string;
 }
 
 /**
@@ -35,18 +34,6 @@ export function normalizeServiceSlug(slug: string): string {
     const s = slug.toLowerCase().trim();
     if (s === 'sin-carnet' || s === 'sin_carnet') return 'sin-carnet';
     return s;
-}
-
-function getServiceDbName(slug: string): string {
-    const norm = normalizeServiceSlug(slug);
-    switch (norm) {
-        case 'alcoholemia': return 'Alcoholemia';
-        case 'drogas': return 'Drogas';
-        case 'velocidad': return 'Velocidad';
-        case 'profesionales': return 'Profesionales';
-        case 'sin-carnet': return 'Sin Carnet';
-        default: return slug;
-    }
 }
 
 /**
@@ -77,38 +64,77 @@ export async function getServiceBySlugFromDb(slug: string): Promise<DbService | 
 }
 
 /**
- * Fetches the canonical base FAQs for a service from Supabase.
- * Deduplicates the ~44,330 location variants down to the base canonical FAQs.
+ * Fetches FAQs for a service from public.service_faqs table in Supabase.
  */
-export async function getCanonicalFaqsForService(serviceSlug: string): Promise<CanonicalFaq[]> {
+export async function getServiceFaqs(serviceSlug: string): Promise<ServiceFaq[]> {
+    const normSlug = normalizeServiceSlug(serviceSlug);
     const supabase = createStaticClient();
     const { data, error } = await supabase
-        .from('thematic_faqs')
-        .select('id, service, specific_topic, question, answer');
+        .from('service_faqs')
+        .select('question, answer, topic')
+        .eq('service_slug', normSlug)
+        .order('position', { ascending: true });
 
     if (error || !data) {
-        console.error(`Error fetching canonical FAQs for ${serviceSlug}:`, error);
+        console.error(`Error fetching service_faqs for ${normSlug}:`, error);
         return [];
     }
 
-    const targetService = getServiceDbName(serviceSlug);
-    const canonicalMap = new Map<string, CanonicalFaq>();
-
-    data.forEach(item => {
-        const itemService = (item.service || '').toLowerCase().trim();
-        if (itemService === targetService.toLowerCase()) {
-            const key = item.specific_topic.toLowerCase().trim();
-            if (!canonicalMap.has(key)) {
-                canonicalMap.set(key, {
-                    id: item.id,
-                    service: item.service,
-                    specific_topic: item.specific_topic,
-                    question: item.question,
-                    answer: item.answer,
-                });
-            }
-        }
-    });
-
-    return Array.from(canonicalMap.values());
+    return data as ServiceFaq[];
 }
+
+export interface ServiceJsonLdConfig {
+    name: string;
+    serviceType: string;
+    description: string;
+    minPrice: string;
+}
+
+export function getServiceJsonLdConfig(slug: string): ServiceJsonLdConfig {
+    const norm = normalizeServiceSlug(slug);
+    switch (norm) {
+        case 'alcoholemia':
+            return {
+                name: "Defensa penal por alcoholemia",
+                serviceType: "Defensa penal por conducción bajo influencia de alcohol",
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por alcoholemia en la provincia de Barcelona. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
+                minPrice: "980.00"
+            };
+        case 'drogas':
+            return {
+                name: "Defensa penal por drogas al volante",
+                serviceType: "Defensa penal por conducción bajo influencia de drogas",
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por drogas al volante en la provincia de Barcelona. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
+                minPrice: "980.00"
+            };
+        case 'velocidad':
+            return {
+                name: "Defensa penal por exceso de velocidad",
+                serviceType: "Defensa penal por delito de exceso de velocidad",
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por exceso de velocidad constitutivo de delito en la provincia de Barcelona. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
+                minPrice: "980.00"
+            };
+        case 'sin-carnet':
+            return {
+                name: "Defensa penal por conducción sin permiso",
+                serviceType: "Defensa penal por conducción sin permiso o licencia",
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por conducir sin carnet o sin puntos en la provincia de Barcelona. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
+                minPrice: "980.00"
+            };
+        case 'profesionales':
+            return {
+                name: "Defensa penal para conductores profesionales",
+                serviceType: "Defensa penal de tráfico para titulares de permisos profesionales (C, D, E)",
+                description: "Defensa penal y asistencia urgente 24h para transportistas y conductores profesionales en la provincia de Barcelona. Honorarios cerrados desde 1.080 € con IVA y procurador incluidos.",
+                minPrice: "1080.00"
+            };
+        default:
+            return {
+                name: "Defensa penal por delitos contra la seguridad vial",
+                serviceType: "Defensa penal de tráfico",
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos en la provincia de Barcelona.",
+                minPrice: "980.00"
+            };
+    }
+}
+

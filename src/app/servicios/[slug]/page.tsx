@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { PHONE_E164 } from '@/lib/config';
 import { getSiloConfig } from '@/lib/silo-config';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
-import { getCanonicalFaqsForService, getServiceBySlugFromDb } from '@/lib/db/services';
+import { getServiceFaqs, getServiceBySlugFromDb, getServiceJsonLdConfig, normalizeServiceSlug } from '@/lib/db/services';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -21,7 +20,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         return {};
     }
 
-    const config = getSiloConfig(slug);
+    const normSlug = normalizeServiceSlug(slug);
+    const config = getSiloConfig(normSlug);
     if (!config) {
         return {};
     }
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: `${config.seo.title} | Autoridad Legal`,
         description: config.seo.description,
         alternates: {
-            canonical: `https://www.autoridad.legal/servicios/${slug}`,
+            canonical: `https://www.autoridad.legal/servicios/${normSlug}`,
         }
     };
 }
@@ -42,52 +42,50 @@ export default async function ServicioSlugPage({ params }: PageProps) {
         return notFound();
     }
 
-    const config = getSiloConfig(slug);
-    const dbService = await getServiceBySlugFromDb(slug);
-    const canonicalFaqs = await getCanonicalFaqsForService(slug);
+    const normSlug = normalizeServiceSlug(slug);
+    const config = getSiloConfig(normSlug);
+    const dbService = await getServiceBySlugFromDb(normSlug);
+    const serviceFaqs = await getServiceFaqs(normSlug);
+    const jsonLdConfig = getServiceJsonLdConfig(normSlug);
 
     if (!config) {
         return notFound();
     }
 
-    const canonicalUrl = `https://www.autoridad.legal/servicios/${slug}`;
-    const title = dbService?.seo?.title || config.seo.title;
-    const description = dbService?.seo?.description || config.seo.description;
+    const canonicalUrl = `https://www.autoridad.legal/servicios/${normSlug}`;
 
     const jsonLdGraph = {
         "@context": "https://schema.org",
         "@graph": [
             {
-                "@type": "LegalService",
-                "@id": `${canonicalUrl}#legal-service`,
-                "name": `Autoridad Legal - Abogados Especialistas en ${config.hero.specialty}`,
-                "description": description,
+                "@type": "Service",
+                "@id": `${canonicalUrl}#service`,
+                "name": jsonLdConfig.name,
+                "serviceType": jsonLdConfig.serviceType,
+                "description": jsonLdConfig.description,
                 "url": canonicalUrl,
-                "telephone": PHONE_E164,
-                "priceRange": "980€",
-                "image": "https://www.autoridad.legal/images/lawyer_video_thumbnail.png",
                 "areaServed": {
                     "@type": "AdministrativeArea",
-                    "name": "Provincia de Barcelona, Cataluña"
+                    "name": "Provincia de Barcelona"
                 },
                 "provider": {
-                    "@type": "Organization",
-                    "name": "Autoridad Legal",
-                    "url": "https://www.autoridad.legal",
-                    "logo": "https://www.autoridad.legal/images/logo-transparent.png"
+                    "@id": "https://www.autoridad.legal/#organization"
                 },
-                "author": {
-                    "@type": "Person",
-                    "name": "Santiago Giménez Olavarriaga",
-                    "jobTitle": "Director Jurídico y Abogado Penalista",
-                    "identifier": "ICAB 31.389",
-                    "sameAs": "https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga"
+                "offers": {
+                    "@type": "Offer",
+                    "availability": "https://schema.org/InStock",
+                    "priceSpecification": {
+                        "@type": "PriceSpecification",
+                        "minPrice": jsonLdConfig.minPrice,
+                        "priceCurrency": "EUR",
+                        "valueAddedTaxIncluded": true
+                    }
                 }
             },
-            ...(canonicalFaqs.length > 0 ? [{
+            ...(serviceFaqs.length > 0 ? [{
                 "@type": "FAQPage",
                 "@id": `${canonicalUrl}#faq`,
-                "mainEntity": canonicalFaqs.map(faq => ({
+                "mainEntity": serviceFaqs.map(faq => ({
                     "@type": "Question",
                     "name": faq.question,
                     "acceptedAnswer": {
@@ -105,7 +103,7 @@ export default async function ServicioSlugPage({ params }: PageProps) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
             />
-            <ServiceTemplate service={slug} city={null} />
+            <ServiceTemplate service={normSlug} city={null} faqs={serviceFaqs} />
         </>
     );
 }

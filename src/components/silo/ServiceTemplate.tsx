@@ -11,11 +11,13 @@ import { TrustSignals } from '@/components/silo/TrustSignals';
 import { OKFService } from '@/lib/okf/okf-service';
 import { OKFPointsMap } from '@/components/silo/OKFPointsMap';
 import { MunicipalitySearch } from '@/components/silo/MunicipalitySearch';
-
+import { ServiceFaq } from '@/lib/db/services';
+import { ChevronDown } from 'lucide-react';
 
 interface ServiceTemplateProps {
     service: string;
     city?: string | null;
+    faqs?: ServiceFaq[];
 }
 
 // Helper to format paragraphs strictly to the 40-60 words BLUF standard.
@@ -51,7 +53,7 @@ function toBlufParagraph(primaryText: string, secondaryText?: string): string {
     return words.slice(0, 50).join(" ") + ".";
 }
 
-export default async function ServiceTemplate({ service, city }: ServiceTemplateProps) {
+export default async function ServiceTemplate({ service, city, faqs }: ServiceTemplateProps) {
     const config = getSiloConfig(service);
     if (!config) {
         return notFound();
@@ -297,6 +299,43 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
                     />
                 </div>
             </section>
+
+            {/* VISIBLE FAQ ACCORDION SECTION */}
+            {faqs && faqs.length > 0 && (
+                <section id="faq" className="w-full bg-slate-950 py-16 md:py-20 border-b border-white/10 text-white">
+                    <div className="max-w-4xl mx-auto px-6 space-y-8">
+                        <div className="space-y-3">
+                            <span className="text-prestige-gold text-xs font-bold uppercase tracking-widest">Preguntas Frecuentes</span>
+                            <h2 className="text-3xl md:text-4xl font-extrabold text-white border-l-4 border-prestige-gold pl-4 tracking-tight">
+                                Preguntas Frecuentes sobre {config.hero.specialty}
+                            </h2>
+                            <p className="font-body-lg text-lg text-slate-300 leading-relaxed">
+                                Respuestas jurídicas claras sobre el procedimiento, atestado policial, juicio rápido y opciones de defensa en delitos de {config.hero.specialty}.
+                            </p>
+                        </div>
+
+                        {/* SSR Accordion */}
+                        <div className="space-y-4 pt-4">
+                            {faqs.map((faq, index) => (
+                                <details
+                                    key={faq.id || index}
+                                    className="group border border-white/10 rounded-xl bg-slate-900/80 p-5 shadow-sm hover:border-prestige-gold/50 transition-colors"
+                                >
+                                    <summary className="flex justify-between items-center cursor-pointer font-bold font-headline-md text-white hover:text-prestige-gold transition-colors select-none list-none [&::-webkit-details-marker]:hidden">
+                                        <span className="pr-4 flex items-center gap-2">
+                                            <span>{faq.question}</span>
+                                        </span>
+                                        <ChevronDown className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform shrink-0" />
+                                    </summary>
+                                    <div className="mt-4 font-body-md text-base text-slate-300 leading-relaxed border-t border-white/10 pt-3 space-y-3">
+                                        <p>{faq.answer}</p>
+                                    </div>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* Standard Stats & Trust Signals */}
             <StatsRow config={config} />
