@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { PHONE_DISPLAY } from '@/lib/config';
 import { ShieldCheck, Scale, PhoneCall, Bot, AlertTriangle, UserCheck, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -86,7 +87,7 @@ export default function LegalNoticePage() {
                             <PhoneCall className="w-4 h-4" /> Vías de Contacto
                         </div>
                         <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                            En la versión inicial (MVP), la comunicación y atención de urgencia al usuario se realiza de forma directa mediante la línea telefónica de guardia (<strong className="text-white">+34 605 118 871</strong>). Las funcionalidades de WhatsApp IA y chatbot conversacional se incorporarán en fases posteriores.
+                            En la versión inicial (MVP), la comunicación y atención de urgencia al usuario se realiza de forma directa mediante la línea telefónica de guardia (<strong className="text-white">{PHONE_DISPLAY}</strong>). Las funcionalidades de WhatsApp IA y chatbot conversacional se incorporarán en fases posteriores.
                         </p>
                     </div>
                 </section>

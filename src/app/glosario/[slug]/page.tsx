@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
 import { getAllGlosarioTerms, getGlosarioTermBySlug, getPublicRelatedLinks } from '@/lib/db/glosario';
 import { BookOpen, ArrowLeft, ShieldCheck, FileText } from 'lucide-react';
 
@@ -190,10 +191,10 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
                     </p>
                     <div className="pt-2 flex flex-wrap gap-4">
                         <a
-                            href="tel:+34605118871"
+                            href={`tel:${PHONE_E164}`}
                             className="px-6 py-3 rounded-xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-bold text-sm shadow-lg shadow-prestige-gold/20 transition-all"
                         >
-                            Llamar al Abogado de Guardia (+34 605 118 871)
+                            Llamar al Abogado de Guardia ({PHONE_DISPLAY})
                         </a>
                         <Link
                             href="/glosario"

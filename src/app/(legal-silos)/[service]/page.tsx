@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { PHONE_E164 } from '@/lib/config';
 import { getSiloConfig } from '@/lib/silo-config';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
 import { getCanonicalFaqsForService, getServiceBySlugFromDb } from '@/lib/db/services';
@@ -65,7 +66,7 @@ export default async function ParentServicePage({ params }: PageProps) {
                 "name": `Autoridad Legal - Abogados Especialistas en ${config.hero.specialty}`,
                 "description": description,
                 "url": canonicalUrl,
-                "telephone": "+34605118871",
+                "telephone": PHONE_E164,
                 "priceRange": "980€",
                 "image": "https://www.autoridad.legal/images/lawyer_video_thumbnail.png",
                 "areaServed": {
