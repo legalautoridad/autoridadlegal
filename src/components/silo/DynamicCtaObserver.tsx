@@ -1,6 +1,7 @@
 'use client';
 
 import { useLead } from '../providers/LeadProvider';
+import { PHONE_E164 } from '@/lib/config';
 import { Phone, ShieldAlert, FileText, ArrowRight } from 'lucide-react';
 
 export function DynamicCtaObserver() {
@@ -15,7 +16,7 @@ export function DynamicCtaObserver() {
                 title: "¿Necesita asistencia penal de guardia?",
                 description: `Hable con nuestros abogados de alcoholemia y juicios rápidos en ${targetLocation}. Asistencia en menos de 15 minutos en comisarías y juzgados.`,
                 buttonText: "Llamar Abogado de Guardia",
-                buttonHref: "tel:+34605118871",
+                buttonHref: `tel:${PHONE_E164}`,
                 alertText: null,
                 severityStyle: "from-slate-900 to-slate-950 border-slate-800",
                 badgeStyle: "bg-slate-500/20 text-slate-400 border-slate-500/30",
@@ -29,7 +30,7 @@ export function DynamicCtaObserver() {
                 title: "Tasa por debajo del límite de alcohol reglamentario",
                 description: `Aunque diste ${level.toFixed(2)} mg/l, si eres conductor profesional (límite 0.15 mg/l), novel (límite 0.15 mg/l), o si los agentes reportan síntomas de embriaguez en el atestado, te expones a consecuencias penales en ${targetLocation}.`,
                 buttonText: "Consultar Sintomatología Gratis",
-                buttonHref: "tel:+34605118871",
+                buttonHref: `tel:${PHONE_E164}`,
                 alertText: "Aviso: El acta de signos sintomatológicos puede contradecir la tasa objetiva del etilómetro.",
                 severityStyle: "from-emerald-950/80 to-slate-950 border-emerald-900/50",
                 badgeStyle: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
@@ -43,7 +44,7 @@ export function DynamicCtaObserver() {
                 title: `Expediente Sancionador en ${targetLocation}`,
                 description: `Con ${level.toFixed(2)} mg/l te expones a una multa de hasta 1.000€ y una suspensión del carné de conducir de 3 a 6 meses con pérdida de 4 a 6 puntos. Analizamos posibles defectos de calibración de los alcoholímetros para anular la sanción.`,
                 buttonText: "Recurrir Multa de Tráfico",
-                buttonHref: "tel:+34605118871",
+                buttonHref: `tel:${PHONE_E164}`,
                 alertText: "Importante: Evita la pérdida inmediata de puntos del carné. Solicita asistencia de urgencia.",
                 severityStyle: "from-amber-950/80 to-slate-950 border-amber-900/50",
                 badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/30",

@@ -10,8 +10,10 @@ import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 import { LeadCaptureModal } from "@/components/checkout/LeadCaptureModal";
 import ReactMarkdown from "react-markdown";
 
+import { PHONE_DISPLAY } from "@/lib/config";
+
 export function ChatWidget() {
-    // MVP Initial Version: Only Telephone contact (+34 605 118 871). AI Chatbot will be enabled in upcoming phase.
+    // MVP Initial Version: Only Telephone contact (${PHONE_DISPLAY}). AI Chatbot will be enabled in upcoming phase.
     return null;
 }
 

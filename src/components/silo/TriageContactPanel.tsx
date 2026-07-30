@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
 
 export interface ContactMethodProps {
     title: string;
@@ -40,7 +41,7 @@ export function ContactMethod({ title, description, href, icon, isPrimary, ariaL
 }
 
 export function TriageContactPanel() {
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "34605118871";
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || PHONE_E164.replace('+', '');
     return (
         <section className="w-full max-w-md mx-auto p-6 bg-slate-900 border border-white/10 rounded-3xl shadow-xl space-y-6">
             <div className="space-y-2 text-center">
@@ -57,8 +58,8 @@ export function TriageContactPanel() {
                 {/* 1. Línea de Guardia Judicial 24h (Primary) */}
                 <ContactMethod
                     title="Línea de Guardia Judicial 24h"
-                    description="Hable con un abogado penalista ahora."
-                    href="tel:+34605118871"
+                    description={`Hable con un abogado penalista ahora (${PHONE_DISPLAY}).`}
+                    href={`tel:${PHONE_E164}`}
                     isPrimary={true}
                     ariaLabel="Llamar a la Línea de Guardia Judicial 24 horas"
                     icon={

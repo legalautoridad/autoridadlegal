@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
 import { Play, X, Clock, Phone } from 'lucide-react';
 
 export interface InteractiveVideoModalProps {
@@ -177,11 +178,11 @@ export function InteractiveVideoModal({
                                     <strong>Recomendación del Director:</strong> &quot;No realice declaraciones ante la policía en el atestado inicial sin la asistencia de su abogado penalista especialista. Cada detalle del informe puede condicionar el resultado.&quot;
                                 </p>
                                 <a 
-                                    href="tel:+34605118871" 
+                                    href={`tel:${PHONE_E164}`} 
                                     className="bg-prestige-gold text-trust-navy px-6 py-2.5 rounded-lg font-label-md text-xs font-bold hover:bg-[#ffe088] active:scale-95 transition-all shadow flex items-center gap-2 shrink-0"
                                 >
                                     <Phone className="w-3.5 h-3.5 fill-current" />
-                                    LLamar abogado 24h (+34 605 118 871)
+                                    Llamar abogado 24h ({PHONE_DISPLAY})
                                 </a>
                             </div>
                         </motion.div>

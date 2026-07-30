@@ -1,3 +1,5 @@
+import { PHONE_E164 } from '@/lib/config';
+
 export interface SchemaParams {
     baseUrl?: string;
     service: string;
@@ -28,7 +30,7 @@ class LegalServiceGenerator implements SchemaGenerator {
             "name": `Autoridad Legal - Abogados ${params.specialtyName} ${params.cityName}`,
             "description": `Defensa penal y asistencia urgente en ${params.cityName} por delitos de ${params.specialtyName}. Director jurídico: Santiago Giménez Olavarriaga.`,
             "url": pageUrl,
-            "telephone": "+34605118871",
+            "telephone": PHONE_E164,
             "priceRange": "€€€",
             "image": "https://www.autoridad.legal/public/images/logo.png",
             "provider": {
@@ -277,7 +279,7 @@ export class SchemaFactory {
             "name": `Autoridad Legal - Abogado ${params.specialtyName} ${params.cityName}`,
             "description": `Defensa penal de guardia y asistencia 24h por delito de ${params.specialtyName} en ${params.cityName}.`,
             "url": `${base}/${params.service}/${city}`,
-            "telephone": "+34605118871",
+            "telephone": PHONE_E164,
             "priceRange": "980€",
             "image": "https://www.autoridad.legal/images/lawyer_video_thumbnail.png",
             "sameAs": [

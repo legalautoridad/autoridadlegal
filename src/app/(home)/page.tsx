@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PHONE_E164, PHONE_DISPLAY } from "@/lib/config";
 import Link from "next/link";
 import { getLocations } from "@/lib/db/locations";
 import { OKFService } from "@/lib/okf/okf-service";
@@ -30,13 +31,13 @@ export const metadata: Metadata = {
         siteName: "Autoridad Legal",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
         description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
-        images: ["https://www.autoridad.legal/logo.png"],
+        images: ["https://www.autoridad.legal/images/logo-transparent.png"],
     },
     twitter: {
         card: "summary_large_image",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
         description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
-        images: ["https://www.autoridad.legal/logo.png"],
+        images: ["https://www.autoridad.legal/images/logo-transparent.png"],
     },
 };
 
@@ -51,7 +52,7 @@ export default async function MarketingPage() {
 
     return (
         <main className="min-h-screen bg-surface-ice text-legal-ink font-sans flex flex-col items-center">
-            {/* Single Consolidated JSON-LD Schema Graph: LegalService + FAQPage */}
+            {/* Single Consolidated JSON-LD Schema Graph: LegalService + Person + FAQPage */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -63,10 +64,14 @@ export default async function MarketingPage() {
                                 "@id": "https://www.autoridad.legal/#organization",
                                 "name": "Autoridad Legal",
                                 "legalName": "Autoridad Legal",
+                                "description": "Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin permiso y casos de conductores profesionales, con honorarios cerrados y transparentes.",
                                 "url": "https://www.autoridad.legal",
-                                "telephone": "+34 605 118 871",
-                                "email": "redes@autoridad.legal",
-                                "image": "https://www.autoridad.legal/logo.png",
+                                "telephone": PHONE_E164,
+                                "email": "contacto@autoridad.legal",
+                                "image": "https://www.autoridad.legal/images/logo-transparent.png",
+                                "logo": "https://www.autoridad.legal/images/logo-transparent.png",
+                                "priceRange": "€€",
+                                "knowsLanguage": ["es", "ca"],
                                 "address": {
                                     "@type": "PostalAddress",
                                     "streetAddress": "Avenida Diagonal 437, Principal 3ª",
@@ -75,49 +80,86 @@ export default async function MarketingPage() {
                                     "addressRegion": "Cataluña",
                                     "addressCountry": "ES"
                                 },
-                                "areaServed": {
-                                    "@type": "AdministrativeArea",
-                                    "name": "Provincia de Barcelona"
-                                },
-                                "makesOffer": {
-                                    "@type": "Offer",
-                                    "priceCurrency": "EUR",
-                                    "price": "980",
-                                    "description": "Defensa penal en juicio rápido por delitos contra la seguridad vial (IVA y procurador incluidos)",
-                                    "availability": "https://schema.org/InStock"
-                                },
-                                "priceRange": "€€",
-                                "openingHoursSpecification": [
-                                    {
+                                "areaServed": { "@type": "AdministrativeArea", "name": "Provincia de Barcelona" },
+                                "contactPoint": [{
+                                    "@type": "ContactPoint",
+                                    "@id": "https://www.autoridad.legal/#emergency-contact",
+                                    "telephone": PHONE_E164,
+                                    "contactType": "emergency",
+                                    "availableLanguage": ["es", "ca"],
+                                    "areaServed": "ES-B",
+                                    "hoursAvailable": {
                                         "@type": "OpeningHoursSpecification",
-                                        "dayOfWeek": [
-                                            "Monday",
-                                            "Tuesday",
-                                            "Wednesday",
-                                            "Thursday",
-                                            "Friday",
-                                            "Saturday",
-                                            "Sunday"
-                                        ],
-                                        "opens": "00:00",
-                                        "closes": "23:59"
+                                        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                                        "opens": "00:00", "closes": "23:59"
                                     }
+                                }],
+                                "founder": { "@id": "https://www.gimenezolavarriaga.abogado/#person" },
+                                "knowsAbout": [
+                                    "Delitos contra la seguridad vial",
+                                    "Alcoholemia al volante",
+                                    "Negativa a someterse a las pruebas de alcohol o drogas",
+                                    "Conducción bajo la influencia de drogas",
+                                    "Exceso de velocidad como delito",
+                                    "Conducción sin permiso o licencia",
+                                    "Defensa penal de conductores profesionales",
+                                    "Juicio rápido (diligencias urgentes)",
+                                    "https://www.wikidata.org/wiki/Q19842607",
+                                    "https://www.wikidata.org/wiki/Q3602521",
+                                    "https://www.wikidata.org/wiki/Q150342"
                                 ],
+                                "hasOfferCatalog": {
+                                    "@type": "OfferCatalog",
+                                    "name": "Servicios de Defensa Penal en Delitos contra la Seguridad Vial",
+                                    "itemListElement": [
+                                        { "@type": "Offer", "name": "Defensa por Alcoholemia", "url": "https://www.autoridad.legal/alcoholemia", "availability": "https://schema.org/InStock", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "980.00", "priceCurrency": "EUR", "valueAddedTaxIncluded": true }, "itemOffered": { "@type": "Service", "name": "Defensa penal por alcoholemia", "serviceType": "Defensa penal por conducción bajo influencia de alcohol", "url": "https://www.autoridad.legal/alcoholemia" }, "description": "Precio base cerrado desde 980 € (IVA y procurador incluidos). Puede incrementarse según las circunstancias del caso, siempre comunicado por escrito y por adelantado." },
+                                        { "@type": "Offer", "name": "Defensa por Drogas al Volante", "url": "https://www.autoridad.legal/drogas", "availability": "https://schema.org/InStock", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "980.00", "priceCurrency": "EUR", "valueAddedTaxIncluded": true }, "itemOffered": { "@type": "Service", "name": "Defensa penal por drogas al volante", "serviceType": "Defensa penal por conducción bajo influencia de drogas", "url": "https://www.autoridad.legal/drogas" }, "description": "Precio base cerrado desde 980 € (IVA y procurador incluidos). Puede incrementarse según las circunstancias del caso, siempre comunicado por escrito y por adelantado." },
+                                        { "@type": "Offer", "name": "Defensa por Exceso de Velocidad", "url": "https://www.autoridad.legal/velocidad", "availability": "https://schema.org/InStock", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "980.00", "priceCurrency": "EUR", "valueAddedTaxIncluded": true }, "itemOffered": { "@type": "Service", "name": "Defensa penal por exceso de velocidad", "serviceType": "Defensa penal por delito de exceso de velocidad", "url": "https://www.autoridad.legal/velocidad" }, "description": "Precio base cerrado desde 980 € (IVA y procurador incluidos). Puede incrementarse según las circunstancias del caso, siempre comunicado por escrito y por adelantado." },
+                                        { "@type": "Offer", "name": "Defensa por Conducir Sin Carné", "url": "https://www.autoridad.legal/sin-carnet", "availability": "https://schema.org/InStock", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "980.00", "priceCurrency": "EUR", "valueAddedTaxIncluded": true }, "itemOffered": { "@type": "Service", "name": "Defensa penal por conducción sin permiso", "serviceType": "Defensa penal por conducción sin permiso o licencia", "url": "https://www.autoridad.legal/sin-carnet" }, "description": "Precio base cerrado desde 980 € (IVA y procurador incluidos). Puede incrementarse según las circunstancias del caso, siempre comunicado por escrito y por adelantado." },
+                                        { "@type": "Offer", "name": "Defensa para Conductores Profesionales", "url": "https://www.autoridad.legal/profesionales", "availability": "https://schema.org/InStock", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "1080.00", "priceCurrency": "EUR", "valueAddedTaxIncluded": true }, "itemOffered": { "@type": "Service", "name": "Defensa penal para conductores profesionales", "serviceType": "Defensa penal de tráfico para titulares de permisos profesionales (C, D, E)", "url": "https://www.autoridad.legal/profesionales" }, "description": "Precio base cerrado desde 1.080 € (IVA y procurador incluidos). Puede incrementarse según las circunstancias del caso, siempre comunicado por escrito y por adelantado." }
+                                    ]
+                                },
+                                "openingHoursSpecification": [{
+                                    "@type": "OpeningHoursSpecification",
+                                    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                                    "opens": "00:00", "closes": "23:59"
+                                }],
                                 "sameAs": [
-                                    "https://www.linkedin.com/company/autoridad-legal/",
-                                    "https://www.facebook.com/AutoridadLegal/",
+                                    "https://www.linkedin.com/company/135936660/",
+                                    "https://www.facebook.com/profile.php?id=61591553736969",
                                     "https://www.instagram.com/autoridad.legal/",
                                     "https://x.com/AutoridadLegal_",
                                     "https://www.youtube.com/@Autoridad_Legal"
+                                ]
+                            },
+                            {
+                                "@type": "Person",
+                                "@id": "https://www.gimenezolavarriaga.abogado/#person",
+                                "name": "Santiago Giménez Olavarriaga",
+                                "givenName": "Santiago",
+                                "familyName": "Giménez Olavarriaga",
+                                "description": "Abogado penalista ejerciente colegiado en el Ilustre Colegio de la Abogacía de Barcelona (ICAB nº 31389), especializado en la defensa de delitos contra la seguridad vial en la provincia de Barcelona.",
+                                "jobTitle": "Director Jurídico y Abogado Penalista Ejerciente",
+                                "image": "https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg",
+                                "url": "https://www.gimenezolavarriaga.abogado",
+                                "email": "santiago@gimenezolavarriaga.abogado",
+                                "telephone": PHONE_E164,
+                                "knowsLanguage": ["es", "ca"],
+                                "worksFor": { "@id": "https://www.autoridad.legal/#organization" },
+                                "memberOf": { "@type": "Organization", "name": "Ilustre Colegio de la Abogacía de Barcelona", "alternateName": "ICAB", "url": "https://www.icab.es" },
+                                "hasCredential": { "@type": "EducationalOccupationalCredential", "credentialCategory": "Colegiación profesional", "recognizedBy": { "@type": "Organization", "name": "Ilustre Colegio de la Abogacía de Barcelona", "alternateName": "ICAB" }, "identifier": "31389", "url": "https://www.icab.es/es/colegio/miembros/index.html?id=31389" },
+                                "knowsAbout": [
+                                    "Delitos contra la seguridad vial","Alcoholemia al volante","Negativa a someterse a las pruebas","Conducción bajo la influencia de drogas","Exceso de velocidad como delito","Conducción sin permiso","Derecho penal",
+                                    "https://www.wikidata.org/wiki/Q19842607","https://www.wikidata.org/wiki/Q3602521","https://www.wikidata.org/wiki/Q150342"
                                 ],
-                                "founder": {
-                                    "@type": "Person",
-                                    "name": "Santiago Giménez Olavarriaga",
-                                    "jobTitle": "Director Jurídico y Abogado Penalista",
-                                    "sameAs": [
-                                        "https://www.linkedin.com/in/santiagogimenezolavarriaga/"
-                                    ]
-                                }
+                                "sameAs": [
+                                    "https://www.linkedin.com/in/santiagogimenezolavarriaga/",
+                                    "https://www.facebook.com/santiago.gimenez.olavarriaga",
+                                    "https://www.instagram.com/santiago.gimenez.abogado/",
+                                    "https://x.com/santiagogolavar",
+                                    "https://www.youtube.com/@SantiagoGiménezOlavarriaga",
+                                    "https://www.icab.es/es/colegio/miembros/index.html?id=31389"
+                                ]
                             },
                             {
                                 "@type": "FAQPage",
@@ -125,10 +167,7 @@ export default async function MarketingPage() {
                                 "mainEntity": homepageFaqs.map(faq => ({
                                     "@type": "Question",
                                     "name": faq.question,
-                                    "acceptedAnswer": {
-                                        "@type": "Answer",
-                                        "text": faq.answer
-                                    }
+                                    "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
                                 }))
                             }
                         ]
@@ -334,12 +373,12 @@ export default async function MarketingPage() {
             <div className="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-t border-white/10 p-3 shadow-2xl flex justify-center">
                 <div className="w-full max-w-xl">
                     <a
-                        href="tel:+34605118871"
+                        href={`tel:${PHONE_E164}`}
                         className="py-4 px-6 rounded-2xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-sans font-black text-sm sm:text-base md:text-lg text-center shadow-xl shadow-prestige-gold/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.01] active:scale-[0.98]"
-                        aria-label="Llamar a la línea de guardia de urgencia 24 horas"
+                        aria-label={`Llamar a la línea de guardia de urgencia 24 horas (${PHONE_DISPLAY})`}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        Llamar Abogado de Guardia 24h (+34 605 118 871)
+                        Llamar Abogado de Guardia 24h ({PHONE_DISPLAY})
                     </a>
                 </div>
             </div>

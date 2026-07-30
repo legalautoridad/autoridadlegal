@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
 import { getSiloConfig } from '@/lib/silo-config';
 import { getLocationBySlug, getLocations } from '@/lib/db/locations';
 import { DefenseStrategySelector } from '@/lib/strategies/strategy-selector';
@@ -307,12 +308,12 @@ export default async function ServiceTemplate({ service, city }: ServiceTemplate
             <div className="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-t border-white/10 p-3 shadow-2xl flex justify-center">
                 <div className="w-full max-w-xl">
                     <a
-                        href="tel:+34605118871"
+                        href={`tel:${PHONE_E164}`}
                         className="py-4 px-6 rounded-2xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-sans font-black text-sm sm:text-base md:text-lg text-center shadow-xl shadow-prestige-gold/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.01] active:scale-[0.98]"
-                        aria-label="Llamar a la línea de guardia de urgencia 24 horas"
+                        aria-label={`Llamar a la línea de guardia de urgencia 24 horas (${PHONE_DISPLAY})`}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        Llamar Abogado de Guardia 24h (+34 605 118 871)
+                        Llamar Abogado de Guardia 24h ({PHONE_DISPLAY})
                     </a>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
 import { Search, MapPin, X, ArrowRight, ShieldCheck, Building2, PhoneCall, Filter } from 'lucide-react';
 
 export interface MunicipioItem {
@@ -257,11 +258,11 @@ export function MunicipalitySearch({
                         </p>
                     </div>
                     <a
-                        href="tel:+34605118871"
+                        href={`tel:${PHONE_E164}`}
                         className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-bold text-sm transition-all shadow-lg shadow-prestige-gold/20"
                     >
                         <PhoneCall className="w-4 h-4" />
-                        Llamar al Turno de Guardia 24h (+34 605 118 871)
+                        Llamar al Turno de Guardia 24h ({PHONE_DISPLAY})
                     </a>
                 </div>
             )}

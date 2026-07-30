@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { PHONE_E164 } from '@/lib/config';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
 import { getCoberturaData, getLiveCoberturaParams, VALID_SERVICES } from '@/lib/db/cobertura';
 
@@ -68,7 +69,7 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
                 "name": cobertura.h1Title,
                 "description": cobertura.description,
                 "url": canonicalUrl,
-                "telephone": "+34605118871",
+                "telephone": PHONE_E164,
                 "priceRange": "980€",
                 "areaServed": {
                     "@type": "AdministrativeArea",
