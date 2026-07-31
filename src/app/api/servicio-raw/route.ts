@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { getServiceBySlugFromDb, getCanonicalFaqsForService } from '@/lib/db/services';
+import { getServiceBySlugFromDb, getServiceFaqs } from '@/lib/db/services';
 
 export async function GET(request: NextRequest) {
     const slug = request.headers.get('x-servicio-slug') || request.nextUrl.searchParams.get('slug') || '';
@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
         return new NextResponse(`Service "${slug}" not found in Supabase`, { status: 404 });
     }
 
-    const canonicalFaqs = await getCanonicalFaqsForService(slug);
+    const faqs = await getServiceFaqs(slug);
     const canonicalUrl = `https://www.autoridad.legal/${service.slug}`;
 
     const title = service.seo?.title || service.hero?.title || service.name;
@@ -33,9 +33,9 @@ ${description}
 
 `;
 
-    if (canonicalFaqs.length > 0) {
+    if (faqs.length > 0) {
         markdown += `## Preguntas frecuentes\n\n`;
-        canonicalFaqs.forEach(faq => {
+        faqs.forEach(faq => {
             markdown += `### ${faq.question}\n\n${faq.answer}\n\n`;
         });
     }
