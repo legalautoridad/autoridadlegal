@@ -11,7 +11,7 @@ interface PageProps {
 const VALID_SERVICES = ['alcoholemia', 'drogas', 'sin-carnet', 'velocidad', 'profesionales'];
 
 function isValidService(service: string): boolean {
-    return VALID_SERVICES.includes(service.toLowerCase());
+    return VALID_SERVICES.includes(normalizeServiceSlug(service));
 }
 
 // 1. SEO: Generate Dynamic Metadata
@@ -56,7 +56,7 @@ export default async function ParentServicePage({ params }: PageProps) {
 
     const canonicalUrl = `https://www.autoridad.legal/${normSlug}`;
 
-    // Schema.org Service + FAQPage Graph
+    // Schema.org Service + FAQPage Graph (Unified Offer pattern matching coverage pages)
     const jsonLdGraph = {
         "@context": "https://schema.org",
         "@graph": [
@@ -69,19 +69,31 @@ export default async function ParentServicePage({ params }: PageProps) {
                 "url": canonicalUrl,
                 "areaServed": {
                     "@type": "AdministrativeArea",
-                    "name": "Provincia de Barcelona"
+                    "name": "Cataluña"
                 },
                 "provider": {
+                    "@type": "Organization",
                     "@id": "https://www.autoridad.legal/#organization"
                 },
                 "offers": {
                     "@type": "Offer",
+                    "@id": `${canonicalUrl}#offer`,
+                    "url": canonicalUrl,
                     "availability": "https://schema.org/InStock",
+                    "priceCurrency": "EUR",
                     "priceSpecification": {
                         "@type": "PriceSpecification",
                         "minPrice": jsonLdConfig.minPrice,
                         "priceCurrency": "EUR",
                         "valueAddedTaxIncluded": true
+                    },
+                    "offeredBy": {
+                        "@type": "Organization",
+                        "@id": "https://www.autoridad.legal/#organization"
+                    },
+                    "seller": {
+                        "@type": "Person",
+                        "@id": "https://www.gimenezolavarriaga.abogado/#person"
                     }
                 }
             },

@@ -37,6 +37,52 @@ export function normalizeServiceSlug(slug: string): string {
 }
 
 /**
+ * Localizes generic FAQ text for provincial root service pages (e.g. /alcoholemia).
+ * Replaces "tu municipio" with "Cataluña" and adjusts court references to provincial scope with strict grammar normalizations.
+ */
+export function localizeProvincialFaqText(text: string): string {
+    if (!text) return '';
+
+    let result = text
+        // Specific phrase replacements to preserve natural Spanish grammar
+        .replace(/Juzgado de Guardia de tu municipio/gi, 'Juzgado de Guardia de su partido judicial')
+        .replace(/juzgado competente de tu municipio/gi, 'el juzgado competente')
+        .replace(/en el partido judicial de tu municipio/gi, 'en su partido judicial')
+        .replace(/en el partido judicial en Cataluña/gi, 'en su partido judicial')
+        .replace(/el hospital de tu municipio/gi, 'un hospital de Cataluña')
+        .replace(/el hospital en Cataluña/gi, 'un hospital de Cataluña')
+        .replace(/de urgencias en Cataluña/gi, 'de urgencias')
+        .replace(/en tu municipio/gi, 'en Cataluña')
+        .replace(/\s+de tu municipio/gi, ' en Cataluña')
+        .replace(/tu municipio/gi, 'Cataluña')
+        .replace(/\bX\s*mg\/l\b/gi, '0,60 mg/l o más');
+
+    // Grammar & Duplication Cleanup Rules
+    result = result
+        // Rule 1: "al el" -> "al"
+        .replace(/\bal\s+el\b/gi, 'al')
+        // Rule 2: "del el" -> "del"
+        .replace(/\bdel\s+el\b/gi, 'del')
+        // Rule 3: "ante el el" -> "ante el"
+        .replace(/\bante\s+el\s+el\b/gi, 'ante el')
+        // Collapsing duplicated prepositions
+        .replace(/\ben Cataluña\s+en Cataluña\b/gi, 'en Cataluña')
+        .replace(/\bde Cataluña\s+de Cataluña\b/gi, 'de Cataluña')
+        .replace(/\ben su partido judicial\s+en Cataluña\b/gi, 'en su partido judicial')
+        .replace(/\bde su partido judicial\s+en Cataluña\b/gi, 'de su partido judicial')
+        .replace(/\bel\s+el\b/gi, 'el')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    // Rule 4: Capitalize first letter if needed
+    if (result.length > 0) {
+        result = result.charAt(0).toUpperCase() + result.slice(1);
+    }
+
+    return result;
+}
+
+/**
  * Fetches all 5 services from Supabase.
  */
 export async function getAllServicesFromDb(): Promise<DbService[]> {
@@ -64,7 +110,7 @@ export async function getServiceBySlugFromDb(slug: string): Promise<DbService | 
 }
 
 /**
- * Fetches FAQs for a service from public.service_faqs table in Supabase.
+ * Fetches FAQs for a service from public.service_faqs table in Supabase and localizes them to provincial scope.
  */
 export async function getServiceFaqs(serviceSlug: string): Promise<ServiceFaq[]> {
     const normSlug = normalizeServiceSlug(serviceSlug);
@@ -72,7 +118,7 @@ export async function getServiceFaqs(serviceSlug: string): Promise<ServiceFaq[]>
     const { data, error } = await supabase
         .from('service_faqs')
         .select('question, answer, topic')
-        .eq('service_slug', normSlug)
+        .or(`service_slug.eq.${normSlug},service_slug.eq.${normSlug === 'sin-carnet' ? 'sin_carnet' : normSlug}`)
         .order('position', { ascending: true });
 
     if (error || !data) {
@@ -80,14 +126,18 @@ export async function getServiceFaqs(serviceSlug: string): Promise<ServiceFaq[]>
         return [];
     }
 
-    return data as ServiceFaq[];
+    return data.map((f: any) => ({
+        question: localizeProvincialFaqText(f.question),
+        answer: localizeProvincialFaqText(f.answer),
+        topic: f.topic || undefined,
+    })) as ServiceFaq[];
 }
 
 export interface ServiceJsonLdConfig {
     name: string;
     serviceType: string;
     description: string;
-    minPrice: string;
+    minPrice: number;
 }
 
 export function getServiceJsonLdConfig(slug: string): ServiceJsonLdConfig {
@@ -97,44 +147,43 @@ export function getServiceJsonLdConfig(slug: string): ServiceJsonLdConfig {
             return {
                 name: "Defensa penal por alcoholemia",
                 serviceType: "Defensa penal por conducción bajo influencia de alcohol",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por alcoholemia en la provincia de Barcelona. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
-                minPrice: "980.00"
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por alcoholemia en Cataluña. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
+                minPrice: 980
             };
         case 'drogas':
             return {
                 name: "Defensa penal por drogas al volante",
                 serviceType: "Defensa penal por conducción bajo influencia de drogas",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por drogas al volante en la provincia de Barcelona. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
-                minPrice: "980.00"
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por drogas al volante en Cataluña. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
+                minPrice: 980
             };
         case 'velocidad':
             return {
                 name: "Defensa penal por exceso de velocidad",
                 serviceType: "Defensa penal por delito de exceso de velocidad",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por exceso de velocidad constitutivo de delito en la provincia de Barcelona. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
-                minPrice: "980.00"
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por exceso de velocidad constitutivo de delito en Cataluña. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
+                minPrice: 980
             };
         case 'sin-carnet':
             return {
                 name: "Defensa penal por conducción sin permiso",
                 serviceType: "Defensa penal por conducción sin permiso o licencia",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por conducir sin carnet o sin puntos en la provincia de Barcelona. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
-                minPrice: "980.00"
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por conducir sin carnet o sin puntos en Cataluña. Honorarios cerrados desde 980 € con IVA y procurador incluidos.",
+                minPrice: 980
             };
         case 'profesionales':
             return {
                 name: "Defensa penal para conductores profesionales",
                 serviceType: "Defensa penal de tráfico para titulares de permisos profesionales (C, D, E)",
-                description: "Defensa penal y asistencia urgente 24h para transportistas y conductores profesionales en la provincia de Barcelona. Honorarios cerrados desde 1.080 € con IVA y procurador incluidos.",
-                minPrice: "1080.00"
+                description: "Defensa penal y asistencia urgente 24h para transportistas y conductores profesionales en Cataluña. Honorarios cerrados desde 1.080 € con IVA y procurador incluidos.",
+                minPrice: 1080
             };
         default:
             return {
                 name: "Defensa penal por delitos contra la seguridad vial",
                 serviceType: "Defensa penal de tráfico",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos en la provincia de Barcelona.",
-                minPrice: "980.00"
+                description: "Defensa penal y asistencia urgente 24h en juicios rápidos en Cataluña.",
+                minPrice: 980
             };
     }
 }
-
