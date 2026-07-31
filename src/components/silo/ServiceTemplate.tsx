@@ -12,12 +12,15 @@ import { OKFService } from '@/lib/okf/okf-service';
 import { OKFPointsMap } from '@/components/silo/OKFPointsMap';
 import { MunicipalitySearch } from '@/components/silo/MunicipalitySearch';
 import { ServiceFaq } from '@/lib/db/services';
-import { ChevronDown } from 'lucide-react';
+import { CoberturaData } from '@/lib/db/cobertura';
+import { ChevronDown, Phone, MapPin, Building2, ShieldAlert, FileText } from 'lucide-react';
+import { PuntoDeInteres } from '@/lib/okf/parser';
 
 interface ServiceTemplateProps {
     service: string;
     city?: string | null;
     faqs?: ServiceFaq[];
+    cobertura?: CoberturaData | null;
 }
 
 // Helper to format paragraphs strictly to the 40-60 words BLUF standard.
@@ -53,7 +56,7 @@ function toBlufParagraph(primaryText: string, secondaryText?: string): string {
     return words.slice(0, 50).join(" ") + ".";
 }
 
-export default async function ServiceTemplate({ service, city, faqs }: ServiceTemplateProps) {
+export default async function ServiceTemplate({ service, city, faqs, cobertura }: ServiceTemplateProps) {
     const config = getSiloConfig(service);
     if (!config) {
         return notFound();
@@ -66,14 +69,39 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
     const okfFaqs = city ? OKFService.getFaqs(service, city) : [];
     const okfPuntos = city ? OKFService.getPuntosDeInteres(city) : [];
 
+    const isProfesionales = service === 'profesionales';
+    const priceText = isProfesionales ? '1.080 €' : '980 €';
 
-    // Build the dynamic H1 and subheadline from OKF cobertura data
-    const h1 = okfCobertura?.h1Title || okfCobertura?.frontmatter.title || (city && location
+    // Use DB structured faqs if present, fallback to passed faqs or okfFaqs
+    const displayFaqs = (cobertura && cobertura.faqs && cobertura.faqs.length > 0)
+        ? cobertura.faqs
+        : (faqs && faqs.length > 0 ? faqs : okfFaqs);
+
+    // Map interest points for interactive map
+    const displayPoints: PuntoDeInteres[] = (cobertura && cobertura.interestPoints && cobertura.interestPoints.length > 0)
+        ? cobertura.interestPoints.map(p => ({
+            name: p.name,
+            category: p.class || p.category || 'Puntos de Control',
+            description: p.details || p.description || '',
+            gps: (p.lat != null && p.lng != null) ? `${p.lat}, ${p.lng}` : '—',
+        }))
+        : okfPuntos;
+
+    // Court data
+    const courtObj = cobertura?.court;
+    const courtName = courtObj?.official_name || courtObj?.name || cobertura?.courtName || (location?.courts as any)?.official_name || (location?.courts as any)?.name || (location ? `Juzgados de ${location.name}` : null);
+    const courtAddress = courtObj?.address || (location?.courts as any)?.address || null;
+    const fiscaliaAddress = courtObj?.fiscalia_address || null;
+    const phoneGuardia = courtObj?.phone_guardia || courtObj?.phone || null;
+    const protocoloGuardia = courtObj?.protocolo_guardia || null;
+    const prosecutorCriteria = courtObj?.prosecutor_criteria || null;
+
+    // H1 Headline
+    const h1 = cobertura?.h1Title || okfCobertura?.h1Title || okfCobertura?.frontmatter.title || (city && location
         ? (service === 'alcoholemia'
             ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name} | Asistencia de Guardia`
             : `Abogado Especialista en ${config.hero.specialty} en ${location.name}`)
         : config.hero.title);
-
 
     const bannerText = city && location
         ? `⚠️ ATENCIÓN: Teléfono de Urgencias Activo en ${location.name} (24 horas)`
@@ -91,10 +119,6 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
             : `Hola Autoridad Legal, necesito asistencia urgente por un tema de ${config.hero.specialty}.`
     );
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-
-    // Get all locations for the cluster directory
-    const allLocations = await getLocations();
-    const activeLocations = allLocations;
 
     return (
         <main className="min-h-screen bg-slate-900 text-white pb-32">
@@ -121,7 +145,7 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
                             </h1>
 
                             <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-bold">
-                                Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales.
+                                Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. Precio cerrado desde {priceText} todo incluido.
                             </p>
                         </div>
 
@@ -153,17 +177,27 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
                     <div className="max-w-3xl mx-auto space-y-12">
 
                         {/* OKF Ground Truth BLUF Summary */}
-                        {okfCobertura?.bluf && (
+                        {cobertura?.summary ? (
                             <div className="p-6 bg-slate-900/90 rounded-2xl border border-prestige-gold/40 shadow-xl space-y-3">
                                 <div className="flex items-center gap-2 text-prestige-gold font-semibold text-xs tracking-wider uppercase">
                                     <span className="w-2 h-2 rounded-full bg-prestige-gold animate-pulse"></span>
-                                    Dictamen de Doctrina OKF (Fuente Oficial)
+                                    Dictamen de Guardia en {location?.name || 'Localidad'}
+                                </div>
+                                <p className="text-slate-100 text-sm md:text-base leading-relaxed font-medium italic">
+                                    "{cobertura.summary}"
+                                </p>
+                            </div>
+                        ) : (okfCobertura?.bluf && (
+                            <div className="p-6 bg-slate-900/90 rounded-2xl border border-prestige-gold/40 shadow-xl space-y-3">
+                                <div className="flex items-center gap-2 text-prestige-gold font-semibold text-xs tracking-wider uppercase">
+                                    <span className="w-2 h-2 rounded-full bg-prestige-gold animate-pulse"></span>
+                                    Dictamen de Doctrina (Fuente Oficial)
                                 </div>
                                 <p className="text-slate-100 text-sm md:text-base leading-relaxed font-medium italic">
                                     "{okfCobertura.bluf}"
                                 </p>
                             </div>
-                        )}
+                        ))}
 
                         <div className="space-y-4">
                             <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
@@ -198,36 +232,13 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
                             </p>
                         </div>
 
-                        {/* OKF Local FAQs Layer */}
-                        {okfFaqs.length > 0 && (
-                            <div className="space-y-6 pt-6 border-t border-white/10">
-                                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
-                                    Preguntas Frecuentes
-                                </h2>
-                                <div className="space-y-4">
-                                    {okfFaqs.map((faq, idx) => (
-                                        <div key={idx} className="p-5 rounded-xl bg-slate-900/60 border border-white/5 hover:border-prestige-gold/30 transition-all">
-                                            <h3 className="text-base font-bold text-prestige-gold mb-2">
-                                                {faq.question}
-                                            </h3>
-                                            <p className="text-slate-300 text-sm leading-relaxed">
-                                                {faq.answer}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* OKF Interactive Google Map & Puntos de Interés Layer */}
-                        {okfPuntos.length > 0 && (
+                        {/* Interactive Google Map & Puntos de Interés Layer */}
+                        {displayPoints.length > 0 && (
                             <OKFPointsMap
                                 cityName={location?.name || city || ''}
-                                points={okfPuntos}
+                                points={displayPoints}
                             />
                         )}
-
-
 
                         {/* Localized Strategy Layer */}
                         {city && location && strategy && (
@@ -243,10 +254,8 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
 
                                 <div className="space-y-4">
                                     <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-emerald-500 pl-4">
-                                        {location.courts?.name
-                                            ? (location.courts.name.toLowerCase().startsWith('juzgado')
-                                                ? `Consejos en los ${location.courts.name}`
-                                                : `Consejos en los Juzgados de ${location.courts.name}`)
+                                        {courtName
+                                            ? `Consejos en el ${courtName}`
                                             : `Consejos en los Juzgados de ${location.name}`}
                                     </h2>
                                     <p className="text-slate-355 text-sm md:text-base leading-relaxed font-medium">
@@ -256,30 +265,79 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
                             </>
                         )}
 
-
                     </div>
                 </div>
             </section>
 
-            {/* Local Courthouse Details */}
-            {city && location && location.courts && (
+            {/* Local Courthouse Details Section */}
+            {city && location && courtName && (
                 <section className="py-16 bg-slate-900 border-b border-white/5">
                     <div className="container px-4 md:px-16 mx-auto">
                         <div className="max-w-3xl mx-auto space-y-6">
-                            <h3 className="text-xl font-bold text-white border-l-4 border-emerald-500 pl-4">
+                            <h3 className="text-xl font-bold text-white border-l-4 border-emerald-500 pl-4 flex items-center gap-2">
+                                <Building2 className="w-5 h-5 text-emerald-400" />
                                 Juzgado competente para {location.name}
                             </h3>
-                            <div className="p-6 bg-slate-950/60 rounded-2xl border border-white/10 grid md:grid-cols-2 gap-6 text-sm text-slate-300">
-                                <div className="space-y-2">
-                                    <p className="text-white font-bold uppercase text-xs tracking-wider text-prestige-gold">Órgano Judicial</p>
-                                    <p className="font-semibold">{location.courts.name}</p>
-                                    <p className="text-xs text-slate-400">Jurisdicción de adscripción y enjuiciamiento preferente.</p>
-                                </div>
-                                {location.courts.address && (
+                            <div className="p-6 bg-slate-950/60 rounded-2xl border border-white/10 space-y-6 text-sm text-slate-300">
+                                <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <p className="text-white font-bold uppercase text-xs tracking-wider text-prestige-gold">Dirección Física</p>
-                                        <p className="font-semibold">{location.courts.address}</p>
-                                        <p className="text-xs text-slate-400">Punto de presentación y asistencia del letrado penalista de guardia.</p>
+                                        <p className="text-white font-bold uppercase text-xs tracking-wider text-prestige-gold flex items-center gap-1.5">
+                                            <Building2 className="w-4 h-4" /> Órgano Judicial Oficial
+                                        </p>
+                                        <p className="font-semibold text-white text-base">{courtName}</p>
+                                        <p className="text-xs text-slate-400">Jurisdicción de adscripción y enjuiciamiento preferente.</p>
+                                    </div>
+                                    {courtAddress && (
+                                        <div className="space-y-2">
+                                            <p className="text-white font-bold uppercase text-xs tracking-wider text-prestige-gold flex items-center gap-1.5">
+                                                <MapPin className="w-4 h-4" /> Dirección del Juzgado
+                                            </p>
+                                            <p className="font-semibold text-white">{courtAddress}</p>
+                                            <p className="text-xs text-slate-400">Punto de presentación del letrado penalista de guardia.</p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {(fiscaliaAddress || phoneGuardia) && (
+                                    <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-white/10">
+                                        {fiscaliaAddress && (
+                                            <div className="space-y-1">
+                                                <p className="text-xs font-bold text-prestige-gold uppercase tracking-wider flex items-center gap-1.5">
+                                                    <FileText className="w-4 h-4" /> Fiscalía de Seguridad Vial
+                                                </p>
+                                                <p className="text-sm font-medium text-slate-200">{fiscaliaAddress}</p>
+                                            </div>
+                                        )}
+                                        {phoneGuardia && (
+                                            <div className="space-y-1">
+                                                <p className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                                                    <Phone className="w-4 h-4" /> Teléfono de Guardia del Juzgado
+                                                </p>
+                                                <p className="text-sm font-mono font-bold text-emerald-300">{phoneGuardia}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                {protocoloGuardia && (
+                                    <div className="pt-4 border-t border-white/10 space-y-1.5">
+                                        <p className="text-xs font-bold text-prestige-gold uppercase tracking-wider flex items-center gap-1.5">
+                                            <ShieldAlert className="w-4 h-4" /> Protocolo de Guardia y Juicios Rápidos
+                                        </p>
+                                        <p className="text-xs md:text-sm text-slate-300 leading-relaxed bg-slate-900/90 p-3.5 rounded-xl border border-white/5">
+                                            {protocoloGuardia}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {prosecutorCriteria && (
+                                    <div className="pt-4 border-t border-white/10 space-y-1.5">
+                                        <p className="text-xs font-bold text-prestige-gold uppercase tracking-wider flex items-center gap-1.5">
+                                            ⚖️ Criterios de la Fiscalía Provincial
+                                        </p>
+                                        <p className="text-xs md:text-sm text-slate-300 leading-relaxed bg-slate-900/90 p-3.5 rounded-xl border border-white/5">
+                                            {prosecutorCriteria}
+                                        </p>
                                     </div>
                                 )}
                             </div>
@@ -301,13 +359,13 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
             </section>
 
             {/* VISIBLE FAQ ACCORDION SECTION */}
-            {faqs && faqs.length > 0 && (
+            {displayFaqs && displayFaqs.length > 0 && (
                 <section id="faq" className="w-full bg-slate-950 py-16 md:py-20 border-b border-white/10 text-white">
                     <div className="max-w-4xl mx-auto px-6 space-y-8">
                         <div className="space-y-3">
                             <span className="text-prestige-gold text-xs font-bold uppercase tracking-widest">Preguntas Frecuentes</span>
                             <h2 className="text-3xl md:text-4xl font-extrabold text-white border-l-4 border-prestige-gold pl-4 tracking-tight">
-                                Preguntas Frecuentes sobre {config.hero.specialty}
+                                Preguntas Frecuentes sobre {config.hero.specialty} en {location?.name || 'Cataluña'}
                             </h2>
                             <p className="font-body-lg text-lg text-slate-300 leading-relaxed">
                                 Respuestas jurídicas claras sobre el procedimiento, atestado policial, juicio rápido y opciones de defensa en delitos de {config.hero.specialty}.
@@ -316,7 +374,7 @@ export default async function ServiceTemplate({ service, city, faqs }: ServiceTe
 
                         {/* SSR Accordion */}
                         <div className="space-y-4 pt-4">
-                            {faqs.map((faq, index) => (
+                            {displayFaqs.map((faq: any, index: number) => (
                                 <details
                                     key={faq.id || index}
                                     className="group border border-white/10 rounded-xl bg-slate-900/80 p-5 shadow-sm hover:border-prestige-gold/50 transition-colors"
