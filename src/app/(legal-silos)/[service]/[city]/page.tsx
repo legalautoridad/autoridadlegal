@@ -1,26 +1,28 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { PHONE_E164 } from '@/lib/config';
+import { redirect, RedirectType } from 'next/navigation';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
 import { getCoberturaData, getLiveCoberturaParams, VALID_SERVICES } from '@/lib/db/cobertura';
+import { normalizeServiceSlug } from '@/lib/db/services';
+import { generateCoberturaJsonLd } from '@/lib/seo/cobertura-jsonld';
 
 export const revalidate = 3600; // ISR revalidation every 1 hour
-export const dynamicParams = true; // Allow newly published DB rows to render dynamically via ISR without redeploy
+export const dynamicParams = true; // Allow dynamic rendering for valid published rows
 
 interface LeafPageProps {
     params: Promise<{ service: string; city: string }>;
 }
 
 function isValidService(service: string): boolean {
-    return VALID_SERVICES.includes(service.toLowerCase());
+    return VALID_SERVICES.includes(normalizeServiceSlug(service));
 }
 
-// 1. Dynamic SEO Metadata Generation (Single source of truth: web_published gate)
+// 1. Dynamic SEO Metadata Generation
 export async function generateMetadata({ params }: LeafPageProps): Promise<Metadata> {
     const { service, city } = await params;
-    if (!isValidService(service)) return {};
+    const normService = normalizeServiceSlug(service);
+    if (!isValidService(normService)) return {};
 
-    const cobertura = await getCoberturaData(service, city);
+    const cobertura = await getCoberturaData(normService, city);
     if (!cobertura) return {};
 
     const canonicalUrl = `https://www.autoridad.legal/${cobertura.service.slug}/${cobertura.location.slug}`;
@@ -50,59 +52,21 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
 // 2. Localized Service Leaf Page Component (Server Rendered)
 export default async function LocalizedServiceLeafPage({ params }: LeafPageProps) {
     const { service, city } = await params;
-    if (!isValidService(service)) return notFound();
+    const normService = normalizeServiceSlug(service);
 
-    const cobertura = await getCoberturaData(service, city);
+    if (!isValidService(normService)) {
+        redirect('/alcoholemia', RedirectType.replace);
+    }
+
+    const cobertura = await getCoberturaData(normService, city);
+
+    // Gate: Long-tail / unpublished municipios permanently redirect 301 to root service page
     if (!cobertura) {
-        return notFound();
+        redirect(`/${normService}`, RedirectType.replace);
     }
 
     const canonicalUrl = `https://www.autoridad.legal/${cobertura.service.slug}/${cobertura.location.slug}`;
-
-    // Schema.org LegalService + FAQPage Graph
-    const jsonLdGraph = {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "LegalService",
-                "@id": `${canonicalUrl}#legal-service`,
-                "name": cobertura.h1Title,
-                "description": cobertura.description,
-                "url": canonicalUrl,
-                "telephone": PHONE_E164,
-                "priceRange": "980€",
-                "areaServed": {
-                    "@type": "AdministrativeArea",
-                    "name": cobertura.location.name
-                },
-                "provider": {
-                    "@type": "Organization",
-                    "@id": "https://www.autoridad.legal/#organization",
-                    "name": "Autoridad Legal",
-                    "url": "https://www.autoridad.legal"
-                },
-                "author": {
-                    "@type": "Person",
-                    "name": "Santiago Giménez Olavarriaga",
-                    "jobTitle": "Director Jurídico y Abogado Penalista",
-                    "identifier": "ICAB 31.389",
-                    "sameAs": "https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga"
-                }
-            },
-            {
-                "@type": "FAQPage",
-                "@id": `${canonicalUrl}#faq`,
-                "mainEntity": cobertura.faqs.map(faq => ({
-                    "@type": "Question",
-                    "name": faq.question,
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": faq.answer
-                    }
-                }))
-            }
-        ]
-    };
+    const jsonLdGraph = generateCoberturaJsonLd(cobertura, canonicalUrl);
 
     return (
         <>
@@ -110,12 +74,16 @@ export default async function LocalizedServiceLeafPage({ params }: LeafPageProps
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
             />
-            <ServiceTemplate service={cobertura.service.slug} city={cobertura.location.slug} />
+            <ServiceTemplate
+                service={cobertura.service.slug}
+                city={cobertura.location.slug}
+                cobertura={cobertura}
+            />
         </>
     );
 }
 
-// 3. Static Generation: Strictly LIVE combinations from location_services (web_published = true & faq_json non-empty)
+// 3. Static Generation: Strictly LIVE combinations from TARGET_MUNICIPIOS with web_published = true
 export async function generateStaticParams() {
     return await getLiveCoberturaParams();
 }

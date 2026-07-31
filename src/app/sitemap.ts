@@ -115,16 +115,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         })
         .sort((a, b) => a.url.localeCompare(b.url));
 
-    // 3. Dynamic Cobertura Pages (ONLY web_published = true & faq_json non-empty & valid municipio/service)
+    // 3. Dynamic Cobertura Pages (ONLY web_published = true & in TARGET_MUNICIPIOS)
     const { data: coberturaRows } = await supabase
         .from('location_services')
-        .select('service, location_id, web_published, faq_json, updated_at, created_at, locations(slug)')
+        .select('service, location_id, web_published, updated_at, created_at, locations(slug)')
         .eq('web_published', true);
 
     const coberturaPagesMap = new Map<string, MetadataRoute.Sitemap[number]>();
 
     (coberturaRows || []).forEach(row => {
-        if (!row.web_published || !Array.isArray(row.faq_json) || row.faq_json.length === 0) {
+        if (!row.web_published) {
             return;
         }
 
