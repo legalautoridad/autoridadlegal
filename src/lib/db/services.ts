@@ -38,33 +38,48 @@ export function normalizeServiceSlug(slug: string): string {
 
 /**
  * Localizes generic FAQ text for provincial root service pages (e.g. /alcoholemia).
- * Replaces "tu municipio" with "Cataluña" and adjusts court references to provincial scope.
+ * Replaces "tu municipio" with "Cataluña" and adjusts court references to provincial scope with strict grammar normalizations.
  */
 export function localizeProvincialFaqText(text: string): string {
     if (!text) return '';
 
     let result = text
-        // Replace "Juzgado de Guardia de tu municipio" -> "Juzgado de Guardia de su partido judicial"
+        // Specific phrase replacements to preserve natural Spanish grammar
         .replace(/Juzgado de Guardia de tu municipio/gi, 'Juzgado de Guardia de su partido judicial')
-        // Replace "juzgado competente de tu municipio" -> "el juzgado competente"
         .replace(/juzgado competente de tu municipio/gi, 'el juzgado competente')
-        // Replace "en tu municipio" -> "en Cataluña"
+        .replace(/en el partido judicial de tu municipio/gi, 'en su partido judicial')
+        .replace(/en el partido judicial en Cataluña/gi, 'en su partido judicial')
+        .replace(/el hospital de tu municipio/gi, 'un hospital de Cataluña')
+        .replace(/el hospital en Cataluña/gi, 'un hospital de Cataluña')
+        .replace(/de urgencias en Cataluña/gi, 'de urgencias')
         .replace(/en tu municipio/gi, 'en Cataluña')
-        // Replace "de tu municipio" -> "en Cataluña"
         .replace(/\s+de tu municipio/gi, ' en Cataluña')
-        // Replace remaining "tu municipio" -> "Cataluña"
         .replace(/tu municipio/gi, 'Cataluña')
-        // Replace raw placeholder "X mg/l" -> "0,60 mg/l o más"
         .replace(/\bX\s*mg\/l\b/gi, '0,60 mg/l o más');
 
-    // Anti-duplication Regex Normalization for provincial text
+    // Grammar & Duplication Cleanup Rules
     result = result
+        // Rule 1: "al el" -> "al"
+        .replace(/\bal\s+el\b/gi, 'al')
+        // Rule 2: "del el" -> "del"
+        .replace(/\bdel\s+el\b/gi, 'del')
+        // Rule 3: "ante el el" -> "ante el"
+        .replace(/\bante\s+el\s+el\b/gi, 'ante el')
+        // Collapsing duplicated prepositions
         .replace(/\ben Cataluña\s+en Cataluña\b/gi, 'en Cataluña')
         .replace(/\bde Cataluña\s+de Cataluña\b/gi, 'de Cataluña')
-        .replace(/\bel el juzgado\b/gi, 'el juzgado')
-        .replace(/\s+/g, ' ');
+        .replace(/\ben su partido judicial\s+en Cataluña\b/gi, 'en su partido judicial')
+        .replace(/\bde su partido judicial\s+en Cataluña\b/gi, 'de su partido judicial')
+        .replace(/\bel\s+el\b/gi, 'el')
+        .replace(/\s+/g, ' ')
+        .trim();
 
-    return result.trim();
+    // Rule 4: Capitalize first letter if needed
+    if (result.length > 0) {
+        result = result.charAt(0).toUpperCase() + result.slice(1);
+    }
+
+    return result;
 }
 
 /**
