@@ -30,6 +30,8 @@ export async function generateMetadata({ params }: GlosarioPageProps): Promise<M
     const description = term.description || `Definición de ${term.name} en el ámbito de la seguridad vial y juicios rápidos por Santiago Giménez Olavarriaga (ICAB 31.389).`;
     const canonicalUrl = `https://www.autoridad.legal/glosario/${term.slug}`;
 
+    const ogTitle = `${term.name} - Definición Jurídica y Doctrina`;
+
     return {
         title,
         description,
@@ -37,17 +39,26 @@ export async function generateMetadata({ params }: GlosarioPageProps): Promise<M
             canonical: canonicalUrl,
         },
         openGraph: {
-            title,
+            title: ogTitle,
             description,
             url: canonicalUrl,
             siteName: 'Autoridad Legal',
             locale: 'es_ES',
             type: 'article',
+            images: [
+                {
+                    url: '/og-image.jpg',
+                    width: 1200,
+                    height: 630,
+                    alt: term.name,
+                },
+            ],
         },
         twitter: {
             card: 'summary_large_image',
-            title,
+            title: ogTitle,
             description,
+            images: ['/og-image.jpg'],
         },
     };
 }

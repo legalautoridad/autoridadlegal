@@ -10,12 +10,26 @@ export const metadata: Metadata = {
         canonical: 'https://www.autoridad.legal/glosario',
     },
     openGraph: {
-        title: 'Glosario de Derecho Penal y Seguridad Vial | Autoridad Legal',
-        description: 'Diccionario y guía de términos jurídicos en delitos contra la seguridad vial y juicios rápidos en Cataluña.',
+        title: 'Glosario de Derecho Penal y Seguridad Vial',
+        description: 'Diccionario jurídico especializado en delitos de alcoholemia, drogas al volante, conducción sin carnet, juicios rápidos y metrología legal.',
         url: 'https://www.autoridad.legal/glosario',
         siteName: 'Autoridad Legal',
         locale: 'es_ES',
         type: 'website',
+        images: [
+            {
+                url: '/og-image.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Glosario de Derecho Penal y Seguridad Vial',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Glosario de Derecho Penal y Seguridad Vial',
+        description: 'Diccionario jurídico especializado en delitos de alcoholemia, drogas al volante, conducción sin carnet, juicios rápidos y metrología legal.',
+        images: ['/og-image.jpg'],
     },
 };
 

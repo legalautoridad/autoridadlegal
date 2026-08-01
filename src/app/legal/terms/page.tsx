@@ -3,10 +3,32 @@ import { FileText, ShieldCheck, CreditCard, Lock, Clock, Scale, AlertCircle, Che
 
 export const metadata: Metadata = {
     title: 'Términos y Condiciones de Contratación | Autoridad Legal',
-    description: 'Condiciones de contratación del servicio de defensa penal en delitos de tráfico. Precio cerrado blindado (1.149,50€ IVA y Procurador incl.), garantía Escrow y respuesta prioritaria.',
+    description: 'Condiciones de contratación del servicio de defensa penal en delitos de tráfico. Precio cerrado blindado, garantía Escrow y respuesta prioritaria.',
     alternates: {
-        canonical: 'https://autoridadlegal.com/legal/terms',
-    }
+        canonical: 'https://www.autoridad.legal/legal/terms',
+    },
+    openGraph: {
+        title: 'Términos y Condiciones de Contratación',
+        description: 'Condiciones de contratación del servicio de defensa penal en delitos de tráfico.',
+        url: 'https://www.autoridad.legal/legal/terms',
+        siteName: 'Autoridad Legal',
+        locale: 'es_ES',
+        type: 'website',
+        images: [
+            {
+                url: '/og-image.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Términos y Condiciones de Contratación',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Términos y Condiciones de Contratación',
+        description: 'Condiciones de contratación del servicio de defensa penal en delitos de tráfico.',
+        images: ['/og-image.jpg'],
+    },
 };
 
 export default function TermsPage() {

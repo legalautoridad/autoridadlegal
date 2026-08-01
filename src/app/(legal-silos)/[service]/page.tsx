@@ -27,12 +27,36 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         return {};
     }
 
+    const canonicalUrl = `https://www.autoridad.legal/${normSlug}`;
+
     return {
         title: `${config.seo.title} | Autoridad Legal`,
         description: config.seo.description,
         alternates: {
-            canonical: `https://www.autoridad.legal/${normSlug}`,
-        }
+            canonical: canonicalUrl,
+        },
+        openGraph: {
+            title: config.seo.title,
+            description: config.seo.description,
+            url: canonicalUrl,
+            siteName: 'Autoridad Legal',
+            locale: 'es_ES',
+            type: 'article',
+            images: [
+                {
+                    url: '/og-image.jpg',
+                    width: 1200,
+                    height: 630,
+                    alt: config.seo.title,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: config.seo.title,
+            description: config.seo.description,
+            images: ['/og-image.jpg'],
+        },
     };
 }
 

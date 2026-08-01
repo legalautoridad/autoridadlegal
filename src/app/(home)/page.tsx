@@ -31,13 +31,20 @@ export const metadata: Metadata = {
         siteName: "Autoridad Legal",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
         description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
-        images: ["https://www.autoridad.legal/images/logo-transparent.png"],
+        images: [
+            {
+                url: "/og-image.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Autoridad Legal - Abogado de Urgencia 24h",
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
         description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
-        images: ["https://www.autoridad.legal/images/logo-transparent.png"],
+        images: ["/og-image.jpg"],
     },
 };
 

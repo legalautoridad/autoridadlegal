@@ -40,11 +40,20 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
             siteName: 'Autoridad Legal',
             locale: 'es_ES',
             type: 'article',
+            images: [
+                {
+                    url: '/og-image.jpg',
+                    width: 1200,
+                    height: 630,
+                    alt: cobertura.h1Title,
+                },
+            ],
         },
         twitter: {
             card: 'summary_large_image',
             title: cobertura.h1Title,
             description: cobertura.description,
+            images: ['/og-image.jpg'],
         },
     };
 }

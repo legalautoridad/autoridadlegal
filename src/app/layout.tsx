@@ -50,6 +50,28 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
+  openGraph: {
+    siteName: "Autoridad Legal",
+    type: "website",
+    locale: "es_ES",
+    title: "Autoridad Legal | Plataforma Jurídica",
+    description: "Plataforma de alto rendimiento para servicios legales de alta especialización.",
+    url: "https://www.autoridad.legal",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Autoridad Legal",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Autoridad Legal | Plataforma Jurídica",
+    description: "Plataforma de alto rendimiento para servicios legales de alta especialización.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default async function RootLayout({
