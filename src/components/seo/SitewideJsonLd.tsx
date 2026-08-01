@@ -13,7 +13,7 @@ export function SitewideJsonLd() {
                 'url': 'https://www.autoridad.legal',
                 'telephone': PHONE_E164,
                 'email': 'contacto@autoridad.legal',
-                'image': 'https://www.autoridad.legal/images/logo-transparent.png',
+                'image': 'https://www.autoridad.legal/og-image.jpg',
                 'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
                 'priceRange': '€€',
                 'knowsLanguage': ['es', 'ca'],
