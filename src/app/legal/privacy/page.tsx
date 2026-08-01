@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { Lock, ShieldCheck, Trash2, EyeOff, Database, UserCheck, FileText, PhoneCall, Scale } from 'lucide-react';
+import { DEFAULT_OG_IMAGE } from '@/lib/config';
 
 export const metadata: Metadata = {
     title: 'Política de Privacidad ("GDPR Búnker") | Autoridad Legal',
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: '/og-image.jpg',
+                url: DEFAULT_OG_IMAGE,
                 width: 1200,
                 height: 630,
                 alt: 'Política de Privacidad',
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Política de Privacidad ("GDPR Búnker")',
         description: 'Política de privacidad y protección de datos conforme al RGPD.',
-        images: ['/og-image.jpg'],
+        images: [DEFAULT_OG_IMAGE],
     },
 };
 

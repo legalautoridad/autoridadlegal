@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
+import { PHONE_E164, PHONE_DISPLAY, DEFAULT_OG_IMAGE } from '@/lib/config';
 import { getAllGlosarioTerms, getGlosarioTermBySlug, getPublicRelatedLinks } from '@/lib/db/glosario';
 import { BookOpen, ArrowLeft, ShieldCheck, FileText } from 'lucide-react';
 
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: GlosarioPageProps): Promise<M
             type: 'article',
             images: [
                 {
-                    url: '/og-image.jpg',
+                    url: DEFAULT_OG_IMAGE,
                     width: 1200,
                     height: 630,
                     alt: term.name,
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: GlosarioPageProps): Promise<M
             card: 'summary_large_image',
             title: ogTitle,
             description,
-            images: ['/og-image.jpg'],
+            images: [DEFAULT_OG_IMAGE],
         },
     };
 }

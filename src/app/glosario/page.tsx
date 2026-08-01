@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllGlosarioTerms } from '@/lib/db/glosario';
 import { BookOpen, ArrowRight } from 'lucide-react';
+import { DEFAULT_OG_IMAGE } from '@/lib/config';
 
 export const metadata: Metadata = {
     title: 'Glosario de Derecho Penal y Seguridad Vial | Autoridad Legal',
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: '/og-image.jpg',
+                url: DEFAULT_OG_IMAGE,
                 width: 1200,
                 height: 630,
                 alt: 'Glosario de Derecho Penal y Seguridad Vial',
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Glosario de Derecho Penal y Seguridad Vial',
         description: 'Diccionario jurídico especializado en delitos de alcoholemia, drogas al volante, conducción sin carnet, juicios rápidos y metrología legal.',
-        images: ['/og-image.jpg'],
+        images: [DEFAULT_OG_IMAGE],
     },
 };
 

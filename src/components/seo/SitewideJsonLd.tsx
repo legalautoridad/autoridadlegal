@@ -1,4 +1,4 @@
-import { PHONE_E164 } from '@/lib/config';
+import { PHONE_E164, DEFAULT_OG_IMAGE } from '@/lib/config';
 
 export function SitewideJsonLd() {
     const sitewideGraph = {
@@ -13,7 +13,7 @@ export function SitewideJsonLd() {
                 'url': 'https://www.autoridad.legal',
                 'telephone': PHONE_E164,
                 'email': 'contacto@autoridad.legal',
-                'image': 'https://www.autoridad.legal/og-image.jpg',
+                'image': DEFAULT_OG_IMAGE,
                 'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
                 'priceRange': '€€',
                 'knowsLanguage': ['es', 'ca'],

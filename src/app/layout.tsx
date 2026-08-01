@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { SitewideJsonLd } from "@/components/seo/SitewideJsonLd";
+import { DEFAULT_OG_IMAGE } from "@/lib/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     url: "https://www.autoridad.legal",
     images: [
       {
-        url: "/og-image.jpg",
+        url: DEFAULT_OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "Autoridad Legal - Defensa penal de tráfico 24h · Barcelona",
@@ -70,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Autoridad Legal | Plataforma Jurídica",
     description: "Plataforma de alto rendimiento para servicios legales de alta especialización.",
-    images: ["/og-image.jpg"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

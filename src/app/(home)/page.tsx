@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PHONE_E164, PHONE_DISPLAY } from "@/lib/config";
+import { PHONE_E164, PHONE_DISPLAY, DEFAULT_OG_IMAGE } from "@/lib/config";
 import Link from "next/link";
 import { getLocations } from "@/lib/db/locations";
 import { OKFService } from "@/lib/okf/okf-service";
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
         images: [
             {
-                url: "/og-image.jpg",
+                url: DEFAULT_OG_IMAGE,
                 width: 1200,
                 height: 630,
                 alt: "Autoridad Legal - Abogado de Urgencia 24h",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
         description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
-        images: ["/og-image.jpg"],
+        images: [DEFAULT_OG_IMAGE],
     },
 };
 

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { PHONE_DISPLAY } from '@/lib/config';
+import { PHONE_DISPLAY, DEFAULT_OG_IMAGE } from '@/lib/config';
 import { ShieldCheck, Scale, PhoneCall, Bot, AlertTriangle, UserCheck, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         type: "website",
         images: [
             {
-                url: "/og-image.jpg",
+                url: DEFAULT_OG_IMAGE,
                 width: 1200,
                 height: 630,
                 alt: "Aviso Legal y Condiciones de Uso",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Aviso Legal y Condiciones de Uso",
         description: "Información registral LSSICE y datos del letrado director Santiago Giménez Olavarriaga (ICAB 31389).",
-        images: ["/og-image.jpg"],
+        images: [DEFAULT_OG_IMAGE],
     },
 };
 

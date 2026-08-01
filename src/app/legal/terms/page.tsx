@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { FileText, ShieldCheck, CreditCard, Lock, Clock, Scale, AlertCircle, CheckCircle2, UserCheck } from 'lucide-react';
+import { DEFAULT_OG_IMAGE } from '@/lib/config';
 
 export const metadata: Metadata = {
     title: 'Términos y Condiciones de Contratación | Autoridad Legal',
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: '/og-image.jpg',
+                url: DEFAULT_OG_IMAGE,
                 width: 1200,
                 height: 630,
                 alt: 'Términos y Condiciones de Contratación',
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Términos y Condiciones de Contratación',
         description: 'Condiciones de contratación del servicio de defensa penal en delitos de tráfico.',
-        images: ['/og-image.jpg'],
+        images: [DEFAULT_OG_IMAGE],
     },
 };
 
