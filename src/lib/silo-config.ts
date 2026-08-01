@@ -1,4 +1,3 @@
-
 export type SiloTheme = "urgency" | "trust" | "compensation";
 
 export interface SiloConfig {
@@ -31,6 +30,12 @@ export interface SiloConfig {
     features: string[];
 }
 
+const STANDARD_STATS = [
+    { label: "Precio Claro", value: "Cerrado" },
+    { label: "Financiación Disponible", value: "Flexible" },
+    { label: "Atención", value: "Inmediata" },
+];
+
 export const SILO_CONFIGS: Record<string, SiloConfig> = {
     "juicios-rapidos": {
         slug: "juicios-rapidos",
@@ -51,11 +56,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             specialty: "Juicios Rápidos",
             cta: "Consulta Urgente",
         },
-        stats: [
-            { label: "Casos Gestionados", value: "+2.500" },
-            { label: "Sentencias Favorables", value: "98%" },
-            { label: "Tiempo de Respuesta", value: "< 15 min" },
-        ],
+        stats: STANDARD_STATS,
         pain_points: {
             title: "¿Qué pasa si no actúas rápido?",
             items: [
@@ -90,11 +91,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             specialty: "Alcoholemia",
             cta: "Hablar con Abogado de Urgencia",
         },
-        stats: [
-            { label: "Casos Gestionados", value: "+1.200" },
-            { label: "Sentencias Favorables", value: "94%" },
-            { label: "Atención", value: "Inmediata" },
-        ],
+        stats: STANDARD_STATS,
         pain_points: {
             title: "¿Qué pasa si no actúas rápido?",
             items: [
@@ -129,11 +126,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             specialty: "Drogas",
             cta: "Abogado de Guardia por Drogas",
         },
-        stats: [
-            { label: "Casos Gestionados", value: "+850" },
-            { label: "Sentencias Favorables", value: "92%" },
-            { label: "Tiempo de Asistencia", value: "< 30 min" },
-        ],
+        stats: STANDARD_STATS,
         pain_points: {
             title: "¿Qué consecuencias afrontas?",
             items: [
@@ -168,10 +161,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             specialty: "Sin Carnet",
             cta: "Abogado Sin Carnet Urgente",
         },
-        stats: [
-            { label: "Casos Resueltos", value: "+150" },
-            { label: "Atención Telefónica", value: "24h/7d" },
-        ],
+        stats: STANDARD_STATS,
         pain_points: {
             title: "Gravedad de conducir sin permiso (Art. 384 CP)",
             items: [
@@ -206,11 +196,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             specialty: "Velocidad",
             cta: "Asistencia Penal por Radar",
         },
-        stats: [
-            { label: "Casos por Radar", value: "+1.100" },
-            { label: "Márgenes de Radar Anulados", value: "95%" },
-            { label: "Asistencia de Guardia", value: "Inmediata" },
-        ],
+        stats: STANDARD_STATS,
         pain_points: {
             title: "Riesgos del delito de velocidad (Art. 379.1 CP)",
             items: [
@@ -245,11 +231,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             specialty: "Profesionales",
             cta: "Defender Mi Medio de Vida",
         },
-        stats: [
-            { label: "Profesionales Defendidos", value: "+780" },
-            { label: "Licencias Salvadas", value: "96%" },
-            { label: "Atención Urgente", value: "24h" },
-        ],
+        stats: STANDARD_STATS,
         pain_points: {
             title: "¿Qué está en juego para ti?",
             items: [
@@ -284,11 +266,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             specialty: "Herencias",
             cta: "Consulta de Planificación",
         },
-        stats: [
-            { label: "Patrimonio Gestionado", value: "+50M€" },
-            { label: "Herencias Desbloqueadas", value: "100%" },
-            { label: "Experiencia", value: "20 Años" },
-        ],
+        stats: STANDARD_STATS,
         pain_points: {
             title: "Riesgos de una mala gestión sucesoria",
             items: [
@@ -323,11 +301,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             specialty: "Accidentes de Tráfico",
             cta: "Valorar mi Indemnización Gratis",
         },
-        stats: [
-            { label: "Indemnizaciones", value: "+3M€" },
-            { label: "Éxito en Reclamación", value: "98%" },
-            { label: "Coste Inicial", value: "0€" },
-        ],
+        stats: STANDARD_STATS,
         pain_points: {
             title: "¿Por qué no confiar solo en tu seguro?",
             items: [
