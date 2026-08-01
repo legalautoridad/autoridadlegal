@@ -121,7 +121,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
     return (
-        <main className="min-h-screen bg-slate-900 text-white pb-32">
+        <div className="min-h-screen bg-slate-900 text-white pb-32">
             {/* Top Warning Shield */}
             <div className="bg-red-600 text-white text-center py-3 px-4 border-b border-red-500/20 font-semibold tracking-wide text-xs md:text-sm">
                 {bannerText}
@@ -203,7 +203,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                             <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
                                 ¿Por qué actuar en las primeras 24 horas?
                             </h2>
-                            <p className="text-slate-355 text-sm md:text-base leading-relaxed font-medium">
+                            <p className="text-slate-300 text-sm md:text-base leading-relaxed font-medium">
                                 {toBlufParagraph(
                                     "Cuando das positivo en un control o eres investigado, la policía redacta un atestado que se remite al juzgado de inmediato. Contratar un abogado experto de guardia en las primeras horas permite interceptar el informe, proponer pruebas de descargo y evitar la apertura de juicios rápidos complejos."
                                 )}
@@ -214,7 +214,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                             <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
                                 Consecuencias Penales Directas
                             </h2>
-                            <p className="text-slate-355 text-sm md:text-base leading-relaxed font-medium">
+                            <p className="text-slate-300 text-sm md:text-base leading-relaxed font-medium">
                                 {toBlufParagraph(
                                     `Los delitos contra la seguridad vial por ${config.hero.specialty} acarrean multas diarias muy elevadas, trabajos comunitarios y la retirada del permiso de conducir hasta por cuatro años. En supuestos graves de reincidencia o tasas muy elevadas, la fiscalía solicita penas de prisión de hasta seis meses.`
                                 )}
@@ -225,7 +225,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                             <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
                                 La Reducción del Tercio de Condena
                             </h2>
-                            <p className="text-slate-355 text-sm md:text-base leading-relaxed font-medium">
+                            <p className="text-slate-300 text-sm md:text-base leading-relaxed font-medium">
                                 {toBlufParagraph(
                                     "Si compareces en el Juzgado de Guardia con un abogado especialista de guardia y se llega a una conformidad con el fiscal, la ley reduce la condena final y el periodo de retirada del carné de conducir en un tercio de forma automática."
                                 )}
@@ -247,7 +247,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                                     <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-emerald-500 pl-4">
                                         Particularidades de Guardia en {location.name}
                                     </h2>
-                                    <p className="text-slate-355 text-sm md:text-base leading-relaxed font-medium">
+                                    <p className="text-slate-300 text-sm md:text-base leading-relaxed font-medium">
                                         {toBlufParagraph(strategy.getLocalPoliceQuirks(), strategy.getLegalAdvice())}
                                     </p>
                                 </div>
@@ -258,7 +258,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                                             ? `Consejos en el ${courtName}`
                                             : `Consejos en los Juzgados de ${location.name}`}
                                     </h2>
-                                    <p className="text-slate-355 text-sm md:text-base leading-relaxed font-medium">
+                                    <p className="text-slate-300 text-sm md:text-base leading-relaxed font-medium">
                                         {toBlufParagraph(strategy.getCourthouseTips(), `Utilizan habitualmente el alcoholímetro de tipo ${strategy.getEtilometroType()}.`)}
                                     </p>
                                 </div>
@@ -414,6 +414,6 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                     </a>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }
