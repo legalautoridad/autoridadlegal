@@ -23,7 +23,7 @@ export function TrustSignals() {
 
                     <div className="flex items-center space-x-2">
                         <FileCheck className="h-8 w-8 text-trust-navy" />
-                        <span className="font-label-md font-bold text-trust-navy">Sentencias 98%</span>
+                        <span className="font-label-md font-bold text-trust-navy">Colegiado ICAB 31389</span>
                     </div>
 
                 </div>
