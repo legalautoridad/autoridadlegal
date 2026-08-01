@@ -101,11 +101,7 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
                     'url': 'https://www.autoridad.legal/glosario'
                 },
                 'author': {
-                    '@type': 'Person',
-                    'name': 'Santiago Giménez Olavarriaga',
-                    'jobTitle': 'Director Jurídico y Abogado Penalista',
-                    'identifier': 'ICAB 31.389',
-                    'sameAs': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga'
+                    '@id': 'https://www.gimenezolavarriaga.abogado/#person'
                 }
             }
         ]
