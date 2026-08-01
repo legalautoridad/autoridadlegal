@@ -1,13 +1,35 @@
 import { Metadata } from 'next';
-import { PHONE_DISPLAY } from '@/lib/config';
+import { PHONE_DISPLAY, DEFAULT_OG_IMAGE } from '@/lib/config';
 import { ShieldCheck, Scale, PhoneCall, Bot, AlertTriangle, UserCheck, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: "Aviso Legal y Condiciones de Uso | Autoridad Legal",
     description: "Información registral LSSICE, datos del letrado director Santiago Giménez Olavarriaga (ICAB 31389) y condiciones de exención de responsabilidad sobre el asesoramiento automatizado.",
     alternates: {
-        canonical: "https://autoridadlegal.com/legal/legal-notice",
-    }
+        canonical: "https://www.autoridad.legal/legal/legal-notice",
+    },
+    openGraph: {
+        title: "Aviso Legal y Condiciones de Uso",
+        description: "Información registral LSSICE y datos del letrado director Santiago Giménez Olavarriaga (ICAB 31389).",
+        url: "https://www.autoridad.legal/legal/legal-notice",
+        siteName: "Autoridad Legal",
+        locale: "es_ES",
+        type: "website",
+        images: [
+            {
+                url: DEFAULT_OG_IMAGE,
+                width: 1200,
+                height: 630,
+                alt: "Aviso Legal y Condiciones de Uso",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Aviso Legal y Condiciones de Uso",
+        description: "Información registral LSSICE y datos del letrado director Santiago Giménez Olavarriaga (ICAB 31389).",
+        images: [DEFAULT_OG_IMAGE],
+    },
 };
 
 export default function LegalNoticePage() {
