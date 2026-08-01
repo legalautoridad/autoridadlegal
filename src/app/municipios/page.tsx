@@ -2,13 +2,36 @@ import { Metadata } from 'next';
 import { OKFService } from '@/lib/okf/okf-service';
 import { MunicipalitySearch } from '@/components/silo/MunicipalitySearch';
 import { Shield, Clock, MapPin, Scale } from 'lucide-react';
+import { DEFAULT_OG_IMAGE } from '@/lib/config';
 
 export const metadata: Metadata = {
     title: "Directorio de Municipios y Cobertura Legal 24h | Autoridad Legal",
     description: "Consulte el directorio completo de municipios en Cataluña con asistencia penal de guardia 24 horas para juicio rápido por alcoholemia, drogas, delitos de tráfico y defensa penal.",
     alternates: {
-        canonical: "https://autoridadlegal.com/municipios",
-    }
+        canonical: "https://www.autoridad.legal/municipios",
+    },
+    openGraph: {
+        title: "Directorio de Municipios y Cobertura Legal 24h",
+        description: "Consulte el directorio completo de municipios en Cataluña con asistencia penal de guardia 24 horas para juicio rápido por alcoholemia, drogas, delitos de tráfico y defensa penal.",
+        url: "https://www.autoridad.legal/municipios",
+        siteName: "Autoridad Legal",
+        locale: "es_ES",
+        type: "website",
+        images: [
+            {
+                url: DEFAULT_OG_IMAGE,
+                width: 1200,
+                height: 630,
+                alt: "Directorio de Municipios y Cobertura Legal 24h",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Directorio de Municipios y Cobertura Legal 24h",
+        description: "Consulte el directorio completo de municipios en Cataluña con asistencia penal de guardia 24 horas para juicio rápido por alcoholemia, drogas, delitos de tráfico y defensa penal.",
+        images: [DEFAULT_OG_IMAGE],
+    },
 };
 
 export default function MunicipiosHubPage() {

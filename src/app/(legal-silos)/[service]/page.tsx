@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getSiloConfig } from '@/lib/silo-config';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
 import { getServiceFaqs, getServiceBySlugFromDb, getServiceJsonLdConfig, normalizeServiceSlug } from '@/lib/db/services';
+import { DEFAULT_OG_IMAGE } from '@/lib/config';
 
 interface PageProps {
     params: Promise<{ service: string }>;
@@ -27,12 +28,37 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         return {};
     }
 
+    const canonicalUrl = `https://www.autoridad.legal/${normSlug}`;
+
     return {
         title: `${config.seo.title} | Autoridad Legal`,
         description: config.seo.description,
         alternates: {
-            canonical: `https://www.autoridad.legal/${normSlug}`,
-        }
+            canonical: canonicalUrl,
+        },
+        openGraph: {
+            title: config.seo.title,
+            description: config.seo.description,
+            url: canonicalUrl,
+            siteName: 'Autoridad Legal',
+            locale: 'es_ES',
+            type: 'article',
+            // Default sitewide share image (1200x630). Override per service here if dedicated assets are added (e.g. `https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/og/${normSlug}.jpg`)
+            images: [
+                {
+                    url: DEFAULT_OG_IMAGE,
+                    width: 1200,
+                    height: 630,
+                    alt: config.seo.title,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: config.seo.title,
+            description: config.seo.description,
+            images: [DEFAULT_OG_IMAGE],
+        },
     };
 }
 
