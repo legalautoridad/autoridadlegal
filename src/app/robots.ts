@@ -15,7 +15,7 @@ export default function robots(): MetadataRoute.Robots {
                     '/entitymap.html',
                     '/sitemap.xml',
                 ],
-                disallow: ['/admin/', '/lawyer/', '/api/'],
+                disallow: ['/admin/', '/lawyer/', '/api/', '/checkout/', '/login'],
             },
             {
                 userAgent: 'GPTBot',
