@@ -6,6 +6,7 @@ import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsent } from "@/components/layout/CookieConsent";
+import { SitewideJsonLd } from "@/components/seo/SitewideJsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +63,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${inter.variable} ${sourceSerif4.variable} antialiased`}
         suppressHydrationWarning={true}
       >
+        <SitewideJsonLd />
         <Header />
         {children}
         <Suspense fallback={null}>
