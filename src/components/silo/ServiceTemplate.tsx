@@ -145,7 +145,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                             </h1>
 
                             <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-bold">
-                                Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. Precio cerrado desde {priceText} todo incluido.
+                                Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. Honorarios cerrados desde {priceText} con IVA y procurador incluidos.
                             </p>
                         </div>
 

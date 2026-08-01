@@ -291,7 +291,7 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
         : `Abogado Especialista en ${service.name} en ${location.name} | Urgencias 24h`);
 
     const summary = lsRow.bluf_summary || `Asistencia legal inmediata y defensa penal de urgencia en comisarías y Juzgados de Guardia de ${location.name} (${courtOfficialName}).`;
-    const description = `${h1Title}. Defensa técnica en comisarías y juzgados de ${location.name} con honorarios cerrados desde ${priceText} todo incluido.`;
+    const description = `${h1Title}. Defensa técnica en comisarías y juzgados de ${location.name} con honorarios cerrados desde ${priceText} con IVA y procurador incluidos.`;
 
     return {
         id: lsRow.id,
