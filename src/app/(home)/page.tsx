@@ -98,36 +98,20 @@ export default async function MarketingPage() {
                         </p>
                     </div>
 
-                    {/* Hero Right Column: Video Facade & Pricing Text */}
+                    {/* Hero Right Column: YouTube Video & Pricing Text */}
                     <div className="md:col-span-5 flex flex-col items-center">
-                        {/* 9:16 Vertical Portrait Photo Container */}
-                        <div className="relative w-full max-w-[280px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-prestige-gold/30 bg-legal-ink group">
-                            <img
-                                src="https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg"
-                                alt="Santiago Giménez Olavarriaga - Abogado Director Autoridad Legal"
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        <div className="relative w-full max-w-md lg:max-w-lg aspect-video rounded-2xl overflow-hidden shadow-2xl border border-prestige-gold/30 bg-slate-950">
+                            <iframe
+                                className="w-full h-full border-0"
+                                src="https://www.youtube.com/embed/DwJMpDn_URY"
+                                title="CITACIÓN A JUICIO RÁPIDO: Cómo defender tu carné y tu empleo - Santiago Giménez Olavarriaga"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
                             />
-                            {/* Overlay Gradient for readability */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex flex-col justify-between p-5 pointer-events-none">
-                                {/* Badge */}
-                                <div className="self-start px-3 py-1 rounded-full bg-red-600/80 backdrop-blur-sm border border-red-500/30 text-white text-[10px] font-bold tracking-widest uppercase animate-pulse">
-                                    Defensa Penal 24h
-                                </div>
-
-                                {/* Info Overlay */}
-                                <div className="space-y-1">
-                                    <p className="text-white font-extrabold text-sm tracking-wide drop-shadow-md">
-                                        Santiago Giménez Olavarriaga
-                                    </p>
-                                    <p className="text-prestige-gold text-xs font-bold drop-shadow">
-                                        Letrado Director ICAB 31389
-                                    </p>
-                                </div>
-                            </div>
                         </div>
 
                         {/* Anchor Text - Closer */}
-                        <p className="mt-4 bg-white/5 border border-prestige-gold/20 p-4 rounded-xl text-center text-sm text-white/95 max-w-[280px] leading-relaxed shadow-lg">
+                        <p className="mt-4 bg-white/5 border border-prestige-gold/20 p-4 rounded-xl text-center text-sm text-white/95 w-full max-w-md lg:max-w-lg leading-relaxed shadow-lg">
                             Defensa Premium desde <strong className="text-prestige-gold text-lg">980€</strong> (IVA y Procurador incluidos). Sistema de pago seguro tipo Booking: el dinero se retiene y solo se libera tras el juicio. Financiación a 12 meses.
                         </p>
                     </div>
