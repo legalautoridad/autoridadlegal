@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getSiloConfig } from '@/lib/silo-config';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
 import { getServiceFaqs, getServiceBySlugFromDb, getServiceJsonLdConfig, normalizeServiceSlug } from '@/lib/db/services';
+import { SERVICES_PRICING, PRICING_ADDONS } from '@/lib/config/pricing';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -47,12 +48,52 @@ export default async function ServicioSlugPage({ params }: PageProps) {
     const dbService = await getServiceBySlugFromDb(normSlug);
     const serviceFaqs = await getServiceFaqs(normSlug);
     const jsonLdConfig = getServiceJsonLdConfig(normSlug);
+    const pricingConfig = SERVICES_PRICING.find(s => s.slug === normSlug);
 
     if (!config) {
         return notFound();
     }
 
     const canonicalUrl = `https://www.autoridad.legal/servicios/${normSlug}`;
+
+    const offersObj: any = {
+        "@type": "Offer",
+        "@id": `${canonicalUrl}#offer`,
+        "url": canonicalUrl,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "EUR",
+        "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": pricingConfig ? pricingConfig.basePrice : jsonLdConfig.price.toFixed(2),
+            "priceCurrency": "EUR",
+            "valueAddedTaxIncluded": true
+        },
+        "offeredBy": {
+            "@type": "Organization",
+            "@id": "https://www.autoridad.legal/#organization"
+        },
+        "seller": {
+            "@type": "Person",
+            "@id": "https://www.gimenezolavarriaga.abogado/#person"
+        }
+    };
+
+    if (pricingConfig && pricingConfig.applicableAddOns.length > 0) {
+        offersObj["addOn"] = pricingConfig.applicableAddOns.map(addOnId => {
+            const addOn = PRICING_ADDONS[addOnId];
+            return {
+                "@type": "Offer",
+                "name": addOn.name,
+                "priceSpecification": {
+                    "@type": "PriceSpecification",
+                    "price": addOn.price,
+                    "priceCurrency": "EUR",
+                    "valueAddedTaxIncluded": true
+                },
+                "description": addOn.description
+            };
+        });
+    }
 
     const jsonLdGraph = {
         "@context": "https://schema.org",
@@ -69,18 +110,10 @@ export default async function ServicioSlugPage({ params }: PageProps) {
                     "name": "Provincia de Barcelona"
                 },
                 "provider": {
+                    "@type": "Organization",
                     "@id": "https://www.autoridad.legal/#organization"
                 },
-                "offers": {
-                    "@type": "Offer",
-                    "availability": "https://schema.org/InStock",
-                    "priceSpecification": {
-                        "@type": "PriceSpecification",
-                        "minPrice": jsonLdConfig.minPrice,
-                        "priceCurrency": "EUR",
-                        "valueAddedTaxIncluded": true
-                    }
-                }
+                "offers": offersObj
             },
             ...(serviceFaqs.length > 0 ? [{
                 "@type": "FAQPage",

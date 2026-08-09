@@ -14,12 +14,12 @@ async function test() {
         const config = getServiceJsonLdConfig(s);
         console.log(`\n--- Evaluando servicio raíz: /${s} ---`);
         console.log('Description:', config.description);
-        console.log('minPrice:', config.minPrice);
+        console.log('price:', config.price);
 
-        if (!config.description.includes('con IVA y procurador incluidos')) {
-            console.error(`❌ ERROR: /${s} no contiene 'con IVA y procurador incluidos'`);
+        if (!config.description.includes('IVA y procurador incluidos')) {
+            console.error(`❌ ERROR: /${s} no contiene 'IVA y procurador incluidos'`);
         } else {
-            console.log(`✅ /${s}: contiene 'con IVA y procurador incluidos'`);
+            console.log(`✅ /${s}: contiene 'IVA y procurador incluidos'`);
         }
     }
 
@@ -27,8 +27,8 @@ async function test() {
     const bcn = await getCoberturaData('alcoholemia', 'barcelona');
     if (bcn) {
         console.log('cobertura.description:', bcn.description);
-        if (bcn.description.includes('con IVA y procurador incluidos')) {
-            console.log('✅ Cobertura Barcelona: descripción alineada con "con IVA y procurador incluidos".');
+        if (bcn.description.includes('IVA y procurador incluidos')) {
+            console.log('✅ Cobertura Barcelona: descripción alineada con "IVA y procurador incluidos".');
         } else {
             console.error('❌ ERROR: cobertura.description no alineada.');
         }
@@ -38,8 +38,8 @@ async function test() {
         console.log('JSON-LD Service.description:', serviceNode.description);
         console.log('JSON-LD Offer.priceSpecification:', JSON.stringify(serviceNode.offers.priceSpecification));
 
-        if (serviceNode.offers.priceSpecification.valueAddedTaxIncluded === true && serviceNode.offers.priceSpecification.minPrice === 980) {
-            console.log('✅ Offer.priceSpecification: minPrice 980, valueAddedTaxIncluded: true');
+        if (serviceNode.offers.priceSpecification.valueAddedTaxIncluded === true && serviceNode.offers.priceSpecification.price === "980.00") {
+            console.log('✅ Offer.priceSpecification: price 980.00, valueAddedTaxIncluded: true');
         } else {
             console.error('❌ ERROR: PriceSpecification mismatch');
         }

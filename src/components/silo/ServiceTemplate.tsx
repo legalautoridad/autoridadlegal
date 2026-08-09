@@ -36,7 +36,7 @@ function toBlufParagraph(primaryText: string, secondaryText?: string): string {
         const fillers = [
             "Analizamos minuciosamente la calibración técnica del dispositivo medidor.",
             "Nuestros abogados penalistas de guardia revisan de inmediato el atestado policial para detectar vicios de forma.",
-            "Garantizamos una defensa técnica de élite para proteger su libertad y su licencia.",
+            "Ofrecemos una defensa técnica de élite para proteger su libertad y su licencia.",
             "Contacte ahora para concertar una consulta de urgencia y recibir asesoramiento personalizado."
         ];
         let result = combined;
@@ -70,7 +70,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
     const okfPuntos = city ? OKFService.getPuntosDeInteres(city) : [];
 
     const isProfesionales = service === 'profesionales';
-    const priceText = isProfesionales ? '1.080 €' : '980 €';
+    const priceText = isProfesionales ? '1.480 €' : '980 €';
 
     // Use DB structured faqs if present, fallback to passed faqs or okfFaqs
     const displayFaqs = (cobertura && cobertura.faqs && cobertura.faqs.length > 0)
@@ -145,7 +145,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                             </h1>
 
                             <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-bold">
-                                Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. Honorarios cerrados desde {priceText} con IVA y procurador incluidos.
+                                Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. Honorarios cerrados de {priceText} con IVA y procurador incluidos.
                             </p>
                         </div>
 

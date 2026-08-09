@@ -40,22 +40,22 @@ async function test() {
     // 2. Offer config check
     const alcoConfig = getServiceJsonLdConfig('alcoholemia');
     console.log('\n--- Configuración /alcoholemia ---');
-    console.log('minPrice type:', typeof alcoConfig.minPrice, 'value:', alcoConfig.minPrice);
+    console.log('price type:', typeof alcoConfig.price, 'value:', alcoConfig.price);
 
-    if (typeof alcoConfig.minPrice !== 'number' || alcoConfig.minPrice !== 980) {
-        console.error('❌ ERROR: minPrice para /alcoholemia debe ser el número 980');
+    if (typeof alcoConfig.price !== 'number' || alcoConfig.price !== 980) {
+        console.error('❌ ERROR: price para /alcoholemia debe ser el número 980');
     } else {
-        console.log('✅ Confirmado: minPrice para /alcoholemia es el número 980.');
+        console.log('✅ Confirmado: price para /alcoholemia es el número 980.');
     }
 
     const profConfig = getServiceJsonLdConfig('profesionales');
     console.log('\n--- Configuración /profesionales ---');
-    console.log('minPrice type:', typeof profConfig.minPrice, 'value:', profConfig.minPrice);
+    console.log('price type:', typeof profConfig.price, 'value:', profConfig.price);
 
-    if (typeof profConfig.minPrice !== 'number' || profConfig.minPrice !== 1080) {
-        console.error('❌ ERROR: minPrice para /profesionales debe ser el número 1080');
+    if (typeof profConfig.price !== 'number' || profConfig.price !== 1480) {
+        console.error('❌ ERROR: price para /profesionales debe ser el número 1480');
     } else {
-        console.log('✅ Confirmado: minPrice para /profesionales es el número 1080.');
+        console.log('✅ Confirmado: price para /profesionales es el número 1480.');
     }
 
     // 3. Verify coverage pages /{servicio}/{municipio} remain unchanged and specific

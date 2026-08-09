@@ -236,7 +236,7 @@ export const SILO_CONFIGS: Record<string, SiloConfig> = {
             title: "¿Qué está en juego para ti?",
             items: [
                 "Pérdida inmediata de tu puesto de trabajo y licencia",
-                "Límites de alcohol más estrictos (0.15 mg/l)",
+                "Límites de alcohol más estrictos (0,15 mg/l)",
                 "Responsabilidad civil y multas de la empresa",
                 "Inhabilitación profesional para conducir",
             ],

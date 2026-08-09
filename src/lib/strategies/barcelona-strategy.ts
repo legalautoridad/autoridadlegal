@@ -18,7 +18,7 @@ export class BarcelonaStrategy implements DefenseStrategy {
     }
 
     getLegalAdvice(): string {
-        return "En Barcelona, si la tasa supera 0.60 mg/l, la fiscalía persigue penalmente de manera rigurosa. Trazamos defensa solicitando el certificado de verificación periódica anual del etilómetro Dräger Alcotest 7110 Evidenzer para comprobar desajustes de calibración mayores al 7.5%.";
+        return "En Barcelona, si la tasa supera 0,60 mg/l, la fiscalía persigue penalmente de manera rigurosa. Trazamos defensa solicitando el certificado de verificación periódica anual del etilómetro Dräger Alcotest 7110 Evidenzer para comprobar desajustes de calibración mayores al 7.5%.";
     }
 
     getEtilometroType(): string {
