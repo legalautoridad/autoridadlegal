@@ -66,7 +66,7 @@ function parseAddressParts(rawAddress: string | null | undefined) {
  */
 export function generateCoberturaJsonLd(cobertura: CoberturaData, canonicalUrl: string) {
     const isProfesionales = cobertura.service.slug === 'profesionales';
-    const price = isProfesionales ? 1080 : 980;
+    const priceStr = isProfesionales ? "1480.00" : "980.00";
 
     const graph: any[] = [];
 
@@ -174,7 +174,7 @@ export function generateCoberturaJsonLd(cobertura: CoberturaData, canonicalUrl: 
         "priceCurrency": "EUR",
         "priceSpecification": {
             "@type": "PriceSpecification",
-            "minPrice": price,
+            "price": priceStr,
             "priceCurrency": "EUR",
             "valueAddedTaxIncluded": true,
         },

@@ -76,7 +76,7 @@ export default async function ServicioSlugPage({ params }: PageProps) {
                     "availability": "https://schema.org/InStock",
                     "priceSpecification": {
                         "@type": "PriceSpecification",
-                        "minPrice": jsonLdConfig.minPrice,
+                        "price": jsonLdConfig.price.toFixed(2),
                         "priceCurrency": "EUR",
                         "valueAddedTaxIncluded": true
                     }

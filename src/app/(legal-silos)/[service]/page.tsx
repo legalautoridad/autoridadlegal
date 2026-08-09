@@ -109,7 +109,7 @@ export default async function ParentServicePage({ params }: PageProps) {
                     "priceCurrency": "EUR",
                     "priceSpecification": {
                         "@type": "PriceSpecification",
-                        "minPrice": jsonLdConfig.minPrice,
+                        "price": jsonLdConfig.price.toFixed(2),
                         "priceCurrency": "EUR",
                         "valueAddedTaxIncluded": true
                     },

@@ -44,7 +44,7 @@ async function test() {
     // 2. Check Service Parent Page JSON-LD graph references
     const alcoConfig = getServiceJsonLdConfig('alcoholemia');
     console.log('\n--- Evaluación Servicio Padre /alcoholemia ---');
-    console.log('Config minPrice:', alcoConfig.minPrice);
+    console.log('Config price:', alcoConfig.price);
 
     console.log('\n✨ RESOLUCIÓN DE REFERENCIAS @id COMPROBADA CON ÉXITO ✨');
 }
