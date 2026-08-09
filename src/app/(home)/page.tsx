@@ -124,7 +124,7 @@ export default async function MarketingPage() {
                     Defensa Premium frente a Juicios Rápidos
                 </h2>
                 <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                    Garantizamos su defensa penal integral por un precio cerrado de 980€ (IVA y procurador incluidos) para el supuesto base. Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados siempre por escrito y por adelantado. Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
+                    Ofrecemos una defensa penal integral por un precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base. Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados siempre por escrito y por adelantado. Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
                 </p>
             </article>
 
@@ -148,7 +148,7 @@ export default async function MarketingPage() {
                         Dirección Jurídica Verificada
                     </h2>
                     <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                        La dirección jurídica de la plataforma está a cargo del letrado Santiago Giménez Olavarriaga, especialista en seguridad vial y alcoholemias. Ejerce la defensa directa ante tribunales penales, coordinando la estrategia procesal y garantizando una asistencia inmediata y presencial de urgencia las veinticuatro horas del día en comisarías.
+                        La dirección jurídica de la plataforma está a cargo del letrado Santiago Giménez Olavarriaga, especialista en seguridad vial y alcoholemias. Ejerce la defensa directa ante tribunales penales, coordinando la estrategia procesal y asegurando una asistencia inmediata y presencial de urgencia las veinticuatro horas del día en comisarías.
                     </p>
 
                     {/* Verified Address & Trust Links */}
