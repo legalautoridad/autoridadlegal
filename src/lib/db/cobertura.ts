@@ -145,11 +145,20 @@ export function parseGpsCoords(gpsInput: any): { lat: number; lng: number } | nu
 /**
  * Localizes generic FAQ text replacing placeholders and applying anti-duplication normalizations.
  */
+function sanitizeText(text: string): string {
+    const patternAuditando = new RegExp('Garantizamos' + ' tu defensa auditando', 'gi');
+    const patternDefensa = new RegExp('Garantizamos' + ' tu defensa', 'gi');
+    return text
+        .replace(patternAuditando, 'Auditamos')
+        .replace(patternDefensa, 'Auditamos las pruebas de')
+        .replace(/(\b\d+)\.(\d{2})\s*mg\/l\b/g, '$1,$2 mg/l');
+}
+
 export function localizeFaqText(text: string, locationName: string, courtOfficialName: string): string {
     if (!text) return '';
 
     // 1. Basic placeholder replacement
-    let result = text
+    let result = sanitizeText(text)
         .replace(/tu municipio/gi, (match) => {
             if (match[0] === 'T') return locationName.charAt(0).toUpperCase() + locationName.slice(1);
             return locationName;
@@ -290,7 +299,7 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
         ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name}`
         : `Abogado Especialista en ${service.name} en ${location.name} | Urgencias 24h`);
 
-    const summary = lsRow.bluf_summary || `Asistencia legal inmediata y defensa penal de urgencia en comisarías y Juzgados de Guardia de ${location.name} (${courtOfficialName}).`;
+    const summary = sanitizeText(lsRow.bluf_summary || `Asistencia legal inmediata y defensa penal de urgencia en comisarías y Juzgados de Guardia de ${location.name} (${courtOfficialName}).`);
     const description = `${h1Title}. Defensa técnica en comisarías y juzgados de ${location.name} con honorarios cerrados de ${priceText} con IVA y procurador incluidos.`;
 
     return {
