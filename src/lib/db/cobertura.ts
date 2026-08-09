@@ -284,14 +284,14 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
         : [];
 
     const isProfesionales = normService === 'profesionales';
-    const priceText = isProfesionales ? '1.080 €' : '980 €';
+    const priceText = isProfesionales ? '1.480 €' : '980 €';
 
     const h1Title = lsRow.h1_headline || (normService === 'alcoholemia'
         ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name}`
         : `Abogado Especialista en ${service.name} en ${location.name} | Urgencias 24h`);
 
     const summary = lsRow.bluf_summary || `Asistencia legal inmediata y defensa penal de urgencia en comisarías y Juzgados de Guardia de ${location.name} (${courtOfficialName}).`;
-    const description = `${h1Title}. Defensa técnica en comisarías y juzgados de ${location.name} con honorarios cerrados desde ${priceText} con IVA y procurador incluidos.`;
+    const description = `${h1Title}. Defensa técnica en comisarías y juzgados de ${location.name} con honorarios cerrados de ${priceText} con IVA y procurador incluidos.`;
 
     return {
         id: lsRow.id,
