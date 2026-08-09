@@ -20,7 +20,7 @@ export const revalidate = 3600; // ISR revalidation for homepage FAQs
 
 export const metadata: Metadata = {
     title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-    description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
+    description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base, abogado de guardia y pago en custodia.",
     alternates: {
         canonical: "https://www.autoridad.legal/",
     },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         url: "https://www.autoridad.legal/",
         siteName: "Autoridad Legal",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-        description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
+        description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base, abogado de guardia y pago en custodia.",
         images: [
             {
                 url: DEFAULT_OG_IMAGE,
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-        description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado desde 980 € (IVA y procurador incluidos), abogado de guardia y pago en custodia.",
+        description: "Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base, abogado de guardia y pago en custodia.",
         images: [DEFAULT_OG_IMAGE],
     },
 };
@@ -59,24 +59,6 @@ export default async function MarketingPage() {
 
     return (
         <main className="min-h-screen bg-surface-ice text-legal-ink font-sans flex flex-col items-center">
-            {/* Page-Specific JSON-LD Schema: FAQPage */}
-            {homepageFaqs.length > 0 && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "FAQPage",
-                            "@id": "https://www.autoridad.legal/#faq",
-                            "mainEntity": homepageFaqs.map(faq => ({
-                                "@type": "Question",
-                                "name": faq.question,
-                                "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
-                            }))
-                        })
-                    }}
-                />
-            )}
 
             {/* HERO SECTION */}
             <section className="w-full bg-trust-navy text-white py-16 md:py-24 border-b border-prestige-gold/20 relative overflow-hidden">
@@ -112,7 +94,7 @@ export default async function MarketingPage() {
 
                         {/* Anchor Text - Closer */}
                         <p className="mt-4 bg-white/5 border border-prestige-gold/20 p-4 rounded-xl text-center text-sm text-white/95 w-full max-w-md lg:max-w-lg leading-relaxed shadow-lg">
-                            Defensa Premium desde <strong className="text-prestige-gold text-lg">980€</strong> (IVA y Procurador incluidos). Sistema de pago seguro tipo Booking: el dinero se retiene y solo se libera tras el juicio. Financiación a 12 meses.
+                            Defensa Premium de <strong className="text-prestige-gold text-lg">980€</strong> para el supuesto base (IVA y Procurador incluidos). Sistema de pago seguro tipo Booking: el dinero se retiene y solo se libera tras el juicio. Financiación a 12 meses.
                         </p>
                     </div>
                 </div>
@@ -142,7 +124,7 @@ export default async function MarketingPage() {
                     Defensa Premium frente a Juicios Rápidos
                 </h2>
                 <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                    Garantizamos su defensa penal integral por un precio cerrado desde 980€, que incluye honorarios de abogado, IVA y procurador. Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
+                    Ofrecemos una defensa penal integral por un precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base. Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados siempre por escrito y por adelantado. Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
                 </p>
             </article>
 
@@ -166,7 +148,7 @@ export default async function MarketingPage() {
                         Dirección Jurídica Verificada
                     </h2>
                     <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                        La dirección jurídica de la plataforma está a cargo del letrado Santiago Giménez Olavarriaga, especialista en seguridad vial y alcoholemias. Ejerce la defensa directa ante tribunales penales, coordinando la estrategia procesal y garantizando una asistencia inmediata y presencial de urgencia las veinticuatro horas del día en comisarías.
+                        La dirección jurídica de la plataforma está a cargo del letrado Santiago Giménez Olavarriaga, especialista en seguridad vial y alcoholemias. Ejerce la defensa directa ante tribunales penales, coordinando la estrategia procesal y asegurando una asistencia inmediata y presencial de urgencia las veinticuatro horas del día en comisarías.
                     </p>
 
                     {/* Verified Address & Trust Links */}

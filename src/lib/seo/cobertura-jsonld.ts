@@ -1,4 +1,6 @@
 import { CoberturaData } from '@/lib/db/cobertura';
+import { SERVICES_PRICING, PRICING_ADDONS } from '@/lib/config/pricing';
+import { normalizeServiceSlug } from '@/lib/db/services';
 
 function getServiceType(serviceSlug: string): string {
     switch (serviceSlug) {
@@ -65,8 +67,9 @@ function parseAddressParts(rawAddress: string | null | undefined) {
  * Generates exact 4-node Schema.org @graph JSON-LD for coverage pages.
  */
 export function generateCoberturaJsonLd(cobertura: CoberturaData, canonicalUrl: string) {
-    const isProfesionales = cobertura.service.slug === 'profesionales';
-    const price = isProfesionales ? 1080 : 980;
+    const normSlug = normalizeServiceSlug(cobertura.service.slug);
+    const pricingConfig = SERVICES_PRICING.find(s => s.slug === normSlug);
+    const priceStr = pricingConfig ? pricingConfig.basePrice : (normSlug === 'profesionales' ? "1480.00" : "980.00");
 
     const graph: any[] = [];
 
@@ -166,15 +169,15 @@ export function generateCoberturaJsonLd(cobertura: CoberturaData, canonicalUrl: 
         graph.push(faqObj);
     }
 
-    // NODO 4 — Service con Offer anidado (precio y entidades canónicas)
-    const nestedOffer = {
+    // NODO 4 — Service con Offer anidado (precio, addOns y entidades canónicas)
+    const nestedOffer: any = {
         "@type": "Offer",
         "@id": `${canonicalUrl}#offer`,
         "url": canonicalUrl,
         "priceCurrency": "EUR",
         "priceSpecification": {
             "@type": "PriceSpecification",
-            "minPrice": price,
+            "price": priceStr,
             "priceCurrency": "EUR",
             "valueAddedTaxIncluded": true,
         },
@@ -187,6 +190,23 @@ export function generateCoberturaJsonLd(cobertura: CoberturaData, canonicalUrl: 
             "@id": "https://www.gimenezolavarriaga.abogado/#person",
         },
     };
+
+    if (pricingConfig && pricingConfig.applicableAddOns.length > 0) {
+        nestedOffer["addOn"] = pricingConfig.applicableAddOns.map(addOnId => {
+            const addOn = PRICING_ADDONS[addOnId];
+            return {
+                "@type": "Offer",
+                "name": addOn.name,
+                "priceSpecification": {
+                    "@type": "PriceSpecification",
+                    "price": addOn.price,
+                    "priceCurrency": "EUR",
+                    "valueAddedTaxIncluded": true
+                },
+                "description": addOn.description
+            };
+        });
+    }
 
     const serviceObj = {
         "@type": "Service",

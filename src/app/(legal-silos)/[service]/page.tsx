@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getSiloConfig } from '@/lib/silo-config';
 import ServiceTemplate from '@/components/silo/ServiceTemplate';
 import { getServiceFaqs, getServiceBySlugFromDb, getServiceJsonLdConfig, normalizeServiceSlug } from '@/lib/db/services';
+import { SERVICES_PRICING, PRICING_ADDONS } from '@/lib/config/pricing';
 import { DEFAULT_OG_IMAGE } from '@/lib/config';
 
 interface PageProps {
@@ -43,7 +44,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             siteName: 'Autoridad Legal',
             locale: 'es_ES',
             type: 'article',
-            // Default sitewide share image (1200x630). Override per service here if dedicated assets are added (e.g. `https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/og/${normSlug}.jpg`)
             images: [
                 {
                     url: DEFAULT_OG_IMAGE,
@@ -75,12 +75,52 @@ export default async function ParentServicePage({ params }: PageProps) {
     const dbService = await getServiceBySlugFromDb(normSlug);
     const serviceFaqs = await getServiceFaqs(normSlug);
     const jsonLdConfig = getServiceJsonLdConfig(normSlug);
+    const pricingConfig = SERVICES_PRICING.find(s => s.slug === normSlug);
 
     if (!config) {
         return notFound();
     }
 
     const canonicalUrl = `https://www.autoridad.legal/${normSlug}`;
+
+    const offersObj: any = {
+        "@type": "Offer",
+        "@id": `${canonicalUrl}#offer`,
+        "url": canonicalUrl,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "EUR",
+        "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": pricingConfig ? pricingConfig.basePrice : jsonLdConfig.price.toFixed(2),
+            "priceCurrency": "EUR",
+            "valueAddedTaxIncluded": true
+        },
+        "offeredBy": {
+            "@type": "Organization",
+            "@id": "https://www.autoridad.legal/#organization"
+        },
+        "seller": {
+            "@type": "Person",
+            "@id": "https://www.gimenezolavarriaga.abogado/#person"
+        }
+    };
+
+    if (pricingConfig && pricingConfig.applicableAddOns.length > 0) {
+        offersObj["addOn"] = pricingConfig.applicableAddOns.map(addOnId => {
+            const addOn = PRICING_ADDONS[addOnId];
+            return {
+                "@type": "Offer",
+                "name": addOn.name,
+                "priceSpecification": {
+                    "@type": "PriceSpecification",
+                    "price": addOn.price,
+                    "priceCurrency": "EUR",
+                    "valueAddedTaxIncluded": true
+                },
+                "description": addOn.description
+            };
+        });
+    }
 
     // Schema.org Service + FAQPage Graph (Unified Offer pattern matching coverage pages)
     const jsonLdGraph = {
@@ -101,27 +141,7 @@ export default async function ParentServicePage({ params }: PageProps) {
                     "@type": "Organization",
                     "@id": "https://www.autoridad.legal/#organization"
                 },
-                "offers": {
-                    "@type": "Offer",
-                    "@id": `${canonicalUrl}#offer`,
-                    "url": canonicalUrl,
-                    "availability": "https://schema.org/InStock",
-                    "priceCurrency": "EUR",
-                    "priceSpecification": {
-                        "@type": "PriceSpecification",
-                        "minPrice": jsonLdConfig.minPrice,
-                        "priceCurrency": "EUR",
-                        "valueAddedTaxIncluded": true
-                    },
-                    "offeredBy": {
-                        "@type": "Organization",
-                        "@id": "https://www.autoridad.legal/#organization"
-                    },
-                    "seller": {
-                        "@type": "Person",
-                        "@id": "https://www.gimenezolavarriaga.abogado/#person"
-                    }
-                }
+                "offers": offersObj
             },
             ...(serviceFaqs.length > 0 ? [{
                 "@type": "FAQPage",

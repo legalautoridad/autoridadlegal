@@ -28,7 +28,7 @@ export function DynamicCtaObserver() {
             return {
                 badge: "ANÁLISIS DE SINTOMATOLOGÍA",
                 title: "Tasa por debajo del límite de alcohol reglamentario",
-                description: `Aunque diste ${level.toFixed(2)} mg/l, si eres conductor profesional (límite 0.15 mg/l), novel (límite 0.15 mg/l), o si los agentes reportan síntomas de embriaguez en el atestado, te expones a consecuencias penales en ${targetLocation}.`,
+                description: `Aunque diste ${level.toFixed(2).replace('.', ',')} mg/l, si eres conductor profesional (límite 0,15 mg/l), novel (límite 0,15 mg/l), o si los agentes reportan síntomas de embriaguez en el atestado, te expones a consecuencias penales en ${targetLocation}.`,
                 buttonText: "Consultar Sintomatología Gratis",
                 buttonHref: `tel:${PHONE_E164}`,
                 alertText: "Aviso: El acta de signos sintomatológicos puede contradecir la tasa objetiva del etilómetro.",
@@ -42,7 +42,7 @@ export function DynamicCtaObserver() {
             return {
                 badge: "INFRACCIÓN ADMINISTRATIVA",
                 title: `Expediente Sancionador en ${targetLocation}`,
-                description: `Con ${level.toFixed(2)} mg/l te expones a una multa de hasta 1.000€ y una suspensión del carné de conducir de 3 a 6 meses con pérdida de 4 a 6 puntos. Analizamos posibles defectos de calibración de los alcoholímetros para anular la sanción.`,
+                description: `Con ${level.toFixed(2).replace('.', ',')} mg/l te expones a una multa de hasta 1.000€ y una suspensión del carné de conducir de 3 a 6 meses con pérdida de 4 a 6 puntos. Analizamos posibles defectos de calibración de los alcoholímetros para anular la sanción.`,
                 buttonText: "Recurrir Multa de Tráfico",
                 buttonHref: `tel:${PHONE_E164}`,
                 alertText: "Importante: Evita la pérdida inmediata de puntos del carné. Solicita asistencia de urgencia.",
@@ -56,7 +56,7 @@ export function DynamicCtaObserver() {
         return {
             badge: "URGENCIA PENAL DELITO 379.2 CP",
             title: `Citación para Juicio Rápido por Alcoholemia en ${targetLocation}`,
-            description: `Superar 0.60 mg/l es delito penal en España. Afrontas penas de prisión de 3 a 6 meses, trabajos comunitarios y retirada obligatoria del carné de 1 a 4 años. Te citarán en breve en el Juzgado de Guardia de ${targetLocation}.`,
+            description: `Superar 0,60 mg/l es delito penal en España. Afrontas penas de prisión de 3 a 6 meses, trabajos comunitarios y retirada obligatoria del carné de 1 a 4 años. Te citarán en breve en el Juzgado de Guardia de ${targetLocation}.`,
             buttonText: "⚡ CONTRATAR DEFENSA PENAL - 980€",
             buttonHref: "#contacto",
             alertText: "⚠️ RECOMENDACIÓN CRÍTICA: La ley exige comparecer con abogado. Si conformas con nuestro abogado penalista, reducimos la condena y la retirada de carné en un 33% automáticamente (Art. 801 LECrim).",
