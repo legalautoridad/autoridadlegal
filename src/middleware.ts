@@ -4,6 +4,11 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
+    // 301 Permanent Redirect for legacy honorarios slug
+    if (pathname === '/precio-honorarios-financiacion') {
+        return NextResponse.redirect(new URL('/honorarios', request.url), 301);
+    }
+
     // Handle raw markdown requests for glossary terms: /glosario/[slug].md
     if (pathname.startsWith('/glosario/') && pathname.endsWith('.md')) {
         const slug = pathname.replace('/glosario/', '').replace(/\.md$/, '');

@@ -32,6 +32,7 @@ export function Footer() {
                             <li><Link href="/sin-carnet" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Conducir Sin Carnet</Link></li>
                             <li><Link href="/velocidad" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Delito de Velocidad</Link></li>
                             <li><Link href="/profesionales" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-bold text-prestige-gold">Conductores Profesionales</Link></li>
+                            <li><Link href="/honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Honorarios y Precios</Link></li>
                             <li><Link href="/glosario" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Glosario Jurídico</Link></li>
                         </ul>
                     </div>

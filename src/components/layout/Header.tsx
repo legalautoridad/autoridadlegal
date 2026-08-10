@@ -15,7 +15,7 @@ export function Header() {
                 <Link href="/" className="group" onClick={() => setIsOpen(false)}>
                     <Logo size="lg" theme="light" />
                 </Link>
- 
+
                 <div className="flex items-center gap-2 sm:gap-3 lg:gap-6">
                     {/* Desktop Nav */}
                     <nav className="hidden lg:flex items-center gap-6 text-sm font-label-md text-on-surface-variant">
@@ -24,6 +24,7 @@ export function Header() {
                         <Link href="/sin-carnet" className="hover:text-prestige-gold transition-colors font-medium">Sin Carnet</Link>
                         <Link href="/velocidad" className="hover:text-prestige-gold transition-colors font-medium">Velocidad</Link>
                         <Link href="/profesionales" className="hover:text-prestige-gold transition-colors font-semibold text-trust-navy">Profesionales</Link>
+                        <Link href="/honorarios" className="hover:text-prestige-gold transition-colors font-medium">Honorarios</Link>
                         <Link href="/glosario" className="hover:text-prestige-gold transition-colors font-medium">Glosario</Link>
                     </nav>
 
@@ -76,6 +77,13 @@ export function Header() {
                             onClick={() => setIsOpen(false)}
                         >
                             Profesionales
+                        </Link>
+                        <Link 
+                            href="/honorarios" 
+                            className="hover:text-prestige-gold transition-colors font-semibold py-3 px-4 rounded-xl hover:bg-slate-50 block"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Honorarios
                         </Link>
                         <Link 
                             href="/glosario" 
