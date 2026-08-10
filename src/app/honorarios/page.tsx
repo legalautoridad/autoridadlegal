@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { PHONE_E164 } from '@/lib/config';
+import { PHONE_E164, DEFAULT_OG_IMAGE } from '@/lib/config';
 import { getHonorariosPageJsonLd } from '@/lib/seo/home-jsonld';
 import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, CreditCard, FileText, Phone, Award, Scale } from 'lucide-react';
 
@@ -15,6 +15,20 @@ export const metadata: Metadata = {
         description: 'Transparencia absoluta en honorarios para juicios rápidos por alcoholemia, drogas, velocidad, sin carné y conductores profesionales en la provincia de Barcelona.',
         url: 'https://www.autoridad.legal/honorarios',
         type: 'website',
+        images: [
+            {
+                url: DEFAULT_OG_IMAGE,
+                width: 1200,
+                height: 630,
+                alt: 'Autoridad Legal — Precio y honorarios',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Precio, honorarios y financiación | Autoridad Legal',
+        description: 'Transparencia absoluta en honorarios para juicios rápidos por alcoholemia, drogas, velocidad, sin carné y conductores profesionales en la provincia de Barcelona.',
+        images: [DEFAULT_OG_IMAGE],
     },
 };
 
@@ -501,7 +515,7 @@ export default function HonorariosPage() {
                         <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
                             Contacta de inmediato con la dirección jurídica de Autoridad Legal para fiscalizar tu atestado y concertar tu hoja de encargo con honorarios cerrados.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <div className="flex justify-center items-center">
                             <a
                                 href={`tel:${PHONE_E164}`}
                                 className="inline-flex items-center gap-3 bg-prestige-gold hover:bg-amber-400 text-trust-navy font-black py-4 px-8 rounded-xl shadow-lg shadow-prestige-gold/20 transition-all text-base"
@@ -509,12 +523,6 @@ export default function HonorariosPage() {
                                 <Phone className="w-5 h-5 fill-current" />
                                 Llamar a Guardia 24h (+34 605 118 871)
                             </a>
-                            <Link
-                                href="/#contacto"
-                                className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 px-8 rounded-xl border border-white/10 transition-all text-base"
-                            >
-                                Solicitar Asistencia por Escrito
-                            </Link>
                         </div>
                     </section>
 
