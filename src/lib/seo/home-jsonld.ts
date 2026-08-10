@@ -82,6 +82,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             ],
             'hasOfferCatalog': {
                 '@type': 'OfferCatalog',
+                '@id': 'https://www.autoridad.legal/#honorarios',
                 'name': 'Catálogo de Honorarios Cerrados — Defensa en Seguridad Vial',
                 'itemListElement': SERVICES_PRICING.map(svc => ({
                     '@type': 'Offer',
@@ -263,3 +264,104 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
         '@graph': graphNodes
     };
 }
+
+export function getHonorariosPageJsonLd() {
+    return {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebPage',
+                '@id': 'https://www.autoridad.legal/honorarios#webpage',
+                'url': 'https://www.autoridad.legal/honorarios',
+                'name': 'Precio, honorarios y financiación | Autoridad Legal',
+                'description': 'Información sobre el modelo de honorarios cerrados, tarifas base de 980 € y 1.480 €, suplementos aplicables, desglose de IVA y modalidades de financiación para la defensa penal en juicios rápidos.',
+                'inLanguage': 'es',
+                'dateModified': '2026-08-10T09:00:00+02:00',
+                'about': {
+                    '@id': 'https://www.autoridad.legal/#organization'
+                },
+                'publisher': {
+                    '@id': 'https://www.autoridad.legal/#organization'
+                },
+                'mainEntity': {
+                    '@id': 'https://www.autoridad.legal/#honorarios'
+                }
+            },
+            {
+                '@type': 'BreadcrumbList',
+                '@id': 'https://www.autoridad.legal/honorarios#breadcrumb',
+                'itemListElement': [
+                    {
+                        '@type': 'ListItem',
+                        'position': 1,
+                        'name': 'Inicio',
+                        'item': 'https://www.autoridad.legal/'
+                    },
+                    {
+                        '@type': 'ListItem',
+                        'position': 2,
+                        'name': 'Honorarios',
+                        'item': 'https://www.autoridad.legal/honorarios'
+                    }
+                ]
+            },
+            {
+                '@type': 'OfferCatalog',
+                '@id': 'https://www.autoridad.legal/#honorarios',
+                'name': 'Catálogo de Honorarios Cerrados — Defensa en Seguridad Vial',
+                'itemListElement': SERVICES_PRICING.map(svc => ({
+                    '@type': 'Offer',
+                    'name': svc.offerName,
+                    'url': svc.url,
+                    'availability': 'https://schema.org/InStock',
+                    'priceSpecification': {
+                        '@type': 'PriceSpecification',
+                        'price': svc.basePrice,
+                        'priceCurrency': 'EUR',
+                        'valueAddedTaxIncluded': true
+                    },
+                    'acceptedPaymentMethod': [
+                        {
+                            '@type': 'PaymentMethod',
+                            'name': 'Financiación externa (Klarna/Stripe), sujeta a aprobación bancaria'
+                        },
+                        {
+                            '@type': 'PaymentMethod',
+                            'name': 'Sistema de Facilidades de Pago Híbrido Flex 60/40 de Autoridad Legal'
+                        }
+                    ],
+                    'itemOffered': {
+                        '@type': 'Service',
+                        'name': svc.serviceName,
+                        'serviceType': svc.serviceType,
+                        'url': svc.url
+                    },
+                    'description': svc.description,
+                    'addOn': svc.applicableAddOns.map(addOnId => {
+                        const addOn = PRICING_ADDONS[addOnId];
+                        return {
+                            '@type': 'Offer',
+                            'name': addOn.name,
+                            'priceSpecification': {
+                                '@type': 'PriceSpecification',
+                                'price': addOn.price,
+                                'priceCurrency': 'EUR',
+                                'valueAddedTaxIncluded': true
+                            },
+                            'description': addOn.description
+                        };
+                    })
+                }))
+            },
+            {
+                '@type': 'Organization',
+                '@id': 'https://www.autoridad.legal/#organization'
+            },
+            {
+                '@type': 'Person',
+                '@id': 'https://www.gimenezolavarriaga.abogado/#person'
+            }
+        ]
+    };
+}
+
