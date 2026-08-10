@@ -15,6 +15,15 @@ const nextConfig: NextConfig = {
     ],
   },
   devIndicators: false,
+  async redirects() {
+    return [
+      {
+        source: '/precio-honorarios-financiacion',
+        destination: '/honorarios',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
