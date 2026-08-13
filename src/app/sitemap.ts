@@ -136,7 +136,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
 
         const citySlug = (row.locations as any)?.slug;
-        if (!citySlug || !TARGET_MUNICIPIOS.includes(citySlug)) {
+        if (!citySlug) {
             return;
         }
 

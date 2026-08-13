@@ -204,7 +204,7 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
     const normService = normalizeServiceSlug(serviceSlug);
     const normCity = (citySlug || '').toLowerCase().trim();
 
-    if (!VALID_SERVICES.includes(normService) || !TARGET_MUNICIPIOS.includes(normCity)) {
+    if (!VALID_SERVICES.includes(normService)) {
         return null;
     }
 
@@ -345,7 +345,7 @@ export async function getLiveCoberturaParams() {
         const citySlug = loc?.slug;
         const courtId = loc?.court_id;
 
-        if (!citySlug || !courtId || !TARGET_MUNICIPIOS.includes(citySlug)) {
+        if (!citySlug || !courtId) {
             return;
         }
 
