@@ -36,7 +36,7 @@ export default function SantiagoGimenezPage() {
         '@context': 'https://schema.org',
         '@graph': [
             {
-                '@type': ['Person', 'Attorney'],
+                '@type': 'Person',
                 '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person',
                 'name': 'Santiago Giménez Olavarriaga',
                 'givenName': 'Santiago',
@@ -48,9 +48,8 @@ export default function SantiagoGimenezPage() {
                 'email': 'contacto@autoridad.legal',
                 'image': 'https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg',
                 'worksFor': {
-                    '@type': 'LegalService',
-                    'name': 'Autoridad Legal',
-                    'url': 'https://www.autoridad.legal',
+                    '@type': 'Organization',
+                    '@id': 'https://www.autoridad.legal/#organization',
                 },
                 'memberOf': {
                     '@type': 'Organization',
