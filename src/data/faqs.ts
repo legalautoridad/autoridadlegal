@@ -8,10 +8,10 @@ export type FAQ = {
 export const FAQS: FAQ[] = [
     // --- ALCOHOLEMIAS ---
     {
-        question: "¿Cuál es la tasa de alcoholemia permitida en 2025?",
+        question: "¿Cuál es la tasa de alcoholemia permitida en 2026?",
         answer: "<strong>General:</strong> Se reduce de 0,5 a 0,2 g/l en sangre (0,10 mg/l en aire). <br/><strong>Noveles y Profesionales:</strong> Límite unificado de 0,2 g/l en sangre.",
         category: 'alcoholemia',
-        keywords: ['tasa alcoholemia', '2025', '0,2 g/l']
+        keywords: ['tasa alcoholemia', '2026', '0,2 g/l']
     },
     {
         question: "¿Cuándo se considera que la alcoholemia es un delito penal?",
@@ -68,7 +68,7 @@ export const FAQS: FAQ[] = [
         keywords: ['abogado especialista', 'precio', 'errores etilómetro']
     },
     {
-        question: "¿Cuál es el margen de error de los etilómetros en 2025?",
+        question: "¿Cuál es el margen de error de los etilómetros en 2026?",
         answer: "Los etilómetros de precisión deben cumplir con márgenes de error establecidos (generalmente un 5% o un 7,5% según la antigüedad del aparato). Si el resultado es muy cercano al límite penal (ej. 0,61 o 0,62 mg/l), un abogado puede impugnar el resultado aplicando el margen de error a favor del reo para reducir la condena de delito a falta administrativa.",
         category: 'alcoholemia',
         keywords: ['margen error', 'etilómetro', 'impugnar']
@@ -197,7 +197,7 @@ export const FAQS: FAQ[] = [
     },
     {
         question: "¿Qué es el latigazo cervical y qué indemnización le corresponde?",
-        answer: "Es la lesión más común (esguince cervical). Su indemnización depende de la duración del tratamiento y las secuelas, generalmente oscilando entre los 1.500 € y 6.000 € según el Baremo 2025.",
+        answer: "Es la lesión más común (esguince cervical). Su indemnización depende de la duración del tratamiento y las secuelas, generalmente oscilando entre los 1.500 € y 6.000 € según el Baremo 2026.",
         category: 'accidentes',
         keywords: ['latigazo cervical', 'indemnización', 'esguince']
     },
@@ -427,9 +427,9 @@ export const FAQS: FAQ[] = [
         keywords: ['prescripción legítima', '10 años', 'cataluña']
     },
     {
-        question: "¿Cómo tributa el Impuesto de Sucesiones en Cataluña en 2025?",
+        question: "¿Cómo tributa el Impuesto de Sucesiones en Cataluña en 2026?",
         answer: "Cataluña aplica sus propias tarifas y bonificaciones. Para descendientes directos (Grupo I y II), existen bonificaciones decrecientes que pueden llegar hasta el 99% en cuotas bajas, pero que se reducen conforme aumenta la base imponible. Es vital consultar las tablas actualizadas de la Agència Tributària de Catalunya.",
         category: 'herencias',
-        keywords: ['impuesto sucesiones 2025', 'cataluña', 'bonificaciones']
+        keywords: ['impuesto sucesiones 2026', 'cataluña', 'bonificaciones']
     }
 ];

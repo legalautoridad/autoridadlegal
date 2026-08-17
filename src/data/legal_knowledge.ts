@@ -89,7 +89,7 @@ export const LEGAL_KNOWLEDGE: LegalEntry[] = [
         "type": "ATOMIC_FACT",
         "category": "Costas Procesales",
         "question": "Costas y gastos en el proceso de alcoholemia",
-        "content": "El condenado suele ser cargado con las costas procesales. Los gastos de la tasación pericial (análisis de sangre de contraste) son del interesado si el resultado es positivo; si es negativo, corren a cargo de la Administración. Los honorarios de abogado privado oscilan entre 600€ y 1.800€ para casos estándar en 2025.",
+        "content": "El condenado suele ser cargado con las costas procesales. Los gastos de la tasación pericial (análisis de sangre de contraste) son del interesado si el resultado es positivo; si es negativo, corren a cargo de la Administración. Los honorarios de abogado privado oscilan entre 600€ y 1.800€ para casos estándar en 2026.",
         "source": "Pasajes"
     },
     {
@@ -231,8 +231,8 @@ export const LEGAL_KNOWLEDGE: LegalEntry[] = [
         "type": "FAQ",
         "category": "Costas y Recursos",
         "question": "¿Cuánto cuesta recurrir una sentencia de alcoholemia ante la Audiencia?",
-        "content": "Un recurso de apelación en 2025 tiene un coste adicional de honorarios profesionales que oscila entre los 500€ y 800€. Si el caso llega excepcionalmente al recurso de casación ante el Tribunal Supremo, los honorarios pueden subir entre 1.200€ y 2.000€.",
-        "source": "Benchmarks Honorarios 2025, Pasajes"
+        "content": "Un recurso de apelación en 2026 tiene un coste adicional de honorarios profesionales que oscila entre los 500€ y 800€. Si el caso llega excepcionalmente al recurso de casación ante el Tribunal Supremo, los honorarios pueden subir entre 1.200€ y 2.000€.",
+        "source": "Benchmarks Honorarios 2026, Pasajes"
     },
     {
         "type": "FAQ",
