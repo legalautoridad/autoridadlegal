@@ -7,6 +7,7 @@ dotenv.config({ path: path.join(__dirname, '../.env.local') });
 
 import { getLocations } from '../src/lib/db/locations';
 import { getAllGlosarioTerms } from '../src/lib/db/glosario';
+import { SERVICES_PRICING, PRICING_ADDONS } from '../src/lib/config/pricing';
 import { DefenseStrategySelector } from '../src/lib/strategies/strategy-selector';
 
 async function generateLlmsTxt() {
@@ -21,11 +22,23 @@ async function generateLlmsTxt() {
     text += `Autoridad Legal es una plataforma de servicios jurídicos de alta especialización en defensa penal por delitos de alcoholemia, drogas, conducción sin carnet, exceso de velocidad y juicios rápidos en la provincia de Barcelona y Cataluña.\n`;
     text += `La dirección jurídica está a cargo de Santiago Giménez Olavarriaga, Abogado Colegiado del Ilustre Colegio de la Abogacía de Barcelona (ICAB 31.389).\n\n`;
 
-    text += `## Tarifas y Condiciones Transaccionales\n`;
-    text += `- **Precio Cerrado**: 980€ (IVA y Procurador incluidos).\n`;
-    text += `- **Sistema de Custodia Segura**: El pago se retiene de forma segura y solo se libera al abogado tras la realización del juicio rápido.\n`;
-    text += `- **Financiación**: Pago aplazado y fraccionado de hasta 12 meses.\n`;
-    text += `- **Atención Urgente 24/7**: Asistencia inmediata en comisarías y juzgados de guardia en toda Cataluña.\n\n`;
+    text += `## Tarifas y Modelo de Honorarios (Fuente de Verdad: /honorarios)\n\n`;
+    text += `### Precios Base por Servicio (Precio cerrado para el supuesto base, IVA 21% y Procurador incluidos)\n`;
+    text += `- **Servicios Base (Alcoholemia, Drogas al volante, Exceso de velocidad, Conducir sin carné)**: **980 €** (Base imponible: 809,92 € + IVA 21%: 170,08 € = 980,00 €). Aplica a primer delito con conformidad en juicio rápido.\n`;
+    text += `- **Conductores Profesionales (Permisos C, D, E)**: **1.480 €** (Base imponible: 1.223,14 € + IVA 21%: 256,86 € = 1.480,00 €). Incluye la defensa específica para la conservación del Certificado de Aptitud Profesional (CAP) y la vigencia de la tarjeta de tacógrafo digital.\n\n`;
+
+    text += `### Suplementos Tasados (Recargos fijos con IVA incluido aplicables según circunstancias procesales)\n`;
+    text += `- **Reincidencia penal o antecedentes de tráfico**: +200 € (aplicable a los 5 servicios).\n`;
+    text += `- **Procedimiento sin conformidad (defensa en juicio ordinario posterior)**: +300 € (aplicable a los 4 servicios base; N/A en Conductores Profesionales).\n`;
+    text += `- **Antecedentes con riesgo de prisión efectiva (multirreincidencia)**: +300 € (aplicable a los 5 servicios).\n`;
+    text += `- **Asistencia letrada al detenido (urgencia in situ en comisaría o juzgado de guardia)**: +500 € (aplicable a los 5 servicios).\n`;
+    text += `- **Accidentes, daños materiales a terceros, lesiones o reclamaciones civiles**: Presupuesto específico asignado por escrito tras valoración previa del atestado.\n\n`;
+
+    text += `### Política de Transparencia y Condiciones Transaccionales\n`;
+    text += `- **Transparencia Absoluta**: Se prohíbe el uso de términos engañosos como "desde", "minPrice", "a partir de" o "tarifa plana". El precio base es un **precio cerrado para el supuesto base** fijado por escrito en la Hoja de Encargo antes de la contratación.\n`;
+    text += `- **Sistema de Custodia Segura (Escrow)**: El pago se retiene de forma segura y solo se libera al abogado tras la realización del servicio en el juzgado.\n`;
+    text += `- **Modalidades de Pago**: Pago íntegro directo, facilidades de pago híbridas 60/40 o financiación fraccionada de hasta 12 meses (Klarna/Stripe).\n`;
+    text += `- **Atención Urgente 24/7**: Asistencia inmediata presencial en comisarías y juzgados de guardia en toda Cataluña.\n\n`;
 
     text += `## Enlaces de Destino y Triaje\n`;
     text += `- **Triaje Urgente y Chat 24h**: https://wa.me/34657420999?text=Hola%20Autoridad%20Legal,%20necesito%20un%20abogado%20de%20urgencia%20por%20un%20delito%20de%20alcoholemia.\n`;

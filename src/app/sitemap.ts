@@ -101,6 +101,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'yearly',
             priority: 0.3,
         },
+        // Author / E-E-A-T Profile Page
+        {
+            url: `${BASE_URL}/abogados/santiago-gimenez-olavarriaga`,
+            lastModified: now,
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
     ];
 
     // 2. Dynamic Glossary Term Pages (ONLY ACTIVE status from Supabase)
@@ -122,13 +129,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         })
         .sort((a, b) => a.url.localeCompare(b.url));
 
-    // 3. Dynamic Cobertura Pages (ONLY web_published = true & in TARGET_MUNICIPIOS)
+    // 3. Dynamic Cobertura Pages (5 Specialties x 129 Municipios = 645 URLs)
     const { data: coberturaRows } = await supabase
         .from('location_services')
         .select('service, location_id, web_published, updated_at, created_at, locations(slug)')
         .eq('web_published', true);
 
-    const coberturaPagesMap = new Map<string, MetadataRoute.Sitemap[number]>();
+    const timestampMap = new Map<string, Date>();
+    const alcoholemiaMunicipiosSet = new Set<string>();
 
     (coberturaRows || []).forEach(row => {
         if (!row.web_published) {
@@ -141,21 +149,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
 
         const rawService = (row.service || '').toLowerCase().replace(/_/g, '-');
-        if (!VALID_SERVICES.includes(rawService)) {
-            return;
-        }
-
-        const url = `${BASE_URL}/${rawService}/${citySlug}`;
         const timestamp = row.updated_at || row.created_at;
+        const dateVal = timestamp ? new Date(timestamp) : now;
 
-        if (!coberturaPagesMap.has(url)) {
+        timestampMap.set(`${rawService}:${citySlug}`, dateVal);
+
+        if (rawService === 'alcoholemia') {
+            alcoholemiaMunicipiosSet.add(citySlug);
+        }
+    });
+
+    // Reference list of 129 canonical municipios from alcoholemia
+    const municipiosList = Array.from(alcoholemiaMunicipiosSet).sort((a, b) => a.localeCompare(b));
+
+    const coberturaPagesMap = new Map<string, MetadataRoute.Sitemap[number]>();
+
+    VALID_SERVICES.forEach(service => {
+        municipiosList.forEach(citySlug => {
+            const url = `${BASE_URL}/${service}/${citySlug}`;
+            const lastMod =
+                timestampMap.get(`${service}:${citySlug}`) ||
+                timestampMap.get(`alcoholemia:${citySlug}`) ||
+                now;
+
             coberturaPagesMap.set(url, {
                 url,
-                lastModified: timestamp ? new Date(timestamp) : now,
+                lastModified: lastMod,
                 changeFrequency: 'monthly',
                 priority: 0.7,
             });
-        }
+        });
     });
 
     const coberturaPages = Array.from(coberturaPagesMap.values()).sort((a, b) =>

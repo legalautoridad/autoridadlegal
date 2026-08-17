@@ -8,6 +8,7 @@ dotenv.config({ path: path.join(__dirname, '../.env.local') });
 import { getLocations } from '../src/lib/db/locations';
 import { getAllGlosarioTerms } from '../src/lib/db/glosario';
 import { DefenseStrategySelector } from '../src/lib/strategies/strategy-selector';
+import { SERVICES_PRICING, PRICING_ADDONS } from '../src/lib/config/pricing';
 
 async function generateEntityMap() {
     console.log('🚀 Generating Entity Map (entitymap.json & entitymap.html)...');
@@ -49,7 +50,7 @@ async function generateEntityMap() {
     // 1. Build entitymap.json
     const entityMapJson = {
         "$schema": "https://schema.org",
-        "version": "1.1.0",
+        "version": "1.2.0",
         "generatedAt": new Date().toISOString(),
         "organization": {
             "@type": "LegalService",
@@ -58,9 +59,9 @@ async function generateEntityMap() {
             "url": baseUrl,
             "logo": `${baseUrl}/images/logo-transparent.png`,
             "telephone": "+34605118871",
-            "email": "contacto@autoridadlegal.com",
+            "email": "contacto@autoridad.legal",
             "areaServed": "Cataluña, España",
-            "priceRange": "980€",
+            "priceRange": "980€–1480€",
             "sameAs": [
                 "https://www.linkedin.com/company/autoridad-legal/",
                 "https://www.facebook.com/AutoridadLegal/",
@@ -76,20 +77,59 @@ async function generateEntityMap() {
                 "college": "Ilustre Colegio de la Abogacía de Barcelona (ICAB)",
                 "url": `${baseUrl}/abogados/santiago-gimenez-olavarriaga`
             },
-            "pricingTerms": {
-                "amount": 980,
-                "currency": "EUR",
+            "offers": SERVICES_PRICING.map(s => ({
+                "@type": "Offer",
+                "name": s.offerName,
+                "url": s.url,
+                "price": parseFloat(s.basePrice),
+                "priceCurrency": "EUR",
+                "valueAddedTaxIncluded": true,
+                "procuratorIncluded": true,
+                "description": s.description,
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": s.serviceName,
+                    "serviceType": s.serviceType,
+                    "url": s.url
+                },
+                "addOn": s.applicableAddOns.map(addOnId => {
+                    const addOn = PRICING_ADDONS[addOnId];
+                    return {
+                        "@type": "Offer",
+                        "name": addOn.name,
+                        "priceSpecification": {
+                            "@type": "PriceSpecification",
+                            "price": parseFloat(addOn.price),
+                            "priceCurrency": "EUR",
+                            "valueAddedTaxIncluded": true
+                        },
+                        "description": addOn.description
+                    };
+                })
+            })),
+            "pricingPolicy": {
+                "basePricing": "980 € (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.480 € (Conductores Profesionales C, D, E)",
                 "taxIncluded": true,
                 "procuratorIncluded": true,
                 "paymentModel": "Custodia Segura (Escrow)",
-                "financing": "Financiación hasta 12 meses"
+                "financing": "Financiación hasta 12 meses o Modalidad Híbrida 60/40",
+                "transparencyRule": "Precio cerrado para el supuesto base formalizado por escrito en Hoja de Encargo antes de la contratación."
             }
         },
         "services": services.map(s => ({
             "id": s.id,
             "name": s.name,
             "description": s.description,
-            "url": `${baseUrl}/${s.id}`
+            "url": `${baseUrl}/${s.id}`,
+            "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Provincia de Barcelona y Cataluña",
+                "containsPlace": locations.map(loc => ({
+                    "@type": "City",
+                    "name": loc.name,
+                    "url": `${baseUrl}/${s.id}/${loc.slug}`
+                }))
+            }
         })),
         "definedTermsCount": glossaryTerms.length,
         "definedTerms": glossaryTerms.map(t => ({
@@ -207,7 +247,7 @@ async function generateEntityMap() {
                         <li><strong>Especialidad:</strong> Juicios Rápidos, Alcoholemia, Drogas al Volante y Seguridad Vial</li>
                         <li><strong>Ámbito Geográfico:</strong> Barcelona y toda Cataluña</li>
                         <li><strong>Teléfono Guardia 24h:</strong> <a href="tel:+34605118871" class="text-amber-400 underline">+34 605 118 871</a></li>
-                        <li><strong>Tarifa Plana Cerrada:</strong> 980 € (IVA y Procurador incluidos)</li>
+                        <li><strong>Honorarios Cerrados:</strong> 980 € base (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.480 € Conductores Profesionales (IVA y Procurador incluidos)</li>
                         <li><strong>Garantía:</strong> Custodia Segura del pago (Escrow)</li>
                     </ul>
                 </div>

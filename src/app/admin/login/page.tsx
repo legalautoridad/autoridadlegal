@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
                                 name="email"
                                 type="email"
                                 required
-                                placeholder="admin@autoridadlegal.com"
+                                placeholder="admin@autoridad.legal"
                                 className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all bg-slate-50/50"
                             />
                         </div>

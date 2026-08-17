@@ -20,7 +20,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             'email': 'contacto@autoridad.legal',
             'image': DEFAULT_OG_IMAGE,
             'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
-            'priceRange': '€€',
+            'priceRange': '980€–1480€',
             'knowsLanguage': ['es', 'ca'],
             'address': {
                 '@type': 'PostalAddress',

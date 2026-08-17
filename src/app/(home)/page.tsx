@@ -157,7 +157,9 @@ export default async function MarketingPage() {
                             <Gavel className="w-6 h-6 text-prestige-gold mt-1 shrink-0" />
                             <div>
                                 <h3 className="font-headline-md text-base font-bold text-trust-navy">
-                                    Santiago Giménez Olavarriaga
+                                    <Link href="/abogados/santiago-gimenez-olavarriaga" className="hover:text-prestige-gold transition-colors underline decoration-prestige-gold/40">
+                                        Santiago Giménez Olavarriaga
+                                    </Link>
                                 </h3>
                                 <p className="font-label-sm text-xs text-slate-500 uppercase tracking-widest mt-0.5">
                                     Abogado Colegiado ICAB 31.389
@@ -168,7 +170,15 @@ export default async function MarketingPage() {
                             </div>
                         </div>
 
-                        <div className="pt-4 border-t border-outline-variant/20 flex flex-col sm:flex-row gap-4 text-xs font-label-md">
+                        <div className="pt-4 border-t border-outline-variant/20 flex flex-wrap gap-4 text-xs font-label-md">
+                            <Link
+                                href="/abogados/santiago-gimenez-olavarriaga"
+                                className="flex items-center gap-2 text-trust-navy hover:text-prestige-gold transition-colors font-bold"
+                            >
+                                <ShieldCheck className="w-4 h-4 text-prestige-gold shrink-0" />
+                                Perfil Oficial del Director Jurídico
+                            </Link>
+                            <span className="hidden sm:inline text-slate-300">|</span>
                             <a
                                 href="https://www.linkedin.com/in/santiagogimenezolavarriaga/"
                                 target="_blank"
@@ -180,13 +190,13 @@ export default async function MarketingPage() {
                             </a>
                             <span className="hidden sm:inline text-slate-300">|</span>
                             <a
-                                href="https://www.abogacia.es/servicios-abogacia/censo-de-letrados/"
+                                href="https://www.icab.es/es/colegio/miembros/index.html?id=31389"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-2 text-trust-navy hover:text-prestige-gold transition-colors font-bold"
                             >
                                 <GraduationCap className="w-4 h-4 text-trust-navy shrink-0" />
-                                Censo Oficial de Letrados
+                                Censo Oficial de Letrados (ICAB 31.389)
                             </a>
                         </div>
                     </address>
