@@ -143,26 +143,30 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                     {
                         '@type': 'Clip',
                         'name': 'Citación a Juicio Rápido: Tu situación de urgencia',
-                        'startOffset': 'PT3S',
-                        'endOffset': 'PT29S'
+                        'startOffset': 3,
+                        'endOffset': 29,
+                        'url': 'https://www.youtube.com/watch?v=DwJMpDn_URY&t=3s'
                     },
                     {
                         '@type': 'Clip',
                         'name': 'El peligro de ir con Abogado de Oficio de madrugada',
-                        'startOffset': 'PT29S',
-                        'endOffset': 'PT53S'
+                        'startOffset': 29,
+                        'endOffset': 53,
+                        'url': 'https://www.youtube.com/watch?v=DwJMpDn_URY&t=29s'
                     },
                     {
                         '@type': 'Clip',
                         'name': 'Honorarios cerrados y transparentes (Acuerdo por escrito)',
-                        'startOffset': 'PT53S',
-                        'endOffset': 'PT1M11S'
+                        'startOffset': 53,
+                        'endOffset': 71,
+                        'url': 'https://www.youtube.com/watch?v=DwJMpDn_URY&t=53s'
                     },
                     {
                         '@type': 'Clip',
                         'name': 'Sistema de Pago Seguro: Tu dinero retenido y garantizado',
-                        'startOffset': 'PT1M11S',
-                        'endOffset': 'PT1M45S'
+                        'startOffset': 71,
+                        'endOffset': 105,
+                        'url': 'https://www.youtube.com/watch?v=DwJMpDn_URY&t=71s'
                     }
                 ]
             },
