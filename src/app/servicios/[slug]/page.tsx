@@ -74,7 +74,7 @@ export default async function ServicioSlugPage({ params }: PageProps) {
         },
         "seller": {
             "@type": "Person",
-            "@id": "https://www.gimenezolavarriaga.abogado/#person"
+            "@id": "https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person"
         }
     };
 
