@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
             url: canonicalUrl,
             siteName: 'Autoridad Legal',
             locale: 'es_ES',
-            type: 'article',
+            type: 'website',
             // Default sitewide share image (1200x630). Override per city/service here if custom city assets are provided
             images: [
                 {
