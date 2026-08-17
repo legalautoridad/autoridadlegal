@@ -114,7 +114,7 @@ export default function OnboardingPage() {
             </div>
 
             <p className="mt-8 text-gray-400 text-sm">
-                Necesitas ayuda? Soporte letrado: <a href="#" className="underline">soporte@autoridadlegal.com</a>
+                Necesitas ayuda? Soporte letrado: <a href="mailto:soporte@autoridad.legal" className="underline">soporte@autoridad.legal</a>
             </p>
         </div>
     );

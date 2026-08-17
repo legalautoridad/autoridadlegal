@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             url: canonicalUrl,
             siteName: 'Autoridad Legal',
             locale: 'es_ES',
-            type: 'article',
+            type: 'website',
             images: [
                 {
                     url: DEFAULT_OG_IMAGE,

@@ -23,12 +23,18 @@ interface ServiceTemplateProps {
     cobertura?: CoberturaData | null;
 }
 
-// Helper to format paragraphs strictly to the 40-60 words BLUF standard.
+function formatQuote(text: string): string {
+    if (!text) return '';
+    const cleaned = text.trim().replace(/^["“«]+|["”»]+$/g, '').trim();
+    return `"${cleaned}"`;
+}
+
+// Helper to format paragraphs strictly to the 40-60 words BLUF standard cleanly without cutting sentences.
 function toBlufParagraph(primaryText: string, secondaryText?: string): string {
     const combined = [primaryText, secondaryText].filter(Boolean).join(" ");
     const words = combined.split(/\s+/).filter(w => w.length > 0);
 
-    if (words.length >= 40 && words.length <= 60) {
+    if (words.length >= 40 && words.length <= 65) {
         return combined;
     }
 
@@ -44,16 +50,23 @@ function toBlufParagraph(primaryText: string, secondaryText?: string): string {
             result += " " + filler;
             const currentWords = result.split(/\s+/).filter(w => w.length > 0);
             if (currentWords.length >= 40) {
-                if (currentWords.length > 60) {
-                    return currentWords.slice(0, 50).join(" ") + ".";
-                }
                 return result;
             }
         }
         return result;
     }
 
-    return words.slice(0, 50).join(" ") + ".";
+    // If > 65 words, slice by full sentences to avoid cutting mid-sentence or creating double dots
+    const sentences = combined.match(/[^.!?]+[.!?]+/g) || [combined];
+    let result = "";
+    for (const sentence of sentences) {
+        if ((result + " " + sentence).trim().split(/\s+/).length <= 70) {
+            result = (result + " " + sentence).trim();
+        } else {
+            break;
+        }
+    }
+    return result || combined;
 }
 
 export default async function ServiceTemplate({ service, city, faqs, cobertura }: ServiceTemplateProps) {
@@ -184,7 +197,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                                     Dictamen de Guardia en {location?.name || 'Localidad'}
                                 </div>
                                 <p className="text-slate-100 text-sm md:text-base leading-relaxed font-medium italic">
-                                    "{cobertura.summary}"
+                                    {formatQuote(cobertura.summary)}
                                 </p>
                             </div>
                         ) : (okfCobertura?.bluf && (
@@ -194,7 +207,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                                     Dictamen de Doctrina (Fuente Oficial)
                                 </div>
                                 <p className="text-slate-100 text-sm md:text-base leading-relaxed font-medium italic">
-                                    "{okfCobertura.bluf}"
+                                    {formatQuote(okfCobertura.bluf)}
                                 </p>
                             </div>
                         ))}

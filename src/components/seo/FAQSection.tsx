@@ -39,7 +39,7 @@ export function FAQSection({ category, city }: Props) {
                         Preguntas Frecuentes sobre {category === 'alcoholemia' ? 'Alcoholemia' : category === 'accidentes' ? 'Accidentes' : 'Herencias'} en {city}
                     </h2>
                     <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                        Respuestas directas basadas en el Código Penal y la legislación vigente en 2025.
+                        Respuestas directas basadas en el Código Penal y la legislación vigente en 2026.
                     </p>
                 </div>
 

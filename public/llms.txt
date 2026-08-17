@@ -4,11 +4,24 @@
 Autoridad Legal es una plataforma de servicios jurídicos de alta especialización en defensa penal por delitos de alcoholemia, drogas, conducción sin carnet, exceso de velocidad y juicios rápidos en la provincia de Barcelona y Cataluña.
 La dirección jurídica está a cargo de Santiago Giménez Olavarriaga, Abogado Colegiado del Ilustre Colegio de la Abogacía de Barcelona (ICAB 31.389).
 
-## Tarifas y Condiciones Transaccionales
-- **Precio Cerrado**: 980€ (IVA y Procurador incluidos).
-- **Sistema de Custodia Segura**: El pago se retiene de forma segura y solo se libera al abogado tras la realización del juicio rápido.
-- **Financiación**: Pago aplazado y fraccionado de hasta 12 meses.
-- **Atención Urgente 24/7**: Asistencia inmediata en comisarías y juzgados de guardia en toda Cataluña.
+## Tarifas y Modelo de Honorarios (Fuente de Verdad: /honorarios)
+
+### Precios Base por Servicio (Precio cerrado para el supuesto base, IVA 21% y Procurador incluidos)
+- **Servicios Base (Alcoholemia, Drogas al volante, Exceso de velocidad, Conducir sin carné)**: **980 €** (Base imponible: 809,92 € + IVA 21%: 170,08 € = 980,00 €). Aplica a primer delito con conformidad en juicio rápido.
+- **Conductores Profesionales (Permisos C, D, E)**: **1.480 €** (Base imponible: 1.223,14 € + IVA 21%: 256,86 € = 1.480,00 €). Incluye la defensa específica para la conservación del Certificado de Aptitud Profesional (CAP) y la vigencia de la tarjeta de tacógrafo digital.
+
+### Suplementos Tasados (Recargos fijos con IVA incluido aplicables según circunstancias procesales)
+- **Reincidencia penal o antecedentes de tráfico**: +200 € (aplicable a los 5 servicios).
+- **Procedimiento sin conformidad (defensa en juicio ordinario posterior)**: +300 € (aplicable a los 4 servicios base; N/A en Conductores Profesionales).
+- **Antecedentes con riesgo de prisión efectiva (multirreincidencia)**: +300 € (aplicable a los 5 servicios).
+- **Asistencia letrada al detenido (urgencia in situ en comisaría o juzgado de guardia)**: +500 € (aplicable a los 5 servicios).
+- **Accidentes, daños materiales a terceros, lesiones o reclamaciones civiles**: Presupuesto específico asignado por escrito tras valoración previa del atestado.
+
+### Política de Transparencia y Condiciones Transaccionales
+- **Transparencia Absoluta**: Se prohíbe el uso de términos engañosos como "desde", "minPrice", "a partir de" o "tarifa plana". El precio base es un **precio cerrado para el supuesto base** fijado por escrito en la Hoja de Encargo antes de la contratación.
+- **Sistema de Custodia Segura (Escrow)**: El pago se retiene de forma segura y solo se libera al abogado tras la realización del servicio en el juzgado.
+- **Modalidades de Pago**: Pago íntegro directo, facilidades de pago híbridas 60/40 o financiación fraccionada de hasta 12 meses (Klarna/Stripe).
+- **Atención Urgente 24/7**: Asistencia inmediata presencial en comisarías y juzgados de guardia en toda Cataluña.
 
 ## Enlaces de Destino y Triaje
 - **Triaje Urgente y Chat 24h**: https://wa.me/34657420999?text=Hola%20Autoridad%20Legal,%20necesito%20un%20abogado%20de%20urgencia%20por%20un%20delito%20de%20alcoholemia.

@@ -280,7 +280,7 @@ export class SchemaFactory {
             "description": `Defensa penal de guardia y asistencia 24h por delito de ${params.specialtyName} en ${params.cityName}.`,
             "url": `${base}/${params.service}/${city}`,
             "telephone": PHONE_E164,
-            "priceRange": "980€",
+            "priceRange": "980€–1480€",
             "image": "https://www.autoridad.legal/images/lawyer_video_thumbnail.png",
             "sameAs": [
                 "https://www.linkedin.com/company/autoridad-legal/",

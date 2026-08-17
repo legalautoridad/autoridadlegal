@@ -146,12 +146,18 @@ export function parseGpsCoords(gpsInput: any): { lat: number; lng: number } | nu
  * Localizes generic FAQ text replacing placeholders and applying anti-duplication normalizations.
  */
 function sanitizeText(text: string): string {
+    if (!text) return '';
     const patternAuditando = new RegExp('Garantizamos' + ' tu defensa auditando', 'gi');
     const patternDefensa = new RegExp('Garantizamos' + ' tu defensa', 'gi');
     return text
         .replace(patternAuditando, 'Auditamos')
         .replace(patternDefensa, 'Auditamos las pruebas de')
-        .replace(/(\b\d+)\.(\d{2})\s*mg\/l\b/g, '$1,$2 mg/l');
+        .replace(/(\b\d+)\.(\d{2})\s*mg\/l\b/g, '$1,$2 mg/l')
+        .replace(/tarifa\s+plana/gi, 'precio cerrado para el supuesto base')
+        .replace(/tarifa\s+cerrada/gi, 'precio cerrado para el supuesto base')
+        .replace(/\.{2,}/g, '.')
+        .replace(/\)\.\./g, ').')
+        .trim();
 }
 
 export function localizeFaqText(text: string, locationName: string, courtOfficialName: string): string {
