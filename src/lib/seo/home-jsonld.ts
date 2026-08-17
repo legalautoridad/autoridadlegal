@@ -60,7 +60,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                 }
             ],
             'founder': {
-                '@id': 'https://www.gimenezolavarriaga.abogado/#person'
+                '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person'
             },
             'knowsAbout': [
                 'Delitos contra la seguridad vial',
@@ -200,15 +200,15 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
 
     graphNodes.push({
         '@type': 'Person',
-        '@id': 'https://www.gimenezolavarriaga.abogado/#person',
+        '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person',
         'name': 'Santiago Giménez Olavarriaga',
         'givenName': 'Santiago',
         'familyName': 'Giménez Olavarriaga',
         'description': 'Abogado penalista colegiado en el Ilustre Colegio de la Abogacía de Barcelona (ICAB nº 31.389). Ejerce la dirección jurídica de Autoridad Legal y es especialista en la defensa de delitos contra la seguridad vial, con especial atención al control metrológico de etilómetros.',
         'jobTitle': 'Director Jurídico y Abogado Penalista Ejerciente',
         'image': 'https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg',
-        'url': 'https://www.gimenezolavarriaga.abogado',
-        'email': 'santiago@gimenezolavarriaga.abogado',
+        'url': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
+        'email': 'contacto@autoridad.legal',
         'telephone': PHONE_E164,
         'knowsLanguage': ['es', 'ca'],
         'worksFor': {
@@ -251,6 +251,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
         ],
         'sameAs': [
             'https://www.linkedin.com/in/santiagogimenezolavarriaga/',
+            'https://www.gimenezolavarriaga.abogado',
             'https://www.facebook.com/santiago.gimenez.olavarriaga',
             'https://www.instagram.com/santiago.gimenez.abogado/',
             'https://x.com/santiagogolavar',
@@ -359,7 +360,7 @@ export function getHonorariosPageJsonLd() {
             },
             {
                 '@type': 'Person',
-                '@id': 'https://www.gimenezolavarriaga.abogado/#person'
+                '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person'
             }
         ]
     };

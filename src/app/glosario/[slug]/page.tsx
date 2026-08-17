@@ -101,7 +101,7 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
                     'url': 'https://www.autoridad.legal/glosario'
                 },
                 'author': {
-                    '@id': 'https://www.gimenezolavarriaga.abogado/#person'
+                    '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person'
                 }
             }
         ]
