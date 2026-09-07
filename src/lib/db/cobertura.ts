@@ -281,12 +281,26 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
         }))
         : [];
 
-    // 5. Fetch canonical service_faqs from DB and LOCALIZE them
-    const { data: rawFaqs } = await supabase
-        .from('service_faqs')
-        .select('id, question, answer, topic, position')
-        .or(`service_slug.eq.${dbSrvName},service_slug.eq.${normService}`)
+    // 5. Fetch location_services_faq for this (location_id, service_id), fallback to canonical service_faqs
+    let rawFaqs: any[] | null = null;
+    const { data: locServiceFaqs, error: locFaqErr } = await supabase
+        .from('location_services_faq')
+        .select('id, question, answer, position')
+        .eq('location_id', location.id)
+        .eq('service_id', service.id)
         .order('position', { ascending: true });
+
+    if (!locFaqErr && locServiceFaqs && locServiceFaqs.length > 0) {
+        rawFaqs = locServiceFaqs;
+    } else {
+        // Fallback to canonical service_faqs
+        const { data: canonicalFaqs } = await supabase
+            .from('service_faqs')
+            .select('id, question, answer, topic, position')
+            .or(`service_slug.eq.${dbSrvName},service_slug.eq.${normService}`)
+            .order('position', { ascending: true });
+        rawFaqs = canonicalFaqs;
+    }
 
     const faqs: LocalizedFaq[] = (rawFaqs && rawFaqs.length > 0)
         ? rawFaqs.map((f: any) => ({
