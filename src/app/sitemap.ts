@@ -9,102 +9,103 @@ const BASE_URL = 'https://www.autoridad.legal';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const supabase = createStaticClient();
-    const now = new Date();
+    // Static content modification date (prevents dynamic build-time stamp on every request)
+    const SITE_LAST_MODIFIED = new Date('2026-09-08T00:00:00.000Z');
 
     // 1. Static Pages
     const staticPages: MetadataRoute.Sitemap = [
         {
             url: BASE_URL,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'weekly',
             priority: 1.0,
         },
         // 5 Core Service Pages
         {
             url: `${BASE_URL}/alcoholemia`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
             url: `${BASE_URL}/drogas`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
             url: `${BASE_URL}/velocidad`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
             url: `${BASE_URL}/sin-carnet`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
             url: `${BASE_URL}/profesionales`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         // Pricing & Honorarios Page
         {
             url: `${BASE_URL}/honorarios`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         // Glossary Index
         {
             url: `${BASE_URL}/glosario`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.6,
         },
         // Public Directory & Legal Pages
         {
             url: `${BASE_URL}/municipios`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.5,
         },
         {
             url: `${BASE_URL}/recursos`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.5,
         },
         {
             url: `${BASE_URL}/legal/legal-notice`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'yearly',
             priority: 0.3,
         },
         {
             url: `${BASE_URL}/legal/privacy`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'yearly',
             priority: 0.3,
         },
         {
             url: `${BASE_URL}/legal/terms`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'yearly',
             priority: 0.3,
         },
         {
             url: `${BASE_URL}/legal/cookies`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'yearly',
             priority: 0.3,
         },
         // Author / E-E-A-T Profile Page
         {
             url: `${BASE_URL}/abogados/santiago-gimenez-olavarriaga`,
-            lastModified: now,
+            lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
@@ -122,7 +123,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             const timestamp = term.updated_at || term.created_at;
             return {
                 url: `${BASE_URL}/glosario/${slug}`,
-                lastModified: timestamp ? new Date(timestamp) : now,
+                lastModified: timestamp ? new Date(timestamp) : SITE_LAST_MODIFIED,
                 changeFrequency: 'yearly' as const,
                 priority: 0.4,
             };
@@ -150,7 +151,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         const rawService = (row.service || '').toLowerCase().replace(/_/g, '-');
         const timestamp = row.updated_at || row.created_at;
-        const dateVal = timestamp ? new Date(timestamp) : now;
+        const dateVal = timestamp ? new Date(timestamp) : SITE_LAST_MODIFIED;
 
         timestampMap.set(`${rawService}:${citySlug}`, dateVal);
 
@@ -170,7 +171,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             const lastMod =
                 timestampMap.get(`${service}:${citySlug}`) ||
                 timestampMap.get(`alcoholemia:${citySlug}`) ||
-                now;
+                SITE_LAST_MODIFIED;
 
             coberturaPagesMap.set(url, {
                 url,

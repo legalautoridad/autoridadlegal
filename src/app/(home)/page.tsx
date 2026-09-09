@@ -135,6 +135,7 @@ export default async function MarketingPage() {
                         initialService="alcoholemia"
                         initialMunicipios={municipiosAlcoholemia}
                         showServiceSelector={true}
+                        variant="compact"
                         title="Buscador de Cobertura Jurídica por Servicio y Municipio"
                         subtitle="Ofrecemos asistencia legal urgente 24h en toda el área metropolitana y municipios de Cataluña. Seleccione la especialidad y busque su localidad para acceder a la página de su juzgado competente."
                     />

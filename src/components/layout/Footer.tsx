@@ -35,6 +35,8 @@ export function Footer() {
                             <li><Link href="/abogados/santiago-gimenez-olavarriaga" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Santiago Giménez (Director Jurídico)</Link></li>
                             <li><Link href="/honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Honorarios y Precios</Link></li>
                             <li><Link href="/glosario" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Glosario Jurídico</Link></li>
+                            <li><Link href="/municipios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Directorio de Municipios</Link></li>
+                            <li><Link href="/recursos" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Centro de Conocimiento</Link></li>
                         </ul>
                     </div>
                     <div className="space-y-4">
