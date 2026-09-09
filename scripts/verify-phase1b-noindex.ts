@@ -11,10 +11,27 @@ async function main() {
     let indexableCount = 0;
     const errors: string[] = [];
 
-    // 1. Direct metadata unit test for all 645 service/city routes
+    // 1. Fetch all published cities from Supabase (129 locations)
+    const { createStaticClient } = await import('../src/lib/supabase/server');
+    const supabase = createStaticClient();
+    const { data: rows } = await supabase
+        .from('location_services')
+        .select('service, locations(slug), web_published')
+        .eq('web_published', true);
+
+    const citySlugSet = new Set<string>();
+    (rows || []).forEach(r => {
+        const slug = (r.locations as any)?.slug;
+        if (slug) citySlugSet.add(slug);
+    });
+
+    const allCities = Array.from(citySlugSet).sort();
+    console.log(`Found ${allCities.length} published cities in database.`);
+
+    // 2. Direct metadata unit test for all 645 service/city routes
     console.log('\nChecking generateMetadata() for all service/city combinations...');
     for (const service of VALID_SERVICES) {
-        for (const city of TARGET_MUNICIPIOS) {
+        for (const city of allCities) {
             const meta = await generateMetadata({ params: Promise.resolve({ service, city }) });
             const isAlcoholemia = service === 'alcoholemia';
 
@@ -56,7 +73,7 @@ async function main() {
     let noindexedInSitemap = 0;
 
     for (const service of VALID_SERVICES) {
-        for (const city of TARGET_MUNICIPIOS) {
+        for (const city of allCities) {
             const url = `https://www.autoridad.legal/${service}/${city}`;
             const present = urlsInSitemap.has(url);
 
