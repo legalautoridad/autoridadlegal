@@ -27,10 +27,17 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
     if (!cobertura) return {};
 
     const canonicalUrl = `https://www.autoridad.legal/${cobertura.service.slug}/${cobertura.location.slug}`;
+    const isAlcoholemia = normService === 'alcoholemia';
 
     return {
         title: `${cobertura.h1Title} | Autoridad Legal`,
         description: cobertura.description,
+        ...(!isAlcoholemia && {
+            robots: {
+                index: false,
+                follow: true,
+            },
+        }),
         alternates: {
             canonical: canonicalUrl,
         },
