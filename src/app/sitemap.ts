@@ -165,7 +165,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const coberturaPagesMap = new Map<string, MetadataRoute.Sitemap[number]>();
 
-    VALID_SERVICES.forEach(service => {
+    // Only include indexable service pages (alcoholemia). Non-alcoholemia service/city pages (516 URLs) are noindexed and omitted.
+    const INDEXABLE_COBERTURA_SERVICES = ['alcoholemia'];
+
+    INDEXABLE_COBERTURA_SERVICES.forEach(service => {
         municipiosList.forEach(citySlug => {
             const url = `${BASE_URL}/${service}/${citySlug}`;
             const lastMod =
