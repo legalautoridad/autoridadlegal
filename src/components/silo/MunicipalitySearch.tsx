@@ -18,6 +18,7 @@ interface MunicipalitySearchProps {
     showServiceSelector?: boolean;
     title?: string;
     subtitle?: string;
+    variant?: 'compact' | 'full';
 }
 
 const SERVICES = [
@@ -49,7 +50,8 @@ export function MunicipalitySearch({
     initialMunicipios = [],
     showServiceSelector = true,
     title = "Cobertura Jurídica por Municipios en Cataluña",
-    subtitle = "Busque su municipio para acceder a la asistencia legal de urgencia 24h y defensa especializada adaptada a los juzgados locales."
+    subtitle = "Busque su municipio para acceder a la asistencia legal de urgencia 24h y defensa especializada adaptada a los juzgados locales.",
+    variant = 'full'
 }: MunicipalitySearchProps) {
     const [selectedService, setSelectedService] = useState<string>(initialService);
     const [searchQuery, setSearchQuery] = useState<string>('');
@@ -67,7 +69,14 @@ export function MunicipalitySearch({
         return ['TODOS', ...Array.from(letters).sort()];
     }, [initialMunicipios]);
 
-    // Filtered municipios
+    // Popular cities filtered from initial dataset
+    const popularMunicipios = useMemo(() => {
+        return initialMunicipios.filter(m =>
+            POPULAR_CITIES.some(p => normalizeStr(p) === normalizeStr(m.name))
+        );
+    }, [initialMunicipios]);
+
+    // Filtered municipios for full view
     const filteredMunicipios = useMemo(() => {
         let list = [...initialMunicipios];
 
@@ -86,6 +95,92 @@ export function MunicipalitySearch({
 
     const activeServiceLabel = SERVICES.find(s => s.id === selectedService)?.label || selectedService;
 
+    // Compact variant for Homepage
+    if (variant === 'compact') {
+        return (
+            <div className="w-full space-y-8 bg-slate-950/80 p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-md">
+                {/* Header / Title */}
+                <div className="text-center space-y-3 max-w-3xl mx-auto">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-prestige-gold/10 border border-prestige-gold/30 text-prestige-gold text-xs font-semibold uppercase tracking-widest">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        Asistencia 24 Horas en 129+ Municipios
+                    </div>
+                    <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
+                        {title}
+                    </h2>
+                    <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+                        {subtitle}
+                    </p>
+                </div>
+
+                {/* Service Selector Tabs (Linkified for 1A.4) */}
+                {showServiceSelector && (
+                    <div className="space-y-2">
+                        <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold text-center">
+                            Seleccione la especialidad penal:
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
+                            {SERVICES.map(s => {
+                                const isSelected = selectedService === s.id;
+                                return (
+                                    <Link
+                                        key={s.id}
+                                        href={`/${s.id}`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setSelectedService(s.id);
+                                        }}
+                                        className={`px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center gap-2 border ${
+                                            isSelected
+                                                ? 'bg-prestige-gold text-trust-navy border-prestige-gold shadow-lg shadow-prestige-gold/20 scale-[1.02]'
+                                                : 'bg-slate-900/80 text-slate-300 border-white/10 hover:border-white/30 hover:text-white'
+                                        }`}
+                                    >
+                                        <span>{s.icon}</span>
+                                        <span>{s.label}</span>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+
+                {/* Compact Grid of 11 Principales */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-4xl mx-auto">
+                    {popularMunicipios.map(m => (
+                        <Link
+                            key={`${selectedService}-${m.slug}`}
+                            href={`/${selectedService}/${m.slug}`}
+                            className="group flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-900 border border-white/10 hover:border-prestige-gold/60 transition-all transform hover:-translate-y-0.5 shadow-md"
+                        >
+                            <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-8 h-8 rounded-xl bg-slate-800 group-hover:bg-prestige-gold/20 flex items-center justify-center text-slate-400 group-hover:text-prestige-gold transition-colors shrink-0">
+                                    <MapPin className="w-4 h-4" />
+                                </div>
+                                <p className="text-sm font-bold text-slate-200 group-hover:text-white truncate transition-colors">
+                                    {m.name}
+                                </p>
+                            </div>
+                            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-prestige-gold group-hover:translate-x-1 transition-all shrink-0 ml-2" />
+                        </Link>
+                    ))}
+                </div>
+
+                {/* Single link "Ver los 129 municipios" -> /municipios */}
+                <div className="text-center pt-2">
+                    <Link
+                        href="/municipios"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 text-prestige-gold hover:text-white font-bold text-sm transition-all shadow-md hover:shadow-lg"
+                    >
+                        <span>Ver los 129 municipios de Cataluña</span>
+                        <ArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
+    // Full variant for /municipios and service hubs
     return (
         <div className="w-full space-y-8 bg-slate-950/80 p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-md">
             {/* Header / Title */}
@@ -102,7 +197,7 @@ export function MunicipalitySearch({
                 </p>
             </div>
 
-            {/* Service Selector Tabs */}
+            {/* Service Selector Tabs (Linkified for 1A.4) */}
             {showServiceSelector && (
                 <div className="space-y-2">
                     <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold text-center">
@@ -112,9 +207,13 @@ export function MunicipalitySearch({
                         {SERVICES.map(s => {
                             const isSelected = selectedService === s.id;
                             return (
-                                <button
+                                <Link
                                     key={s.id}
-                                    onClick={() => setSelectedService(s.id)}
+                                    href={`/${s.id}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setSelectedService(s.id);
+                                    }}
                                     className={`px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center gap-2 border ${
                                         isSelected
                                             ? 'bg-prestige-gold text-trust-navy border-prestige-gold shadow-lg shadow-prestige-gold/20 scale-[1.02]'
@@ -123,7 +222,7 @@ export function MunicipalitySearch({
                                 >
                                     <span>{s.icon}</span>
                                     <span>{s.label}</span>
-                                </button>
+                                </Link>
                             );
                         })}
                     </div>
