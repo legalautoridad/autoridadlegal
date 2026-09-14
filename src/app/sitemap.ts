@@ -1,14 +1,11 @@
 import { MetadataRoute } from 'next';
-import { createStaticClient } from '@/lib/supabase/server';
-import { slugify } from '@/lib/db/glosario';
-import { TARGET_MUNICIPIOS, VALID_SERVICES } from '@/lib/db/cobertura';
+import { getPublishedDistrictSlugs } from '@/lib/db/district-content';
 
 export const revalidate = 3600; // Recalculate sitemap every hour via ISR
 
 const BASE_URL = 'https://www.autoridad.legal';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const supabase = createStaticClient();
     // Static content modification date (prevents dynamic build-time stamp on every request)
     const SITE_LAST_MODIFIED = new Date('2026-09-08T00:00:00.000Z');
 
@@ -51,12 +48,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly',
             priority: 0.9,
         },
-        // Pricing & Honorarios Page
+        // Pricing & Honorarios Pages
         {
             url: `${BASE_URL}/honorarios`,
             lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
             priority: 0.8,
+        },
+        {
+            url: `${BASE_URL}/acuerdo-honorarios`,
+            lastModified: SITE_LAST_MODIFIED,
+            changeFrequency: 'monthly',
+            priority: 0.7,
         },
         // Glossary Index
         {
@@ -67,10 +70,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
         // Public Directory & Legal Pages
         {
-            url: `${BASE_URL}/municipios`,
+            url: `${BASE_URL}/juzgados`,
             lastModified: SITE_LAST_MODIFIED,
             changeFrequency: 'monthly',
-            priority: 0.5,
+            priority: 0.7,
         },
         {
             url: `${BASE_URL}/recursos`,
@@ -111,86 +114,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ];
 
-    // 2. Dynamic Glossary Term Pages (ONLY ACTIVE status from Supabase)
-    const { data: termsData } = await supabase
-        .from('semantic_entities')
-        .select('name, status, updated_at, created_at')
-        .eq('status', 'ACTIVE');
+    // 2. Dynamic Published District / Juzgados Pages
+    const publishedDistricts = await getPublishedDistrictSlugs();
+    const districtPages: MetadataRoute.Sitemap = publishedDistricts.map(({ slug }) => ({
+        url: `${BASE_URL}/juzgados/${slug}`,
+        lastModified: SITE_LAST_MODIFIED,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+    }));
 
-    const glossaryPages: MetadataRoute.Sitemap = (termsData || [])
-        .map(term => {
-            const slug = slugify(term.name);
-            const timestamp = term.updated_at || term.created_at;
-            return {
-                url: `${BASE_URL}/glosario/${slug}`,
-                lastModified: timestamp ? new Date(timestamp) : SITE_LAST_MODIFIED,
-                changeFrequency: 'yearly' as const,
-                priority: 0.4,
-            };
-        })
-        .sort((a, b) => a.url.localeCompare(b.url));
-
-    // 3. Dynamic Cobertura Pages (5 Specialties x 129 Municipios = 645 URLs)
-    const { data: coberturaRows } = await supabase
-        .from('location_services')
-        .select('service, location_id, web_published, updated_at, created_at, locations(slug)')
-        .eq('web_published', true);
-
-    const timestampMap = new Map<string, Date>();
-    const alcoholemiaMunicipiosSet = new Set<string>();
-
-    (coberturaRows || []).forEach(row => {
-        if (!row.web_published) {
-            return;
-        }
-
-        const citySlug = (row.locations as any)?.slug;
-        if (!citySlug) {
-            return;
-        }
-
-        const rawService = (row.service || '').toLowerCase().replace(/_/g, '-');
-        const timestamp = row.updated_at || row.created_at;
-        const dateVal = timestamp ? new Date(timestamp) : SITE_LAST_MODIFIED;
-
-        timestampMap.set(`${rawService}:${citySlug}`, dateVal);
-
-        if (rawService === 'alcoholemia') {
-            alcoholemiaMunicipiosSet.add(citySlug);
-        }
-    });
-
-    // Reference list of 129 canonical municipios from alcoholemia
-    const municipiosList = Array.from(alcoholemiaMunicipiosSet).sort((a, b) => a.localeCompare(b));
-
-    const coberturaPagesMap = new Map<string, MetadataRoute.Sitemap[number]>();
-
-    // Only include indexable service pages (alcoholemia). Non-alcoholemia service/city pages (516 URLs) are noindexed and omitted.
-    const INDEXABLE_COBERTURA_SERVICES = ['alcoholemia'];
-
-    INDEXABLE_COBERTURA_SERVICES.forEach(service => {
-        municipiosList.forEach(citySlug => {
-            const url = `${BASE_URL}/${service}/${citySlug}`;
-            const lastMod =
-                timestampMap.get(`${service}:${citySlug}`) ||
-                timestampMap.get(`alcoholemia:${citySlug}`) ||
-                SITE_LAST_MODIFIED;
-
-            coberturaPagesMap.set(url, {
-                url,
-                lastModified: lastMod,
-                changeFrequency: 'monthly',
-                priority: 0.7,
-            });
-        });
-    });
-
-    const coberturaPages = Array.from(coberturaPagesMap.values()).sort((a, b) =>
-        a.url.localeCompare(b.url)
-    );
-
-    // Combine & Deduplicate
-    const allEntries = [...staticPages, ...glossaryPages, ...coberturaPages];
+    // Combine & Deduplicate (zero /[service]/[city] or /glosario/[slug] URLs included)
+    const allEntries = [...staticPages, ...districtPages];
     const uniqueMap = new Map<string, MetadataRoute.Sitemap[number]>();
     allEntries.forEach(entry => {
         if (!uniqueMap.has(entry.url)) {

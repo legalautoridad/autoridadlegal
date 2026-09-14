@@ -34,8 +34,9 @@ export function Footer() {
                             <li><Link href="/profesionales" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-bold text-prestige-gold">Conductores Profesionales</Link></li>
                             <li><Link href="/abogados/santiago-gimenez-olavarriaga" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Santiago Giménez (Director Jurídico)</Link></li>
                             <li><Link href="/honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Honorarios y Precios</Link></li>
+                            <li><Link href="/acuerdo-honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Modelo Hoja de Encargo</Link></li>
                             <li><Link href="/glosario" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Glosario Jurídico</Link></li>
-                            <li><Link href="/municipios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Directorio de Municipios</Link></li>
+                            <li><Link href="/juzgados" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Busca tu Juzgado</Link></li>
                             <li><Link href="/recursos" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Centro de Conocimiento</Link></li>
                         </ul>
                     </div>

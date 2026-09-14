@@ -19,6 +19,7 @@ export function Header() {
                 <div className="flex items-center gap-2 sm:gap-3 lg:gap-6">
                     {/* Desktop Nav */}
                     <nav className="hidden lg:flex items-center gap-6 text-sm font-label-md text-on-surface-variant">
+                        <Link href="/juzgados" className="hover:text-prestige-gold transition-colors font-medium">Busca tu juzgado</Link>
                         <Link href="/alcoholemia" className="hover:text-prestige-gold transition-colors font-medium">Alcoholemia</Link>
                         <Link href="/drogas" className="hover:text-prestige-gold transition-colors font-medium">Drogas</Link>
                         <Link href="/sin-carnet" className="hover:text-prestige-gold transition-colors font-medium">Sin Carnet</Link>
@@ -43,6 +44,13 @@ export function Header() {
             {isOpen && (
                 <div className="lg:hidden bg-white border-t border-outline-variant px-4 py-4 shadow-lg animate-in slide-in-from-top-4 duration-200">
                     <nav className="flex flex-col gap-1.5 text-sm font-label-md text-on-surface-variant">
+                        <Link 
+                            href="/juzgados" 
+                            className="hover:text-prestige-gold transition-colors font-semibold py-3 px-4 rounded-xl hover:bg-slate-50 block"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Busca tu juzgado
+                        </Link>
                         <Link 
                             href="/alcoholemia" 
                             className="hover:text-prestige-gold transition-colors font-semibold py-3 px-4 rounded-xl hover:bg-slate-50 block"

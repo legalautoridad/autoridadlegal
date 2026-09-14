@@ -83,7 +83,8 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
     const okfPuntos = city ? OKFService.getPuntosDeInteres(city) : [];
 
     const isProfesionales = service === 'profesionales';
-    const priceText = isProfesionales ? '1.480 €' : '980 €';
+    const isSinCarnet = service === 'sin-carnet';
+    const priceText = isProfesionales ? '1.480 € (1ª instancia)' : isSinCarnet ? '780 €' : '980 €';
 
     // Use DB structured faqs if present, fallback to passed faqs or okfFaqs
     const displayFaqs = (cobertura && cobertura.faqs && cobertura.faqs.length > 0)
@@ -160,6 +161,16 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                             <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-bold">
                                 Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. Honorarios cerrados de {priceText} con IVA y procurador incluidos.
                             </p>
+
+                            <div className="pt-2">
+                                <Link
+                                    href="/acuerdo-honorarios"
+                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950/80 hover:bg-slate-950 border border-prestige-gold/40 text-xs font-semibold text-prestige-gold transition-colors shadow-md"
+                                >
+                                    <FileText className="w-4 h-4 text-prestige-gold" />
+                                    Ver Modelo de Hoja de Encargo →
+                                </Link>
+                            </div>
                         </div>
 
                         {/* Facade Vertical Image */}
@@ -189,28 +200,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                 <div className="container px-4 md:px-16 mx-auto">
                     <div className="max-w-3xl mx-auto space-y-12">
 
-                        {/* OKF Ground Truth BLUF Summary */}
-                        {cobertura?.summary ? (
-                            <div className="p-6 bg-slate-900/90 rounded-2xl border border-prestige-gold/40 shadow-xl space-y-3">
-                                <div className="flex items-center gap-2 text-prestige-gold font-semibold text-xs tracking-wider uppercase">
-                                    <span className="w-2 h-2 rounded-full bg-prestige-gold animate-pulse"></span>
-                                    Dictamen de Guardia en {location?.name || 'Localidad'}
-                                </div>
-                                <p className="text-slate-100 text-sm md:text-base leading-relaxed font-medium italic">
-                                    {formatQuote(cobertura.summary)}
-                                </p>
-                            </div>
-                        ) : (okfCobertura?.bluf && (
-                            <div className="p-6 bg-slate-900/90 rounded-2xl border border-prestige-gold/40 shadow-xl space-y-3">
-                                <div className="flex items-center gap-2 text-prestige-gold font-semibold text-xs tracking-wider uppercase">
-                                    <span className="w-2 h-2 rounded-full bg-prestige-gold animate-pulse"></span>
-                                    Dictamen de Doctrina (Fuente Oficial)
-                                </div>
-                                <p className="text-slate-100 text-sm md:text-base leading-relaxed font-medium italic">
-                                    {formatQuote(okfCobertura.bluf)}
-                                </p>
-                            </div>
-                        ))}
+
 
                         <div className="space-y-4">
                             <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
@@ -343,16 +333,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                                     </div>
                                 )}
 
-                                {prosecutorCriteria && (
-                                    <div className="pt-4 border-t border-white/10 space-y-1.5">
-                                        <p className="text-xs font-bold text-prestige-gold uppercase tracking-wider flex items-center gap-1.5">
-                                            ⚖️ Criterios de la Fiscalía Provincial
-                                        </p>
-                                        <p className="text-xs md:text-sm text-slate-300 leading-relaxed bg-slate-900/90 p-3.5 rounded-xl border border-white/5">
-                                            {prosecutorCriteria}
-                                        </p>
-                                    </div>
-                                )}
+
                             </div>
                         </div>
                     </div>

@@ -20,7 +20,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             'email': 'contacto@autoridad.legal',
             'image': DEFAULT_OG_IMAGE,
             'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
-            'priceRange': '980€–1480€',
+            'priceRange': '780€–1480€',
             'knowsLanguage': ['es', 'ca'],
             'address': {
                 '@type': 'PostalAddress',
@@ -279,7 +279,7 @@ export function getHonorariosPageJsonLd() {
                 '@id': 'https://www.autoridad.legal/honorarios#webpage',
                 'url': 'https://www.autoridad.legal/honorarios',
                 'name': 'Precio, honorarios y financiación | Autoridad Legal',
-                'description': 'Información sobre el modelo de honorarios cerrados, tarifas base de 980 € y 1.480 €, suplementos aplicables, desglose de IVA y modalidades de financiación para la defensa penal en juicios rápidos.',
+                'description': 'Información sobre el modelo de honorarios cerrados, tarifas base de 780 €, 980 € y 1.480 €, suplementos aplicables, desglose de IVA y modalidades de financiación para la defensa penal en juicios rápidos.',
                 'inLanguage': 'es',
                 'dateModified': '2026-08-10T09:00:00+02:00',
                 'about': {

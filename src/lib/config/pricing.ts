@@ -28,7 +28,7 @@ export const PRICING_ADDONS: Record<string, PricingAddOn> = {
         id: 'noConformidad',
         name: 'Suplemento procesal por No Conformidad',
         price: '300.00',
-        description: 'Recargo fijo de 300 € (IVA incluido) cuando la estrategia de defensa descarta la conformidad para pelear la libre absolución o la nulidad de las actuaciones en juicio ordinario posterior, con mayor carga procesal.',
+        description: 'Recargo fijo de 300 € (IVA incluido) cuando la estrategia de defensa descarta la conformidad para pelear la libre absolución o la nulidad de las actuaciones en juicio ordinario posterior, con mayor carga procesal. (Aplica a alcoholemia, drogas, velocidad y sin-carnet; excluido en conductores profesionales).',
     },
     asistenciaDetenido: {
         id: 'asistenciaDetenido',
@@ -42,6 +42,12 @@ export const PRICING_ADDONS: Record<string, PricingAddOn> = {
         price: '300.00',
         description: 'Recargo fijo de 300 € (IVA incluido) en supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de prisión efectiva exige una defensa reforzada.',
     },
+    concurrenciaDelitos: {
+        id: 'concurrenciaDelitos',
+        name: 'Concurrencia de delitos (negativa, resistencia, desobediencia o atentado)',
+        price: '200.00',
+        description: 'Concurrencia de delitos (negativa, resistencia, desobediencia o atentado) — +200 €. Aplica cuando el atestado por alcoholemia o drogas incluye negativa a someterse a las pruebas (art. 383 CP), resistencia o desobediencia grave (art. 556 CP) o atentado a agentes de la autoridad (art. 550 CP). Aplica a todos los servicios.',
+    },
 };
 
 export const SERVICES_PRICING: ServicePricing[] = [
@@ -54,7 +60,7 @@ export const SERVICES_PRICING: ServicePricing[] = [
         serviceName: 'Defensa penal por delito de alcoholemia',
         serviceType: 'Defensa penal por conducción bajo influencia de alcohol',
         description: 'Precio cerrado de 980 € (IVA y derechos de procurador incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. Los supuestos de mayor complejidad llevan recargos fijos y tasados, detallados en los suplementos y comunicados siempre por escrito y por adelantado.',
-        applicableAddOns: ['reincidencia', 'noConformidad', 'asistenciaDetenido', 'riesgoPrision'],
+        applicableAddOns: ['reincidencia', 'noConformidad', 'asistenciaDetenido', 'riesgoPrision', 'concurrenciaDelitos'],
     },
     {
         slug: 'drogas',
@@ -65,7 +71,7 @@ export const SERVICES_PRICING: ServicePricing[] = [
         serviceName: 'Defensa penal por drogas al volante',
         serviceType: 'Defensa penal por conducción bajo influencia de drogas',
         description: 'Precio cerrado de 980 € (IVA y derechos de procurador incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. Los supuestos de mayor complejidad llevan recargos fijos y tasados, detallados en los suplementos y comunicados siempre por escrito y por adelantado.',
-        applicableAddOns: ['reincidencia', 'noConformidad', 'asistenciaDetenido', 'riesgoPrision'],
+        applicableAddOns: ['reincidencia', 'noConformidad', 'asistenciaDetenido', 'riesgoPrision', 'concurrenciaDelitos'],
     },
     {
         slug: 'velocidad',
@@ -76,28 +82,28 @@ export const SERVICES_PRICING: ServicePricing[] = [
         serviceName: 'Defensa penal por exceso de velocidad',
         serviceType: 'Defensa penal por delito de exceso de velocidad',
         description: 'Precio cerrado de 980 € (IVA y derechos de procurador incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. Los supuestos de mayor complejidad llevan recargos fijos y tasados, detallados en los suplementos y comunicados siempre por escrito y por adelantado.',
-        applicableAddOns: ['reincidencia', 'noConformidad', 'asistenciaDetenido', 'riesgoPrision'],
+        applicableAddOns: ['reincidencia', 'noConformidad', 'asistenciaDetenido', 'riesgoPrision', 'concurrenciaDelitos'],
     },
     {
         slug: 'sin-carnet',
         name: 'Conducir Sin Carné',
         offerName: 'Defensa por Conducir Sin Carné — Juicio Rápido con Conformidad',
         url: 'https://www.autoridad.legal/sin-carnet',
-        basePrice: '980.00',
+        basePrice: '780.00',
         serviceName: 'Defensa penal por conducción sin permiso',
         serviceType: 'Defensa penal por conducción sin permiso o licencia',
-        description: 'Precio cerrado de 980 € (IVA y derechos de procurador incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. Los supuestos de mayor complejidad llevan recargos fijos y tasados, detallados en los suplementos y comunicados siempre por escrito y por adelantado.',
-        applicableAddOns: ['reincidencia', 'noConformidad', 'asistenciaDetenido', 'riesgoPrision'],
+        description: 'Precio cerrado de 780 € (base 644,63 € + IVA 135,37 €; procurador e IVA incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. El precio es inferior por no llevar aparejada la pena de privación del carné. Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados siempre por escrito y por adelantado.',
+        applicableAddOns: ['reincidencia', 'noConformidad', 'asistenciaDetenido', 'riesgoPrision', 'concurrenciaDelitos'],
     },
     {
         slug: 'profesionales',
         name: 'Conductores Profesionales',
-        offerName: 'Defensa para Conductores Profesionales — Juicio Rápido con Conformidad',
+        offerName: 'Defensa para Conductores Profesionales — Procedimiento en Primera Instancia',
         url: 'https://www.autoridad.legal/profesionales',
         basePrice: '1480.00',
         serviceName: 'Defensa penal para conductores profesionales',
         serviceType: 'Defensa penal de tráfico para titulares de permisos profesionales (C, D, E)',
-        description: 'Precio cerrado de 1.480 € (IVA y derechos de procurador incluidos) para conductores profesionales (permisos C, D, E). Incluye la complejidad jurídica añadida de salvaguardar el Certificado de Aptitud Profesional (CAP) y la vigencia de la tarjeta de tacógrafo digital. Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados siempre por escrito y por adelantado.',
-        applicableAddOns: ['reincidencia', 'asistenciaDetenido', 'riesgoPrision'],
+        description: 'Precio cerrado de 1.480 € (base 1.223,14 € + IVA 256,86 €; procurador e IVA incluidos) para conductores profesionales (permisos C, D, E). Cubre el procedimiento completo en primera instancia hasta la sentencia. No incluye el recurso de apelación ante la Audiencia Provincial. Incluye la protección del CAP y la tarjeta de tacógrafo digital. Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados siempre por escrito y por adelantado.',
+        applicableAddOns: ['reincidencia', 'asistenciaDetenido', 'riesgoPrision', 'concurrenciaDelitos'],
     },
 ];

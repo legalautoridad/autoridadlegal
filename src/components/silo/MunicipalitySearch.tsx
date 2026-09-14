@@ -5,11 +5,14 @@ import Link from 'next/link';
 import { PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
 import { Search, MapPin, X, ArrowRight, ShieldCheck, Building2, PhoneCall, Filter } from 'lucide-react';
 
+import { getCourtSlugForCity } from '@/lib/db/city-court-map';
+
 export interface MunicipioItem {
     slug: string;
     name: string;
     service?: string;
     hasCourt?: boolean;
+    courtSlug?: string;
 }
 
 interface MunicipalitySearchProps {
@@ -19,6 +22,7 @@ interface MunicipalitySearchProps {
     title?: string;
     subtitle?: string;
     variant?: 'compact' | 'full';
+    targetMode?: 'service' | 'juzgado';
 }
 
 const SERVICES = [
@@ -51,7 +55,8 @@ export function MunicipalitySearch({
     showServiceSelector = true,
     title = "Cobertura Jurídica por Municipios en Cataluña",
     subtitle = "Busque su municipio para acceder a la asistencia legal de urgencia 24h y defensa especializada adaptada a los juzgados locales.",
-    variant = 'full'
+    variant = 'full',
+    targetMode = 'service'
 }: MunicipalitySearchProps) {
     const [selectedService, setSelectedService] = useState<string>(initialService);
     const [searchQuery, setSearchQuery] = useState<string>('');
@@ -150,7 +155,7 @@ export function MunicipalitySearch({
                     {popularMunicipios.map(m => (
                         <Link
                             key={`${selectedService}-${m.slug}`}
-                            href={`/${selectedService}/${m.slug}`}
+                            href={`/juzgados/${getCourtSlugForCity(m.courtSlug || m.slug)}`}
                             className="group flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-900 border border-white/10 hover:border-prestige-gold/60 transition-all transform hover:-translate-y-0.5 shadow-md"
                         >
                             <div className="flex items-center gap-3 min-w-0">
@@ -166,13 +171,13 @@ export function MunicipalitySearch({
                     ))}
                 </div>
 
-                {/* Single link "Ver los 129 municipios" -> /municipios */}
+                {/* Single link "Busca tu juzgado" -> /juzgados */}
                 <div className="text-center pt-2">
                     <Link
-                        href="/municipios"
+                        href="/juzgados"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 text-prestige-gold hover:text-white font-bold text-sm transition-all shadow-md hover:shadow-lg"
                     >
-                        <span>Ver los 129 municipios de Cataluña</span>
+                        <span>Busca tu juzgado entre los 129 municipios</span>
                         <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
@@ -319,7 +324,7 @@ export function MunicipalitySearch({
             {filteredMunicipios.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 max-h-[500px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
                     {filteredMunicipios.map(m => {
-                        const href = `/${selectedService}/${m.slug}`;
+                        const href = `/juzgados/${getCourtSlugForCity(m.courtSlug || m.slug)}`;
                         return (
                             <Link
                                 key={`${selectedService}-${m.slug}`}

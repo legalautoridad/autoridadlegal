@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Scale, ShieldAlert, Award, Zap, Truck } from 'lucide-react';
+import { getCourtSlugForCity } from '@/lib/db/city-court-map';
 
 interface ZeroLeakageMenuProps {
     currentService: string;
@@ -68,7 +69,8 @@ export function ZeroLeakageMenu({
                         {services.map((srv) => {
                             const isActive = currentService === srv.id;
                             const IconComponent = srv.icon;
-                            const destinationUrl = `/${srv.id}/${municipalitySlug}`;
+                            const courtSlug = getCourtSlugForCity(municipalitySlug);
+                            const destinationUrl = `/juzgados/${courtSlug}#${srv.id}`;
 
                             return (
                                 <Link
