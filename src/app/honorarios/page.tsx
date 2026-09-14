@@ -6,7 +6,7 @@ import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, CreditCard, FileText
 
 export const metadata: Metadata = {
     title: 'Precio, honorarios y financiación | Autoridad Legal',
-    description: 'Información sobre honorarios cerrados de 980 € y 1.480 € (IVA y procurador incluidos), suplementos aplicables, desglose fiscal y modalidades de financiación para la defensa en juicios rápidos de tráfico en Barcelona.',
+    description: 'Información sobre honorarios cerrados de 780 €, 980 € y 1.480 € (IVA y procurador incluidos), suplementos aplicables, desglose fiscal y modalidades de financiación para la defensa en juicios rápidos de tráfico en Barcelona.',
     alternates: {
         canonical: 'https://www.autoridad.legal/honorarios',
     },
@@ -167,10 +167,10 @@ export default function HonorariosPage() {
                                             Conducir sin carné
                                         </td>
                                         <td className="py-5 px-6 font-extrabold text-prestige-gold text-lg">
-                                            980 €
+                                            780 €
                                         </td>
                                         <td className="py-5 px-6 text-slate-300">
-                                            precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base: juicio rápido con conformidad
+                                            precio cerrado de 780 € (base 644,63 € + IVA 135,37 €; procurador e IVA incluidos) para el supuesto base: juicio rápido con conformidad (sin pena de retirada de carné)
                                         </td>
                                         <td className="py-5 px-6 text-right">
                                             <Link href="/sin-carnet" className="text-prestige-gold hover:underline font-semibold text-xs">
@@ -188,7 +188,7 @@ export default function HonorariosPage() {
                                             1.480 €
                                         </td>
                                         <td className="py-5 px-6 text-slate-200">
-                                            precio cerrado de 1.480 € (IVA y procurador incluidos) para el supuesto base: juicio rápido con conformidad. Incluye la protección del CAP y la tarjeta de tacógrafo digital.
+                                            precio cerrado de 1.480 € (base 1.223,14 € + IVA 256,86 €; procurador e IVA incluidos) para el procedimiento completo en primera instancia hasta la sentencia. No incluye el recurso de apelación ante la Audiencia Provincial. Incluye la protección del CAP y la tarjeta de tacógrafo digital.
                                         </td>
                                         <td className="py-5 px-6 text-right">
                                             <Link href="/profesionales" className="text-prestige-gold hover:underline font-bold text-xs">
@@ -201,24 +201,34 @@ export default function HonorariosPage() {
                         </div>
 
                         {/* Desglose Fiscal e Información Adicional */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
                             <div className="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
                                 <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
                                     <FileText className="w-4 h-4 text-prestige-gold" />
-                                    Desglose Fiscal Exacto — Servicio Base (980 €)
+                                    Desglose Sin Carné (780 €)
                                 </h3>
                                 <p className="text-sm text-slate-300">
-                                    Base imponible <strong className="text-white">809,92 €</strong> + IVA (21 %) <strong className="text-white">170,08 €</strong> = <strong className="text-prestige-gold">980,00 €</strong>. Total derechos de procurador incluidos.
+                                    Base imponible <strong className="text-white">644,63 €</strong> + IVA (21 %) <strong className="text-white">135,37 €</strong> = <strong className="text-prestige-gold">780,00 €</strong>. Procurador e IVA incluidos. No lleva pena de privación del carné.
                                 </p>
                             </div>
 
                             <div className="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
                                 <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
                                     <FileText className="w-4 h-4 text-prestige-gold" />
-                                    Desglose Fiscal Exacto — Profesionales (1.480 €)
+                                    Desglose Servicios Base (980 €)
                                 </h3>
                                 <p className="text-sm text-slate-300">
-                                    Base imponible <strong className="text-white">1.223,14 €</strong> + IVA (21 %) <strong className="text-white">256,86 €</strong> = <strong className="text-prestige-gold">1.480,00 €</strong>. Incluye tutela específica del CAP y tacógrafo.
+                                    Base imponible <strong className="text-white">809,92 €</strong> + IVA (21 %) <strong className="text-white">170,08 €</strong> = <strong className="text-prestige-gold">980,00 €</strong>. Total derechos de procurador e IVA incluidos.
+                                </p>
+                            </div>
+
+                            <div className="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
+                                <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                                    <FileText className="w-4 h-4 text-prestige-gold" />
+                                    Desglose Profesionales (1.480 €)
+                                </h3>
+                                <p className="text-sm text-slate-300">
+                                    Base imponible <strong className="text-white">1.223,14 €</strong> + IVA (21 %) <strong className="text-white">256,86 €</strong> = <strong className="text-prestige-gold">1.480,00 €</strong>. Primera instancia hasta sentencia. Excluye recurso de apelación ante la Audiencia Provincial.
                                 </p>
                             </div>
                         </div>
@@ -245,7 +255,7 @@ export default function HonorariosPage() {
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
-                                    <span>Asistencia letrada presencial al juicio rápido con conformidad en Juzgado de Guardia.</span>
+                                    <span>Asistencia letrada presencial al juicio rápido o procedimiento penal en Juzgado de Guardia o de Primera Instancia.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
@@ -281,15 +291,15 @@ export default function HonorariosPage() {
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></span>
-                                    <span>Juicios rápidos sin conformidad (defensa en juicio oral posterior) salvo suplemento.</span>
+                                    <span>Juicios rápidos sin conformidad para los 4 servicios base salvo contratación de suplemento (+300 €).</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></span>
-                                    <span>Recursos de apelación, queja o nulidad de actuaciones.</span>
+                                    <span>Recursos de apelación ante la Audiencia Provincial, queja o nulidad de actuaciones (excluido expresamente en todos los servicios, incluido conductores profesionales).</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></span>
-                                    <span>Procedimientos penales posteriores o independientes del juicio rápido.</span>
+                                    <span>Procedimientos penales posteriores o independientes de la primera instancia.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></span>
@@ -363,7 +373,7 @@ export default function HonorariosPage() {
                                             Los 4 servicios base (<strong className="text-slate-400 font-semibold">N/A en profesionales</strong>)
                                         </td>
                                         <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
-                                            Estrategia defensiva orientada a la absolución judicial o impugnación metrológica en juicio oral posterior.
+                                            Estrategia defensiva orientada a la absolución judicial o impugnación metrológica en juicio oral posterior. No aplica a conductores profesionales, cuyo servicio de 1.480 € ya incluye el procedimiento en primera instancia hasta la sentencia.
                                         </td>
                                     </tr>
 
@@ -394,6 +404,21 @@ export default function HonorariosPage() {
                                         </td>
                                         <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
                                             Desplazamiento urgente de letrado a comisaría o centro de custodia policial fuera de horas de despacho.
+                                        </td>
+                                    </tr>
+
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                        <td className="py-5 px-6 font-bold text-white">
+                                            Concurrencia de delitos (negativa, resistencia, desobediencia o atentado)
+                                        </td>
+                                        <td className="py-5 px-6 font-extrabold text-amber-400 text-base">
+                                            +200 €
+                                        </td>
+                                        <td className="py-5 px-6 text-slate-300 font-medium">
+                                            Los 5 servicios
+                                        </td>
+                                        <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
+                                            Concurrencia de delitos (negativa, resistencia, desobediencia o atentado) — +200 €. Aplica cuando el atestado por alcoholemia o drogas incluye negativa a someterse a las pruebas (art. 383 CP), resistencia o desobediencia grave (art. 556 CP) o atentado a agentes de la autoridad (art. 550 CP). Aplica a todos los servicios.
                                         </td>
                                     </tr>
 
@@ -458,7 +483,11 @@ export default function HonorariosPage() {
                                 <h3 className="text-xl font-bold text-white">Modalidad Híbrida 60/40</h3>
                                 <div className="space-y-2 text-xs text-slate-300">
                                     <p className="bg-slate-950/60 p-2.5 rounded-lg border border-white/5">
-                                        <strong className="text-white block">Servicio Base (980 €):</strong>
+                                        <strong className="text-white block">Sin Carné (780 €):</strong>
+                                        Primer pago <span className="text-prestige-gold font-bold">468 €</span> · Pendiente a 30 días <span className="text-white font-bold">312 €</span>
+                                    </p>
+                                    <p className="bg-slate-950/60 p-2.5 rounded-lg border border-white/5">
+                                        <strong className="text-white block">Servicios Base (980 €):</strong>
                                         Primer pago <span className="text-prestige-gold font-bold">588 €</span> · Pendiente a 30 días <span className="text-white font-bold">392 €</span>
                                     </p>
                                     <p className="bg-slate-950/60 p-2.5 rounded-lg border border-white/5">
@@ -485,6 +514,15 @@ export default function HonorariosPage() {
                             <p className="text-slate-300 text-base leading-relaxed">
                                 Antes de formalizar la contratación, el cliente recibe por escrito su hoja de encargo (acuerdo de honorarios) donde figuran de forma transparente el servicio contratado, el alcance exacto de la intervención, el precio cerrado con desglose de IVA, los conceptos incluidos, los suplementos aplicables, la forma de pago elegida y las condiciones contractuales. Firma electrónica disponible para agilizar la asistencia inmediata de guardia.
                             </p>
+                            <div className="pt-2">
+                                <Link
+                                    href="/acuerdo-honorarios"
+                                    className="inline-flex items-center gap-2 bg-slate-950 hover:bg-slate-900 border border-prestige-gold/40 text-prestige-gold font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-colors shadow-md"
+                                >
+                                    <FileText className="w-4 h-4 text-prestige-gold" />
+                                    Ver Modelo Oficial Estándar de Hoja de Encargo →
+                                </Link>
+                            </div>
                         </div>
 
                         {/* TRANSPARENCIA SOBRE EL RESULTADO (DEONTOLOGÍA ICAB) */}

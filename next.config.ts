@@ -18,6 +18,21 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/partidos-judiciales',
+        destination: '/juzgados',
+        permanent: true,
+      },
+      {
+        source: '/partidos-judiciales/:path*',
+        destination: '/juzgados/:path*',
+        permanent: true,
+      },
+      {
+        source: '/municipios',
+        destination: '/juzgados',
+        permanent: true,
+      },
+      {
         source: '/precio-honorarios-financiacion',
         destination: '/honorarios',
         permanent: true,

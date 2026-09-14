@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx tsx scripts/generate-acuerdo-pdf.ts && next build",
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "playwright test",
+    "generate:pdf": "npx tsx scripts/generate-acuerdo-pdf.ts",
     "okf:sync": "npx tsx scripts/sync-okf.ts",
     "generate:llms": "npx tsx scripts/generate-llms.ts",
     "generate:entitymap": "npx tsx scripts/generate-entitymap.ts"

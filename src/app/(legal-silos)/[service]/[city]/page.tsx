@@ -32,12 +32,10 @@ export async function generateMetadata({ params }: LeafPageProps): Promise<Metad
     return {
         title: `${cobertura.h1Title} | Autoridad Legal`,
         description: cobertura.description,
-        ...(!isAlcoholemia && {
-            robots: {
-                index: false,
-                follow: true,
-            },
-        }),
+        robots: {
+            index: false,
+            follow: true,
+        },
         alternates: {
             canonical: canonicalUrl,
         },
