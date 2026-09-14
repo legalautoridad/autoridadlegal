@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { getCourtSlugForCity } from '@/lib/db/city-court-map';
 
 export interface GlosarioTermFrontmatter {
     type?: string;
@@ -48,10 +49,10 @@ function getGlosarioDir(): string {
  */
 export function transformInternalLinks(content: string): string {
     return content
-        // Coberturas: /servicios/cobertura/alcoholemia-abrera.md -> /alcoholemia/abrera
-        .replace(/\/servicios\/cobertura\/(alcoholemia|drogas|sin-carnet|velocidad|profesionales)-([a-z0-9-]+)\.md/g, '/$1/$2')
+        // Coberturas: /servicios/cobertura/alcoholemia-abrera.md -> /juzgados/martorell
+        .replace(/\/servicios\/cobertura\/(alcoholemia|drogas|sin-carnet|velocidad|profesionales)-([a-z0-9-]+)\.md/g, (_, srv, city) => `/juzgados/${getCourtSlugForCity(city)}`)
         // General coberturas fallback
-        .replace(/\/servicios\/cobertura\/([a-z0-9-]+)\.md/g, '/municipios')
+        .replace(/\/servicios\/cobertura\/([a-z0-9-]+)\.md/g, '/juzgados')
         // Abogados
         .replace(/\/empresa\/abogados\/([a-z0-9-]+)\.md/g, '/abogados/$1')
         // Glosario terms
@@ -59,7 +60,7 @@ export function transformInternalLinks(content: string): string {
         // Servicios
         .replace(/\/servicios\/([a-z0-9-]+)\.md/g, '/$1')
         // Geografia
-        .replace(/\/geografia\/([a-z0-9-/]+)\.md/g, '/municipios');
+        .replace(/\/geografia\/([a-z0-9-/]+)\.md/g, '/juzgados');
 }
 
 /**

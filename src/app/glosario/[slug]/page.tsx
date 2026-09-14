@@ -35,6 +35,10 @@ export async function generateMetadata({ params }: GlosarioPageProps): Promise<M
     return {
         title,
         description,
+        robots: {
+            index: false,
+            follow: true,
+        },
         alternates: {
             canonical: canonicalUrl,
         },
