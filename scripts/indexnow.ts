@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 const HOST = 'www.autoridad.legal';
 const KEY = 'b10bd383f4d246de8640bb5d2080e465';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
