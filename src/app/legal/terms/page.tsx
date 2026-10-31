@@ -5,6 +5,10 @@ import { DEFAULT_OG_IMAGE } from '@/lib/config';
 export const metadata: Metadata = {
     title: 'Términos y Condiciones de Contratación | Autoridad Legal',
     description: 'Condiciones de contratación del servicio de defensa penal en delitos de tráfico. Precio cerrado blindado, garantía Escrow y respuesta prioritaria.',
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: 'https://www.autoridad.legal/legal/terms',
     },

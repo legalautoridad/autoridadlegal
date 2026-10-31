@@ -5,6 +5,10 @@ import { DEFAULT_OG_IMAGE } from '@/lib/config';
 export const metadata: Metadata = {
     title: 'Política de Privacidad ("GDPR Búnker") | Autoridad Legal',
     description: 'Política de privacidad y protección de datos conforme al RGPD. Protocolos de OCR Efímero (destrucción en 24h), Data Sanitization y seguridad avanzada.',
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: 'https://www.autoridad.legal/legal/privacy',
     },

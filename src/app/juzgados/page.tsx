@@ -39,14 +39,16 @@ export default async function JuzgadosIndexPage() {
     const districts = await getAllDistrictsIndexData();
     const totalActiveMunicipalities = districts.reduce((acc, d) => acc + d.municipalities.length, 0);
 
-    // Prepare MunicipioItems for search component with targetMode="juzgado"
-    const searchMunicipios: MunicipioItem[] = [];
+    // Prepare MunicipioItems for search component with targetMode="juzgado" and full SSR table
+    const searchMunicipios: (MunicipioItem & { judicialDistrict: string; officialCourtName: string })[] = [];
     districts.forEach(d => {
         d.municipalities.forEach(m => {
             searchMunicipios.push({
                 slug: m.slug,
                 name: m.name,
                 courtSlug: d.slug,
+                judicialDistrict: d.judicialDistrict,
+                officialCourtName: d.officialName,
                 hasCourt: true,
             });
         });
@@ -59,13 +61,13 @@ export default async function JuzgadosIndexPage() {
                 {/* Hero Header */}
                 <div className="text-center max-w-3xl mx-auto space-y-4">
                     <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-prestige-gold/15 border border-prestige-gold/30 text-prestige-gold text-xs font-bold uppercase tracking-wider">
-                        <Scale className="w-3.5 h-3.5" /> 25 Juzgados • {totalActiveMunicipalities} Municipios Atendidos
+                        <Scale className="w-3.5 h-3.5" /> 25 Partidos Judiciales • {totalActiveMunicipalities} Municipios Atendidos
                     </span>
                     <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight">
                         Busca Tu Juzgado en Cataluña
                     </h1>
                     <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                        Seleccione o busque su municipio para ser redirigido directamente al juzgado competente y acceder a la información de guardia 24h.
+                        Seleccione o busque su municipio para acceder directamente al partido judicial competente y a la información de guardia 24h.
                     </p>
                 </div>
 
@@ -75,7 +77,7 @@ export default async function JuzgadosIndexPage() {
                         <div className="w-10 h-10 rounded-xl bg-prestige-gold/20 flex items-center justify-center text-prestige-gold">
                             <Building2 className="w-5 h-5" />
                         </div>
-                        <h3 className="text-white font-bold text-base">Juzgados de Instrucción</h3>
+                        <h3 className="text-white font-bold text-base">25 Partidos Judiciales</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
                             Acceso directo a la información judicial oficial de las 25 sedes en la provincia de Barcelona.
                         </p>
@@ -95,9 +97,9 @@ export default async function JuzgadosIndexPage() {
                         <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
                             <MapPin className="w-5 h-5" />
                         </div>
-                        <h3 className="text-white font-bold text-base">129 Municipios Atendidos</h3>
+                        <h3 className="text-white font-bold text-base">{totalActiveMunicipalities} Municipios de Barcelona</h3>
                         <p className="text-slate-400 text-xs leading-relaxed">
-                            Búsqueda inmediata que vincula cada municipio con su juzgado adscrito.
+                            Adscripción oficial de los {totalActiveMunicipalities} municipios con su juzgado de guardia correspondiente.
                         </p>
                     </div>
                 </div>
@@ -112,14 +114,14 @@ export default async function JuzgadosIndexPage() {
                     subtitle="Escriba el municipio donde se produjo la actuación policial para ir a su juzgado correspondiente."
                 />
 
-                {/* Server-Rendered Indexable Grouping of 129 Municipalities by Court (No JS required) */}
+                {/* Server-Rendered Indexable Grouping of 25 Judicial Districts (No JS required) */}
                 <section className="space-y-8 pt-6 border-t border-white/10">
                     <div className="space-y-2">
                         <h2 className="text-2xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
-                            Directorio Completo de Juzgados y Municipios ({districts.length} Juzgados)
+                            Los {districts.length} Partidos Judiciales de la Provincia de Barcelona
                         </h2>
                         <p className="text-slate-400 text-xs md:text-sm">
-                            Consulta la adscripción judicial directa de los {totalActiveMunicipalities} municipios activos organizados por su sede judicial correspondiente:
+                            Consulta las 25 sedes judiciales y los {totalActiveMunicipalities} municipios adscritos a cada partido judicial:
                         </p>
                     </div>
 
@@ -167,11 +169,65 @@ export default async function JuzgadosIndexPage() {
                                         href={`/juzgados/${dist.slug}`}
                                         className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
                                     >
-                                        Ver Juzgado <ChevronRight className="w-4 h-4" />
+                                        Ver Juzgado de {dist.judicialDistrict} <ChevronRight className="w-4 h-4" />
                                     </Link>
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </section>
+
+                {/* Server-Rendered Table of all 310 Municipalities -> Judicial District */}
+                <section className="space-y-6 pt-8 border-t border-white/10">
+                    <div className="space-y-2">
+                        <h2 className="text-2xl font-bold text-white tracking-tight border-l-4 border-emerald-500 pl-4">
+                            Tabla Completa de los {searchMunicipios.length} Municipios y su Partido Judicial
+                        </h2>
+                        <p className="text-slate-400 text-xs md:text-sm">
+                            Listado alfabético completo de todos los municipios de la provincia de Barcelona con enlace directo a su partido judicial competente:
+                        </p>
+                    </div>
+
+                    <div className="overflow-x-auto rounded-2xl border border-white/10 bg-slate-950/80 shadow-xl">
+                        <table className="w-full text-left border-collapse text-sm">
+                            <thead>
+                                <tr className="border-b border-white/10 bg-slate-900/90 text-xs uppercase tracking-wider text-prestige-gold">
+                                    <th className="py-3.5 px-4 font-bold">Municipio</th>
+                                    <th className="py-3.5 px-4 font-bold">Partido Judicial Competente</th>
+                                    <th className="py-3.5 px-4 font-bold text-right">Ficha del Juzgado</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-white/5">
+                                {searchMunicipios.map(item => (
+                                    <tr key={item.slug} className="hover:bg-slate-900/60 transition-colors">
+                                        <td className="py-2.5 px-4 font-medium text-white">
+                                            <Link
+                                                href={`/juzgados/${item.courtSlug}`}
+                                                className="hover:text-prestige-gold transition-colors"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </td>
+                                        <td className="py-2.5 px-4 text-slate-300">
+                                            <Link
+                                                href={`/juzgados/${item.courtSlug}`}
+                                                className="hover:text-white transition-colors"
+                                            >
+                                                Partido Judicial de {item.judicialDistrict} ({item.officialCourtName})
+                                            </Link>
+                                        </td>
+                                        <td className="py-2.5 px-4 text-right">
+                                            <Link
+                                                href={`/juzgados/${item.courtSlug}`}
+                                                className="inline-flex items-center gap-1 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+                                            >
+                                                Ir al juzgado <ChevronRight className="w-3.5 h-3.5" />
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </section>
             </main>

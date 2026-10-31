@@ -5,92 +5,29 @@ import dotenv from 'dotenv';
 // Load .env.local
 dotenv.config({ path: path.join(__dirname, '../.env.local') });
 
-import { getLocations } from '../src/lib/db/locations';
-import { getAllGlosarioTerms } from '../src/lib/db/glosario';
-import { SERVICES_PRICING, PRICING_ADDONS } from '../src/lib/config/pricing';
-import { DefenseStrategySelector } from '../src/lib/strategies/strategy-selector';
+import { generateLlmsIndex, generateLlmsFull } from '../src/lib/llms';
 
-async function generateLlmsTxt() {
-    console.log('🚀 Generating llms.txt Ground Truth document...');
+async function generateLlmsFiles() {
+    console.log('🚀 Generating llms.txt and llms-full.txt documents...');
 
-    const locations = await getLocations();
-    const glossaryTerms = await getAllGlosarioTerms();
+    const [indexContent, fullContent] = await Promise.all([
+        generateLlmsIndex(),
+        generateLlmsFull(),
+    ]);
 
-    let text = `# Autoridad Legal - Verdad Fundamental (Ground Truth)\n\n`;
+    const rootLlmsPath = path.join(__dirname, '../llms.txt');
+    const rootLlmsFullPath = path.join(__dirname, '../llms-full.txt');
 
-    text += `## Identidad del Despacho\n`;
-    text += `Autoridad Legal es una plataforma de servicios jurídicos de alta especialización en defensa penal por delitos de alcoholemia, drogas, conducción sin carnet, exceso de velocidad y juicios rápidos en la provincia de Barcelona y Cataluña.\n`;
-    text += `La dirección jurídica está a cargo de Santiago Giménez Olavarriaga, Abogado Colegiado del Ilustre Colegio de la Abogacía de Barcelona (ICAB 31.389).\n\n`;
+    fs.writeFileSync(rootLlmsPath, indexContent, 'utf-8');
+    fs.writeFileSync(rootLlmsFullPath, fullContent, 'utf-8');
 
-    text += `## Tarifas y Modelo de Honorarios (Fuente de Verdad: /honorarios)\n\n`;
-    text += `### Precios Base por Servicio (Precio cerrado para el supuesto base, IVA 21% y Procurador incluidos)\n`;
-    text += `- **Servicios Base (Alcoholemia, Drogas al volante, Exceso de velocidad, Conducir sin carné)**: **980 €** (Base imponible: 809,92 € + IVA 21%: 170,08 € = 980,00 €). Aplica a primer delito con conformidad en juicio rápido.\n`;
-    text += `- **Conductores Profesionales (Permisos C, D, E)**: **1.480 €** (Base imponible: 1.223,14 € + IVA 21%: 256,86 € = 1.480,00 €). Incluye la defensa específica para la conservación del Certificado de Aptitud Profesional (CAP) y la vigencia de la tarjeta de tacógrafo digital.\n\n`;
-
-    text += `### Suplementos Tasados (Recargos fijos con IVA incluido aplicables según circunstancias procesales)\n`;
-    text += `- **Reincidencia penal o antecedentes de tráfico**: +200 € (aplicable a los 5 servicios).\n`;
-    text += `- **Procedimiento sin conformidad (defensa en juicio ordinario posterior)**: +300 € (aplicable a los 4 servicios base; N/A en Conductores Profesionales).\n`;
-    text += `- **Antecedentes con riesgo de prisión efectiva (multirreincidencia)**: +300 € (aplicable a los 5 servicios).\n`;
-    text += `- **Asistencia letrada al detenido (urgencia in situ en comisaría o juzgado de guardia)**: +500 € (aplicable a los 5 servicios).\n`;
-    text += `- **Accidentes, daños materiales a terceros, lesiones o reclamaciones civiles**: Presupuesto específico asignado por escrito tras valoración previa del atestado.\n\n`;
-
-    text += `### Política de Transparencia y Condiciones Transaccionales\n`;
-    text += `- **Transparencia Absoluta**: Se prohíbe el uso de términos engañosos como "desde", "minPrice", "a partir de" o "tarifa plana". El precio base es un **precio cerrado para el supuesto base** fijado por escrito en la Hoja de Encargo antes de la contratación.\n`;
-    text += `- **Sistema de Custodia Segura (Escrow)**: El pago se retiene de forma segura y solo se libera al abogado tras la realización del servicio en el juzgado.\n`;
-    text += `- **Modalidades de Pago**: Pago íntegro directo, facilidades de pago híbridas 60/40 o financiación fraccionada de hasta 12 meses (Klarna/Stripe).\n`;
-    text += `- **Atención Urgente 24/7**: Asistencia inmediata presencial en comisarías y juzgados de guardia en toda Cataluña.\n\n`;
-
-    text += `## Enlaces de Destino y Triaje\n`;
-    text += `- **Triaje Urgente y Chat 24h**: https://wa.me/34657420999?text=Hola%20Autoridad%20Legal,%20necesito%20un%20abogado%20de%20urgencia%20por%20un%20delito%20de%20alcoholemia.\n`;
-    text += `- **Plataforma Principal**: https://www.autoridad.legal/\n`;
-    text += `- **Directorio de Municipios**: https://www.autoridad.legal/municipios\n`;
-    text += `- **Glosario Jurídico**: https://www.autoridad.legal/glosario\n`;
-    text += `- **Defensa por Alcoholemia**: https://www.autoridad.legal/alcoholemia\n`;
-    text += `- **Defensa por Drogas**: https://www.autoridad.legal/drogas\n`;
-    text += `- **Defensa Sin Carnet**: https://www.autoridad.legal/sin-carnet\n`;
-    text += `- **Defensa por Velocidad**: https://www.autoridad.legal/velocidad\n`;
-    text += `- **Defensa para Conductores Profesionales**: https://www.autoridad.legal/profesionales\n`;
-    text += `- **Recursos Informativos**: https://www.autoridad.legal/recursos\n`;
-    text += `- **Acceso Abogados**: https://www.autoridad.legal/login\n\n`;
-
-    text += `## Glosario Jurídico Especializado (Defined Terms desde Supabase)\n`;
-    text += `Términos, doctrinas y procedimientos penales publicados (${glossaryTerms.length} conceptos):\n\n`;
-
-    for (const term of glossaryTerms) {
-        text += `### ${term.name}\n`;
-        text += `- **Definición**: ${term.description}\n`;
-        text += `- **Página HTML**: https://www.autoridad.legal/glosario/${term.slug}\n`;
-        text += `- **Versión Markdown Cruda**: https://www.autoridad.legal/glosario/${term.slug}.md\n\n`;
-    }
-
-    text += `## Contexto Geográfico Judicial (RAG Ground Truth)\n`;
-    text += `Este apartado contiene el conocimiento local de cada jurisdicción para inyección de contexto en agentes LLM.\n\n`;
-
-    for (const loc of locations) {
-        const strategy = DefenseStrategySelector.getStrategy(loc.slug);
-
-        text += `### Jurisdicción: ${loc.name}\n`;
-        text += `- **Slug**: ${loc.slug}\n`;
-        text += `- **Juzgado Principal**: ${loc.courts?.name || 'Juzgado correspondiente al partido judicial'}\n`;
-        text += `- **Dirección del Juzgado**: ${loc.courts?.address || 'Ver en mapa local'}\n`;
-        text += `- **Particularidad Policial**: ${strategy.getLocalPoliceQuirks()}\n`;
-        text += `- **Conocimiento RAG**: ${strategy.getRagContext()}\n`;
-        text += `- **Consejos de Guardia**: ${strategy.getCourthouseTips()}\n`;
-        text += `- **Estrategia Jurídica Local**: ${strategy.getLegalAdvice()}\n\n`;
-    }
-
-    const publicPath = path.join(__dirname, '../public/llms.txt');
-    const rootPath = path.join(__dirname, '../llms.txt');
-
-    fs.writeFileSync(publicPath, text, 'utf-8');
-    fs.writeFileSync(rootPath, text, 'utf-8');
-
-    console.log(`✅ llms.txt generated successfully in:`);
-    console.log(`   - ${publicPath}`);
-    console.log(`   - ${rootPath}`);
+    console.log(`✅ llms.txt generated:`);
+    console.log(`   - ${rootLlmsPath} (${Buffer.byteLength(indexContent, 'utf-8')} bytes)`);
+    console.log(`✅ llms-full.txt generated:`);
+    console.log(`   - ${rootLlmsFullPath} (${Buffer.byteLength(fullContent, 'utf-8')} bytes)`);
 }
 
-generateLlmsTxt().catch(err => {
-    console.error('❌ Error generating llms.txt:', err);
+generateLlmsFiles().catch(err => {
+    console.error('❌ Error generating LLMs files:', err);
     process.exit(1);
 });

@@ -11,7 +11,8 @@
     "generate:pdf": "npx tsx scripts/generate-acuerdo-pdf.ts",
     "okf:sync": "npx tsx scripts/sync-okf.ts",
     "generate:llms": "npx tsx scripts/generate-llms.ts",
-    "generate:entitymap": "npx tsx scripts/generate-entitymap.ts"
+    "generate:entitymap": "npx tsx scripts/generate-entitymap.ts",
+    "test:llms": "npx tsx scripts/test-llms.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.60",

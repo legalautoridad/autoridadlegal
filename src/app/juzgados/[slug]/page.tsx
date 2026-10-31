@@ -108,11 +108,10 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                 'url': canonicalUrl,
                 'telephone': PHONE_E164,
                 'areaServed': municipalities.map(m => ({
-                    '@type': 'AdministrativeArea',
+                    '@type': 'City',
                     'name': m.name,
                 })),
                 'provider': {
-                    '@type': 'Organization',
                     '@id': 'https://www.autoridad.legal/#organization',
                 },
             },
@@ -234,13 +233,16 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                     </div>
                 </section>
 
-                {/* POSITION 2: Municipios que abarca */}
+                {/* POSITION 2: Municipios del partido judicial */}
                 <section className="space-y-6">
                     <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
-                        Municipios que Abarca
+                        Municipios del partido judicial de {court.judicialDistrict}
                     </h2>
-                    <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                        Este juzgado ostenta la competencia judicial exclusiva para los siguientes <strong className="text-white font-semibold">{municipalities.length} municipios activos</strong>:
+                    <p className="text-slate-200 text-sm md:text-base leading-relaxed bg-slate-950/70 p-4 rounded-xl border border-white/10">
+                        Si te han parado en <strong className="text-white font-semibold">{munListFormatted}</strong>, tu juicio rápido se celebra en el Juzgado de Guardia de <strong className="text-prestige-gold font-semibold">{court.judicialDistrict}</strong>{court.address ? `, ${court.address}` : ''}.
+                    </p>
+                    <p className="text-slate-400 text-xs md:text-sm leading-relaxed">
+                        Este partido judicial ostenta la competencia territorial exclusiva para los siguientes <strong className="text-white font-semibold">{municipalities.length} municipios</strong>:
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pt-2">
                         {municipalities.map(m => (
