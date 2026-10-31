@@ -2,6 +2,7 @@ import { createStaticClient } from '../supabase/server'
 
 export interface Court {
     id: string
+    slug?: string
     name: string
     information: string | null
     address: string | null
