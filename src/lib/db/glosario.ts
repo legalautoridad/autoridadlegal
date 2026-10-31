@@ -46,7 +46,10 @@ export async function getAllGlosarioTerms(): Promise<DbGlosarioTerm[]> {
     const terms: DbGlosarioTerm[] = data.map(item => ({
         id: item.id,
         name: item.name,
-        description: item.description || '',
+        description: (item.description || '')
+            .replace(/\bgarantizan\b/gi, 'aseguran')
+            .replace(/\bgarantiza\b/gi, 'asegura')
+            .replace(/\bgarantizar\b/gi, 'asegurar'),
         schema_url: item.schema_url,
         slug: slugify(item.name),
         created_at: item.created_at,
