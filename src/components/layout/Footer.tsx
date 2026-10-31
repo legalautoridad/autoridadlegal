@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Shield, ShieldCheck, Scale } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
+import { PARTIDOS_JUDICIALES } from '@/lib/db/city-court-map';
 
 export function Footer() {
     return (
@@ -36,7 +37,7 @@ export function Footer() {
                             <li><Link href="/honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Honorarios y Precios</Link></li>
                             <li><Link href="/acuerdo-honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Modelo Hoja de Encargo</Link></li>
                             <li><Link href="/glosario" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Glosario Jurídico</Link></li>
-                            <li><Link href="/juzgados" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Busca tu Juzgado</Link></li>
+                            <li><Link href="/juzgados" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Busca tu Juzgado (25 Partidos)</Link></li>
                             <li><Link href="/recursos" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Centro de Conocimiento</Link></li>
                         </ul>
                     </div>
@@ -82,8 +83,34 @@ export function Footer() {
                 </div>
             </div>
 
+            {/* 25 Judicial Districts Directory in Footer */}
+            <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-10 mt-10 border-t border-white/10 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h4 className="font-label-md text-xs font-bold text-white uppercase tracking-widest">
+                        <Link href="/juzgados" className="hover:text-prestige-gold transition-colors">
+                            Partidos Judiciales de la Provincia de Barcelona (25 Juzgados)
+                        </Link>
+                    </h4>
+                    <Link href="/juzgados" className="text-xs font-semibold text-prestige-gold hover:underline">
+                        Ver todos los juzgados y 310 municipios →
+                    </Link>
+                </div>
+                <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-2 text-xs">
+                    {PARTIDOS_JUDICIALES.map((partido) => (
+                        <li key={partido.slug}>
+                            <Link
+                                href={`/juzgados/${partido.slug}`}
+                                className="font-body-md text-white/65 hover:text-prestige-gold transition-colors"
+                            >
+                                Juzgado de {partido.name}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
             {/* Bottom Section */}
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 border-t border-white/5 mt-12 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 border-t border-white/5 mt-10 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p className="font-body-md text-xs text-center md:text-left text-white/50">
                     &copy; {new Date().getFullYear()} Autoridad.Legal - Especialistas en Defensa Penal. Todos los derechos reservados.
                 </p>

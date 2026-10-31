@@ -10,10 +10,10 @@ import { StatsRow } from '@/components/silo/StatsRow';
 import { TrustSignals } from '@/components/silo/TrustSignals';
 import { OKFService } from '@/lib/okf/okf-service';
 import { OKFPointsMap } from '@/components/silo/OKFPointsMap';
-import { MunicipalitySearch } from '@/components/silo/MunicipalitySearch';
+import { PARTIDOS_JUDICIALES } from '@/lib/db/city-court-map';
 import { ServiceFaq } from '@/lib/db/services';
 import { CoberturaData } from '@/lib/db/cobertura';
-import { ChevronDown, Phone, MapPin, Building2, ShieldAlert, FileText } from 'lucide-react';
+import { ChevronDown, Phone, MapPin, Building2, ShieldAlert, FileText, ArrowRight, Scale } from 'lucide-react';
 import { PuntoDeInteres } from '@/lib/okf/parser';
 
 interface ServiceTemplateProps {
@@ -340,15 +340,49 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                 </section>
             )}
 
-            {/* Interactive Municipality Directory & Search Section */}
+            {/* 25 Judicial Districts Block ("¿Dónde te juzgan?") */}
             <section className="py-20 bg-slate-900 border-b border-white/5">
-                <div className="container px-4 md:px-12 mx-auto">
-                    <MunicipalitySearch
-                        initialService={service}
-                        initialMunicipios={OKFService.getCoveredMunicipios(service)}
-                        title={`Buscador de Municipios Cubiertos para ${config.hero.specialty}`}
-                        subtitle={`Busque su municipio en Cataluña para acceder a asistencia jurídica especializada de urgencia adaptada a los juzgados y comisarías locales.`}
-                    />
+                <div className="container px-4 md:px-12 mx-auto max-w-6xl space-y-10">
+                    <div className="text-center space-y-3 max-w-3xl mx-auto">
+                        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-prestige-gold/10 border border-prestige-gold/30 text-prestige-gold text-xs font-semibold uppercase tracking-widest">
+                            <Scale className="w-3.5 h-3.5" />
+                            25 Partidos Judiciales • 310 Municipios
+                        </span>
+                        <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
+                            ¿Dónde te juzgan? Los 25 partidos judiciales de la provincia de Barcelona
+                        </h2>
+                        <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+                            Intervenimos de urgencia las 24 horas en los 25 Juzgados de Guardia e Instrucción de la provincia de Barcelona para procedimientos de {config.hero.specialty}:
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                        {PARTIDOS_JUDICIALES.map((partido) => (
+                            <Link
+                                key={partido.slug}
+                                href={`/juzgados/${partido.slug}`}
+                                className="group flex items-center justify-between p-3.5 rounded-2xl bg-slate-950/90 hover:bg-slate-950 border border-white/10 hover:border-prestige-gold/60 transition-all transform hover:-translate-y-0.5 shadow-md"
+                            >
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                    <Building2 className="w-4 h-4 text-prestige-gold shrink-0" />
+                                    <span className="text-xs md:text-sm font-bold text-slate-200 group-hover:text-white truncate transition-colors">
+                                        {partido.name}
+                                    </span>
+                                </div>
+                                <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-prestige-gold group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
+                            </Link>
+                        ))}
+                    </div>
+
+                    <div className="text-center pt-2">
+                        <Link
+                            href="/juzgados"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-prestige-gold/40 text-prestige-gold font-bold text-sm transition-all shadow-md"
+                        >
+                            <span>Consultar directorio completo de Juzgados y los 310 municipios</span>
+                            <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
                 </div>
             </section>
 

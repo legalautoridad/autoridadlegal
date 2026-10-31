@@ -7,6 +7,10 @@ import { FileText, Download, ShieldCheck, Scale, Award, AlertCircle, Phone, Arro
 export const metadata: Metadata = {
     title: 'Modelo Estándar de Hoja de Encargo y Acuerdo de Honorarios | Autoridad Legal',
     description: 'Modelo transparente de hoja de encargo profesional para juicios rápidos por alcoholemia, drogas, velocidad, sin carné y conductores profesionales. Tarifas cerradas por escrito (IVA y procurador incluidos) e información deontológica ICAB 31.389.',
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: ACUERDO_HONORARIOS_CONFIG.canonicalUrl,
     },

@@ -3,6 +3,10 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Política de Cookies | Autoridad Legal',
     description: 'Información sobre el uso de cookies propias y de terceros en la plataforma Autoridad Legal.',
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: 'https://www.autoridad.legal/legal/cookies',
     },

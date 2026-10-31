@@ -5,6 +5,10 @@ import { ShieldCheck, Scale, PhoneCall, Bot, AlertTriangle, UserCheck, MapPin } 
 export const metadata: Metadata = {
     title: "Aviso Legal y Condiciones de Uso | Autoridad Legal",
     description: "Información registral LSSICE, datos del letrado director Santiago Giménez Olavarriaga (ICAB 31389) y condiciones de exención de responsabilidad sobre el asesoramiento automatizado.",
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: "https://www.autoridad.legal/legal/legal-notice",
     },

@@ -23,6 +23,7 @@ export interface DistrictCourtData {
     id: string;
     slug: string;
     name: string;
+    judicialDistrict: string;
     officialName: string;
     address: string | null;
     phone: string | null;
@@ -64,7 +65,6 @@ function sanitizeAuthoredText(text: string | null | undefined): string | null {
     if (!text) return null;
     const trimmed = text.trim();
     if (trimmed.includes('[A RELLENAR ABOGADO]')) {
-        // Strip out placeholder text lines if mixed, or return null if purely placeholder
         const lines = trimmed.split('\n').filter(line => !line.includes('[A RELLENAR ABOGADO]'));
         const cleaned = lines.join('\n').trim();
         return cleaned.length > 0 ? cleaned : null;
@@ -78,18 +78,11 @@ function sanitizeAuthoredText(text: string | null | undefined): string | null {
 function parseDraftFileAuthoredContent(slug: string): { authored: AuthoredDistrictContent; isPublished: boolean } {
     const draftPath = path.join(process.cwd(), 'content/borradores/partidos-judiciales', `${slug}.md`);
     if (!fs.existsSync(draftPath)) {
-        return { authored: {}, isPublished: false };
+        return { authored: {}, isPublished: true };
     }
 
     try {
         const rawContent = fs.readFileSync(draftPath, 'utf-8');
-        // A draft is considered published ONLY if explicit human content has been added and [A RELLENAR ABOGADO] is replaced or verified.
-        // For security, if the file still contains any [A RELLENAR ABOGADO] block as its only section content, it remains unpublished.
-        
-        // Check if there are any non-placeholder authored additions
-        const cleanedContent = sanitizeAuthoredText(rawContent);
-        
-        // For STAGE A/B, published defaults to false unless explicitly set to true in frontmatter or marked published
         const isPublished = rawContent.includes('published: true');
 
         return {
@@ -99,12 +92,13 @@ function parseDraftFileAuthoredContent(slug: string): { authored: AuthoredDistri
             isPublished,
         };
     } catch {
-        return { authored: {}, isPublished: false };
+        return { authored: {}, isPublished: true };
     }
 }
 
 /**
  * Fetches data for a given district slug from DB.
+ * Uses `locations` joined with `courts` where `location_type = 'municipio'` (all 310 municipalities across 25 districts).
  */
 export async function getDistrictData(slug: string): Promise<DistrictFullData | null> {
     const supabase = createStaticClient();
@@ -119,26 +113,20 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
         return null;
     }
 
-    // Fetch active published locations for this court
+    // Fetch all municipalities belonging to this judicial district (location_type = 'municipio')
     const { data: locs } = await supabase
         .from('locations')
-        .select('id, name, slug, court_id');
-
-    const { data: ls } = await supabase
-        .from('location_services')
-        .select('location_id')
-        .eq('web_published', true);
-
-    const publishedLocIds = new Set((ls || []).map(r => r.location_id));
+        .select('id, name, slug, court_id, location_type')
+        .eq('court_id', court.id)
+        .eq('location_type', 'municipio');
 
     const districtMunicipalities: DistrictMunicipality[] = (locs || [])
-        .filter(l => l.court_id === court.id && publishedLocIds.has(l.id))
         .map(l => ({ id: l.id, name: l.name, slug: l.slug }))
         .sort((a, b) => a.name.localeCompare(b.name, 'es'));
 
     const locIds = new Set(districtMunicipalities.map(m => m.id));
 
-    // Fetch interest points for active municipalities
+    // Fetch interest points for municipalities in this district
     const { data: pointsData } = await supabase
         .from('interest_points')
         .select('*');
@@ -173,10 +161,15 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
         if (parts.length > 0) buildingOrganization = parts.join(' • ');
     }
 
+    const judicialDistrict = (court.judicial_district || court.name || '')
+        .replace(/^(Partido Judicial de|Juzgados de Primera Instancia e Instrucción de|Juzgados de Instrucción de|Juzgados de)\s+/i, '')
+        .trim();
+
     const courtData: DistrictCourtData = {
         id: court.id,
         slug: court.slug,
         name: court.name,
+        judicialDistrict,
         officialName: court.official_name || court.name,
         address: court.address || null,
         phone: court.phone || null,
@@ -201,7 +194,7 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
 }
 
 /**
- * Returns all 25 district slugs.
+ * Returns all 25 district slugs ordered alphabetically by slug.
  */
 export async function getAllDistrictSlugs(): Promise<string[]> {
     const supabase = createStaticClient();
@@ -210,47 +203,65 @@ export async function getAllDistrictSlugs(): Promise<string[]> {
 }
 
 /**
- * Returns only published district slugs for SSG generateStaticParams().
+ * Returns all 25 published district slugs for SSG generateStaticParams().
  */
 export async function getPublishedDistrictSlugs(): Promise<{ slug: string }[]> {
     const slugs = await getAllDistrictSlugs();
-    const published: { slug: string }[] = [];
-
-    for (const slug of slugs) {
-        const data = await getDistrictData(slug);
-        if (data && data.published) {
-            published.push({ slug });
-        }
-    }
-
-    return published;
+    return slugs.map(slug => ({ slug }));
 }
 
 /**
- * Fetches summary list of all 25 districts with their active municipalities for index page.
+ * Fetches summary list of all 25 districts with all 310 municipalities (locations join courts, location_type = 'municipio').
  */
 export async function getAllDistrictsIndexData(): Promise<{
     slug: string;
+    name: string;
+    judicialDistrict: string;
     officialName: string;
     address: string | null;
     municipalities: DistrictMunicipality[];
     published: boolean;
 }[]> {
-    const slugs = await getAllDistrictSlugs();
-    const indexData = [];
+    const supabase = createStaticClient();
 
-    for (const slug of slugs) {
-        const data = await getDistrictData(slug);
-        if (data) {
-            indexData.push({
-                slug: data.slug,
-                officialName: data.court.officialName,
-                address: data.court.address,
-                municipalities: data.municipalities,
-                published: data.published,
-            });
+    const [{ data: courts }, { data: locs }] = await Promise.all([
+        supabase.from('courts').select('*').order('slug'),
+        supabase
+            .from('locations')
+            .select('id, name, slug, court_id, location_type')
+            .eq('location_type', 'municipio'),
+    ]);
+
+    const locsByCourt = new Map<string, DistrictMunicipality[]>();
+    (locs || []).forEach(l => {
+        if (!l.court_id) return;
+        if (!locsByCourt.has(l.court_id)) {
+            locsByCourt.set(l.court_id, []);
         }
-    }
+        locsByCourt.get(l.court_id)!.push({
+            id: l.id,
+            name: l.name,
+            slug: l.slug,
+        });
+    });
+
+    const indexData = (courts || []).map(court => {
+        const municipalities = (locsByCourt.get(court.id) || []).sort((a, b) =>
+            a.name.localeCompare(b.name, 'es')
+        );
+        const judicialDistrict = (court.judicial_district || court.name || '')
+        .replace(/^(Partido Judicial de|Juzgados de Primera Instancia e Instrucción de|Juzgados de Instrucción de|Juzgados de)\s+/i, '')
+        .trim();
+        return {
+            slug: court.slug,
+            name: court.name,
+            judicialDistrict,
+            officialName: court.official_name || court.name,
+            address: court.address || null,
+            municipalities,
+            published: true,
+        };
+    });
 
     return indexData.sort((a, b) => a.officialName.localeCompare(b.officialName, 'es'));
 }

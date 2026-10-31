@@ -1,0 +1,476 @@
+# Autoridad Legal
+
+> Despacho especializado en defensa penal por delitos contra la seguridad vial y juicios rápidos en la provincia de Barcelona. Dirección jurídica a cargo de Santiago Giménez Olavarriaga, abogado penalista del Ilustre Colegio de la Abogacía de Barcelona (ICAB 31.389).
+
+## Tarifas y Modelo de Honorarios
+
+### Precios Base por Servicio (Precio cerrado para el supuesto base, IVA 21% y Procurador incluidos)
+- **Alcoholemia al volante**: **980 €** (Base imponible: 809,92 € + IVA 21%: 170,08 € = 980,00 €). Supuesto base: primer delito con conformidad en juicio rápido. Enlace: [Defensa por Alcoholemia](https://www.autoridad.legal/alcoholemia).
+- **Drogas al volante**: **980 €** (Base imponible: 809,92 € + IVA 21%: 170,08 € = 980,00 €). Supuesto base: primer delito con conformidad en juicio rápido. Enlace: [Defensa por Drogas](https://www.autoridad.legal/drogas).
+- **Exceso de velocidad**: **980 €** (Base imponible: 809,92 € + IVA 21%: 170,08 € = 980,00 €). Supuesto base: primer delito con conformidad en juicio rápido. Enlace: [Defensa por Exceso de Velocidad](https://www.autoridad.legal/velocidad).
+- **Conducir sin carné**: **780 €** (Base imponible: 644,63 € + IVA 21%: 135,37 € = 780,00 €). Supuesto base: primer delito con conformidad en juicio rápido. Precio adaptado al no llevar aparejada la pena de privación del permiso. Enlace: [Defensa Sin Carnet](https://www.autoridad.legal/sin-carnet).
+- **Conductores Profesionales (Permisos C, D, E)**: **1.480 €** (Base imponible: 1.223,14 € + IVA 21%: 256,86 € = 1.480,00 €). Procedimiento completo en primera instancia, protección del CAP y tarjeta de tacógrafo digital. Enlace: [Defensa para Conductores Profesionales](https://www.autoridad.legal/profesionales).
+
+### Suplementos Tasados (Recargos fijos con IVA incluido aplicables según circunstancias procesales)
+- **Reincidencia delictiva o antecedentes de tráfico vigentes**: +200 € (aplicable a los 5 servicios cuando constan antecedentes penales de tráfico vigentes en el Registro Central de Penados).
+- **Procedimiento sin conformidad (defensa en juicio ordinario posterior)**: +300 € (aplicable a los 4 servicios base cuando la estrategia descarta la conformidad para litigar en instrucción o juicio oral).
+- **Asistencia letrada urgente al detenido**: +500 € (asistencia presencial con desplazamiento inmediato del letrado a dependencias policiales o juzgado de guardia fuera de horario ordinario).
+- **Riesgo de prisión efectiva (multirreincidencia)**: +300 € (en supuestos con riesgo de ingreso penitenciario donde decae la suspensión ordinaria y se exige defensa reforzada).
+- **Concurrencia de delitos (negativa, desobediencia o atentado)**: +200 € (cuando el atestado incluye negativa a someterse a pruebas art. 383 CP, desobediencia art. 556 CP o atentado art. 550 CP).
+- **Accidentes con daños a terceros o lesiones**: Presupuesto cerrado previo fijado por escrito tras la valoración técnica del atestado.
+
+### Política de Transparencia y Condiciones de Contratación
+- **Precios cerrados por escrito**: Cada actuación cuenta con un precio cerrado fijado en la Hoja de Encargo antes de iniciar la intervención. Sin importes indeterminados ni costes sobrevenidos.
+- **Custodia Segura (Escrow)**: El pago permanece retenido y seguro, y únicamente se libera al abogado tras la prestación efectiva del servicio en el juzgado.
+- **Modalidades de Pago**: Pago íntegro directo, facilidades de pago híbridas 60/40 o financiación fraccionada de hasta 12 meses.
+- **Atención Urgente 24/7**: Asistencia inmediata presencial en comisarías y juzgados de guardia en toda Cataluña.
+
+## Enlaces y Canales de Asistencia
+- [WhatsApp de Urgencia 24h](https://wa.me/34657420999): Contacto directo para detenciones y juicios rápidos.
+- [Plataforma Principal](https://www.autoridad.legal/): Portada y presentación del despacho.
+- [Honorarios y Tarifas](https://www.autoridad.legal/honorarios): Detalle de precios y condiciones de contratación.
+- [Defensa por Alcoholemia](https://www.autoridad.legal/alcoholemia): Servicio de defensa especializada en juicios rápidos por alcoholemia.
+- [Defensa por Drogas](https://www.autoridad.legal/drogas): Servicio de defensa penal por sustancias tóxicas o estupefacientes al volante.
+- [Defensa Sin Carnet](https://www.autoridad.legal/sin-carnet): Servicio de defensa por conducción sin permiso o sin puntos.
+- [Defensa por Velocidad](https://www.autoridad.legal/velocidad): Servicio de defensa por exceso de velocidad y radares.
+- [Conductores Profesionales](https://www.autoridad.legal/profesionales): Servicio especializado para titulares de permisos C, D y E.
+- [Directorio de Municipios](https://www.autoridad.legal/municipios): Jurisdicciones judiciales de la provincia de Barcelona.
+- [Glosario Jurídico](https://www.autoridad.legal/glosario): Directorio de conceptos y términos jurídicos de tráfico.
+- [Recursos Informativos](https://www.autoridad.legal/recursos): Guías y documentación legal sobre el proceso penal.
+
+## Glosario Jurídico Especializado (115 conceptos)
+Términos, figuras procesales y doctrinas publicadas con enlace a su versión HTML y versión Markdown:
+
+- [Abogado de Oficio](https://www.autoridad.legal/glosario/abogado-de-oficio) ([md](https://www.autoridad.legal/glosario/abogado-de-oficio.md)): Letrado designado por el Colegio de Abogados para ofrecer defensa gratuita saturada; figura clave de contraste frente al especialista privado.
+- [Acta de Signos Sintomatológicos](https://www.autoridad.legal/glosario/acta-de-signos-sintomatologicos) ([md](https://www.autoridad.legal/glosario/acta-de-signos-sintomatologicos.md)): Documento policial descriptivo que detalla el estado psicofísico externo del conductor, constituyendo el elemento probatorio central para acreditar la influencia real del alcohol o las drogas.
+- [Alcoholemia Penal](https://www.autoridad.legal/glosario/alcoholemia-penal) ([md](https://www.autoridad.legal/glosario/alcoholemia-penal.md)): Infracción penal objetiva al conducir con una tasa de alcohol en aire espirado superior a 0,60 mg/l o bajo la influencia demostrada del mismo.
+- [Antecedentes Penales](https://www.autoridad.legal/glosario/antecedentes-penales) ([md](https://www.autoridad.legal/glosario/antecedentes-penales.md)): Constancia oficial en el Registro Central de una condena firme que agrava futuras infracciones y perjudica permisos de residencia o empleo.
+- [Antecedentes Policiales](https://www.autoridad.legal/glosario/antecedentes-policiales) ([md](https://www.autoridad.legal/glosario/antecedentes-policiales.md)): Registros desfavorables generados en los archivos policiales tras una detención o denuncia, independientes de la resolución del juez.
+- [Archivo Prematuro de Atestados (LO 11/2022)](https://www.autoridad.legal/glosario/archivo-prematuro-de-atestados-lo-11-2022) ([md](https://www.autoridad.legal/glosario/archivo-prematuro-de-atestados-lo-11-2022.md)): Práctica judicial de sobreseer tempranamente accidentes viales con lesiones. La Fiscalía impone el recurso sistemático de estos archivos para forzar la continuación de la vía penal.
+- [Atestado Policial](https://www.autoridad.legal/glosario/atestado-policial) ([md](https://www.autoridad.legal/glosario/atestado-policial.md)): Instrumento oficial donde los agentes recogen los hechos del control, declaraciones, actas de signos y tickets del etilómetro o radar.
+- [Baremo de Tráfico (Ley 35/2015)](https://www.autoridad.legal/glosario/baremo-de-trafico-ley-35-2015) ([md](https://www.autoridad.legal/glosario/baremo-de-trafico-ley-35-2015.md)): Sistema legal de valoración utilizado para calcular y exigir el abono de indemnizaciones a víctimas de accidentes de tráfico e imprudencias.
+- [Cadena de Custodia de la Muestra](https://www.autoridad.legal/glosario/cadena-de-custodia-de-la-muestra) ([md](https://www.autoridad.legal/glosario/cadena-de-custodia-de-la-muestra.md)): Procedimiento de blindaje logístico que garantiza que el vial de saliva llega al laboratorio forense sin alteraciones o manipulación.
+- [Cancelación de Antecedentes Penales](https://www.autoridad.legal/glosario/cancelacion-de-antecedentes-penales) ([md](https://www.autoridad.legal/glosario/cancelacion-de-antecedentes-penales.md)): Tramitación administrativa que elimina los registros de una condena firme en el Registro Central de Penados tras cumplir la pena y transcurrir el plazo legal.
+- [Certificado de Aptitud Profesional (CAP)](https://www.autoridad.legal/glosario/certificado-de-aptitud-profesional-cap) ([md](https://www.autoridad.legal/glosario/certificado-de-aptitud-profesional-cap.md)): Requisito administrativo de capacitación activa de obligado cumplimiento en el territorio nacional para el ejercicio del transporte profesional de mercancías o viajeros por carretera, cuya vigencia se ve interrumpida de forma automática con la privación penal del derecho a conducir.
+- [Certificado de Extinción de Responsabilidad](https://www.autoridad.legal/glosario/certificado-de-extincion-de-responsabilidad) ([md](https://www.autoridad.legal/glosario/certificado-de-extincion-de-responsabilidad.md)): Documento oficial expedido por el juzgado que acredita el cumplimiento total de una pena y habilita la cancelación de antecedentes.
+- [Certificado de Verificación Metrológica](https://www.autoridad.legal/glosario/certificado-de-verificacion-metrologica) ([md](https://www.autoridad.legal/glosario/certificado-de-verificacion-metrologica.md)): Documento que certifica que el radar o el etilómetro ha superado satisfactoriamente la revisión e inspección anual reglamentaria.
+- [Cinemómetro](https://www.autoridad.legal/glosario/cinemometro) ([md](https://www.autoridad.legal/glosario/cinemometro.md)): Instrumento de control metrológico homologado (radar fijo, móvil o de tramo) empleado por las Fuerzas de Seguridad para medir e indexar los excesos de velocidad de los vehículos.
+- [Citación Judicial](https://www.autoridad.legal/glosario/citacion-judicial) ([md](https://www.autoridad.legal/glosario/citacion-judicial.md)): Acto de comunicación formal emanado de la policía o del tribunal que obliga a comparecer un día y hora concretos en el Juzgado de Guardia.
+- [Comiso de Vehículos a Motor](https://www.autoridad.legal/glosario/comiso-de-vehiculos-a-motor) ([md](https://www.autoridad.legal/glosario/comiso-de-vehiculos-a-motor.md)): Sanción penal accesoria que implica la pérdida definitiva y confiscación del vehículo utilizado en el delito, sujeta de forma estricta a un juicio de proporcionalidad y a la acreditación de peligrosidad concreta del infractor según la STS 8/2025.
+- [Comiso del Vehículo](https://www.autoridad.legal/glosario/comiso-del-vehiculo) ([md](https://www.autoridad.legal/glosario/comiso-del-vehiculo.md)): Intervención y pérdida definitiva de la propiedad del coche o motocicleta utilizada en el delito, ordenada por el Juez en supuestos de extrema gravedad.
+- [Concurso de Delitos Viales (Art. 382 CP)](https://www.autoridad.legal/glosario/concurso-de-delitos-viales-art-382-cp) ([md](https://www.autoridad.legal/glosario/concurso-de-delitos-viales-art-382-cp.md)): Regla penológica y concurso formal de delitos regulado en el Art. 382 del Código Penal, aplicable cuando un delito de riesgo vial (ej. alcoholemia o velocidad) ocasiona además un resultado lesivo o castigado en la infracción más grave en su mitad superior.
+- [Conducción bajo los efectos de Estupefacientes](https://www.autoridad.legal/glosario/conduccion-bajo-los-efectos-de-estupefacientes) ([md](https://www.autoridad.legal/glosario/conduccion-bajo-los-efectos-de-estupefacientes.md)): Delito consistente en pilotar un vehículo a motor teniendo las capacidades psicofísicas alteradas por el consumo de sustancias psicoactivas.
+- [Conducción sin Carnet](https://www.autoridad.legal/glosario/conduccion-sin-carnet) ([md](https://www.autoridad.legal/glosario/conduccion-sin-carnet.md)): Delito imputado a quien conduce habiendo perdido la totalidad de los puntos, por privación judicial o por no haber obtenido nunca el permiso.
+- [Conducción Temeraria](https://www.autoridad.legal/glosario/conduccion-temeraria) ([md](https://www.autoridad.legal/glosario/conduccion-temeraria.md)): Tipo penal agravado que castiga la conducción con un desprecio manifiesto hacia la vida, integridad o seguridad de los demás usuarios.
+- [Conductor Novel](https://www.autoridad.legal/glosario/conductor-novel) ([md](https://www.autoridad.legal/glosario/conductor-novel.md)): Conductor con menos de dos años de antigüedad en el permiso, sometido a límites de alcohol más estrictos y tasas de penalización severas.
+- [Conductor Profesional](https://www.autoridad.legal/glosario/conductor-profesional) ([md](https://www.autoridad.legal/glosario/conductor-profesional.md)): Perfil de cliente (taxistas, camioneros) cuya subsistencia depende de la retención del carnet, justificando un mayor esfuerzo pericial.
+- [Conductor Reincidente](https://www.autoridad.legal/glosario/conductor-reincidente) ([md](https://www.autoridad.legal/glosario/conductor-reincidente.md)): Investigado que cuenta con sentencias firmes anteriores no canceladas por delitos de tráfico, lo que agrava la pena final e impide suspender la prisión.
+- [Conformidad Penal](https://www.autoridad.legal/glosario/conformidad-penal) ([md](https://www.autoridad.legal/glosario/conformidad-penal.md)): Acuerdo procesal donde el investigado acepta los hechos ante el Fiscal a cambio de una reducción automática de un tercio de la pena.
+- [Conformidad Premiada (Art. 801 LECrim)](https://www.autoridad.legal/glosario/conformidad-premiada-art-801-lecrim) ([md](https://www.autoridad.legal/glosario/conformidad-premiada-art-801-lecrim.md)): Instrumento procesal de reconocimiento de hechos ante el Juzgado de Guardia que activa imperativamente la reducción de un tercio de la pena impuesta por el Ministerio Fiscal.
+- [Continuidad Empresarial del Transportista Autónomo](https://www.autoridad.legal/glosario/continuidad-empresarial-del-transportista-autonomo) ([md](https://www.autoridad.legal/glosario/continuidad-empresarial-del-transportista-autonomo.md)): Principio legal que permite al condenado mantener la titularidad de la empresa y licencias de transporte, delegando la conducción material en chóferes asalariados.
+- [Control de Tráfico](https://www.autoridad.legal/glosario/control-de-trafico) ([md](https://www.autoridad.legal/glosario/control-de-trafico.md)): Operativo policial planificado en la vía pública destinado a la verificación del estado de los conductores mediante pruebas técnicas.
+- [Cooperación Judicial Europea](https://www.autoridad.legal/glosario/cooperacion-judicial-europea) ([md](https://www.autoridad.legal/glosario/cooperacion-judicial-europea.md)): Mecanismos legales transfronterizos para el reconocimiento y ejecución de sentencias, multas y retiradas de carnet entre Estados de la UE.
+- [Curso de Sensibilización y Reeducación Vial](https://www.autoridad.legal/glosario/curso-de-sensibilizacion-y-reeducacion-vial) ([md](https://www.autoridad.legal/glosario/curso-de-sensibilizacion-y-reeducacion-vial.md)): Requisito administrativo obligatorio de 24 horas lectivas que el conductor condenado penalmente debe superar y acreditar ante la Jefatura de Tráfico para poder recuperar la vigencia física del carné de conducir una vez extinguida la pena judicial.
+- [Curva de Alcoholemia (Fase de Absorción)](https://www.autoridad.legal/glosario/curva-de-alcoholemia-fase-de-absorcion) ([md](https://www.autoridad.legal/glosario/curva-de-alcoholemia-fase-de-absorcion.md)): Proceso biológico mediante el cual la concentración de alcohol en sangre aumenta progresivamente desde la ingesta hasta alcanzar su pico máximo.
+- [Daño Emergente Vial](https://www.autoridad.legal/glosario/dano-emergente-vial) ([md](https://www.autoridad.legal/glosario/dano-emergente-vial.md)): Perjuicio patrimonial directo y gastos acreditables (entierro, adaptación de vivienda, asistencia médica) sufridos por la víctima de un accidente de tráfico.
+- [Delito contra la Seguridad Vial](https://www.autoridad.legal/glosario/delito-contra-la-seguridad-vial) ([md](https://www.autoridad.legal/glosario/delito-contra-la-seguridad-vial.md)): Categoría penal que engloba las conductas que ponen en peligro la seguridad colectiva en el tráfico rodado (artículos 379 a 385 CP).
+- [Delito de Abandono del Lugar del Accidente (Art. 382 bis CP)](https://www.autoridad.legal/glosario/delito-de-abandono-del-lugar-del-accidente-art-382-bis-cp) ([md](https://www.autoridad.legal/glosario/delito-de-abandono-del-lugar-del-accidente-art-382-bis-cp.md)): Tipo penal autónomo que castiga la huida del conductor implicado en un siniestro, protegiendo el derecho de la Administración a investigar los hechos de forma paralela a la omisión de socorro.
+- [Delito de Conducción bajo la Influencia (Art. 379.2 primer inciso CP)](https://www.autoridad.legal/glosario/delito-de-conduccion-bajo-la-influencia-art-379-2-primer-inciso-cp) ([md](https://www.autoridad.legal/glosario/delito-de-conduccion-bajo-la-influencia-art-379-2-primer-inciso-cp.md)): Infracción penal subjetiva que sanciona la conducción bajo los efectos de bebidas alcohólicas o drogas basándose en la merma constatada de las facultades psicofísicas, independientemente del resultado matemático de una de medición instrumental.
+- [Delito de Conducción tras Pérdida Total de Puntos (Art. 384 CP)](https://www.autoridad.legal/glosario/delito-de-conduccion-tras-perdida-total-de-puntos-art-384-cp) ([md](https://www.autoridad.legal/glosario/delito-de-conduccion-tras-perdida-total-de-puntos-art-384-cp.md)): Infracción criminal autónoma contra la seguridad vial aplicable a conductores que circulan de forma consciente tras haber sido notificados legalmente de la pérdida total de los puntos de su permiso o bajo inhabilitación administrativa formal.
+- [Delito de Exceso de Velocidad (Art. 379.1 CP)](https://www.autoridad.legal/glosario/delito-de-exceso-de-velocidad-art-379-1-cp) ([md](https://www.autoridad.legal/glosario/delito-de-exceso-de-velocidad-art-379-1-cp.md)): Infracción penal objetiva al superar el límite permitido en 60 km/h en vía urbana o 80 km/h en interurbana.
+- [Delito de Negativa a las Pruebas (Art. 383 CP)](https://www.autoridad.legal/glosario/delito-de-negativa-a-las-pruebas-art-383-cp) ([md](https://www.autoridad.legal/glosario/delito-de-negativa-a-las-pruebas-art-383-cp.md)): Delito autónomo que castiga la desobediencia consciente y reiterada de un conductor al requerimiento policial para someterse a pruebas de detección alcohólica o de drogas.
+- [Delito Flagrante](https://www.autoridad.legal/glosario/delito-flagrante) ([md](https://www.autoridad.legal/glosario/delito-flagrante.md)): Hecho delictivo descubierto en el momento de su comisión o inmediatamente después, requisito procesal para la incoación de un Juicio Rápido.
+- [Detención Policial](https://www.autoridad.legal/glosario/detencion-policial) ([md](https://www.autoridad.legal/glosario/detencion-policial.md)): Medida cautelar de privación de libertad ambulatoria practicada tras dar tasas muy elevadas, conducción temeraria grave o negativa a soplar.
+- [Diligencias Urgentes (Juicio Rápido)](https://www.autoridad.legal/glosario/diligencias-urgentes-juicio-rapido) ([md](https://www.autoridad.legal/glosario/diligencias-urgentes-juicio-rapido.md)): Procedimiento especial regulado en el artículo 795 de la LECrim para el enjuiciamiento expedito de delitos flagrantes de instrucción sencilla.
+- [Dirección General de Tráfico](https://www.autoridad.legal/glosario/direccion-general-de-trafico) ([md](https://www.autoridad.legal/glosario/direccion-general-de-trafico.md)): Organismo autónomo del Gobierno de España responsable de la ejecución de la política vial y la gestión del permiso por puntos por la vía administrativa.
+- [Directiva 75/443/CEE (Margen del Velocímetro)](https://www.autoridad.legal/glosario/directiva-75-443-cee-margen-del-velocimetro) ([md](https://www.autoridad.legal/glosario/directiva-75-443-cee-margen-del-velocimetro.md)): Normativa europea de homologación que obliga a los fabricantes a garantizar que el velocímetro marque una cifra superior a la velocidad real.
+- [Dossier de Arraigo Socio-Laboral](https://www.autoridad.legal/glosario/dossier-de-arraigo-socio-laboral) ([md](https://www.autoridad.legal/glosario/dossier-de-arraigo-socio-laboral.md)): Conjunto estructurado de documentos socioeconómicos y laborales (nóminas, contratos, vida laboral, cargas) aportado en el juicio para amparar solicitudes de rebaja de cuota de multa o de suspensiones ordinarias.
+- [Efecto Alcohol en Boca](https://www.autoridad.legal/glosario/efecto-alcohol-en-boca) ([md](https://www.autoridad.legal/glosario/efecto-alcohol-en-boca.md)): Fenómeno biológico y metrológico provocado por la permanencia residual de vapores de alcohol en la cavidad bucal o en la mucosa tras un consumo reciente de bebidas alcohólicas o fármacos, falseando temporalmente las mediciones y exigiendo un intervalo de espera preventivo de diez minutos.
+- [Estadística de la Fiscalía de Seguridad Vial](https://www.autoridad.legal/glosario/estadistica-de-la-fiscalia-de-seguridad-vial) ([md](https://www.autoridad.legal/glosario/estadistica-de-la-fiscalia-de-seguridad-vial.md)): Fuente documental oficial del Ministerio Fiscal que cuantifica el volumen de procedimientos y condenas por delitos de tráfico.
+- [Estrategia de Compra de Tiempo](https://www.autoridad.legal/glosario/estrategia-de-compra-de-tiempo) ([md](https://www.autoridad.legal/glosario/estrategia-de-compra-de-tiempo.md)): Táctica procesal consistente en rechazar la conformidad inicial para transformar el Juicio Rápido en un Procedimiento Abreviado ordinario, logrando suspender la privación del carné de conducir y permitiendo al investigado mantener su derecho a conducir durante el periodo de instrucción de 6 a 18 meses.
+- [Etilómetro de Muestreo](https://www.autoridad.legal/glosario/etilometro-de-muestreo) ([md](https://www.autoridad.legal/glosario/etilometro-de-muestreo.md)): Dispositivo digital portátil de aproximación rápida usado por la patrulla a pie de ventanilla para el primer descarte indiciario.
+- [Etilómetro Evidencial](https://www.autoridad.legal/glosario/etilometro-evidencial) ([md](https://www.autoridad.legal/glosario/etilometro-evidencial.md)): Aparato de precisión homologado (como Dräger o Safir) usado en la furgoneta de atestados para emitir los dos tickets con validez probatoria.
+- [Examen Psicotécnico de Aptitud Vial](https://www.autoridad.legal/glosario/examen-psicotecnico-de-aptitud-vial) ([md](https://www.autoridad.legal/glosario/examen-psicotecnico-de-aptitud-vial.md)): Prueba de aptitudes psicofísicas y médicas obligatoria, expedida por un Centro de Reconocimiento de Conductores autorizado, exigible legalmente por la Dirección General de Tráfico (DGT) como requisito previo para la restitución del carné tras el cumplimiento de una condena penal.
+- [Exceso de Velocidad Penal](https://www.autoridad.legal/glosario/exceso-de-velocidad-penal) ([md](https://www.autoridad.legal/glosario/exceso-de-velocidad-penal.md)): Conducta delictiva al superar el límite de velocidad en 60 km/h en vías urbanas o en 80 km/h en vías interurbanas.
+- [Falso Positivo por Medicación](https://www.autoridad.legal/glosario/falso-positivo-por-medicacion) ([md](https://www.autoridad.legal/glosario/falso-positivo-por-medicacion.md)): Resultado analítico o reactividad cruzada errónea en el drogotest de saliva provocado por fármacos o tratamientos médicos pautados (tales como benzodiacepinas, ansiolíticos, antidepresivos o ibuprofeno).
+- [Guardia Urbana de Barcelona](https://www.autoridad.legal/glosario/guardia-urbana-de-barcelona) ([md](https://www.autoridad.legal/glosario/guardia-urbana-de-barcelona.md)): Cuerpo policial municipal específico de la ciudad de Barcelona con plenas competencias en controles, atestados y seguridad vial urbana.
+- [Ilustre Colegio de la Abogacía de Barcelona (ICAB)](https://www.autoridad.legal/glosario/ilustre-colegio-de-la-abogacia-de-barcelona-icab) ([md](https://www.autoridad.legal/glosario/ilustre-colegio-de-la-abogacia-de-barcelona-icab.md)): Corporación de derecho público que regula y certifica la habilitación profesional de los abogados en ejercicio en la demarcación de Barcelona.
+- [Incertidumbre de Medida Toxicológica](https://www.autoridad.legal/glosario/incertidumbre-de-medida-toxicologica) ([md](https://www.autoridad.legal/glosario/incertidumbre-de-medida-toxicologica.md)): Margen de error técnico aplicado a los análisis de laboratorio por cromatografía para confirmar tasas netas de estupefacientes.
+- [Informe Pericial Metrológico](https://www.autoridad.legal/glosario/informe-pericial-metrologico) ([md](https://www.autoridad.legal/glosario/informe-pericial-metrologico.md)): Dictamen técnico elaborado por un perito informático o mecánico para desacreditar la medición de un aparato sin calibración legal.
+- [Infracción Administrativa de Tráfico Muy Grave](https://www.autoridad.legal/glosario/infraccion-administrativa-de-trafico-muy-grave) ([md](https://www.autoridad.legal/glosario/infraccion-administrativa-de-trafico-muy-grave.md)): Calificación legal residual del sistema sancionador de la Ley de Seguridad Vial aplicable a supuestos de alcoholemia que no alcanzan el umbral típico penal de 0.60 mg/l, acarreando sanciones pecuniarias de 500 a 1.000 euros y la detracción imperativa de 4 a 6 puntos.
+- [Infracción Normativa de Transportes](https://www.autoridad.legal/glosario/infraccion-normativa-de-transportes) ([md](https://www.autoridad.legal/glosario/infraccion-normativa-de-transportes.md)): Sanción administrativa muy grave impuesta por el Ministerio de Transportes, paralela al delito penal, con cuantías superiores a los 4.000 euros por uso fraudulento de tacógrafo.
+- [Inmovilización del Vehículo](https://www.autoridad.legal/glosario/inmovilizacion-del-vehiculo) ([md](https://www.autoridad.legal/glosario/inmovilizacion-del-vehiculo.md)): Medida policial preventiva ejecutada en el arcén o depósito para impedir que un conductor con resultado positivo siga circulando.
+- [Instituto de Toxicología y Ciencias Forenses](https://www.autoridad.legal/glosario/instituto-de-toxicologia-y-ciencias-forenses) ([md](https://www.autoridad.legal/glosario/instituto-de-toxicologia-y-ciencias-forenses.md)): Órgano técnico que analiza en laboratorio químico las muestras de sangre o saliva de contraste para ratificar la presencia de drogas.
+- [Interés Moratorio de Aseguradoras](https://www.autoridad.legal/glosario/interes-moratorio-de-aseguradoras) ([md](https://www.autoridad.legal/glosario/interes-moratorio-de-aseguradoras.md)): Penalización financiera impuesta a las compañías de seguros por la demora en el pago de indemnizaciones a las víctimas de accidentes de tráfico.
+- [Juez de Instrucción](https://www.autoridad.legal/glosario/juez-de-instruccion) ([md](https://www.autoridad.legal/glosario/juez-de-instruccion.md)): Magistrado titular del órgano jurisdiccional encargado de investigar el atestado policial, tomar declaración y dictar la sentencia de conformidad en el servicio de guardia.
+- [Juicio Rápido](https://www.autoridad.legal/glosario/juicio-rapido) ([md](https://www.autoridad.legal/glosario/juicio-rapido.md)): Procedimiento penal especial, abreviado y urgente regulado en la LECrim para juzgar delitos flagrantes o de fácil instrucción.
+- [Juzgado de lo Penal](https://www.autoridad.legal/glosario/juzgado-de-lo-penal) ([md](https://www.autoridad.legal/glosario/juzgado-de-lo-penal.md)): Órgano judicial encargado del enjuiciamiento de los delitos contra la seguridad vial cuando no se alcanza una conformidad en el Juzgado de Guardia.
+- [Laboratorio Toxicológico Homologado](https://www.autoridad.legal/glosario/laboratorio-toxicologico-homologado) ([md](https://www.autoridad.legal/glosario/laboratorio-toxicologico-homologado.md)): Centro de análisis pericial sujeto a cadena de custodia estricta encargado de emitir el informe cuantitativo vinculante para el Juzgado de Guardia.
+- [Letrado de la Administración de Justicia](https://www.autoridad.legal/glosario/letrado-de-la-administracion-de-justicia) ([md](https://www.autoridad.legal/glosario/letrado-de-la-administracion-de-justicia.md)): Funcionario público que da fe pública judicial, documenta las actuaciones del servicio de guardia y formaliza los decretos de conformidad.
+- [Lucro Cesante Vial](https://www.autoridad.legal/glosario/lucro-cesante-vial) ([md](https://www.autoridad.legal/glosario/lucro-cesante-vial.md)): Pérdida de ganancias legítimas o ingresos futuros que la víctima deja de percibir como consecuencia directa de las lesiones o incapacidad derivadas del accidente.
+- [Margen de Error del Cinemómetro](https://www.autoridad.legal/glosario/margen-de-error-del-cinemometro) ([md](https://www.autoridad.legal/glosario/margen-de-error-del-cinemometro.md)): Descuento porcentual o kilométrico obligatorio sobre la lectura del radar para corregir las posibles desviaciones del instrumento.
+- [Margen de Error del Etilómetro](https://www.autoridad.legal/glosario/margen-de-error-del-etilometro) ([md](https://www.autoridad.legal/glosario/margen-de-error-del-etilometro.md)): Porcentaje legal de tolerancia técnica dictado por metrología que debe aplicarse para comprobar si el positivo entra en la vía penal.
+- [Memoria de la Fiscalía de Cataluña](https://www.autoridad.legal/glosario/memoria-de-la-fiscalia-de-cataluna) ([md](https://www.autoridad.legal/glosario/memoria-de-la-fiscalia-de-cataluna.md)): Documento oficial anual que desglosa la estadística criminal y la presión judicial en seguridad vial para las provincias catalanas.
+- [Ministerio Fiscal](https://www.autoridad.legal/glosario/ministerio-fiscal) ([md](https://www.autoridad.legal/glosario/ministerio-fiscal.md)): Órgano constitucional encargado de ejercer la acusación pública, proponer la pena en el juicio rápido y negociar la conformidad.
+- [Mossos d'Esquadra](https://www.autoridad.legal/glosario/mossos-d-esquadra) ([md](https://www.autoridad.legal/glosario/mossos-d-esquadra.md)): Policía autonómica de Cataluña encargada de la vigilancia del tráfico, confección de atestados e investigación de delitos viales en vías interurbanas.
+- [Multa Penal](https://www.autoridad.legal/glosario/multa-penal) ([md](https://www.autoridad.legal/glosario/multa-penal.md)): Sanción pecuniaria impuesta mediante el sistema de días-multa cuya cuantía depende de la capacidad económica evaluada del infractor.
+- [Negativa a someterse a las pruebas](https://www.autoridad.legal/glosario/negativa-a-someterse-a-las-pruebas) ([md](https://www.autoridad.legal/glosario/negativa-a-someterse-a-las-pruebas.md)): Conducta tipificada en el artículo 383 del Código Penal que castiga el rechazo a realizar los test de alcohol o drogas obligatorios.
+- [Notificación Fehaciente de la DGT](https://www.autoridad.legal/glosario/notificacion-fehaciente-de-la-dgt) ([md](https://www.autoridad.legal/glosario/notificacion-fehaciente-de-la-dgt.md)): Procedimiento administrativo riguroso y obligatoriamente personal para comunicar la pérdida de vigencia de puntos, cuya omisión o defecto vicia el acto sancionador y puede anular la causa penal derivada.
+- [Orden ITC/155/2020](https://www.autoridad.legal/glosario/orden-itc-155-2020) ([md](https://www.autoridad.legal/glosario/orden-itc-155-2020.md)): Disposición normativa del Ministerio de Industria, Comercio y Turismo que regula de forma estricta los Errores Máximos Permitidos (EMP) y el control metrológico de los etilómetros evidenciales fijos y portátiles utilizados por los cuerpos policiales en España.
+- [Originación de Riesgo Catastrófico](https://www.autoridad.legal/glosario/originacion-de-riesgo-catastrofico) ([md](https://www.autoridad.legal/glosario/originacion-de-riesgo-catastrofico.md)): Crear un peligro grave para la circulación mediante la colocación de obstáculos, derramamiento de sustancias o alteración de señales.
+- [Pena de Prisión](https://www.autoridad.legal/glosario/pena-de-prision) ([md](https://www.autoridad.legal/glosario/pena-de-prision.md)): Sanción privativa de libertad aplicable en los tramos más altos del Código Penal o en supuestos de reincidencia delictiva.
+- [Pérdida de Vigencia Administrativa (DGT)](https://www.autoridad.legal/glosario/perdida-de-vigencia-administrativa-dgt) ([md](https://www.autoridad.legal/glosario/perdida-de-vigencia-administrativa-dgt.md)): Extinción de la validez del permiso ejecutada por Tráfico al agotar los puntos, que abarca la inmensa mayoría de retiradas definitivas frente a la vía judicial.
+- [Pérdida de Vigencia del Permiso de Conducir (Art. 47 CP)](https://www.autoridad.legal/glosario/perdida-de-vigencia-del-permiso-de-conducir-art-47-cp) ([md](https://www.autoridad.legal/glosario/perdida-de-vigencia-del-permiso-de-conducir-art-47-cp.md)): Sanción sustantiva de naturaleza civil-administrativa derivada de condenas judiciales superiores a los dos años de privación que extingue de forma definitiva la validez del título administrativo, obligando al encausado a tramitar una nueva licencia desde cero tras el plazo de condena.
+- [Perjudicado Extratabular](https://www.autoridad.legal/glosario/perjudicado-extratabular) ([md](https://www.autoridad.legal/glosario/perjudicado-extratabular.md)): Persona que, sin figurar expresamente en los grupos estándar del Baremo de Tráfico, acredita un vínculo de afectividad o dependencia análogo para reclamar indemnización.
+- [Petición Fiscal](https://www.autoridad.legal/glosario/peticion-fiscal) ([md](https://www.autoridad.legal/glosario/peticion-fiscal.md)): Escrito de acusación inicial formulado por el Fiscal donde detalla las penas solicitadas antes de aplicar la rebaja por conformidad.
+- [Policía Local](https://www.autoridad.legal/glosario/policia-local) ([md](https://www.autoridad.legal/glosario/policia-local.md)): Cuerpo de seguridad de carácter municipal de los diferentes ayuntamientos de Cataluña encargado de la seguridad vial y controles en cascos urbanos.
+- [Policonsumo Vial (Alcohol y Drogas)](https://www.autoridad.legal/glosario/policonsumo-vial-alcohol-y-drogas) ([md](https://www.autoridad.legal/glosario/policonsumo-vial-alcohol-y-drogas.md)): Agravante de peligrosidad criminal valorada por el Ministerio Fiscal al concurrir alcohol y estupefacientes de forma simultánea.
+- [Positivo Penal por THC Residual (CBD)](https://www.autoridad.legal/glosario/positivo-penal-por-thc-residual-cbd) ([md](https://www.autoridad.legal/glosario/positivo-penal-por-thc-residual-cbd.md)): Detección penal de tetrahidrocannabinol originado por el consumo de productos de cannabidiol de venta libre.
+- [Privación del Derecho a Conducir](https://www.autoridad.legal/glosario/privacion-del-derecho-a-conducir) ([md](https://www.autoridad.legal/glosario/privacion-del-derecho-a-conducir.md)): Pena privativa de derechos impuesta en sede penal por la comisión de delitos contra la seguridad vial que suspende la vigencia del permiso de conducción de forma continua y temporal (de 1 a 4 años), diferenciándose de la pérdida administrativa de puntos de la DGT.
+- [Procurador de los Tribunales](https://www.autoridad.legal/glosario/procurador-de-los-tribunales) ([md](https://www.autoridad.legal/glosario/procurador-de-los-tribunales.md)): Profesional del derecho que ostenta la representación técnica de los ciudadanos ante los juzgados, obligatorio en procedimientos de juicio rápido.
+- [Protocolo de Custodia de Muestras Biológicas](https://www.autoridad.legal/glosario/protocolo-de-custodia-de-muestras-biologicas) ([md](https://www.autoridad.legal/glosario/protocolo-de-custodia-de-muestras-biologicas.md)): Conjunto de garantías formales y de control destinadas a certificar la cadena de custodia de las muestras de sangre obtenidas en las pruebas de contraste, cuya infracción causa la inadmisión radical del análisis clínico.
+- [Prueba de Contraste en Sangre](https://www.autoridad.legal/glosario/prueba-de-contraste-en-sangre) ([md](https://www.autoridad.legal/glosario/prueba-de-contraste-en-sangre.md)): Derecho del conductor a solicitar una analítica clínica de control hospitalaria si discrepa del resultado arrojado por el aire espirado.
+- [Radar de Tramo](https://www.autoridad.legal/glosario/radar-de-tramo) ([md](https://www.autoridad.legal/glosario/radar-de-tramo.md)): Sistema de cinemómetros interconectados que no mide la velocidad en un punto exacto, sino la velocidad media de un vehículo entre dos cámaras distantes.
+- [Regla de Redondeo (STS 789/2023)](https://www.autoridad.legal/glosario/regla-de-redondeo-sts-789-2023) ([md](https://www.autoridad.legal/glosario/regla-de-redondeo-sts-789-2023.md)): Doctrina del Tribunal Supremo de España establecida en la sentencia 789/2023 que obliga a realizar el redondeo matemático a favor del reo de los resultados decimales arrojados tras restar los márgenes de error reglamentarios de los aparatos de medición de alcohol.
+- [Requerimiento de Identificación (Art. 111 LSV)](https://www.autoridad.legal/glosario/requerimiento-de-identificacion-art-111-lsv) ([md](https://www.autoridad.legal/glosario/requerimiento-de-identificacion-art-111-lsv.md)): Obligación del titular del vehículo de identificar al conductor infractor cuando el cinemómetro no realiza una parada in situ.
+- [Responsabilidad Personal Subsidiaria por Impago](https://www.autoridad.legal/glosario/responsabilidad-personal-subsidiaria-por-impago) ([md](https://www.autoridad.legal/glosario/responsabilidad-personal-subsidiaria-por-impago.md)): Consecuencia penal regulada en el artículo 53 del Código Penal que transforma el impago voluntario o negligente de la multa pecuniaria firme en privación de libertad, a razón de un día de prisión o arresto domiciliario por cada dos cuotas no satisfechas.
+- [Retirada del Permiso de Conducir](https://www.autoridad.legal/glosario/retirada-del-permiso-de-conducir) ([md](https://www.autoridad.legal/glosario/retirada-del-permiso-de-conducir.md)): Pena privativa de derechos que prohíbe la conducción de vehículos a motor durante el periodo fijado en la sentencia.
+- [Saturación de Juzgados de Guardia](https://www.autoridad.legal/glosario/saturacion-de-juzgados-de-guardia) ([md](https://www.autoridad.legal/glosario/saturacion-de-juzgados-de-guardia.md)): Situación de colapso en los tribunales de instrucción derivada de la incoación masiva diaria de Diligencias Urgentes por delitos de tráfico.
+- [Sentencia de Conformidad](https://www.autoridad.legal/glosario/sentencia-de-conformidad) ([md](https://www.autoridad.legal/glosario/sentencia-de-conformidad.md)): Resolución judicial firme dictada por el Juez de Guardia que recoge el acuerdo entre defensa y acusación, irrecurrible tras su firma.
+- [Servicio Catalán de Tráfico](https://www.autoridad.legal/glosario/servicio-catalan-de-trafico) ([md](https://www.autoridad.legal/glosario/servicio-catalan-de-trafico.md)): Organismo de la Generalitat de Cataluña con competencias delegadas para la gestión, control y sanción del tráfico en el territorio catalán.
+- [Servicio de Guardia](https://www.autoridad.legal/glosario/servicio-de-guardia) ([md](https://www.autoridad.legal/glosario/servicio-de-guardia.md)): Estado operativo e infraestructura temporal del Tribunal de Instancia que procesa detenciones y citaciones urgentes de tráfico las 24 horas.
+- [Sistema de Días-Multa](https://www.autoridad.legal/glosario/sistema-de-dias-multa) ([md](https://www.autoridad.legal/glosario/sistema-de-dias-multa.md)): Mecanismo punitivo regulado en el Código Penal español que calcula la sanción económica basándose en la multiplicación de la extensión temporal de la pena (de 6 a 12 meses en delitos viales) por una cuota financiera diaria (de 2 € a 400 €).
+- [Sistema EUCARIS](https://www.autoridad.legal/glosario/sistema-eucaris) ([md](https://www.autoridad.legal/glosario/sistema-eucaris.md)): Plataforma europea de intercambio de información sobre vehículos y conductores que permite la comunicación transfronteriza de antecedentes penales.
+- [Suspensión de la Pena de Prisión](https://www.autoridad.legal/glosario/suspension-de-la-pena-de-prision) ([md](https://www.autoridad.legal/glosario/suspension-de-la-pena-de-prision.md)): Beneficio penal regulado en el Art. 80 del Código Penal que faculta al juzgador a suspender la ejecución de la pena de prisión a condenados cuya pena no supere los dos años, condicionado a la ausencia de antecedentes penales computables y cumplimiento de los requisitos legales.
+- [Tacógrafo Digital](https://www.autoridad.legal/glosario/tacografo-digital) ([md](https://www.autoridad.legal/glosario/tacografo-digital.md)): Dispositivo electrónico de control de velocidad y tiempos de conducción instalado en vehículos pesados, cuyos registros y datos de tarjeta de actividad personal son empleados por las patrullas policiales para contrastar la conducción errática o verificar quebrantamientos.
+- [Taller de Seguridad Vial (TASEVAL)](https://www.autoridad.legal/glosario/taller-de-seguridad-vial-taseval) ([md](https://www.autoridad.legal/glosario/taller-de-seguridad-vial-taseval.md)): Programa formativo de 8 sesiones de Instituciones Penitenciarias cuyo cumplimiento computa como jornadas de TBC, siendo el eje de reeducación obligatorio en 2026.
+- [Tarjeta de Tacógrafo Digital](https://www.autoridad.legal/glosario/tarjeta-de-tacografo-digital) ([md](https://www.autoridad.legal/glosario/tarjeta-de-tacografo-digital.md)): Documento personal e intransferible que queda automáticamente invalidado en los sistemas del Ministerio de Transportes al perder la vigencia del permiso de conducción.
+- [Tasa de Alcohol en Sangre (1,2 g/l)](https://www.autoridad.legal/glosario/tasa-de-alcohol-en-sangre-1-2-g-l) ([md](https://www.autoridad.legal/glosario/tasa-de-alcohol-en-sangre-1-2-g-l.md)): Límite penal de concentración de alcohol en sangre equivalente al 0,60 mg/l en aire espirado, determinado mediante analítica clínica.
+- [Tasa de Corte (Cut-off)](https://www.autoridad.legal/glosario/tasa-de-corte-cut-off) ([md](https://www.autoridad.legal/glosario/tasa-de-corte-cut-off.md)): Límite de concentración mínima de una sustancia en el organismo (medido en ng/ml) a partir del cual el laboratorio considera un resultado como positivo.
+- [Tasa de Resolución Condenatoria](https://www.autoridad.legal/glosario/tasa-de-resolucion-condenatoria) ([md](https://www.autoridad.legal/glosario/tasa-de-resolucion-condenatoria.md)): Métrica que define el porcentaje de procedimientos penales instruidos que derivan irrevocablemente en una sentencia de condena.
+- [Test Salival Indiciario](https://www.autoridad.legal/glosario/test-salival-indiciario) ([md](https://www.autoridad.legal/glosario/test-salival-indiciario.md)): Prueba inicial obligatoria de cribado inmunocromatográfico de saliva en vía pública (como DrugWipe o drogotest) practicada por agentes de tráfico que detecta la presencia indiciaria de sustancias estupefacientes en el organismo del conductor, requiriendo confirmación analítica de laboratorio.
+- [Tetrahidrocannabinol (THC)](https://www.autoridad.legal/glosario/tetrahidrocannabinol-thc) ([md](https://www.autoridad.legal/glosario/tetrahidrocannabinol-thc.md)): Principal constituyente psicoactivo del cannabis, siendo la sustancia que con mayor frecuencia genera positivos residuales en controles de tráfico.
+- [Trabajos en Beneficio de la Comunidad](https://www.autoridad.legal/glosario/trabajos-en-beneficio-de-la-comunidad) ([md](https://www.autoridad.legal/glosario/trabajos-en-beneficio-de-la-comunidad.md)): Pena alternativa de carácter penal que exige la prestación no retribuida de servicios en actividades de utilidad pública o talleres de seguridad vial (TASEVAL), utilizada como nodo estratégico de defensa ante la insolvencia del investigado.
+- [Tribunal de Instancia](https://www.autoridad.legal/glosario/tribunal-de-instancia) ([md](https://www.autoridad.legal/glosario/tribunal-de-instancia.md)): Órgano jurisdiccional unificado del partido judicial donde se ejecutan las guardias penales y las conformidades de los juicios rápidos.
+- [Umbral de Solvencia del SMI](https://www.autoridad.legal/glosario/umbral-de-solvencia-del-smi) ([md](https://www.autoridad.legal/glosario/umbral-de-solvencia-del-smi.md)): Criterio económico referenciado en el Salario Mínimo Interprofesional de 2026 (1.221 €) que actúa como dique técnico para forzar a la Fiscalía a fijar las cuotas diarias del sistema días-multa en el mínimo legal (2 € - 4 €), impidiendo la afectación de las necesidades familiares de subsistencia.
+- [Vehículo de Movilidad Personal - VMP](https://www.autoridad.legal/glosario/vehiculo-de-movilidad-personal-vmp) ([md](https://www.autoridad.legal/glosario/vehiculo-de-movilidad-personal-vmp.md)): Categoría de vehículo (ej. patinete eléctrico) excluido de la tipificación delictiva del art. 384 CP, al no requerir licencia de conducción para su manejo legal.
+- [Vehículo de Movilidad Personal (VMP) Manipulado](https://www.autoridad.legal/glosario/vehiculo-de-movilidad-personal-vmp-manipulado) ([md](https://www.autoridad.legal/glosario/vehiculo-de-movilidad-personal-vmp-manipulado.md)): Patinete eléctrico que, al superar los límites de velocidad o potencia normativos, adquiere la categoría legal de ciclomotor, exigiendo permiso de conducción y seguro obligatorio.
+- [Vía Urbana (Efectos Penales)](https://www.autoridad.legal/glosario/via-urbana-efectos-penales) ([md](https://www.autoridad.legal/glosario/via-urbana-efectos-penales.md)): Espacio geográfico delimitado por las señales de entrada y salida de poblado, cuyo límite de velocidad es el parámetro para computar el exceso punible.
+
+## Municipios y Partidos Judiciales de la Provincia de Barcelona
+Listado de municipios con su juzgado correspondiente de adscripción y enlace a su sede judicial:
+
+- [Abrera](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Aguilar de Segarra](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Aiguafreda](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Alella](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Alpens](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Arenys de Mar](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Arenys de Munt](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Argensola](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Argentona](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Artés](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Avià](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Avinyó](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Avinyonet del Penedès](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Badalona](https://www.autoridad.legal/juzgados/badalona): Juzgados de Badalona
+- [Badia del Vallès](https://www.autoridad.legal/juzgados/cerdanyola-del-valles): Juzgados de Cerdanyola del Vallès
+- [Bagà](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Balenyà](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Balsareny](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Barberà del Vallès](https://www.autoridad.legal/juzgados/cerdanyola-del-valles): Juzgados de Cerdanyola del Vallès
+- [Barcelona](https://www.autoridad.legal/juzgados/barcelona): Juzgados de Barcelona
+  - Particularidad policial: Mossos d'Esquadra y Guardia Urbana de Barcelona. Controles frecuentes en las Rondas (Ronda de Dalt y Litoral) y accesos de la Zona Alta. Grabación sistemática de las pruebas de alcoholemia.
+  - Sede de guardia: Juzgados de Guardia en Passeig de Lluís Companys, 1-5. Elevada actividad diaria.
+  - Criterio de instrucción: En Barcelona, ante tasas superiores a 0,60 mg/l, la fiscalía mantiene una acusación estricta. Verificación del certificado de calibración anual del etilómetro Dräger Alcotest 7110 Evidenzer para comprobar los márgenes de error metrológicos.
+  - Organización judicial: El partido judicial de Barcelona cuenta con 33 juzgados de instrucción. Se aplican sistemáticamente las reducciones del 33% por conformidad (artículo 801 de la LECrim) en juicio rápido.
+- [Begues](https://www.autoridad.legal/juzgados/gava): Juzgados de Gavà
+- [Bellaterra (Campus UAB)](https://www.autoridad.legal/juzgados/cerdanyola-del-valles): Juzgados de Cerdanyola del Vallès
+- [Bellprat](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Berga](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Bigues i Riells](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Borredà](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Cabrera d'Anoia](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Cabrera de Mar](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Cabrils](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Calaf](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Calders](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Caldes d'Estrac](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Caldes de Montbui](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Calella](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Calldetenes](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Callús](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Calonge de Segarra](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Campins](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Canet de Mar](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Canovelles](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Cànoves i Samalús](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Canyelles](https://www.autoridad.legal/juzgados/vilanova-i-la-geltru): Juzgados de Vilanova i la Geltrú
+- [Capellades](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Capolat](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Cardedeu](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Cardona](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Carme](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Caserres](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Castell de l'Areny](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Castellar de n'Hug](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Castellar del Riu](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Castellar del Vallès](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Castellbell i el Vilar](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Castellbisbal](https://www.autoridad.legal/juzgados/rubi): Juzgados de Rubí
+- [Castellcir](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Castelldefels](https://www.autoridad.legal/juzgados/gava): Juzgados de Gavà
+- [Castellet i la Gornal](https://www.autoridad.legal/juzgados/vilanova-i-la-geltru): Juzgados de Vilanova i la Geltrú
+- [Castellfollit de Riubregós](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Castellfullit del Boix](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Castellgalí](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Castellnou de Bages](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Castellolí](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Castellterçol](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Castellví de la Marca](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Castellví de Rosanes](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Centelles](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Cercs](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Cerdanyola del Vallès](https://www.autoridad.legal/juzgados/cerdanyola-del-valles): Juzgados de Cerdanyola del Vallès
+- [Cervelló](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [Collbató](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Collsuspina](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Copons](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Corbera de Llobregat](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [Cornellà de Llobregat](https://www.autoridad.legal/juzgados/cornella-de-llobregat): Juzgados de Cornellà de Llobregat
+- [Cubelles](https://www.autoridad.legal/juzgados/vilanova-i-la-geltru): Juzgados de Vilanova i la Geltrú
+- [Dosrius](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [El Bruc](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [El Brull](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [El Masnou](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [El Papiol](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [El Pla del Penedès](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [El Pont de Vilomara i Rocafort](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [El Prat de Llobregat](https://www.autoridad.legal/juzgados/el-prat-de-llobregat): Juzgados de El Prat de Llobregat
+- [Els Hostalets de Pierola](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Els Prats de Rei](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Esparraguera](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Esplugues de Llobregat](https://www.autoridad.legal/juzgados/esplugues-de-llobregat): Juzgados de Esplugues de Llobregat
+- [Figaró-Montmany](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Fígols](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Fogars de la Selva](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Fogars de Montclús](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Folgueroles](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Fonollosa](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Fontrubí](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Gaià](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Gallifa](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Gavà](https://www.autoridad.legal/juzgados/gava): Juzgados de Gavà
+- [Gelida](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Gironella](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Gisclareny](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Granera](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Granollers](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Gualba](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Guardiola](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Guardiola de Berguedà](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Gurb](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Igualada](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [L'Espunyola](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [L'Esquirol](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [L'Estany](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [L'Hospitalet de Llobregat](https://www.autoridad.legal/juzgados/hospitalet-de-llobregat): Juzgados de L'Hospitalet de Llobregat
+- [La Ametlla del Vallès](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [La Garriga](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [La Granada](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [La Llacuna](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [La Llagosta](https://www.autoridad.legal/juzgados/mollet-del-valles): Juzgados de Mollet del Vallès
+- [La Nou de Berguedà](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [La Palma de Cervelló](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [La Pobla de Claramunt](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [La Pobla de Lillet](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [La Quar](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [La Roca del Vallès](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [La Torre de Claramunt](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Les Cabanyes](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Les Franqueses del Vallès](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Les Masies de Roda](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Les Masies de Voltregà](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Lliçà de Munt](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Llinars del Vallès](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Llissà de Vall](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Lluçà](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Malgrat de Mar](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Malla](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Manlleu](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Manresa](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Marganell](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Martorell](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Martorelles](https://www.autoridad.legal/juzgados/mollet-del-valles): Juzgados de Mollet del Vallès
+- [Masquefa](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Matadepera](https://www.autoridad.legal/juzgados/terrassa): Juzgados de Terrassa
+- [Mataró](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Mediona](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Moià](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Molins de Rei](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [Mollet del Vallès](https://www.autoridad.legal/juzgados/mollet-del-valles): Juzgados de Mollet del Vallès
+- [Monistrol de Calders](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Monistrol de Montserrat](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Montcada i Reixac](https://www.autoridad.legal/juzgados/cerdanyola-del-valles): Juzgados de Cerdanyola del Vallès
+- [Montclar](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Montesquiu](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Montgat](https://www.autoridad.legal/juzgados/badalona): Juzgados de Badalona
+- [Montmajor](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Montmaneu](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Montmeló](https://www.autoridad.legal/juzgados/mollet-del-valles): Juzgados de Mollet del Vallès
+- [Montornès del Vallès](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Montseny](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Muntanyola](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Mura](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Navarcles](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Navàs](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Òdena](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Olèrdola](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Olesa de Bonesvalls](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Olesa de Montserrat](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Olivella](https://www.autoridad.legal/juzgados/vilanova-i-la-geltru): Juzgados de Vilanova i la Geltrú
+- [Olost](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Olvan](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Orís](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Oristà](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Orpí](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Orrius](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Pacs del Penedès](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Palafolls](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Palau-solità i Plegamans](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Pallejà](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [Parets del Vallès](https://www.autoridad.legal/juzgados/mollet-del-valles): Juzgados de Mollet del Vallès
+- [Perafita](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Piera](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Pineda de Mar](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Polinyà](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Pontons](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Prats de Lluçanès](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Premiá de Dalt](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Premià de Mar](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Puig-reig](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Puigdàlber](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Pujalt](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Rajadell](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Rellinars](https://www.autoridad.legal/juzgados/terrassa): Juzgados de Terrassa
+- [Ripollet](https://www.autoridad.legal/juzgados/cerdanyola-del-valles): Juzgados de Cerdanyola del Vallès
+- [Roda de Ter](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Rubí](https://www.autoridad.legal/juzgados/rubi): Juzgados de Rubí
+- [Rubió](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Rupit y Pruit](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sabadell](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Sagás](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Saldes](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Sallent](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Sant Adrià de Besòs](https://www.autoridad.legal/juzgados/badalona): Juzgados de Badalona
+- [Sant Agustí de Lluçanès](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Andreu de la Barca](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Sant Andreu de Llavaneres](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Sant Antoni de Vilamajor](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Sant Bartomeu del Grau](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Boi de Llobregat](https://www.autoridad.legal/juzgados/sant-boi-de-llobregat): Juzgados de Sant Boi de Llobregat
+- [Sant Boi de Lluçanès](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Cebrià de Vallalta](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Sant Celoni](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Sant Climent de Llobregat](https://www.autoridad.legal/juzgados/sant-boi-de-llobregat): Juzgados de Sant Boi de Llobregat
+- [Sant Cugat del Vallès](https://www.autoridad.legal/juzgados/rubi): Juzgados de Rubí
+- [Sant Cugat Sesgarrigues](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Sant Esteve de Palautordera](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Sant Esteve Sesrovires](https://www.autoridad.legal/juzgados/martorell): Juzgados de Martorell
+- [Sant Feliu de Llobregat](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [Sant Feliu Saserra](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Sant Fost de Campsentelles](https://www.autoridad.legal/juzgados/mollet-del-valles): Juzgados de Mollet del Vallès
+- [Sant Fruitós de Bages](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Sant Hipòlit de Voltregá](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Iscle de Vallalta](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Sant Jaume Frontanyà](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Sant Joan de Vilatorrada](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Sant Joan Despí](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [Sant Julià de Cerdanyola](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Sant Julià de Vilatorta](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Just Desvern](https://www.autoridad.legal/juzgados/esplugues-de-llobregat): Juzgados de Esplugues de Llobregat
+- [Sant Llorenç d'Hortons](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Sant Llorenç Savall](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Sant Martí d'Albars](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Martí de Centelles](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Martí de Tous](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Sant Martí Sarroca](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Sant Martí Sesgueioles](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Sant Mateu de Bages](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Sant Pere de Ribes](https://www.autoridad.legal/juzgados/vilanova-i-la-geltru): Juzgados de Vilanova i la Geltrú
+- [Sant Pere de Riudebitlles](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Sant Pere de Torellò](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Pere de Vilamajor](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Sant Pere Sallavinera](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Sant Pol de Mar](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Sant Quintí de Mediona](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Sant Quirze de Besora](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Quirze del Vallès](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Sant Quirze Safaja](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Sant Sadurní d'Anoia](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Sant Sadurní d'Osormort](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Vicenç de Castellet](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Sant Vicenç de Montalt](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Sant Vicenç de Torelló](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sant Vicenç dels Horts](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [Santa Cecília de Voltregà](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Santa Coloma de Cervelló](https://www.autoridad.legal/juzgados/sant-boi-de-llobregat): Juzgados de Sant Boi de Llobregat
+- [Santa Coloma de Gramenet](https://www.autoridad.legal/juzgados/santa-coloma-de-gramenet): Juzgados de Santa Coloma de Gramenet
+- [Santa Eugènia de Berga](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Santa Eulàlia de Riuprimer](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Santa Eulàlia de Ronçana](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Santa Fe del Penedès](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Santa Margarida de Montbui](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Santa Margarida i els Monjos](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Santa Maria d'Oló](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Santa María de Besora](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Santa Maria de Martorelles](https://www.autoridad.legal/juzgados/mollet-del-valles): Juzgados de Mollet del Vallès
+- [Santa María de Merlès](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Santa María de Miralles](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Santa María de Palautordera](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Santa Perpètua de Mogoda](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Santa Susanna](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Santpedor](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Sentmenat](https://www.autoridad.legal/juzgados/sabadell): Juzgados de Sabadell
+- [Seva](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sitges](https://www.autoridad.legal/juzgados/vilanova-i-la-geltru): Juzgados de Vilanova i la Geltrú
+- [Sobremunt](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Sora](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Subirats](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Súria](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Tagamanent](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Talamanca](https://www.autoridad.legal/juzgados/manresa): Juzgados de Manresa
+- [Taradell](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Tavèrnoles](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Tavertet](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Teià](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Terrassa](https://www.autoridad.legal/juzgados/terrassa): Juzgados de Terrassa
+- [Tiana](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Tona](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Tordera](https://www.autoridad.legal/juzgados/arenys-de-mar): Juzgados de Arenys de Mar
+- [Torelló](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Torrelavit](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Torrelles de Foix](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Torrelles de Llobregat](https://www.autoridad.legal/juzgados/sant-boi-de-llobregat): Juzgados de Sant Boi de Llobregat
+- [Ullastrell](https://www.autoridad.legal/juzgados/terrassa): Juzgados de Terrassa
+- [Vacarisses](https://www.autoridad.legal/juzgados/terrassa): Juzgados de Terrassa
+- [Vallbona d'Anoia](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Vallcebre](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Vallgorguina](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Vallirana](https://www.autoridad.legal/juzgados/sant-feliu-de-llobregat): Juzgados de Sant Feliu de Llobregat
+- [Vallromanes](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Veciana](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Vic](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Vilada](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga
+- [Viladecans](https://www.autoridad.legal/juzgados/gava): Juzgados de Gavà
+- [Viladecavalls](https://www.autoridad.legal/juzgados/terrassa): Juzgados de Terrassa
+- [Vilafranca del Penedès](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Vilanova de Sau](https://www.autoridad.legal/juzgados/vic): Juzgados de Vic
+- [Vilanova del Camí](https://www.autoridad.legal/juzgados/igualada): Juzgados de Igualada
+- [Vilanova del Vallès](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Vilanova i la Geltrú](https://www.autoridad.legal/juzgados/vilanova-i-la-geltru): Juzgados de Vilanova i la Geltrú
+- [Vilassar de Dalt](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Vilassar de Mar](https://www.autoridad.legal/juzgados/mataro): Juzgados de Mataró
+- [Villalba Sasserra](https://www.autoridad.legal/juzgados/granollers): Juzgados de Granollers
+- [Vilobí del Penedès](https://www.autoridad.legal/juzgados/vilafranca-del-penedes): Juzgados de Vilafranca del Penedès
+- [Viver i Serrateix](https://www.autoridad.legal/juzgados/berga): Juzgados de Berga

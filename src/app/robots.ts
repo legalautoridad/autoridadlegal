@@ -5,18 +5,12 @@ export default function robots(): MetadataRoute.Robots {
         rules: [
             {
                 userAgent: '*',
-                allow: [
-                    '/',
-                    '/glosario',
-                    '/glosario/*',
-                    '/juzgados',
-                    '/juzgados/*',
-                    '/llms.txt',
-                    '/entitymap.json',
-                    '/entitymap.html',
-                    '/sitemap.xml',
-                ],
+                allow: '/',
                 disallow: ['/admin/', '/lawyer/', '/api/', '/checkout/', '/login'],
+            },
+            {
+                userAgent: 'OAI-SearchBot',
+                allow: '/',
             },
             {
                 userAgent: 'GPTBot',

@@ -1,105 +1,33 @@
-import { Metadata } from 'next';
-import { redirect, RedirectType } from 'next/navigation';
-import ServiceTemplate from '@/components/silo/ServiceTemplate';
-import { getCoberturaData, getLiveCoberturaParams, VALID_SERVICES } from '@/lib/db/cobertura';
-import { normalizeServiceSlug } from '@/lib/db/services';
-import { generateCoberturaJsonLd } from '@/lib/seo/cobertura-jsonld';
-import { DEFAULT_OG_IMAGE } from '@/lib/config';
+import { permanentRedirect } from 'next/navigation';
+import MAPA from '@/data/municipio-a-partido.json';
 
-export const revalidate = 3600; // ISR revalidation every 1 hour
-export const dynamicParams = true; // Allow dynamic rendering for valid published rows
+const PARTIDOS = MAPA as Record<string, string>;
+const SERVICIOS: Record<string, string> = {
+    alcoholemia: 'alcoholemia',
+    drogas: 'drogas',
+    velocidad: 'velocidad',
+    'sin-carnet': 'sin-carnet',
+    sin_carnet: 'sin-carnet',
+    profesionales: 'profesionales',
+};
 
 interface LeafPageProps {
     params: Promise<{ service: string; city: string }>;
 }
 
-function isValidService(service: string): boolean {
-    return VALID_SERVICES.includes(normalizeServiceSlug(service));
-}
-
-// 1. Dynamic SEO Metadata Generation
-export async function generateMetadata({ params }: LeafPageProps): Promise<Metadata> {
-    const { service, city } = await params;
-    const normService = normalizeServiceSlug(service);
-    if (!isValidService(normService)) return {};
-
-    const cobertura = await getCoberturaData(normService, city);
-    if (!cobertura) return {};
-
-    const canonicalUrl = `https://www.autoridad.legal/${cobertura.service.slug}/${cobertura.location.slug}`;
-    const isAlcoholemia = normService === 'alcoholemia';
-
-    return {
-        title: `${cobertura.h1Title} | Autoridad Legal`,
-        description: cobertura.description,
-        robots: {
-            index: false,
-            follow: true,
-        },
-        alternates: {
-            canonical: canonicalUrl,
-        },
-        openGraph: {
-            title: cobertura.h1Title,
-            description: cobertura.description,
-            url: canonicalUrl,
-            siteName: 'Autoridad Legal',
-            locale: 'es_ES',
-            type: 'website',
-            // Default sitewide share image (1200x630). Override per city/service here if custom city assets are provided
-            images: [
-                {
-                    url: DEFAULT_OG_IMAGE,
-                    width: 1200,
-                    height: 630,
-                    alt: cobertura.h1Title,
-                },
-            ],
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title: cobertura.h1Title,
-            description: cobertura.description,
-            images: [DEFAULT_OG_IMAGE],
-        },
-    };
-}
-
-// 2. Localized Service Leaf Page Component (Server Rendered)
+/**
+ * Legacy coverage route fallback (`/[service]/[city]`).
+ * Primary 301 redirect is handled by `src/middleware.ts`.
+ * No `generateStaticParams` is exported so zero coverage pages are compiled.
+ */
 export default async function LocalizedServiceLeafPage({ params }: LeafPageProps) {
     const { service, city } = await params;
-    const normService = normalizeServiceSlug(service);
-
-    if (!isValidService(normService)) {
-        redirect('/alcoholemia', RedirectType.replace);
-    }
-
-    const cobertura = await getCoberturaData(normService, city);
-
-    // Gate: Long-tail / unpublished municipios permanently redirect 301 to root service page
-    if (!cobertura) {
-        redirect(`/${normService}`, RedirectType.replace);
-    }
-
-    const canonicalUrl = `https://www.autoridad.legal/${cobertura.service.slug}/${cobertura.location.slug}`;
-    const jsonLdGraph = generateCoberturaJsonLd(cobertura, canonicalUrl);
-
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
-            />
-            <ServiceTemplate
-                service={cobertura.service.slug}
-                city={cobertura.location.slug}
-                cobertura={cobertura}
-            />
-        </>
-    );
-}
-
-// 3. Static Generation: Strictly LIVE combinations from TARGET_MUNICIPIOS with web_published = true
-export async function generateStaticParams() {
-    return await getLiveCoberturaParams();
+    const servicio = SERVICIOS[(service ?? '').toLowerCase()] || 'alcoholemia';
+    let municipio = city ?? '';
+    try {
+        municipio = decodeURIComponent(municipio);
+    } catch {}
+    const partido = PARTIDOS[municipio.toLowerCase()];
+    const destino = partido ? `/juzgados/${partido}` : `/${servicio}`;
+    permanentRedirect(destino);
 }

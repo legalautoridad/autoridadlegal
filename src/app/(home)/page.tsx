@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { PHONE_E164, PHONE_DISPLAY, DEFAULT_OG_IMAGE } from "@/lib/config";
 import Link from "next/link";
-import { getLocations } from "@/lib/db/locations";
-import { OKFService } from "@/lib/okf/okf-service";
-import { MunicipalitySearch } from "@/components/silo/MunicipalitySearch";
+import { PARTIDOS_JUDICIALES } from "@/lib/db/city-court-map";
 import { getHomepageFaqs } from "@/lib/db/homepage-faqs";
 import {
     Gavel,
@@ -13,7 +11,9 @@ import {
     GraduationCap,
     ChevronDown,
     CheckCircle2,
-    ArrowRight
+    ArrowRight,
+    Building2,
+    Scale
 } from "lucide-react";
 
 export const revalidate = 3600; // ISR revalidation for homepage FAQs
@@ -49,13 +49,8 @@ export const metadata: Metadata = {
 };
 
 export default async function MarketingPage() {
-    // Fetch locations and brand FAQs from DB dynamically (strict SSR)
-    const locations = await getLocations();
-    const municipiosAlcoholemia = OKFService.getCoveredMunicipios('alcoholemia');
+    // Fetch brand FAQs from DB dynamically (strict SSR)
     const homepageFaqs = await getHomepageFaqs();
-
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "34657420999";
-    const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola Autoridad Legal, necesito un abogado de urgencia por un delito de alcoholemia en Barcelona.")}`;
 
     return (
         <main className="min-h-screen bg-surface-ice text-legal-ink font-sans flex flex-col items-center">
@@ -128,17 +123,49 @@ export default async function MarketingPage() {
                 </p>
             </article>
 
-            {/* NUESTRA ZONA DE COBERTURA SECTION */}
+            {/* PARTIDOS JUDICIALES SECTION (SSR Links to /juzgados + 25 Partidos) */}
             <section className="w-full bg-slate-900 border-y border-white/10 py-16 md:py-24 flex justify-center">
-                <div className="max-w-7xl w-full px-6 lg:px-8">
-                    <MunicipalitySearch
-                        initialService="alcoholemia"
-                        initialMunicipios={municipiosAlcoholemia}
-                        showServiceSelector={true}
-                        variant="compact"
-                        title="Buscador de Cobertura Jurídica por Servicio y Municipio"
-                        subtitle="Ofrecemos asistencia legal urgente 24h en toda el área metropolitana y municipios de Cataluña. Seleccione la especialidad y busque su localidad para acceder a la página de su juzgado competente."
-                    />
+                <div className="max-w-7xl w-full px-6 lg:px-8 space-y-10">
+                    <div className="text-center space-y-3 max-w-3xl mx-auto">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-prestige-gold/10 border border-prestige-gold/30 text-prestige-gold text-xs font-semibold uppercase tracking-widest">
+                            <Scale className="w-3.5 h-3.5" />
+                            25 Partidos Judiciales • 310 Municipios de Barcelona
+                        </div>
+                        <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
+                            ¿Dónde te juzgan? Los 25 Partidos Judiciales de Barcelona
+                        </h2>
+                        <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+                            Asistencia letrada de urgencia 24h en todos los Juzgados de Instrucción y de Guardia de la provincia de Barcelona. Seleccione su partido judicial o consulte el directorio completo de los 310 municipios:
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                        {PARTIDOS_JUDICIALES.map((partido) => (
+                            <Link
+                                key={partido.slug}
+                                href={`/juzgados/${partido.slug}`}
+                                className="group flex items-center justify-between p-3.5 rounded-2xl bg-slate-950/90 hover:bg-slate-950 border border-white/10 hover:border-prestige-gold/60 transition-all transform hover:-translate-y-0.5 shadow-md"
+                            >
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                    <Building2 className="w-4 h-4 text-prestige-gold shrink-0" />
+                                    <span className="text-xs md:text-sm font-bold text-slate-200 group-hover:text-white truncate transition-colors">
+                                        {partido.name}
+                                    </span>
+                                </div>
+                                <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-prestige-gold group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
+                            </Link>
+                        ))}
+                    </div>
+
+                    <div className="text-center pt-2">
+                        <Link
+                            href="/juzgados"
+                            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-prestige-gold hover:bg-[#ffe088] text-trust-navy font-bold text-sm transition-all shadow-lg shadow-prestige-gold/20"
+                        >
+                            <span>Ver directorio completo de Juzgados y los 310 municipios</span>
+                            <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
                 </div>
             </section>
 

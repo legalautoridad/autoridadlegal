@@ -108,7 +108,7 @@ export function MunicipalitySearch({
                 <div className="text-center space-y-3 max-w-3xl mx-auto">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-prestige-gold/10 border border-prestige-gold/30 text-prestige-gold text-xs font-semibold uppercase tracking-widest">
                         <ShieldCheck className="w-3.5 h-3.5" />
-                        Asistencia 24 Horas en 129+ Municipios
+                        Asistencia 24 Horas en 310 Municipios
                     </div>
                     <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
                         {title}
@@ -177,7 +177,7 @@ export function MunicipalitySearch({
                         href="/juzgados"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 text-prestige-gold hover:text-white font-bold text-sm transition-all shadow-md hover:shadow-lg"
                     >
-                        <span>Busca tu juzgado entre los 129 municipios</span>
+                        <span>Busca tu juzgado entre los 310 municipios</span>
                         <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
@@ -185,14 +185,14 @@ export function MunicipalitySearch({
         );
     }
 
-    // Full variant for /municipios and service hubs
+    // Full variant for /juzgados and service hubs
     return (
         <div className="w-full space-y-8 bg-slate-950/80 p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-md">
             {/* Header / Title */}
             <div className="text-center space-y-3 max-w-3xl mx-auto">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-prestige-gold/10 border border-prestige-gold/30 text-prestige-gold text-xs font-semibold uppercase tracking-widest">
                     <ShieldCheck className="w-3.5 h-3.5" />
-                    Asistencia 24 Horas en 129+ Municipios
+                    Asistencia 24 Horas en 310 Municipios
                 </div>
                 <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
                     {title}
