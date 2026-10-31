@@ -71,6 +71,9 @@ export function localizeProvincialFaqText(text: string): string {
         .replace(/\ben su partido judicial\s+en Cataluña\b/gi, 'en su partido judicial')
         .replace(/\bde su partido judicial\s+en Cataluña\b/gi, 'de su partido judicial')
         .replace(/\bel\s+el\b/gi, 'el')
+        .replace(/\bgarantizan\b/gi, 'aseguran')
+        .replace(/\bgarantiza\b/gi, 'asegura')
+        .replace(/\bgarantizar\b/gi, 'asegurar')
         .replace(/\s+/g, ' ')
         .trim();
 

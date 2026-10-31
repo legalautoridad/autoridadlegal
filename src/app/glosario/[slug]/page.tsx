@@ -77,7 +77,6 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
     }
 
     const canonicalUrl = `https://www.autoridad.legal/glosario/${term.slug}`;
-    const rawMarkdownUrl = `/glosario/${term.slug}.md`;
     const relatedLinks = await getPublicRelatedLinks(term.id);
 
     // Filter sameAs: ONLY specific valid URLs, NEVER generic "https://wikidata.org"
@@ -119,7 +118,7 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
             />
 
             <main className="py-12 md:py-20 px-4 md:px-8 max-w-4xl mx-auto w-full space-y-10 flex-1">
-                {/* Back navigation & LLM raw file link */}
+                {/* Back navigation */}
                 <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
                     <Link
                         href="/glosario"
@@ -127,17 +126,6 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
                     >
                         <ArrowLeft className="w-4 h-4" /> Volver al Glosario
                     </Link>
-
-                    <a
-                        href={rawMarkdownUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950/80 hover:bg-slate-950 border border-white/10 text-xs font-mono text-amber-400 transition-colors"
-                        title="Ver versión en Markdown crudo para LLMs y parseadores"
-                    >
-                        <FileText className="w-3.5 h-3.5" />
-                        <span>{term.slug}.md (Raw)</span>
-                    </a>
                 </div>
 
                 {/* Term Header Card */}

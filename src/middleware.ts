@@ -43,35 +43,6 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/honorarios', CANON), 301);
     }
 
-    // 3. Handle raw markdown requests for glossary terms: /glosario/[slug].md
-    if (pathname.startsWith('/glosario/') && pathname.endsWith('.md')) {
-        const slug = pathname.replace('/glosario/', '').replace(/\.md$/, '');
-        const requestHeaders = new Headers(request.headers);
-        requestHeaders.set('x-glosario-slug', slug);
-        requestHeaders.set('x-pathname', pathname);
-        const rawUrl = new URL('/api/glosario-raw', request.url);
-        return NextResponse.rewrite(rawUrl, {
-            request: {
-                headers: requestHeaders,
-            },
-        });
-    }
-
-    // 4. Handle raw markdown requests for services: /[service].md (e.g. /alcoholemia.md)
-    const serviceRawMatch = pathname.match(/^\/(alcoholemia|drogas|sin-carnet|velocidad|profesionales)\.md$/);
-    if (serviceRawMatch) {
-        const slug = serviceRawMatch[1];
-        const requestHeaders = new Headers(request.headers);
-        requestHeaders.set('x-servicio-slug', slug);
-        requestHeaders.set('x-pathname', pathname);
-        const rawUrl = new URL('/api/servicio-raw', request.url);
-        return NextResponse.rewrite(rawUrl, {
-            request: {
-                headers: requestHeaders,
-            },
-        });
-    }
-
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', pathname);
 
