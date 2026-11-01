@@ -462,7 +462,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                             {DELITOS_TARJETAS.map(delito => (
                                 <div
                                     key={delito.slug}
@@ -472,7 +472,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                         <h3 className="text-base font-extrabold text-slate-900">
                                             {delito.title}
                                         </h3>
-                                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">
+                                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                                             {delito.summary}
                                         </p>
                                     </div>

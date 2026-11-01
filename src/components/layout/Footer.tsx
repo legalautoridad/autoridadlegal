@@ -90,7 +90,7 @@ export function Footer() {
                         </Link>
                     </h4>
                     <Link href="/juzgados" className="text-xs font-semibold text-prestige-gold hover:underline">
-                        Ver todos los juzgados y 310 municipios →
+                        Ver todos los juzgados y 309 municipios →
                     </Link>
                 </div>
                 <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-2 text-xs">
