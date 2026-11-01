@@ -1,22 +1,29 @@
 import { createStaticClient } from '@/lib/supabase/server';
 import { SERVICES_PRICING, ServicePricing } from '@/lib/config/pricing';
 import { parseGpsCoords } from '@/lib/db/cobertura';
-import fs from 'fs';
-import path from 'path';
 
 export interface DistrictMunicipality {
     id: string;
     name: string;
     slug: string;
+    population: number | null;
 }
 
-export interface DistrictInterestPoint {
+export interface SearchableMunicipality {
     id: string;
+    slug: string;
     name: string;
-    category: string;
-    details: string;
-    lat: number | null;
-    lng: number | null;
+    courtSlug: string;
+    partido: string;
+    oficial: string;
+    address: string | null;
+}
+
+export interface CourtFaqRow {
+    id: string;
+    position: number;
+    question: string;
+    answer: string;
 }
 
 export interface DistrictCourtData {
@@ -27,143 +34,177 @@ export interface DistrictCourtData {
     officialName: string;
     address: string | null;
     phone: string | null;
-    phoneGuardia: string | null;
     fiscaliaAddress: string | null;
-    protocoloGuardia: string | null;
     gpsCoords: { lat: number; lng: number } | null;
-    buildingOrganization: string | null;
-}
-
-export interface AuthoredDistrictContent {
-    entradilla?: string | null;
-    queHacerAhoraNotes?: string | null;
-    juzgadoNotes?: string | null;
-    fiscaliaNotes?: string | null;
-    guardiaNotes?: string | null;
-    criteriosFiscalNotes?: string | null;
-    actuacionPolicialNotes?: string | null;
-    experienciaDespachoNotes?: string | null;
-    delitosNotes?: Record<string, string>;
-    videoUrl?: string | null;
-    transcriptText?: string | null;
+    atestadoInfo: string | null;
+    hospitalContraste: string | null;
+    depositoVehiculos: string | null;
+    practicalReviewed: boolean;
 }
 
 export interface DistrictFullData {
     slug: string;
     court: DistrictCourtData;
     municipalities: DistrictMunicipality[];
-    interestPoints: DistrictInterestPoint[];
+    topMunicipalities: DistrictMunicipality[];
+    allMunicipalities: SearchableMunicipality[];
+    policeBodies: string[];
+    publicTransport: string[];
+    reviewedCourtFaqs: CourtFaqRow[];
     pricing: ServicePricing[];
-    authored: AuthoredDistrictContent;
     published: boolean;
 }
 
-/**
- * Sanitizes authored text to ensure placeholders like [A RELLENAR ABOGADO] are never rendered in public HTML.
- */
-function sanitizeAuthoredText(text: string | null | undefined): string | null {
-    if (!text) return null;
-    const trimmed = text.trim();
-    if (trimmed.includes('[A RELLENAR ABOGADO]')) {
-        const lines = trimmed.split('\n').filter(line => !line.includes('[A RELLENAR ABOGADO]'));
-        const cleaned = lines.join('\n').trim();
-        return cleaned.length > 0 ? cleaned : null;
+function cleanJudicialDistrict(raw: string | null | undefined): string {
+    return (raw || '')
+        .replace(
+            /^(Partido Judicial de|Juzgados de Primera Instancia e Instrucción de|Juzgados de Instrucción de|Juzgados de)\s+/i,
+            ''
+        )
+        .trim();
+}
+
+function extractPoliceBodyName(rawName: string): string {
+    return rawName
+        .split(/\s+-\s+/)[0]
+        .replace(/\s*\(Referencia[^)]*\)/gi, '')
+        .trim();
+}
+
+function isPublicTransportName(rawName: string): boolean {
+    const trimmed = rawName.trim();
+    if (/^(Eje\s|Autopista\b|Autovía\b|Carretera\b|Ronda\b|Vía\b|Camino\b)/i.test(trimmed)) {
+        return false;
     }
-    return trimmed;
+    return /(Estación|Intercambiador|Parada|Metro|Rodalies|FGC|Autobuses|TRAM|Tram|Renfe|Funicular)/i.test(
+        trimmed
+    );
 }
 
 /**
- * Helper to check if markdown draft file contains real human authored content beyond placeholders.
- */
-function parseDraftFileAuthoredContent(slug: string): { authored: AuthoredDistrictContent; isPublished: boolean } {
-    const draftPath = path.join(process.cwd(), 'content/borradores/partidos-judiciales', `${slug}.md`);
-    if (!fs.existsSync(draftPath)) {
-        return { authored: {}, isPublished: true };
-    }
-
-    try {
-        const rawContent = fs.readFileSync(draftPath, 'utf-8');
-        const isPublished = rawContent.includes('published: true');
-
-        return {
-            authored: {
-                entradilla: sanitizeAuthoredText(undefined),
-            },
-            isPublished,
-        };
-    } catch {
-        return { authored: {}, isPublished: true };
-    }
-}
-
-/**
- * Fetches data for a given district slug from DB.
- * Uses `locations` joined with `courts` where `location_type = 'municipio'` (all 310 municipalities across 25 districts).
+ * Fetches full data for a given judicial district slug (/juzgados/[slug]).
+ * Excludes 'bellaterra-uab' so only the 309 official municipalities are included.
  */
 export async function getDistrictData(slug: string): Promise<DistrictFullData | null> {
     const supabase = createStaticClient();
 
-    const { data: court, error } = await supabase
-        .from('courts')
-        .select('*')
-        .eq('slug', slug)
-        .single();
+    const [
+        { data: allCourts, error: courtsError },
+        { data: allLocs, error: locsError },
+        { data: pointsData },
+    ] = await Promise.all([
+        supabase.from('courts').select('*').order('slug'),
+        supabase
+            .from('locations')
+            .select('id, name, slug, court_id, location_type, population')
+            .eq('location_type', 'municipio')
+            .neq('slug', 'bellaterra-uab'),
+        supabase.from('interest_points').select('*'),
+    ]);
 
-    if (error || !court) {
+    if (courtsError || locsError || !allCourts) {
         return null;
     }
 
-    // Fetch all municipalities belonging to this judicial district (location_type = 'municipio')
-    const { data: locs } = await supabase
-        .from('locations')
-        .select('id, name, slug, court_id, location_type')
-        .eq('court_id', court.id)
-        .eq('location_type', 'municipio');
-
-    const districtMunicipalities: DistrictMunicipality[] = (locs || [])
-        .map(l => ({ id: l.id, name: l.name, slug: l.slug }))
-        .sort((a, b) => a.name.localeCompare(b.name, 'es'));
-
-    const locIds = new Set(districtMunicipalities.map(m => m.id));
-
-    // Fetch interest points for municipalities in this district
-    const { data: pointsData } = await supabase
-        .from('interest_points')
-        .select('*');
-
-    const districtInterestPoints: DistrictInterestPoint[] = (pointsData || [])
-        .filter(p => locIds.has(p.location_id))
-        .map(p => ({
-            id: p.id,
-            name: p.name,
-            category: p.class || p.category || 'Puntos de Control y Comisarías',
-            details: p.details || p.description || '',
-            lat: p.lat ?? null,
-            lng: p.lng ?? null,
-        }))
-        .sort((a, b) => a.name.localeCompare(b.name, 'es'));
-
-    // Building organization string from efficiency_data
-    let buildingOrganization: string | null = null;
-    if (court.efficiency_data) {
-        const eff = court.efficiency_data;
-        const parts: string[] = [];
-        if (eff.reforma) parts.push(eff.reforma);
-        if (eff.secciones) {
-            if (typeof eff.secciones === 'object') {
-                Object.entries(eff.secciones).forEach(([key, val]) => {
-                    parts.push(`${key.replace(/_/g, ' ')}: ${val}`);
-                });
-            } else {
-                parts.push(String(eff.secciones));
-            }
-        }
-        if (parts.length > 0) buildingOrganization = parts.join(' • ');
+    const court = allCourts.find(c => c.slug === slug);
+    if (!court) {
+        return null;
     }
 
-    const judicialDistrict = (court.judicial_district || court.name || '')
-        .replace(/^(Partido Judicial de|Juzgados de Primera Instancia e Instrucción de|Juzgados de Instrucción de|Juzgados de)\s+/i, '')
-        .trim();
+    const courtsById = new Map<string, any>();
+    allCourts.forEach(c => courtsById.set(c.id, c));
+
+    // All 309 searchable municipalities across all 25 districts
+    const allMunicipalities: SearchableMunicipality[] = (allLocs || [])
+        .filter(l => l.court_id && courtsById.has(l.court_id))
+        .map(l => {
+            const c = courtsById.get(l.court_id)!;
+            return {
+                id: l.id,
+                slug: l.slug,
+                name: l.name,
+                courtSlug: c.slug,
+                partido: cleanJudicialDistrict(c.judicial_district || c.name),
+                oficial: c.official_name || c.name,
+                address: c.address || null,
+            };
+        })
+        .sort((a, b) => a.name.localeCompare(b.name, 'ca'));
+
+    // Municipalities belonging to this district (ordered alphabetically in 'ca')
+    const districtMunicipalities: DistrictMunicipality[] = (allLocs || [])
+        .filter(l => l.court_id === court.id)
+        .map(l => ({
+            id: l.id,
+            name: l.name,
+            slug: l.slug,
+            population: typeof l.population === 'number' ? l.population : null,
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name, 'ca'));
+
+    // Top municipalities by population desc, max 4
+    const topMunicipalities: DistrictMunicipality[] = [...districtMunicipalities]
+        .sort((a, b) => {
+            const popDiff = (b.population || 0) - (a.population || 0);
+            if (popDiff !== 0) return popDiff;
+            return a.name.localeCompare(b.name, 'ca');
+        })
+        .slice(0, 4);
+
+    const locById = new Map<string, DistrictMunicipality>();
+    districtMunicipalities.forEach(m => locById.set(m.id, m));
+
+    // Sort district interest points so those in the seat municipality (slug === court.slug) come first
+    const districtPoints = (pointsData || [])
+        .filter(p => locById.has(p.location_id))
+        .sort((a, b) => {
+            const aIsSeat = locById.get(a.location_id)?.slug === court.slug ? 0 : 1;
+            const bIsSeat = locById.get(b.location_id)?.slug === court.slug ? 0 : 1;
+            if (aIsSeat !== bIsSeat) return aIsSeat - bIsSeat;
+            return (a.position || 99) - (b.position || 99);
+        });
+
+    // 1.5 Police bodies (class = 'policias'), deduplicated corps names only
+    const policeBodiesSet = new Set<string>();
+    districtPoints
+        .filter(p => (p.class || p.category) === 'policias' && p.name)
+        .forEach(p => {
+            const bodyName = extractPoliceBodyName(p.name);
+            if (bodyName) {
+                policeBodiesSet.add(bodyName);
+            }
+        });
+    const policeBodies = Array.from(policeBodiesSet);
+
+    // 1.6 Public transport (class = 'comunicaciones'), max 3, excluding highways/roads
+    const publicTransportSet = new Set<string>();
+    districtPoints
+        .filter(p => (p.class || p.category) === 'comunicaciones' && p.name && isPublicTransportName(p.name))
+        .forEach(p => {
+            if (publicTransportSet.size < 3) {
+                publicTransportSet.add(p.name.trim());
+            }
+        });
+    const publicTransport = Array.from(publicTransportSet);
+
+    // 1.7 Reviewed court FAQs from court_faqs table
+    let reviewedCourtFaqs: CourtFaqRow[] = [];
+    try {
+        const { data: faqsData } = await supabase
+            .from('court_faqs')
+            .select('id, position, question, answer')
+            .eq('court_id', court.id)
+            .eq('reviewed', true)
+            .order('position', { ascending: true });
+        if (faqsData) {
+            reviewedCourtFaqs = faqsData;
+        }
+    } catch {
+        reviewedCourtFaqs = [];
+    }
+
+    const judicialDistrict = cleanJudicialDistrict(court.judicial_district || court.name);
+    const practicalReviewed = Boolean(court.practical_reviewed);
 
     const courtData: DistrictCourtData = {
         id: court.id,
@@ -173,23 +214,27 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
         officialName: court.official_name || court.name,
         address: court.address || null,
         phone: court.phone || null,
-        phoneGuardia: court.phone_guardia || court.phone || null,
         fiscaliaAddress: court.fiscalia_address || null,
-        protocoloGuardia: court.protocolo_guardia || null,
         gpsCoords: parseGpsCoords(court.gps_coords),
-        buildingOrganization,
+        atestadoInfo: practicalReviewed && court.atestado_info ? String(court.atestado_info).trim() : null,
+        hospitalContraste:
+            practicalReviewed && court.hospital_contraste ? String(court.hospital_contraste).trim() : null,
+        depositoVehiculos:
+            practicalReviewed && court.deposito_vehiculos ? String(court.deposito_vehiculos).trim() : null,
+        practicalReviewed,
     };
-
-    const draftInfo = parseDraftFileAuthoredContent(slug);
 
     return {
         slug: court.slug,
         court: courtData,
         municipalities: districtMunicipalities,
-        interestPoints: districtInterestPoints,
+        topMunicipalities,
+        allMunicipalities,
+        policeBodies,
+        publicTransport,
+        reviewedCourtFaqs,
         pricing: SERVICES_PRICING,
-        authored: draftInfo.authored,
-        published: draftInfo.isPublished,
+        published: true,
     };
 }
 
@@ -211,7 +256,7 @@ export async function getPublishedDistrictSlugs(): Promise<{ slug: string }[]> {
 }
 
 /**
- * Fetches summary list of all 25 districts with all 310 municipalities (locations join courts, location_type = 'municipio').
+ * Fetches summary list of all 25 districts with all 309 municipalities (excluding bellaterra-uab).
  */
 export async function getAllDistrictsIndexData(): Promise<{
     slug: string;
@@ -228,8 +273,9 @@ export async function getAllDistrictsIndexData(): Promise<{
         supabase.from('courts').select('*').order('slug'),
         supabase
             .from('locations')
-            .select('id, name, slug, court_id, location_type')
-            .eq('location_type', 'municipio'),
+            .select('id, name, slug, court_id, location_type, population')
+            .eq('location_type', 'municipio')
+            .neq('slug', 'bellaterra-uab'),
     ]);
 
     const locsByCourt = new Map<string, DistrictMunicipality[]>();
@@ -242,16 +288,15 @@ export async function getAllDistrictsIndexData(): Promise<{
             id: l.id,
             name: l.name,
             slug: l.slug,
+            population: typeof l.population === 'number' ? l.population : null,
         });
     });
 
     const indexData = (courts || []).map(court => {
         const municipalities = (locsByCourt.get(court.id) || []).sort((a, b) =>
-            a.name.localeCompare(b.name, 'es')
+            a.name.localeCompare(b.name, 'ca')
         );
-        const judicialDistrict = (court.judicial_district || court.name || '')
-        .replace(/^(Partido Judicial de|Juzgados de Primera Instancia e Instrucción de|Juzgados de Instrucción de|Juzgados de)\s+/i, '')
-        .trim();
+        const judicialDistrict = cleanJudicialDistrict(court.judicial_district || court.name);
         return {
             slug: court.slug,
             name: court.name,
@@ -263,5 +308,5 @@ export async function getAllDistrictsIndexData(): Promise<{
         };
     });
 
-    return indexData.sort((a, b) => a.officialName.localeCompare(b.officialName, 'es'));
+    return indexData.sort((a, b) => a.judicialDistrict.localeCompare(b.judicialDistrict, 'ca'));
 }

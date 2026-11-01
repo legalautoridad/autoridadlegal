@@ -1,236 +1,427 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getAllDistrictsIndexData } from '@/lib/db/district-content';
-import { MunicipalitySearch, MunicipioItem } from '@/components/silo/MunicipalitySearch';
-import { MapPin, Building2, ChevronRight, Scale, Clock, PhoneCall } from 'lucide-react';
-import { DEFAULT_OG_IMAGE, PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
+import { getAllDistrictsIndexData, SearchableMunicipality } from '@/lib/db/district-content';
+import {
+    CABECERA_TEXTOS,
+    PASOS_QUE_HACER,
+    AVISO_DETENIDO,
+    PASOS_COMO_ES_JUICIO_RAPIDO,
+} from '@/lib/juicio-rapido/textos';
+import { HubMunicipalitySearch } from '@/components/juicio-rapido/HubMunicipalitySearch';
+import { Phone, MessageCircle, AlertTriangle } from 'lucide-react';
+import { DEFAULT_OG_IMAGE, PHONE_E164, WHATSAPP_URL } from '@/lib/config';
+
+const HUB_TITLE = 'Juicio rápido en Barcelona: qué hacer y qué juzgado te corresponde | Autoridad Legal';
+const HUB_DESCRIPTION =
+    '¿Te han parado o citado a juicio rápido en la provincia de Barcelona? Qué hacer, busca tu juzgado de guardia (25 partidos, 309 municipios) y llama al 605 118 871.';
+const CANONICAL_URL = 'https://www.autoridad.legal/juzgados';
 
 export const metadata: Metadata = {
-    title: "Directorio de Juzgados y Cobertura Legal 24h | Autoridad Legal",
-    description: "Busque su juzgado o municipio en Cataluña para acceder a la asistencia penal de guardia 24 horas en comisarías y juzgados de instrucción.",
+    title: HUB_TITLE,
+    description: HUB_DESCRIPTION,
     alternates: {
-        canonical: "https://www.autoridad.legal/juzgados",
+        canonical: CANONICAL_URL,
     },
     openGraph: {
-        title: "Directorio de Juzgados y Cobertura Legal 24h",
-        description: "Busque su juzgado o municipio en Cataluña para acceder a la asistencia penal de guardia 24 horas en comisarías y juzgados de instrucción.",
-        url: "https://www.autoridad.legal/juzgados",
-        siteName: "Autoridad Legal",
-        locale: "es_ES",
-        type: "website",
+        title: HUB_TITLE,
+        description: HUB_DESCRIPTION,
+        url: CANONICAL_URL,
+        siteName: 'Autoridad Legal',
+        locale: 'es_ES',
+        type: 'website',
         images: [
             {
                 url: DEFAULT_OG_IMAGE,
                 width: 1200,
                 height: 630,
-                alt: "Directorio de Juzgados y Cobertura Legal 24h",
+                alt: HUB_TITLE,
             },
         ],
     },
     twitter: {
-        card: "summary_large_image",
-        title: "Directorio de Juzgados y Cobertura Legal 24h",
-        description: "Busque su juzgado o municipio en Cataluña para acceder a la asistencia penal de guardia 24 horas en comisarías y juzgados de instrucción.",
+        card: 'summary_large_image',
+        title: HUB_TITLE,
+        description: HUB_DESCRIPTION,
         images: [DEFAULT_OG_IMAGE],
     },
 };
 
-export default async function JuzgadosIndexPage() {
+interface HubPageProps {
+    searchParams?: Promise<{ q?: string }>;
+}
+
+export default async function JuzgadosIndexPage({ searchParams }: HubPageProps) {
+    const resolvedSearchParams = searchParams ? await searchParams : {};
+    const initialQuery = typeof resolvedSearchParams.q === 'string' ? resolvedSearchParams.q : '';
+
     const districts = await getAllDistrictsIndexData();
     const totalActiveMunicipalities = districts.reduce((acc, d) => acc + d.municipalities.length, 0);
 
-    // Prepare MunicipioItems for search component with targetMode="juzgado" and full SSR table
-    const searchMunicipios: (MunicipioItem & { judicialDistrict: string; officialCourtName: string })[] = [];
+    const allMunicipalities: SearchableMunicipality[] = [];
     districts.forEach(d => {
         d.municipalities.forEach(m => {
-            searchMunicipios.push({
+            allMunicipalities.push({
+                id: m.id,
                 slug: m.slug,
                 name: m.name,
                 courtSlug: d.slug,
-                judicialDistrict: d.judicialDistrict,
-                officialCourtName: d.officialName,
-                hasCourt: true,
+                partido: d.judicialDistrict,
+                oficial: d.officialName,
+                address: d.address,
             });
         });
     });
-    searchMunicipios.sort((a, b) => a.name.localeCompare(b.name, 'es'));
+    allMunicipalities.sort((a, b) => a.name.localeCompare(b.name, 'ca'));
+
+    const jsonLdGraph = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebPage',
+                '@id': `${CANONICAL_URL}#webpage`,
+                url: CANONICAL_URL,
+                name: HUB_TITLE,
+                description: HUB_DESCRIPTION,
+                inLanguage: 'es',
+                isPartOf: {
+                    '@id': 'https://www.autoridad.legal/#website',
+                },
+                provider: {
+                    '@id': 'https://www.autoridad.legal/#organization',
+                },
+                publisher: {
+                    '@id': 'https://www.autoridad.legal/#organization',
+                },
+                breadcrumb: {
+                    '@id': `${CANONICAL_URL}#breadcrumb`,
+                },
+                mainEntity: {
+                    '@id': `${CANONICAL_URL}#partidos`,
+                },
+            },
+            {
+                '@type': 'BreadcrumbList',
+                '@id': `${CANONICAL_URL}#breadcrumb`,
+                itemListElement: [
+                    {
+                        '@type': 'ListItem',
+                        position: 1,
+                        name: 'Inicio',
+                        item: 'https://www.autoridad.legal',
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 2,
+                        name: 'Juicio rápido',
+                        item: CANONICAL_URL,
+                    },
+                ],
+            },
+            {
+                '@type': 'ItemList',
+                '@id': `${CANONICAL_URL}#partidos`,
+                name: 'Partidos judiciales de la provincia de Barcelona',
+                numberOfItems: districts.length,
+                itemListElement: districts.map((d, idx) => ({
+                    '@type': 'ListItem',
+                    position: idx + 1,
+                    name: `Juicio rápido en ${d.judicialDistrict} (${d.officialName})`,
+                    url: `https://www.autoridad.legal/juzgados/${d.slug}`,
+                })),
+            },
+        ],
+    };
 
     return (
-        <div className="min-h-screen bg-slate-900 text-white pb-24">
-            <main className="py-12 md:py-20 px-4 md:px-8 max-w-7xl mx-auto w-full space-y-16">
-                {/* Hero Header */}
-                <div className="text-center max-w-3xl mx-auto space-y-4">
-                    <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-prestige-gold/15 border border-prestige-gold/30 text-prestige-gold text-xs font-bold uppercase tracking-wider">
-                        <Scale className="w-3.5 h-3.5" /> 25 Partidos Judiciales • {totalActiveMunicipalities} Municipios Atendidos
-                    </span>
-                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-                        Busca Tu Juzgado en Cataluña
-                    </h1>
-                    <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                        Seleccione o busque su municipio para acceder directamente al partido judicial competente y a la información de guardia 24h.
-                    </p>
-                </div>
+        <div className="min-h-screen bg-white text-slate-900 font-sans pb-20 sm:pb-0 overflow-x-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
+            />
 
-                {/* Key Highlights */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="p-6 rounded-2xl bg-slate-950/60 border border-white/10 space-y-2">
-                        <div className="w-10 h-10 rounded-xl bg-prestige-gold/20 flex items-center justify-center text-prestige-gold">
-                            <Building2 className="w-5 h-5" />
+            {/* CABECERA (fondo oscuro, igual que 1.1 pero en general) */}
+            <section className="bg-slate-900 text-white pt-6 pb-12 md:py-16 border-b border-slate-800">
+                <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-8">
+                    {/* Migas */}
+                    <nav aria-label="Ruta de navegación" className="text-xs text-slate-400 flex flex-wrap items-center gap-1.5">
+                        <Link href="/" className="underline hover:text-white transition-colors">
+                            Inicio
+                        </Link>
+                        <span aria-hidden="true">›</span>
+                        <span className="text-slate-200 font-medium">Juicio rápido</span>
+                    </nav>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                        <div className="lg:col-span-7 space-y-6">
+                            <p className="text-xs font-bold uppercase tracking-wider text-[#ffe088] leading-relaxed">
+                                Provincia de Barcelona · {districts.length} partidos judiciales · {totalActiveMunicipalities} municipios
+                            </p>
+
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white">
+                                Juicio rápido en la provincia de Barcelona: qué hacer y dónde te juzgan
+                            </h1>
+
+                            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+                                {CABECERA_TEXTOS.entradillaHub}
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+                                <a
+                                    href={`tel:${PHONE_E164}`}
+                                    className="min-h-[48px] px-6 py-3.5 rounded-xl bg-[#ffe088] hover:bg-amber-300 text-slate-900 font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2.5 shadow-lg transition-colors"
+                                >
+                                    <Phone className="w-4 h-4 shrink-0" />
+                                    <span>{CABECERA_TEXTOS.ctaPrimaryLabel}</span>
+                                </a>
+
+                                <a
+                                    href={WHATSAPP_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="min-h-[48px] px-5 py-3.5 rounded-xl border border-slate-600 hover:border-slate-400 text-white font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2 transition-colors"
+                                >
+                                    <MessageCircle className="w-4 h-4 shrink-0" />
+                                    <span>{CABECERA_TEXTOS.ctaSecondaryLabel}</span>
+                                </a>
+                            </div>
+
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                {CABECERA_TEXTOS.lawyerLine}
+                            </p>
                         </div>
-                        <h3 className="text-white font-bold text-base">25 Partidos Judiciales</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">
-                            Acceso directo a la información judicial oficial de las 25 sedes en la provincia de Barcelona.
-                        </p>
-                    </div>
 
-                    <div className="p-6 rounded-2xl bg-slate-950/60 border border-white/10 space-y-2">
-                        <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
-                            <Clock className="w-5 h-5" />
-                        </div>
-                        <h3 className="text-white font-bold text-base">Asistencia 24 Horas</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">
-                            Turno de urgencia para detenciones, atestados policiales y citaciones para juicios rápidos.
-                        </p>
-                    </div>
+                        {/* Tarjeta blanca "Qué hacer, paso a paso" */}
+                        <div className="lg:col-span-5 w-full">
+                            <div className="bg-white text-slate-900 rounded-2xl p-6 sm:p-7 shadow-xl space-y-5">
+                                <h2 className="text-lg sm:text-xl font-extrabold text-slate-900">
+                                    {CABECERA_TEXTOS.stepsCardTitle}
+                                </h2>
 
-                    <div className="p-6 rounded-2xl bg-slate-950/60 border border-white/10 space-y-2">
-                        <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
-                            <MapPin className="w-5 h-5" />
-                        </div>
-                        <h3 className="text-white font-bold text-base">{totalActiveMunicipalities} Municipios de Barcelona</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">
-                            Adscripción oficial de los {totalActiveMunicipalities} municipios con su juzgado de guardia correspondiente.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Interactive Search Tool targeting /juzgados/[court-slug] */}
-                <MunicipalitySearch
-                    initialService="alcoholemia"
-                    initialMunicipios={searchMunicipios}
-                    showServiceSelector={false}
-                    targetMode="juzgado"
-                    title="Buscador por Municipio o Localidad"
-                    subtitle="Escriba el municipio donde se produjo la actuación policial para ir a su juzgado correspondiente."
-                />
-
-                {/* Server-Rendered Indexable Grouping of 25 Judicial Districts (No JS required) */}
-                <section className="space-y-8 pt-6 border-t border-white/10">
-                    <div className="space-y-2">
-                        <h2 className="text-2xl font-bold text-white tracking-tight border-l-4 border-prestige-gold pl-4">
-                            Los {districts.length} Partidos Judiciales de la Provincia de Barcelona
-                        </h2>
-                        <p className="text-slate-400 text-xs md:text-sm">
-                            Consulta las 25 sedes judiciales y los {totalActiveMunicipalities} municipios adscritos a cada partido judicial:
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {districts.map(dist => (
-                            <div
-                                key={dist.slug}
-                                className="p-6 rounded-2xl bg-slate-950/80 border border-white/10 hover:border-prestige-gold/50 transition-all flex flex-col justify-between space-y-4 group"
-                            >
-                                <div className="space-y-3">
-                                    <div className="flex justify-between items-start gap-2">
-                                        <h3 className="text-lg font-bold text-white group-hover:text-prestige-gold transition-colors">
-                                            <Link href={`/juzgados/${dist.slug}`}>
-                                                {dist.officialName}
-                                            </Link>
-                                        </h3>
-                                    </div>
-
-                                    {dist.address && (
-                                        <p className="text-xs text-slate-400 flex items-center gap-1.5">
-                                            <Building2 className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                                            <span className="truncate">{dist.address}</span>
-                                        </p>
-                                    )}
-
-                                    {/* Server-Rendered Municipality Names Grouped by Court */}
-                                    <div className="pt-2">
-                                        <p className="text-xs font-bold text-prestige-gold uppercase tracking-wider mb-2">
-                                            Atiende {dist.municipalities.length} municipios:
-                                        </p>
-                                        <ul className="flex flex-wrap gap-1.5">
-                                            {dist.municipalities.map(m => (
-                                                <li key={m.id}>
-                                                    <span className="px-2.5 py-1 rounded-md bg-slate-900 text-slate-200 text-xs border border-white/10 font-medium inline-block">
-                                                        {m.name}
+                                <ol className="space-y-4">
+                                    {PASOS_QUE_HACER.map(step => (
+                                        <li key={step.number} className="flex items-start gap-3.5">
+                                            <span className="w-7 h-7 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                                {step.number}
+                                            </span>
+                                            <div className="text-xs sm:text-sm leading-relaxed text-slate-600">
+                                                <strong className="font-bold text-slate-900 block">
+                                                    {step.title}
+                                                </strong>
+                                                {step.hasCourtAnchor ? (
+                                                    <span>
+                                                        En el{' '}
+                                                        <a
+                                                            href="#partidos"
+                                                            className="underline font-semibold text-slate-900 hover:text-slate-700"
+                                                        >
+                                                            juzgado de guardia que te corresponda
+                                                        </a>
+                                                        , {step.description}
                                                     </span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
+                                                ) : (
+                                                    <span>{step.description}</span>
+                                                )}
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ol>
 
-                                <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                                    <Link
-                                        href={`/juzgados/${dist.slug}`}
-                                        className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
-                                    >
-                                        Ver Juzgado de {dist.judicialDistrict} <ChevronRight className="w-4 h-4" />
-                                    </Link>
+                                <div className="bg-amber-50 border border-amber-200/90 rounded-xl p-4 text-xs sm:text-sm text-amber-950 leading-relaxed flex items-start gap-2.5">
+                                    <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                                    <p>
+                                        <strong className="font-bold">{AVISO_DETENIDO.boldLead}</strong>{' '}
+                                        {AVISO_DETENIDO.beforePhone}
+                                        <a
+                                            href={AVISO_DETENIDO.phoneHref}
+                                            className="font-bold underline text-amber-950 hover:text-amber-800"
+                                        >
+                                            {AVISO_DETENIDO.phoneDisplay}
+                                        </a>
+                                        {AVISO_DETENIDO.afterPhone}
+                                    </p>
                                 </div>
                             </div>
-                        ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <main>
+                {/* BUSCADOR DESTACADO + 25 PARTIDOS JUDICIALES */}
+                <section id="partidos" className="bg-white text-slate-900 border-b border-slate-200 py-12 md:py-16 scroll-mt-24">
+                    <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-12">
+                        <div className="space-y-4">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                Busca tu juzgado de guardia por municipio
+                            </h2>
+                            <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
+                                Escribe el municipio donde te pararon para ver a qué partido judicial pertenece y cuál es tu juzgado de guardia.
+                            </p>
+                            <HubMunicipalitySearch
+                                allMunicipalities={allMunicipalities}
+                                initialQuery={initialQuery}
+                            />
+                        </div>
+
+                        {/* 25 partidos como <a href> en el HTML servido */}
+                        <div className="space-y-4 pt-4 border-t border-slate-200">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                Los 25 partidos judiciales de la provincia de Barcelona
+                            </h2>
+                            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                Selecciona directamente tu partido judicial para consultar qué hacer y los datos del juzgado de guardia:
+                            </p>
+
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+                                {districts.map(dist => (
+                                    <li key={dist.slug}>
+                                        <Link
+                                            href={`/juzgados/${dist.slug}`}
+                                            className="min-h-[48px] p-4 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-400 transition-colors flex items-center justify-between gap-3"
+                                        >
+                                            <span className="font-bold text-slate-900 text-sm sm:text-base">
+                                                {dist.judicialDistrict}{' '}
+                                                <span className="font-normal text-slate-500 text-xs sm:text-sm">
+                                                    ({dist.municipalities.length}{' '}
+                                                    {dist.municipalities.length === 1 ? 'municipio' : 'municipios'})
+                                                </span>
+                                            </span>
+                                            <span aria-hidden="true" className="text-slate-900 font-bold text-sm">
+                                                →
+                                            </span>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </section>
 
-                {/* Server-Rendered Table of all 310 Municipalities -> Judicial District */}
-                <section className="space-y-6 pt-8 border-t border-white/10">
-                    <div className="space-y-2">
-                        <h2 className="text-2xl font-bold text-white tracking-tight border-l-4 border-emerald-500 pl-4">
-                            Tabla Completa de los {searchMunicipios.length} Municipios y su Partido Judicial
-                        </h2>
-                        <p className="text-slate-400 text-xs md:text-sm">
-                            Listado alfabético completo de todos los municipios de la provincia de Barcelona con enlace directo a su partido judicial competente:
-                        </p>
-                    </div>
+                {/* 1.3 "Cómo es un juicio rápido" (fondo slate-50) */}
+                <section className="bg-slate-50 text-slate-900 border-b border-slate-200 py-12 md:py-16">
+                    <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6">
+                        <div className="space-y-2 max-w-3xl">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                Cómo es un juicio rápido
+                            </h2>
+                            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                El procedimiento para los delitos contra la seguridad vial cuando la policía identifica al conductor en el momento.
+                            </p>
+                        </div>
 
-                    <div className="overflow-x-auto rounded-2xl border border-white/10 bg-slate-950/80 shadow-xl">
-                        <table className="w-full text-left border-collapse text-sm">
-                            <thead>
-                                <tr className="border-b border-white/10 bg-slate-900/90 text-xs uppercase tracking-wider text-prestige-gold">
-                                    <th className="py-3.5 px-4 font-bold">Municipio</th>
-                                    <th className="py-3.5 px-4 font-bold">Partido Judicial Competente</th>
-                                    <th className="py-3.5 px-4 font-bold text-right">Ficha del Juzgado</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-white/5">
-                                {searchMunicipios.map(item => (
-                                    <tr key={item.slug} className="hover:bg-slate-900/60 transition-colors">
-                                        <td className="py-2.5 px-4 font-medium text-white">
-                                            <Link
-                                                href={`/juzgados/${item.courtSlug}`}
-                                                className="hover:text-prestige-gold transition-colors"
-                                            >
-                                                {item.name}
-                                            </Link>
-                                        </td>
-                                        <td className="py-2.5 px-4 text-slate-300">
-                                            <Link
-                                                href={`/juzgados/${item.courtSlug}`}
-                                                className="hover:text-white transition-colors"
-                                            >
-                                                Partido Judicial de {item.judicialDistrict} ({item.officialCourtName})
-                                            </Link>
-                                        </td>
-                                        <td className="py-2.5 px-4 text-right">
-                                            <Link
-                                                href={`/juzgados/${item.courtSlug}`}
-                                                className="inline-flex items-center gap-1 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
-                                            >
-                                                Ir al juzgado <ChevronRight className="w-3.5 h-3.5" />
-                                            </Link>
-                                        </td>
+                        <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                            {PASOS_COMO_ES_JUICIO_RAPIDO.map(paso => (
+                                <li
+                                    key={paso.number}
+                                    className="bg-white border border-slate-200 rounded-xl p-5 space-y-2 shadow-xs"
+                                >
+                                    <span className="text-xs font-bold text-slate-400 block">
+                                        {paso.number}
+                                    </span>
+                                    <h3 className="text-base font-extrabold text-slate-900">
+                                        {paso.title}
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                        {paso.description}
+                                    </p>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
+                </section>
+
+                {/* TABLA SSR DE LOS 309 MUNICIPIOS -> PARTIDO */}
+                <section className="bg-white text-slate-900 border-b border-slate-200 py-12 md:py-16">
+                    <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6">
+                        <div className="space-y-2">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                Los {allMunicipalities.length} municipios de la provincia de Barcelona y su partido judicial
+                            </h2>
+                            <p className="text-sm sm:text-base text-slate-600">
+                                Listado alfabético completo con enlace directo al juzgado de guardia correspondiente:
+                            </p>
+                        </div>
+
+                        <div className="overflow-x-auto rounded-xl border border-slate-200">
+                            <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                                <thead>
+                                    <tr className="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wider text-slate-600">
+                                        <th className="py-3 px-4 font-bold">Municipio</th>
+                                        <th className="py-3 px-4 font-bold">Partido judicial</th>
+                                        <th className="py-3 px-4 font-bold">Juzgado de guardia</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-slate-200">
+                                    {allMunicipalities.map(item => (
+                                        <tr key={item.slug} className="hover:bg-slate-50 transition-colors">
+                                            <td className="py-2.5 px-4 font-semibold text-slate-900">
+                                                <Link
+                                                    href={`/juzgados/${item.courtSlug}`}
+                                                    className="hover:underline"
+                                                >
+                                                    {item.name}
+                                                </Link>
+                                            </td>
+                                            <td className="py-2.5 px-4 text-slate-700">
+                                                <Link
+                                                    href={`/juzgados/${item.courtSlug}`}
+                                                    className="underline font-medium text-slate-900 hover:text-slate-700"
+                                                >
+                                                    {item.partido}
+                                                </Link>
+                                            </td>
+                                            <td className="py-2.5 px-4 text-slate-600">
+                                                {item.oficial}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 1.8 CTA final (fondo oscuro) */}
+                <section className="bg-slate-900 text-white py-12 md:py-14">
+                    <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                        <div className="space-y-1.5">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+                                ¿Te han citado a juicio rápido en la provincia de Barcelona?
+                            </h2>
+                            <p className="text-sm sm:text-base text-slate-300">
+                                Llámanos ahora y preparamos tu defensa antes de la fecha.
+                            </p>
+                        </div>
+
+                        <a
+                            href={`tel:${PHONE_E164}`}
+                            className="w-full sm:w-auto min-h-[48px] px-6 py-3.5 rounded-xl bg-[#ffe088] hover:bg-amber-300 text-slate-900 font-bold text-sm sm:text-base text-center inline-flex items-center justify-center shrink-0 transition-colors"
+                        >
+                            Llamar al 605 118 871
+                        </a>
                     </div>
                 </section>
             </main>
+
+            {/* 1.9 Móvil (≤ 640 px): Barra fija inferior */}
+            <div className="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 p-3 grid grid-cols-2 gap-3 shadow-2xl">
+                <a
+                    href={`tel:${PHONE_E164}`}
+                    className="min-h-[48px] rounded-xl bg-slate-900 text-white font-bold text-sm flex items-center justify-center gap-2"
+                >
+                    <Phone className="w-4 h-4 shrink-0" />
+                    <span>Llamar</span>
+                </a>
+                <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="min-h-[48px] rounded-xl bg-[#ffe088] text-slate-900 font-bold text-sm flex items-center justify-center gap-2"
+                >
+                    <MessageCircle className="w-4 h-4 shrink-0" />
+                    <span>WhatsApp</span>
+                </a>
+            </div>
         </div>
     );
 }

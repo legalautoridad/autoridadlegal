@@ -171,13 +171,13 @@ export function MunicipalitySearch({
                     ))}
                 </div>
 
-                {/* Single link "Busca tu juzgado" -> /juzgados */}
+                {/* Single link "Juicio rápido" -> /juzgados */}
                 <div className="text-center pt-2">
                     <Link
                         href="/juzgados"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 text-prestige-gold hover:text-white font-bold text-sm transition-all shadow-md hover:shadow-lg"
                     >
-                        <span>Busca tu juzgado entre los 310 municipios</span>
+                        <span>Juicio rápido: consulta tu juzgado entre los 309 municipios</span>
                         <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
