@@ -56,10 +56,3 @@ export const LLMS_SERVICES: LlmsServiceMeta[] = [
         summary: 'Defensa específica para conductores profesionales (permisos C, D y E) y CAP.',
     },
 ];
-
-export const LLMS_PAYMENT_METHODS: string[] = [
-    'Pago íntegro directo: abono completo al formalizar la hoja de encargo mediante tarjeta de crédito/débito o transferencia bancaria en la plataforma de pago en custodia.',
-    'Financiación hasta 12 meses: financiación bancaria externa en cuotas mensuales (Klarna/Stripe), sujeta a aprobación de la entidad financiera colaboradora.',
-    'Modalidad híbrida 60/40: primer pago del 60 % al encargo y 40 % pendiente a 30 días (Sin carné 780 €: 468 € + 312 €; Servicios base 980 €: 588 € + 392 €; Profesionales 1.480 €: 888 € + 592 €).',
-];
-

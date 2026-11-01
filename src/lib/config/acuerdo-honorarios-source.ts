@@ -1,3 +1,5 @@
+import { PRICING_ADDONS, PAYMENT_60_40_TIERS, PRICING_SUMMARY } from '@/lib/config/pricing';
+
 export interface BasePriceRow {
     servicio: string;
     base: string;
@@ -141,9 +143,8 @@ El servicio contratado corresponde a la defensa técnica en el procedimiento con
             title: 'Precio del servicio base',
             content: 'Tarifas cerradas por escrito para el supuesto base en juicios rápidos de seguridad vial (derechos de procurador e IVA 21 % incluidos):',
             basePricesTable: [
-                { servicio: 'Conducir sin carné', base: '644,63 €', iva: '135,37 €', total: '780,00 €' },
-                { servicio: 'Alcoholemia, Drogas al volante o Exceso de velocidad', base: '809,92 €', iva: '170,08 €', total: '980,00 €' },
-                { servicio: 'Conductores profesionales (C, D, E) — Primera Instancia', base: '1.223,14 €', iva: '256,86 €', total: '1.480,00 €' },
+                { servicio: 'Alcoholemia, Drogas al volante, Exceso de velocidad o Conducir sin carné', base: PRICING_SUMMARY.baseTaxBase, iva: PRICING_SUMMARY.baseTaxAmount, total: PRICING_SUMMARY.baseTotalDecimals },
+                { servicio: 'Conductores profesionales (C, D, E) — Primera Instancia', base: PRICING_SUMMARY.proTaxBase, iva: PRICING_SUMMARY.proTaxAmount, total: PRICING_SUMMARY.proTotalDecimals },
             ],
         },
         {
@@ -152,12 +153,13 @@ El servicio contratado corresponde a la defensa técnica en el procedimiento con
             title: 'Suplementos tasados',
             content: 'Los suplementos solo se aplican cuando la circunstancia correspondiente concurre y exige un alcance distinto del servicio base, comunicándose siempre por escrito antes de la contratación. Todos los importes incluyen IVA:',
             supplementsTable: [
-                { circunstancia: 'Reincidencia o antecedentes penales relevantes', suplemento: '+200 €', aplica: 'Los 5 servicios', descripcion: 'Antecedentes penales de seguridad vial inscritos y no cancelados en el Registro Central de Penados.' },
-                { circunstancia: 'Procedimiento sin conformidad', suplemento: '+300 €', aplica: 'Los 4 servicios base (N/A en profesionales)', descripcion: 'Estrategia defensiva orientada a la absolución o juicio oral posterior. Excluido en profesionales (su tarifa de 1.480 € ya incluye el procedimiento en primera instancia).' },
-                { circunstancia: 'Antecedentes con riesgo de prisión efectiva', suplemento: '+300 €', aplica: 'Los 5 servicios', descripcion: 'Multirreincidencia o riesgo de revocación de la suspensión ordinaria de la pena privativa de libertad.' },
-                { circunstancia: 'Asistencia letrada al detenido (urgencia in situ)', suplemento: '+500 €', aplica: 'Los 5 servicios', descripcion: 'Desplazamiento urgente de letrado a comisaría o centro de custodia policial fuera de horas de despacho.' },
-                { circunstancia: 'Concurrencia de delitos (negativa, resistencia, desobediencia o atentado)', suplemento: '+200 €', aplica: 'Los 5 servicios', descripcion: 'Concurrencia de delitos (negativa, resistencia, desobediencia o atentado) — +200 €. Aplica cuando el atestado por alcoholemia o drogas incluye negativa a someterse a las pruebas (art. 383 CP), resistencia o desobediencia grave (art. 556 CP) o atentado a agentes de la autoridad (art. 550 CP). Aplica a todos los servicios.' },
-                { circunstancia: 'Accidentes, daños, lesiones o reclamaciones civiles', suplemento: 'Presupuesto específico', aplica: 'Según supuesto', descripcion: 'Siniestros con atestados complejos, daños materiales a terceros o responsabilidad civil por lesiones.' },
+                ...Object.values(PRICING_ADDONS).map((addOn) => ({
+                    circunstancia: addOn.name,
+                    suplemento: addOn.displayPrice,
+                    aplica: addOn.appliesToLabel,
+                    descripcion: addOn.description,
+                })),
+                { circunstancia: 'Accidentes, daños, lesiones o reclamaciones civiles', suplemento: 'Presupuesto específico por escrito', aplica: 'Según supuesto', descripcion: 'Siniestros con atestados complejos, daños materiales a terceros o responsabilidad civil por lesiones.' },
             ],
             accumulationNote: 'Nota sobre cláusula de acumulación: La Hoja de Encargo individualizada concretará, en función del supuesto del cliente, si los suplementos concurrentes se estructuran mediante acumulación justificada por actuaciones independientes o mediante presupuesto cerrado final único.',
         },
@@ -175,11 +177,12 @@ El servicio contratado corresponde a la defensa técnica en el procedimiento con
             number: '8',
             title: 'Modalidad de pago 60/40',
             content: 'La modalidad híbrida 60/40 permite abonar el 60 % inicial al contratar y el 40 % restante a los 30 días:',
-            payment6040Table: [
-                { servicio: 'Sin Carné (780 €)', precioTotal: '780,00 €', pago60: '468,00 €', pago40: '312,00 € a 30 días' },
-                { servicio: 'Servicios Base (980 €)', precioTotal: '980,00 €', pago60: '588,00 €', pago40: '392,00 € a 30 días' },
-                { servicio: 'Profesionales (1.480 €)', precioTotal: '1.480,00 €', pago60: '888,00 €', pago40: '592,00 € a 30 días' },
-            ],
+            payment6040Table: PAYMENT_60_40_TIERS.map((tier) => ({
+                servicio: tier.label,
+                precioTotal: tier.totalWithDecimals,
+                pago60: tier.pago60WithDecimals,
+                pago40: tier.pago40WithDecimals,
+            })),
         },
         {
             id: 'impago',

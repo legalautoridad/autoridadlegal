@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ACUERDO_HONORARIOS_CONFIG } from '@/lib/config/acuerdo-honorarios-source';
+import { PRICING_SUMMARY } from '@/lib/config/pricing';
 import { DEFAULT_OG_IMAGE, PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
 import { FileText, Download, ShieldCheck, Scale, Award, AlertCircle, Phone, ArrowLeft } from 'lucide-react';
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: 'Modelo Estándar de Hoja de Encargo y Acuerdo de Honorarios | Autoridad Legal',
-        description: 'Modelo oficial de hoja de encargo para la defensa en juicios rápidos de tráfico en Barcelona. Honorarios cerrados de 780 €, 980 € y 1.480 € con desglose de IVA y procurador.',
+        description: `Modelo oficial de hoja de encargo para la defensa en juicios rápidos de tráfico en Barcelona. Honorarios cerrados de ${PRICING_SUMMARY.basePriceDisplay} y ${PRICING_SUMMARY.proPriceDisplay} con desglose de IVA y procurador.`,
         url: ACUERDO_HONORARIOS_CONFIG.canonicalUrl,
         type: 'article',
         images: [
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Modelo Estándar de Hoja de Encargo y Acuerdo de Honorarios | Autoridad Legal',
-        description: 'Modelo oficial de hoja de encargo para la defensa en juicios rápidos de tráfico en Barcelona. Honorarios cerrados de 780 €, 980 € y 1.480 € con desglose de IVA y procurador.',
+        description: `Modelo oficial de hoja de encargo para la defensa en juicios rápidos de tráfico en Barcelona. Honorarios cerrados de ${PRICING_SUMMARY.basePriceDisplay} y ${PRICING_SUMMARY.proPriceDisplay} con desglose de IVA y procurador.`,
         images: [DEFAULT_OG_IMAGE],
     },
 };

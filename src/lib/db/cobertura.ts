@@ -1,6 +1,7 @@
 import { createStaticClient } from '@/lib/supabase/server';
 import { getLocationBySlug, Location } from '@/lib/db/locations';
 import { getServiceBySlugFromDb, normalizeServiceSlug, DbService } from '@/lib/db/services';
+import { getFormattedServicePrice } from '@/lib/config/pricing';
 
 export interface LocalizedFaq {
     id?: string;
@@ -313,8 +314,7 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
         : [];
 
     const isProfesionales = normService === 'profesionales';
-    const isSinCarnet = normService === 'sin-carnet';
-    const priceText = isProfesionales ? '1.480 € (1ª instancia)' : isSinCarnet ? '780 €' : '980 €';
+    const priceText = isProfesionales ? `${getFormattedServicePrice(normService)} (1ª instancia)` : getFormattedServicePrice(normService);
 
     const h1Title = lsRow.h1_headline || (normService === 'alcoholemia'
         ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name}`

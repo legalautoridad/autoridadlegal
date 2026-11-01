@@ -1,5 +1,5 @@
 import { PHONE_E164, DEFAULT_OG_IMAGE } from '@/lib/config';
-import { SERVICES_PRICING, PRICING_ADDONS } from '@/lib/config/pricing';
+import { SERVICES_PRICING, PRICING_ADDONS, PRICING_SUMMARY } from '@/lib/config/pricing';
 
 export interface FaqItem {
     question: string;
@@ -20,7 +20,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             'email': 'contacto@autoridad.legal',
             'image': DEFAULT_OG_IMAGE,
             'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
-            'priceRange': '780€–1480€',
+            'priceRange': `${PRICING_SUMMARY.basePriceNumber}€–${PRICING_SUMMARY.proPriceNumber}€`,
             'knowsLanguage': ['es', 'ca'],
             'address': {
                 '@type': 'PostalAddress',
@@ -89,6 +89,8 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                     'name': svc.offerName,
                     'url': svc.url,
                     'availability': 'https://schema.org/InStock',
+                    'price': svc.priceNumber,
+                    'priceCurrency': 'EUR',
                     'priceSpecification': {
                         '@type': 'PriceSpecification',
                         'price': svc.basePrice,
@@ -117,6 +119,8 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                         return {
                             '@type': 'Offer',
                             'name': addOn.name,
+                            'price': addOn.priceNumber,
+                            'priceCurrency': 'EUR',
                             'priceSpecification': {
                                 '@type': 'PriceSpecification',
                                 'price': addOn.price,
@@ -279,7 +283,7 @@ export function getHonorariosPageJsonLd() {
                 '@id': 'https://www.autoridad.legal/honorarios#webpage',
                 'url': 'https://www.autoridad.legal/honorarios',
                 'name': 'Precio, honorarios y financiación | Autoridad Legal',
-                'description': 'Información sobre el modelo de honorarios cerrados, tarifas base de 780 €, 980 € y 1.480 €, suplementos aplicables, desglose de IVA y modalidades de financiación para la defensa penal en juicios rápidos.',
+                'description': `Información sobre el modelo de honorarios cerrados, tarifas base de ${PRICING_SUMMARY.basePriceDisplay} y ${PRICING_SUMMARY.proPriceDisplay}, suplementos aplicables, desglose de IVA y modalidades de financiación para la defensa penal en juicios rápidos.`,
                 'inLanguage': 'es',
                 'dateModified': '2026-08-10T09:00:00+02:00',
                 'about': {
@@ -319,6 +323,8 @@ export function getHonorariosPageJsonLd() {
                     'name': svc.offerName,
                     'url': svc.url,
                     'availability': 'https://schema.org/InStock',
+                    'price': svc.priceNumber,
+                    'priceCurrency': 'EUR',
                     'priceSpecification': {
                         '@type': 'PriceSpecification',
                         'price': svc.basePrice,
@@ -347,6 +353,8 @@ export function getHonorariosPageJsonLd() {
                         return {
                             '@type': 'Offer',
                             'name': addOn.name,
+                            'price': addOn.priceNumber,
+                            'priceCurrency': 'EUR',
                             'priceSpecification': {
                                 '@type': 'PriceSpecification',
                                 'price': addOn.price,
