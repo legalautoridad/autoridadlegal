@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
+import { getFormattedServicePrice } from '@/lib/config/pricing';
 import { getSiloConfig } from '@/lib/silo-config';
 import { getLocationBySlug, getLocations } from '@/lib/db/locations';
 import { DefenseStrategySelector } from '@/lib/strategies/strategy-selector';
@@ -83,8 +84,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
     const okfPuntos = city ? OKFService.getPuntosDeInteres(city) : [];
 
     const isProfesionales = service === 'profesionales';
-    const isSinCarnet = service === 'sin-carnet';
-    const priceText = isProfesionales ? '1.480 € (1ª instancia)' : isSinCarnet ? '780 €' : '980 €';
+    const priceText = isProfesionales ? `${getFormattedServicePrice(service)} (1ª instancia)` : getFormattedServicePrice(service);
 
     // Use DB structured faqs if present, fallback to passed faqs or okfFaqs
     const displayFaqs = (cobertura && cobertura.faqs && cobertura.faqs.length > 0)

@@ -88,6 +88,7 @@ export default async function ParentServicePage({ params }: PageProps) {
         "@id": `${canonicalUrl}#offer`,
         "url": canonicalUrl,
         "availability": "https://schema.org/InStock",
+        "price": pricingConfig ? pricingConfig.priceNumber : jsonLdConfig.price,
         "priceCurrency": "EUR",
         "priceSpecification": {
             "@type": "PriceSpecification",
@@ -111,6 +112,8 @@ export default async function ParentServicePage({ params }: PageProps) {
             return {
                 "@type": "Offer",
                 "name": addOn.name,
+                "price": addOn.priceNumber,
+                "priceCurrency": "EUR",
                 "priceSpecification": {
                     "@type": "PriceSpecification",
                     "price": addOn.price,

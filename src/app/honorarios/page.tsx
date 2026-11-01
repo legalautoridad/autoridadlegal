@@ -1,12 +1,18 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { PHONE_E164, DEFAULT_OG_IMAGE } from '@/lib/config';
+import {
+    SERVICES_PRICING,
+    PRICING_ADDONS,
+    PAYMENT_60_40_TIERS,
+    PRICING_SUMMARY,
+} from '@/lib/config/pricing';
 import { getHonorariosPageJsonLd } from '@/lib/seo/home-jsonld';
 import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, CreditCard, FileText, Phone, Award, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'Precio, honorarios y financiación | Autoridad Legal',
-    description: 'Información sobre honorarios cerrados de 780 €, 980 € y 1.480 € (IVA y procurador incluidos), suplementos aplicables, desglose fiscal y modalidades de financiación para la defensa en juicios rápidos de tráfico en Barcelona.',
+    description: `Información sobre honorarios cerrados de ${PRICING_SUMMARY.basePriceDisplay} y ${PRICING_SUMMARY.proPriceDisplay} (IVA y procurador incluidos), suplementos aplicables, desglose fiscal y modalidades de financiación para la defensa en juicios rápidos de tráfico en Barcelona.`,
     alternates: {
         canonical: 'https://www.autoridad.legal/honorarios',
     },
@@ -34,6 +40,7 @@ export const metadata: Metadata = {
 
 export default function HonorariosPage() {
     const jsonLd = getHonorariosPageJsonLd();
+    const addOnsList = Object.values(PRICING_ADDONS);
 
     return (
         <>
@@ -107,128 +114,67 @@ export default function HonorariosPage() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5 text-sm text-slate-200">
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white flex items-center gap-3">
-                                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                                            Alcoholemia
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-prestige-gold text-lg">
-                                            980 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300">
-                                            precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base: juicio rápido con conformidad
-                                        </td>
-                                        <td className="py-5 px-6 text-right">
-                                            <Link href="/alcoholemia" className="text-prestige-gold hover:underline font-semibold text-xs">
-                                                Ver servicio →
-                                            </Link>
-                                        </td>
-                                    </tr>
-
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white flex items-center gap-3">
-                                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                                            Drogas al volante
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-prestige-gold text-lg">
-                                            980 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300">
-                                            precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base: juicio rápido con conformidad
-                                        </td>
-                                        <td className="py-5 px-6 text-right">
-                                            <Link href="/drogas" className="text-prestige-gold hover:underline font-semibold text-xs">
-                                                Ver servicio →
-                                            </Link>
-                                        </td>
-                                    </tr>
-
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white flex items-center gap-3">
-                                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                                            Exceso de velocidad
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-prestige-gold text-lg">
-                                            980 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300">
-                                            precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base: juicio rápido con conformidad
-                                        </td>
-                                        <td className="py-5 px-6 text-right">
-                                            <Link href="/velocidad" className="text-prestige-gold hover:underline font-semibold text-xs">
-                                                Ver servicio →
-                                            </Link>
-                                        </td>
-                                    </tr>
-
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white flex items-center gap-3">
-                                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                                            Conducir sin carné
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-prestige-gold text-lg">
-                                            780 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300">
-                                            precio cerrado de 780 € (base 644,63 € + IVA 135,37 €; procurador e IVA incluidos) para el supuesto base: juicio rápido con conformidad (sin pena de retirada de carné)
-                                        </td>
-                                        <td className="py-5 px-6 text-right">
-                                            <Link href="/sin-carnet" className="text-prestige-gold hover:underline font-semibold text-xs">
-                                                Ver servicio →
-                                            </Link>
-                                        </td>
-                                    </tr>
-
-                                    <tr className="bg-prestige-gold/5 hover:bg-prestige-gold/10 transition-colors border-l-4 border-l-prestige-gold">
-                                        <td className="py-5 px-6 font-bold text-white flex items-center gap-3">
-                                            <span className="w-2.5 h-2.5 rounded-full bg-prestige-gold animate-pulse"></span>
-                                            Conductores profesionales (C, D, E)
-                                        </td>
-                                        <td className="py-5 px-6 font-black text-prestige-gold text-xl">
-                                            1.480 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-200">
-                                            precio cerrado de 1.480 € (base 1.223,14 € + IVA 256,86 €; procurador e IVA incluidos) para el procedimiento completo en primera instancia hasta la sentencia. No incluye el recurso de apelación ante la Audiencia Provincial. Incluye la protección del CAP y la tarjeta de tacógrafo digital.
-                                        </td>
-                                        <td className="py-5 px-6 text-right">
-                                            <Link href="/profesionales" className="text-prestige-gold hover:underline font-bold text-xs">
-                                                Ver servicio →
-                                            </Link>
-                                        </td>
-                                    </tr>
+                                    {SERVICES_PRICING.map(svc => {
+                                        const isPro = svc.slug === 'profesionales';
+                                        return (
+                                            <tr
+                                                key={svc.slug}
+                                                className={
+                                                    isPro
+                                                        ? 'bg-prestige-gold/5 hover:bg-prestige-gold/10 transition-colors border-l-4 border-l-prestige-gold'
+                                                        : 'hover:bg-white/5 transition-colors'
+                                                }
+                                            >
+                                                <td className="py-5 px-6 font-bold text-white flex items-center gap-3">
+                                                    <span
+                                                        className={`w-2.5 h-2.5 rounded-full ${
+                                                            isPro ? 'bg-prestige-gold animate-pulse' : 'bg-emerald-400'
+                                                        }`}
+                                                    ></span>
+                                                    {svc.name}
+                                                </td>
+                                                <td
+                                                    className={`py-5 px-6 font-extrabold text-prestige-gold ${
+                                                        isPro ? 'text-xl font-black' : 'text-lg'
+                                                    }`}
+                                                >
+                                                    {svc.displayPrice}
+                                                </td>
+                                                <td className="py-5 px-6 text-slate-300">{svc.scopeSummary}</td>
+                                                <td className="py-5 px-6 text-right">
+                                                    <Link
+                                                        href={`/${svc.slug}`}
+                                                        className="text-prestige-gold hover:underline font-semibold text-xs"
+                                                    >
+                                                        Ver servicio →
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>
 
                         {/* Desglose Fiscal e Información Adicional */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                             <div className="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
                                 <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
                                     <FileText className="w-4 h-4 text-prestige-gold" />
-                                    Desglose Sin Carné (780 €)
+                                    Desglose Servicios Base ({PRICING_SUMMARY.basePriceDisplay})
                                 </h3>
                                 <p className="text-sm text-slate-300">
-                                    Base imponible <strong className="text-white">644,63 €</strong> + IVA (21 %) <strong className="text-white">135,37 €</strong> = <strong className="text-prestige-gold">780,00 €</strong>. Procurador e IVA incluidos. No lleva pena de privación del carné.
+                                    Base imponible <strong className="text-white">{PRICING_SUMMARY.baseTaxBase}</strong> + IVA (21 %) <strong className="text-white">{PRICING_SUMMARY.baseTaxAmount}</strong> = <strong className="text-prestige-gold">{PRICING_SUMMARY.baseTotalDecimals}</strong>. Total derechos de procurador e IVA incluidos (alcoholemia, drogas, velocidad y sin carné).
                                 </p>
                             </div>
 
                             <div className="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
                                 <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
                                     <FileText className="w-4 h-4 text-prestige-gold" />
-                                    Desglose Servicios Base (980 €)
+                                    Desglose Profesionales ({PRICING_SUMMARY.proPriceDisplay})
                                 </h3>
                                 <p className="text-sm text-slate-300">
-                                    Base imponible <strong className="text-white">809,92 €</strong> + IVA (21 %) <strong className="text-white">170,08 €</strong> = <strong className="text-prestige-gold">980,00 €</strong>. Total derechos de procurador e IVA incluidos.
-                                </p>
-                            </div>
-
-                            <div className="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
-                                <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                                    <FileText className="w-4 h-4 text-prestige-gold" />
-                                    Desglose Profesionales (1.480 €)
-                                </h3>
-                                <p className="text-sm text-slate-300">
-                                    Base imponible <strong className="text-white">1.223,14 €</strong> + IVA (21 %) <strong className="text-white">256,86 €</strong> = <strong className="text-prestige-gold">1.480,00 €</strong>. Primera instancia hasta sentencia. Excluye recurso de apelación ante la Audiencia Provincial.
+                                    Base imponible <strong className="text-white">{PRICING_SUMMARY.proTaxBase}</strong> + IVA (21 %) <strong className="text-white">{PRICING_SUMMARY.proTaxAmount}</strong> = <strong className="text-prestige-gold">{PRICING_SUMMARY.proTotalDecimals}</strong>. Primera instancia hasta sentencia. Excluye recurso de apelación ante la Audiencia Provincial.
                                 </p>
                             </div>
                         </div>
@@ -287,11 +233,11 @@ export default function HonorariosPage() {
                             <ul className="space-y-2.5 text-sm text-slate-300">
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></span>
-                                    <span>Asistencia al detenido en comisaría salvo contratación expresa de suplemento.</span>
+                                    <span>Asistencia al detenido en comisaría salvo contratación expresa de suplemento ({PRICING_ADDONS.asistenciaDetenido.displayPrice}).</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></span>
-                                    <span>Juicios rápidos sin conformidad para los 4 servicios base salvo contratación de suplemento (+300 €).</span>
+                                    <span>Juicios rápidos sin conformidad para los 4 servicios base salvo contratación de suplemento ({PRICING_ADDONS.noConformidad.displayPrice}).</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></span>
@@ -347,87 +293,27 @@ export default function HonorariosPage() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5 text-sm text-slate-200">
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white">
-                                            Reincidencia penal o antecedentes
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-amber-400 text-base">
-                                            +200 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 font-medium">
-                                            Los 5 servicios
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
-                                            Antecedentes penales de seguridad vial inscritos y no cancelados en el Registro Central de Penados.
-                                        </td>
-                                    </tr>
-
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white">
-                                            Procedimiento sin conformidad
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-amber-400 text-base">
-                                            +300 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 font-medium">
-                                            Los 4 servicios base (<strong className="text-slate-400 font-semibold">N/A en profesionales</strong>)
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
-                                            Estrategia defensiva orientada a la absolución judicial o impugnación metrológica en juicio oral posterior. No aplica a conductores profesionales, cuyo servicio de 1.480 € ya incluye el procedimiento en primera instancia hasta la sentencia.
-                                        </td>
-                                    </tr>
-
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white">
-                                            Antecedentes con riesgo de prisión efectiva
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-amber-400 text-base">
-                                            +300 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 font-medium">
-                                            Los 5 servicios
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
-                                            Multirreincidencia o riesgo de revocación de la suspensión ordinaria de la pena privativa de libertad.
-                                        </td>
-                                    </tr>
-
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white">
-                                            Asistencia letrada al detenido (urgencia in situ)
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-amber-400 text-base">
-                                            +500 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 font-medium">
-                                            Los 5 servicios
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
-                                            Desplazamiento urgente de letrado a comisaría o centro de custodia policial fuera de horas de despacho.
-                                        </td>
-                                    </tr>
-
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-5 px-6 font-bold text-white">
-                                            Concurrencia de delitos (negativa, resistencia, desobediencia o atentado)
-                                        </td>
-                                        <td className="py-5 px-6 font-extrabold text-amber-400 text-base">
-                                            +200 €
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 font-medium">
-                                            Los 5 servicios
-                                        </td>
-                                        <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
-                                            Concurrencia de delitos (negativa, resistencia, desobediencia o atentado) — +200 €. Aplica cuando el atestado por alcoholemia o drogas incluye negativa a someterse a las pruebas (art. 383 CP), resistencia o desobediencia grave (art. 556 CP) o atentado a agentes de la autoridad (art. 550 CP). Aplica a todos los servicios.
-                                        </td>
-                                    </tr>
+                                    {addOnsList.map(addOn => (
+                                        <tr key={addOn.id} className="hover:bg-white/5 transition-colors">
+                                            <td className="py-5 px-6 font-bold text-white">{addOn.name}</td>
+                                            <td className="py-5 px-6 font-extrabold text-amber-400 text-base">
+                                                {addOn.displayPrice}
+                                            </td>
+                                            <td className="py-5 px-6 text-slate-300 font-medium">
+                                                {addOn.appliesToLabel}
+                                            </td>
+                                            <td className="py-5 px-6 text-slate-300 text-xs leading-relaxed">
+                                                {addOn.description}
+                                            </td>
+                                        </tr>
+                                    ))}
 
                                     <tr className="hover:bg-white/5 transition-colors bg-white/5">
                                         <td className="py-5 px-6 font-bold text-white">
                                             Accidentes, daños, lesiones o reclamaciones
                                         </td>
                                         <td className="py-5 px-6 font-bold text-slate-300 text-sm">
-                                            Presupuesto específico
+                                            Presupuesto específico por escrito
                                         </td>
                                         <td className="py-5 px-6 text-slate-400 text-xs">
                                             Según supuesto
@@ -482,18 +368,15 @@ export default function HonorariosPage() {
                                 </div>
                                 <h3 className="text-xl font-bold text-white">Modalidad Híbrida 60/40</h3>
                                 <div className="space-y-2 text-xs text-slate-300">
-                                    <p className="bg-slate-950/60 p-2.5 rounded-lg border border-white/5">
-                                        <strong className="text-white block">Sin Carné (780 €):</strong>
-                                        Primer pago <span className="text-prestige-gold font-bold">468 €</span> · Pendiente a 30 días <span className="text-white font-bold">312 €</span>
-                                    </p>
-                                    <p className="bg-slate-950/60 p-2.5 rounded-lg border border-white/5">
-                                        <strong className="text-white block">Servicios Base (980 €):</strong>
-                                        Primer pago <span className="text-prestige-gold font-bold">588 €</span> · Pendiente a 30 días <span className="text-white font-bold">392 €</span>
-                                    </p>
-                                    <p className="bg-slate-950/60 p-2.5 rounded-lg border border-white/5">
-                                        <strong className="text-white block">Profesionales (1.480 €):</strong>
-                                        Primer pago <span className="text-prestige-gold font-bold">888 €</span> · Pendiente a 30 días <span className="text-white font-bold">592 €</span>
-                                    </p>
+                                    {PAYMENT_60_40_TIERS.map(tier => (
+                                        <p
+                                            key={tier.id}
+                                            className="bg-slate-950/60 p-2.5 rounded-lg border border-white/5"
+                                        >
+                                            <strong className="text-white block">{tier.label}:</strong>
+                                            Primer pago <span className="text-prestige-gold font-bold">{tier.pago60Display}</span> · Pendiente a 30 días <span className="text-white font-bold">{tier.pago40Display}</span>
+                                        </p>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -532,7 +415,7 @@ export default function HonorariosPage() {
                                 Deontología Profesional y Transparencia sobre el Resultado
                             </h3>
                             <p className="text-slate-200 text-sm md:text-base leading-relaxed italic font-medium">
-                                "No se garantiza un resultado judicial concreto. La decisión final corresponde a los órganos judiciales y depende de las circunstancias y pruebas de cada caso."
+                                &ldquo;No se garantiza un resultado judicial concreto. La decisión final corresponde a los órganos judiciales y depende de las circunstancias y pruebas de cada caso.&rdquo;
                             </p>
                         </div>
                     </section>

@@ -3,14 +3,19 @@ import {
     LLMS_NAP,
     LLMS_BLOCKQUOTE,
     LLMS_SERVICES,
-    LLMS_PAYMENT_METHODS,
 } from './constants';
+import {
+    PAYMENT_METHODS,
+    renderDatosClaveHonorariosLines,
+} from '@/lib/config/pricing';
 import { getLlmsCourtsData, getLlmsFullDataset } from './data';
 
 /**
  * Shared header (H1 + blockquote + "Datos clave") used identically by both /llms.txt and /llms-full.txt.
+ * Generates the Honorarios and Recargos lines dynamically from src/lib/config/pricing.ts.
  */
 export function renderCabecera(): string[] {
+    const [honorariosLine, recargosLine] = renderDatosClaveHonorariosLines();
     return [
         '# Autoridad Legal',
         '',
@@ -23,23 +28,15 @@ export function renderCabecera(): string[] {
         `- Teléfono de guardia del abogado (24 h): ${LLMS_NAP.telefonoGuardiaDisplay}.`,
         `- WhatsApp de triaje (asistente automático, 24 h): ${LLMS_NAP.whatsappDisplay}.`,
         `- Email: ${LLMS_NAP.email}.`,
-        '- Honorarios: precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base (primer delito con conformidad en juicio rápido) en alcoholemia, drogas, velocidad y sin carnet; 1.480 € para conductores profesionales.',
-        '- Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados por escrito y por adelantado: reincidencia +200 €; juicio sin conformidad +300 € (no aplica a profesionales); riesgo de prisión efectiva +300 €; asistencia urgente al detenido en comisaría o juzgado de guardia +500 €.',
+        honorariosLine,
+        recargosLine,
         '- Accidentes con daños a terceros o lesiones: presupuesto por escrito tras revisar el atestado.',
         '- Juzgado competente: el juicio rápido se celebra en el juzgado de guardia del partido judicial del lugar de los hechos.',
     ];
 }
 
-function formatEuroPrice(priceStr: string): string {
-    const num = Math.round(Number(priceStr));
-    if (num >= 1000) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    }
-    return String(num);
-}
-
 /**
- * Renders /llms.txt from Supabase data and shared constants.
+ * Renders /llms.txt from Supabase data and shared constants/pricing.
  */
 export async function renderLlmsTxt(): Promise<string> {
     const courts = await getLlmsCourtsData();
@@ -107,30 +104,24 @@ export async function renderLlmsFull(): Promise<string> {
     ];
 
     for (const svc of pricing.services) {
-        const formattedPrice = formatEuroPrice(svc.basePrice);
         lines.push(
-            `- **${svc.name}** (${svc.url}): precio cerrado de ${formattedPrice} € (IVA y procurador incluidos) para el supuesto base; los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados por escrito y por adelantado.`
+            `- **${svc.name}** (${svc.url}): precio cerrado de ${svc.displayPrice} (IVA y procurador incluidos) para el supuesto base; los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados por escrito y por adelantado.`
         );
     }
 
     lines.push('', '### Recargos tasados (IVA incluido)');
 
     for (const addOn of Object.values(pricing.addOns)) {
-        const formattedAddOnPrice = formatEuroPrice(addOn.price);
-        const appliesToProfesionales = pricing.services
-            .find(s => s.slug === 'profesionales')
-            ?.applicableAddOns.includes(addOn.id);
-        const scopeLabel = appliesToProfesionales
-            ? 'Aplica a los 5 servicios (alcoholemia, drogas, velocidad, sin carnet y conductores profesionales).'
-            : 'Aplica a los 4 servicios base (alcoholemia, drogas, velocidad y sin carnet; no aplica a profesionales).';
-        lines.push(`- **${addOn.name} (+${formattedAddOnPrice} €)**: ${scopeLabel} ${addOn.description}`);
+        lines.push(
+            `- **${addOn.name} (${addOn.displayPrice})**: ${addOn.appliesToLabel}. ${addOn.description}`
+        );
     }
 
     lines.push(
         '- **Accidentes con daños a terceros o lesiones**: presupuesto por escrito tras revisar el atestado.',
         '',
         '### Formas de pago',
-        ...LLMS_PAYMENT_METHODS.map(m => `- ${m}`),
+        ...PAYMENT_METHODS.map(m => `- ${m}`),
         '',
         '## Servicios'
     );
@@ -182,4 +173,3 @@ export async function renderLlmsFull(): Promise<string> {
 
     return lines.join('\n') + '\n';
 }
-

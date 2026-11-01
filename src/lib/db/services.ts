@@ -1,4 +1,5 @@
 import { createStaticClient } from '@/lib/supabase/server';
+import { getServicePricing } from '@/lib/config/pricing';
 
 export interface DbService {
     id: string;
@@ -145,48 +146,11 @@ export interface ServiceJsonLdConfig {
 
 export function getServiceJsonLdConfig(slug: string): ServiceJsonLdConfig {
     const norm = normalizeServiceSlug(slug);
-    switch (norm) {
-        case 'alcoholemia':
-            return {
-                name: "Defensa penal por alcoholemia",
-                serviceType: "Defensa penal por conducción bajo influencia de alcohol",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por alcoholemia en Cataluña. Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base.",
-                price: 980
-            };
-        case 'drogas':
-            return {
-                name: "Defensa penal por drogas al volante",
-                serviceType: "Defensa penal por conducción bajo influencia de drogas",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por drogas al volante en Cataluña. Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base.",
-                price: 980
-            };
-        case 'velocidad':
-            return {
-                name: "Defensa penal por exceso de velocidad",
-                serviceType: "Defensa penal por delito de exceso de velocidad",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por exceso de velocidad constitutivo de delito en Cataluña. Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base.",
-                price: 980
-            };
-        case 'sin-carnet':
-            return {
-                name: "Defensa penal por conducción sin permiso",
-                serviceType: "Defensa penal por conducción sin permiso o licencia",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos por conducir sin carnet o sin puntos en Cataluña. Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base.",
-                price: 980
-            };
-        case 'profesionales':
-            return {
-                name: "Defensa penal para conductores profesionales",
-                serviceType: "Defensa penal de tráfico para titulares de permisos profesionales (C, D, E)",
-                description: "Defensa penal y asistencia urgente 24h para transportistas y conductores profesionales en Cataluña. Precio cerrado de 1.480 € (IVA y procurador incluidos) para el supuesto base.",
-                price: 1480
-            };
-        default:
-            return {
-                name: "Defensa penal por delitos contra la seguridad vial",
-                serviceType: "Defensa penal de tráfico",
-                description: "Defensa penal y asistencia urgente 24h en juicios rápidos en Cataluña.",
-                price: 980
-            };
-    }
+    const pricing = getServicePricing(norm);
+    return {
+        name: pricing.serviceName,
+        serviceType: pricing.serviceType,
+        description: `Defensa penal y asistencia urgente 24h en juicios rápidos en Cataluña. ${pricing.description}`,
+        price: pricing.priceNumber,
+    };
 }

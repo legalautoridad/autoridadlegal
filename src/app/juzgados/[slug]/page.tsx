@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getDistrictData, getPublishedDistrictSlugs } from '@/lib/db/district-content';
+import { getFormattedServicePrice } from '@/lib/config/pricing';
 import { Building2, MapPin, Phone, ShieldAlert, FileText, ChevronRight, Scale, Clock, AlertTriangle, PhoneCall } from 'lucide-react';
 import { DEFAULT_OG_IMAGE, PHONE_E164, PHONE_DISPLAY } from '@/lib/config';
 
@@ -446,7 +447,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                     <p className="text-xs text-slate-400">Juicios rápidos por tasa superior a 0,60 mg/l o sintomatología al volante.</p>
                                 </div>
                                 <div className="text-right">
-                                    <span className="text-lg font-mono font-bold text-prestige-gold">980 €</span>
+                                    <span className="text-lg font-mono font-bold text-prestige-gold">{getFormattedServicePrice('alcoholemia')}</span>
                                     <p className="text-[10px] text-slate-400">IVA y procurador incluidos</p>
                                 </div>
                             </div>
@@ -471,7 +472,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                     <p className="text-xs text-slate-400">Impugnación de drogatest en saliva y pruebas laboratoriales de contraste.</p>
                                 </div>
                                 <div className="text-right">
-                                    <span className="text-lg font-mono font-bold text-prestige-gold">980 €</span>
+                                    <span className="text-lg font-mono font-bold text-prestige-gold">{getFormattedServicePrice('drogas')}</span>
                                     <p className="text-[10px] text-slate-400">IVA y procurador incluidos</p>
                                 </div>
                             </div>
@@ -496,7 +497,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                     <p className="text-xs text-slate-400">Exceso de +60 km/h en vía urbana o +80 km/h en interurbana.</p>
                                 </div>
                                 <div className="text-right">
-                                    <span className="text-lg font-mono font-bold text-prestige-gold">980 €</span>
+                                    <span className="text-lg font-mono font-bold text-prestige-gold">{getFormattedServicePrice('velocidad')}</span>
                                     <p className="text-[10px] text-slate-400">IVA y procurador incluidos</p>
                                 </div>
                             </div>
@@ -517,11 +518,11 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                         <div id="sin-carnet" className="p-6 bg-slate-950/80 rounded-2xl border border-white/10 space-y-4">
                             <div className="flex justify-between items-start flex-wrap gap-4 border-b border-white/10 pb-4">
                                 <div>
-                                    <h3 className="text-xl font-bold text-white">Conducción Sin Permitir / Sin Puntos (art. 384 CP)</h3>
+                                    <h3 className="text-xl font-bold text-white">Conducción Sin Permiso / Sin Puntos (art. 384 CP)</h3>
                                     <p className="text-xs text-slate-400">Conducción tras pérdida total de puntos o privación judicial.</p>
                                 </div>
                                 <div className="text-right">
-                                    <span className="text-lg font-mono font-bold text-prestige-gold">780 €</span>
+                                    <span className="text-lg font-mono font-bold text-prestige-gold">{getFormattedServicePrice('sin-carnet')}</span>
                                     <p className="text-[10px] text-slate-400">IVA y procurador incluidos</p>
                                 </div>
                             </div>
@@ -546,7 +547,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                     <p className="text-xs text-slate-400">Defensa prioritaria para camioneros, taxistas, repartidores y transportistas (1ª instancia).</p>
                                 </div>
                                 <div className="text-right">
-                                    <span className="text-lg font-mono font-bold text-prestige-gold">1.480 €</span>
+                                    <span className="text-lg font-mono font-bold text-prestige-gold">{getFormattedServicePrice('profesionales')}</span>
                                     <p className="text-[10px] text-slate-400">IVA y procurador incluidos (1ª instancia)</p>
                                 </div>
                             </div>
