@@ -19,7 +19,7 @@ export interface PasoJuicioRapido {
 export const CABECERA_TEXTOS = {
     lawyerLine: '24 h · Santiago Giménez Olavarriaga, abogado penalista · ICAB n.º 31.389',
     ctaPrimaryLabel: 'Llamar al abogado de guardia',
-    ctaSecondaryLabel: 'Escribir por WhatsApp',
+    ctaSecondaryLabel: 'Escribir a abogado por WhatsApp',
     stepsCardTitle: 'Qué hacer, paso a paso',
     entradillaPartido: (partido: string) =>
         `Si la policía te ha citado a juicio rápido, se celebrará en pocos días en el juzgado de guardia de ${partido}. Lo primero es hablar con tu abogado: cuanto antes revisemos el atestado, más margen hay para decidir cómo defenderte.`,

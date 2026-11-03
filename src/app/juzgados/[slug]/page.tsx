@@ -286,7 +286,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
     const formattedCourtPhone = court.phone ? court.phone.replace(/^\+34\s*/, '').trim() : null;
 
     return (
-        <div className="min-h-screen bg-white text-slate-900 font-sans pb-20 sm:pb-0 overflow-x-hidden">
+        <div className="min-h-screen bg-white text-slate-900 font-sans overflow-x-hidden">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
@@ -337,9 +337,9 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                     href={WHATSAPP_URL}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="min-h-[48px] px-5 py-3.5 rounded-xl border border-slate-600 hover:border-slate-400 text-white font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2 transition-colors"
+                                    className="min-h-[48px] px-5 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#34e275] active:bg-[#1ebe5d] text-[#052e16] font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-lg transition-colors"
                                 >
-                                    <MessageCircle className="w-4 h-4 shrink-0" />
+                                    <MessageCircle className="w-4 h-4 shrink-0 text-[#052e16]" />
                                     <span>{CABECERA_TEXTOS.ctaSecondaryLabel}</span>
                                 </a>
                             </div>
@@ -667,26 +667,6 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                     </div>
                 </section>
             </main>
-
-            {/* 1.9 Móvil (≤ 640 px): Barra fija inferior con dos botones: Llamar y WhatsApp (≥ 48 px de alto) */}
-            <div className="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 p-3 grid grid-cols-2 gap-3 shadow-2xl">
-                <a
-                    href={`tel:${PHONE_E164}`}
-                    className="min-h-[48px] rounded-xl bg-slate-900 text-white font-bold text-sm flex items-center justify-center gap-2"
-                >
-                    <Phone className="w-4 h-4 shrink-0" />
-                    <span>Llamar</span>
-                </a>
-                <a
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="min-h-[48px] rounded-xl bg-[#ffe088] text-slate-900 font-bold text-sm flex items-center justify-center gap-2"
-                >
-                    <MessageCircle className="w-4 h-4 shrink-0" />
-                    <span>WhatsApp</span>
-                </a>
-            </div>
         </div>
     );
 }

@@ -310,3 +310,22 @@ export async function getAllDistrictsIndexData(): Promise<{
 
     return indexData.sort((a, b) => a.judicialDistrict.localeCompare(b.judicialDistrict, 'ca'));
 }
+
+/**
+ * Returns a map of court slug -> clean judicial_district name from Supabase
+ * for dynamic WhatsApp messages on /juzgados/{slug}.
+ */
+export async function getCourtDistrictMap(): Promise<Record<string, string>> {
+    const supabase = createStaticClient();
+    const { data: courts } = await supabase
+        .from('courts')
+        .select('slug, judicial_district, name')
+        .order('slug');
+
+    const map: Record<string, string> = {};
+    for (const court of courts || []) {
+        if (!court.slug) continue;
+        map[court.slug.toLowerCase()] = cleanJudicialDistrict(court.judicial_district || court.name);
+    }
+    return map;
+}
