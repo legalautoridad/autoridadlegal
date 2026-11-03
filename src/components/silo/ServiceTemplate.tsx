@@ -126,7 +126,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
         : `Atención de Guardia 24 Horas`;
 
     // WhatsApp parameters
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '34657420999';
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '34664364195';
     const whatsappMessage = encodeURIComponent(
         city && location
             ? `Hola Autoridad Legal, necesito asistencia urgente por un tema de ${config.hero.specialty} en ${location.name}.`

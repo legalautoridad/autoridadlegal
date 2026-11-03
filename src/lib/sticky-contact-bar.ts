@@ -5,7 +5,7 @@
 
 export const STICKY_PHONE_HREF = 'tel:+34605118871';
 export const STICKY_PHONE_DISPLAY = '+34 605 118 871';
-export const STICKY_WHATSAPP_BASE = 'https://wa.me/34657420999';
+export const STICKY_WHATSAPP_BASE = 'https://wa.me/34664364195';
 
 /**
  * PASO 2 — Lista única de rutas donde NO se muestra la barra fija:
