@@ -7,6 +7,10 @@ export interface DistrictMunicipality {
     name: string;
     slug: string;
     population: number | null;
+    wikidataQid?: string | null;
+    wikipediaUrl?: string | null;
+    wikidata_qid?: string | null;
+    wikipedia_url?: string | null;
 }
 
 export interface SearchableMunicipality {
@@ -40,6 +44,10 @@ export interface DistrictCourtData {
     hospitalContraste: string | null;
     depositoVehiculos: string | null;
     practicalReviewed: boolean;
+    wikidataQid: string | null;
+    wikipediaUrl: string | null;
+    mapsUrl: string | null;
+    plusCode: string | null;
 }
 
 export interface DistrictFullData {
@@ -90,19 +98,31 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
 
     const [
         { data: allCourts, error: courtsError },
-        { data: allLocs, error: locsError },
+        locsRes,
         { data: pointsData },
     ] = await Promise.all([
         supabase.from('courts').select('*').order('slug'),
         supabase
             .from('locations')
-            .select('id, name, slug, court_id, location_type, population')
+            .select('id, name, slug, court_id, location_type, population, wikidata_qid, wikipedia_url')
             .eq('location_type', 'municipio')
             .neq('slug', 'bellaterra-uab'),
         supabase.from('interest_points').select('*'),
     ]);
 
-    if (courtsError || locsError || !allCourts) {
+    let allLocs: any[] | null = locsRes.data;
+    if (locsRes.error && locsRes.error.message?.includes('wikidata_qid')) {
+        const fallback = await supabase
+            .from('locations')
+            .select('id, name, slug, court_id, location_type, population')
+            .eq('location_type', 'municipio')
+            .neq('slug', 'bellaterra-uab');
+        allLocs = fallback.data;
+    } else if (locsRes.error) {
+        return null;
+    }
+
+    if (courtsError || !allLocs || !allCourts) {
         return null;
     }
 
@@ -139,6 +159,10 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
             name: l.name,
             slug: l.slug,
             population: typeof l.population === 'number' ? l.population : null,
+            wikidataQid: l.wikidata_qid || null,
+            wikipediaUrl: l.wikipedia_url || null,
+            wikidata_qid: l.wikidata_qid || null,
+            wikipedia_url: l.wikipedia_url || null,
         }))
         .sort((a, b) => a.name.localeCompare(b.name, 'ca'));
 
@@ -222,6 +246,10 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
         depositoVehiculos:
             practicalReviewed && court.deposito_vehiculos ? String(court.deposito_vehiculos).trim() : null,
         practicalReviewed,
+        wikidataQid: court.wikidata_qid || null,
+        wikipediaUrl: court.wikipedia_url || null,
+        mapsUrl: court.maps_url || null,
+        plusCode: court.plus_code || null,
     };
 
     return {
@@ -269,14 +297,24 @@ export async function getAllDistrictsIndexData(): Promise<{
 }[]> {
     const supabase = createStaticClient();
 
-    const [{ data: courts }, { data: locs }] = await Promise.all([
+    const [{ data: courts }, locsRes] = await Promise.all([
         supabase.from('courts').select('*').order('slug'),
         supabase
             .from('locations')
-            .select('id, name, slug, court_id, location_type, population')
+            .select('id, name, slug, court_id, location_type, population, wikidata_qid, wikipedia_url')
             .eq('location_type', 'municipio')
             .neq('slug', 'bellaterra-uab'),
     ]);
+
+    let locs: any[] | null = locsRes.data;
+    if (locsRes.error && locsRes.error.message?.includes('wikidata_qid')) {
+        const fallback = await supabase
+            .from('locations')
+            .select('id, name, slug, court_id, location_type, population')
+            .eq('location_type', 'municipio')
+            .neq('slug', 'bellaterra-uab');
+        locs = fallback.data;
+    }
 
     const locsByCourt = new Map<string, DistrictMunicipality[]>();
     (locs || []).forEach(l => {
@@ -289,6 +327,10 @@ export async function getAllDistrictsIndexData(): Promise<{
             name: l.name,
             slug: l.slug,
             population: typeof l.population === 'number' ? l.population : null,
+            wikidataQid: l.wikidata_qid || null,
+            wikipediaUrl: l.wikipedia_url || null,
+            wikidata_qid: l.wikidata_qid || null,
+            wikipedia_url: l.wikipedia_url || null,
         });
     });
 
