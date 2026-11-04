@@ -1,0 +1,4636 @@
+{
+  "arenys-de-mar": {
+    "judicialDistrict": "Arenys de Mar",
+    "partido": {
+      "nameSource": "ARENYS DE MAR",
+      "qid": null,
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Arenys_de_Mar",
+      "mapsUrl": null,
+      "plusCode": null,
+      "address": null,
+      "source": "fuente",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "La fuente no trae el QID del partido judicial."
+      ],
+      "proposedQid": "Q5854475"
+    },
+    "municipios": [
+      {
+        "locationSlug": "arenys-de-mar",
+        "locationName": "Arenys de Mar",
+        "nameSource": "Arenys de Mar",
+        "qid": "Q12110",
+        "wikipedia": "https://es.wikipedia.org/wiki/Arenys_de_Mar",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "arenys-de-munt",
+        "locationName": "Arenys de Munt",
+        "nameSource": "Arenys de Munt",
+        "qid": "Q12101",
+        "wikipedia": "https://es.wikipedia.org/wiki/Arenys_de_Munt",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "calella",
+        "locationName": "Calella",
+        "nameSource": "Calella",
+        "qid": "Q12540",
+        "wikipedia": "https://es.wikipedia.org/wiki/Calella",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "canet-de-mar",
+        "locationName": "Canet de Mar",
+        "nameSource": "Canet de Mar",
+        "qid": "Q12114",
+        "wikipedia": "https://es.wikipedia.org/wiki/Canet_de_Mar",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "fogars-de-la-selva",
+        "locationName": "Fogars de la Selva",
+        "nameSource": "Fogás de Tordera",
+        "qid": "Q13083",
+        "wikipedia": "https://es.wikipedia.org/wiki/Fog%C3%A1s_de_Tordera",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "malgrat-de-mar",
+        "locationName": "Malgrat de Mar",
+        "nameSource": "Malgrat de Mar",
+        "qid": "Q12590",
+        "wikipedia": "https://es.wikipedia.org/wiki/Malgrat_de_Mar",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "palafolls",
+        "locationName": "Palafolls",
+        "nameSource": "Palafolls",
+        "qid": "Q12595",
+        "wikipedia": "https://es.wikipedia.org/wiki/Palafolls",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "pineda-de-mar",
+        "locationName": "Pineda de Mar",
+        "nameSource": "Pineda de Mar",
+        "qid": "Q12552",
+        "wikipedia": "https://es.wikipedia.org/wiki/Pineda_de_Mar",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-cebria-de-vallalta",
+        "locationName": "Sant Cebrià de Vallalta",
+        "nameSource": "San Cipriano de Vallalta",
+        "qid": "Q12520",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Cipriano_de_Vallalta",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-iscle-de-vallalta",
+        "locationName": "Sant Iscle de Vallalta",
+        "nameSource": "San Acisclo de Vallalta",
+        "qid": "Q12122",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Acisclo_de_Vallalta",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-pol-de-mar",
+        "locationName": "Sant Pol de Mar",
+        "nameSource": "San Pol de Mar",
+        "qid": "Q12534",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Pol_de_Mar",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "santa-susanna",
+        "locationName": "Santa Susanna",
+        "nameSource": "Santa Susana",
+        "qid": "Q12587",
+        "wikipedia": "https://es.wikipedia.org/wiki/Santa_Susana_(Barcelona)",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "tordera",
+        "locationName": "Tordera",
+        "nameSource": "Tordera",
+        "qid": "Q12596",
+        "wikipedia": "https://es.wikipedia.org/wiki/Tordera",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "badalona": {
+    "judicialDistrict": "Badalona",
+    "partido": {
+      "nameSource": "BADALONA",
+      "qid": null,
+      "wikipedia": null,
+      "mapsUrl": "https://maps.google.com/?cid=15702101376790666361",
+      "plusCode": "F62X+54 Badalona",
+      "address": "Carrer de Francesc Layret, 101, 08911 Badalona, Barcelona, España",
+      "source": "fuente",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 15702101376790666361 (sin tracking).",
+        "La fuente no trae el QID del partido judicial.",
+        "La fuente no trae la Wikipedia del partido judicial."
+      ],
+      "proposedQid": "Q117468968"
+    },
+    "municipios": [
+      {
+        "locationSlug": "badalona",
+        "locationName": "Badalona",
+        "nameSource": "Badalona",
+        "qid": "Q15468",
+        "wikipedia": "https://es.wikipedia.org/wiki/Badalona",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "montgat",
+        "locationName": "Montgat",
+        "nameSource": "Montgat",
+        "qid": "Q12022",
+        "wikipedia": "https://es.wikipedia.org/wiki/Montgat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-adria-de-besos",
+        "locationName": "Sant Adrià de Besòs",
+        "nameSource": "Sant Adrià de Besòs",
+        "qid": "Q15471",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Adri%C3%A1n_de_Bes%C3%B3s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "barcelona": {
+    "judicialDistrict": "Barcelona",
+    "partido": {
+      "nameSource": "BARCELONA",
+      "qid": "Q117468991",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Barcelona",
+      "mapsUrl": "https://maps.google.com/?cid=2681878508334728094",
+      "plusCode": "947M+P9 Barcelona",
+      "address": "Gran Via de les Corts Catalanes, 111, Sants-Montjuïc, 08075 Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 2681878508334728094 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "barcelona",
+        "locationName": "Barcelona",
+        "nameSource": "BARCELONA",
+        "qid": "Q117468991",
+        "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Barcelona",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [],
+        "proposedQid": "Q1492",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Barcelona"
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "berga": {
+    "judicialDistrict": "Berga",
+    "partido": {
+      "nameSource": null,
+      "qid": null,
+      "wikipedia": null,
+      "mapsUrl": null,
+      "plusCode": null,
+      "address": null,
+      "source": "db",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "Partido ausente en la fuente: QID/Wikipedia a completar con búsqueda en Wikidata."
+      ],
+      "proposedQid": "Q5550742",
+      "proposedWikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Berga"
+    },
+    "municipios": [
+      {
+        "locationSlug": "avia",
+        "locationName": "Avià",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15495",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Avi%C3%A1"
+      },
+      {
+        "locationSlug": "baga",
+        "locationName": "Bagà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15486",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Bag%C3%A1"
+      },
+      {
+        "locationSlug": "berga",
+        "locationName": "Berga",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15487",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Berga"
+      },
+      {
+        "locationSlug": "borreda",
+        "locationName": "Borredà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15488",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Borred%C3%A1"
+      },
+      {
+        "locationSlug": "capolat",
+        "locationName": "Capolat",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15489",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Capolat"
+      },
+      {
+        "locationSlug": "casserres",
+        "locationName": "Casserres",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15491",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Caserras"
+      },
+      {
+        "locationSlug": "castell-de-l-areny",
+        "locationName": "Castell de l'Areny",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15492",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castell_del_Areny"
+      },
+      {
+        "locationSlug": "castellar-de-n-hug",
+        "locationName": "Castellar de n'Hug",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15493",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellar_de_Nuch"
+      },
+      {
+        "locationSlug": "castellar-del-riu",
+        "locationName": "Castellar del Riu",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15494",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellar_del_Riu"
+      },
+      {
+        "locationSlug": "cercs",
+        "locationName": "Cercs",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15504",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Serchs"
+      },
+      {
+        "locationSlug": "figols",
+        "locationName": "Fígols",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15508",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/F%C3%ADgols"
+      },
+      {
+        "locationSlug": "gironella",
+        "locationName": "Gironella",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15509",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Gironella"
+      },
+      {
+        "locationSlug": "gisclareny",
+        "locationName": "Gisclareny",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15511",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Gisclareny"
+      },
+      {
+        "locationSlug": "guardiola-de-bergueda",
+        "locationName": "Guardiola de Berguedà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15519",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Guardiola_de_Bergued%C3%A1"
+      },
+      {
+        "locationSlug": "l-espunyola",
+        "locationName": "L'Espunyola",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15506",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Espunyola"
+      },
+      {
+        "locationSlug": "la-nou-de-bergueda",
+        "locationName": "La Nou de Berguedà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15524",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/La_Nou_de_Bergued%C3%A1"
+      },
+      {
+        "locationSlug": "la-pobla-de-lillet",
+        "locationName": "La Pobla de Lillet",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15529",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/La_Pobla_de_Lillet"
+      },
+      {
+        "locationSlug": "la-quar",
+        "locationName": "La Quar",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15535",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/La_Quart"
+      },
+      {
+        "locationSlug": "montclar",
+        "locationName": "Montclar",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15521",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Montclar_(Barcelona)"
+      },
+      {
+        "locationSlug": "montmajor",
+        "locationName": "Montmajor",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15522",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Montmajor"
+      },
+      {
+        "locationSlug": "olvan",
+        "locationName": "Olvan",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15527",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Olv%C3%A1n"
+      },
+      {
+        "locationSlug": "puig-reig",
+        "locationName": "Puig-reig",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15534",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Puigreig"
+      },
+      {
+        "locationSlug": "sagas",
+        "locationName": "Sagàs",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15536",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Sag%C3%A1s"
+      },
+      {
+        "locationSlug": "saldes",
+        "locationName": "Saldes",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15537",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Saldes"
+      },
+      {
+        "locationSlug": "sant-jaume-de-frontanya",
+        "locationName": "Sant Jaume de Frontanyà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15538",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Jaime_de_Frontanya"
+      },
+      {
+        "locationSlug": "sant-julia-de-cerdanyola",
+        "locationName": "Sant Julià de Cerdanyola",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15539",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Juli%C3%A1n_de_Cerda%C3%B1ola"
+      },
+      {
+        "locationSlug": "santa-maria-de-merles",
+        "locationName": "Santa Maria de Merlès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15541",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Mar%C3%ADa_de_Marl%C3%A9s"
+      },
+      {
+        "locationSlug": "vallcebre",
+        "locationName": "Vallcebre",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15543",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Vallcebre"
+      },
+      {
+        "locationSlug": "vilada",
+        "locationName": "Vilada",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15544",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Vilada"
+      },
+      {
+        "locationSlug": "viver-i-serrateix",
+        "locationName": "Viver i Serrateix",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15545",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Viver_y_Serrateix"
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "cerdanyola-del-valles": {
+    "judicialDistrict": "Cerdanyola del Vallès",
+    "partido": {
+      "nameSource": "CERDANYOLA DEL VALLÈS",
+      "qid": "Q117469292",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Sarda%C3%B1ola_del_Vall%C3%A9s",
+      "mapsUrl": "https://maps.google.com/?cid=2818399022493654510",
+      "plusCode": "F4MV+JM Cerdanyola del Vallès",
+      "address": "Carrer del Roure, 08290 Cerdanyola del Vallès, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 2818399022493654510 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "badia-del-valles",
+        "locationName": "Badia del Vallès",
+        "nameSource": "BADIA DEL VALLÈS",
+        "qid": "Q13913",
+        "wikipedia": "https://es.wikipedia.org/wiki/Badia_del_Vall%C3%A8s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "barbera-del-valles",
+        "locationName": "Barberà del Vallès",
+        "nameSource": "BARBERÀ DEL VALLÈS",
+        "qid": "Q13916",
+        "wikipedia": "https://es.wikipedia.org/wiki/Barber%C3%A1_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "cerdanyola-del-valles",
+        "locationName": "Cerdanyola del Vallès",
+        "nameSource": "CERDANYOLA DEL VALLÈS",
+        "qid": "Q13922",
+        "wikipedia": "https://es.wikipedia.org/wiki/Sarda%C3%B1ola_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "montcada-i-reixac",
+        "locationName": "Montcada i Reixac",
+        "nameSource": "MONTCADA I REIXAC",
+        "qid": "Q13927",
+        "wikipedia": "https://es.wikipedia.org/wiki/Moncada_y_Reixach",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "ripollet",
+        "locationName": "Ripollet",
+        "nameSource": "RIPOLLET",
+        "qid": "Q13933",
+        "wikipedia": "https://es.wikipedia.org/wiki/Ripollet",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "cornella-de-llobregat": {
+    "judicialDistrict": "Cornellà de Llobregat",
+    "partido": {
+      "nameSource": "CORNELLÀ",
+      "qid": null,
+      "wikipedia": null,
+      "mapsUrl": "https://maps.google.com/?cid=5490866722612023348",
+      "plusCode": "933G+J2 Cornellà de Llobregat",
+      "address": "Carrer de Can Rosés, 1 -3 Cant, Carrer Rius i Taulet, 08940 Cornellà de Llobregat, Barcelona, España",
+      "source": "fuente",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 5490866722612023348 (sin tracking).",
+        "La fuente no trae el QID del partido judicial.",
+        "La fuente no trae la Wikipedia del partido judicial."
+      ],
+      "proposedQid": "Q117469342"
+    },
+    "municipios": [
+      {
+        "locationSlug": "cornella-de-llobregat",
+        "locationName": "Cornellà de Llobregat",
+        "nameSource": "Cornellá de Llobregat",
+        "qid": "Q15602",
+        "wikipedia": "https://es.wikipedia.org/wiki/Cornell%C3%A1_de_Llobregat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "el-prat-de-llobregat": {
+    "judicialDistrict": "El Prat de Llobregat",
+    "partido": {
+      "nameSource": "EL PRAT DE LLOBREGAT",
+      "qid": "Q117469569",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_El_Prat_de_Llobregat",
+      "mapsUrl": "https://maps.google.com/?cid=1207958131248947744",
+      "plusCode": "838P+6F El Prat de Llobregat",
+      "address": "Avinguda de la Verge de Montserrat, 121 (CP 08820)",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 1207958131248947744 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "el-prat-de-llobregat",
+        "locationName": "El Prat de Llobregat",
+        "nameSource": "El Prat de Llobregat",
+        "qid": "Q117469569",
+        "wikipedia": "https://es.wikipedia.org/wiki/El_Prat_de_Llobregat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [],
+        "proposedQid": "Q15619"
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "esplugues-de-llobregat": {
+    "judicialDistrict": "Esplugues de Llobregat",
+    "partido": {
+      "nameSource": "ESPLUGUES DE LLOBREGAT",
+      "qid": "Q117469334",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Esplugas_de_Llobregat",
+      "mapsUrl": "https://maps.google.com/?cid=17268739941894684687",
+      "plusCode": "93GH+9Q Esplugues de Llobregat",
+      "address": "Carrer de Tomás Bretón, 32, 1ª planta, 08950 Esplugues de Llobregat, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 17268739941894684687 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "esplugues-de-llobregat",
+        "locationName": "Esplugues de Llobregat",
+        "nameSource": "Esplugas de Llobregat",
+        "qid": "Q15621",
+        "wikipedia": "https://es.wikipedia.org/wiki/Esplugas_de_Llobregat",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-just-desvern",
+        "locationName": "Sant Just Desvern",
+        "nameSource": "San Justo Desvern",
+        "qid": "Q15641",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Justo_Desvern",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "gava": {
+    "judicialDistrict": "Gavà",
+    "partido": {
+      "nameSource": "GAVÀ",
+      "qid": "Q117469360",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Gav%C3%A1",
+      "mapsUrl": "https://maps.google.com/?cid=4553787445399538062",
+      "plusCode": "8244+X9 Gavà",
+      "address": "Plaça de J. M. Batista i Roca, s/n, 08850 Gavà, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "La fuente trae 2 Plus Codes (FWHC+2W Martorell / 8244+X9 Gavà); se elige 8244+X9 por localidad.",
+        "Maps: URL reconstruida desde el CID 4553787445399538062 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "begues",
+        "locationName": "Begues",
+        "nameSource": "BEGUES",
+        "qid": "Q15596",
+        "wikipedia": "https://es.wikipedia.org/wiki/Begas",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "castelldefels",
+        "locationName": "Castelldefels",
+        "nameSource": "CASTELLDEFELS",
+        "qid": "Q15597",
+        "wikipedia": "https://es.wikipedia.org/wiki/Castelldefels",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "gava",
+        "locationName": "Gavà",
+        "nameSource": "GAVÀ",
+        "qid": "Q15622",
+        "wikipedia": "https://es.wikipedia.org/wiki/Gav%C3%A1",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "viladecans",
+        "locationName": "Viladecans",
+        "nameSource": "VILADECANS",
+        "qid": "Q15652",
+        "wikipedia": "https://es.wikipedia.org/wiki/Viladecans",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "granollers": {
+    "judicialDistrict": "Granollers",
+    "partido": {
+      "nameSource": "GRANOLLERS",
+      "qid": "Q6064797",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Granollers",
+      "mapsUrl": "https://maps.google.com/?cid=3057162847664968322",
+      "plusCode": "J73V+4Q Granollers",
+      "address": "Carrer de Josep Umbert i Ventura, 124, 08400 Granollers, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 3057162847664968322 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "aiguafreda",
+        "locationName": "Aiguafreda",
+        "nameSource": "AIGUAFREDA",
+        "qid": "Q15389",
+        "wikipedia": "https://es.wikipedia.org/wiki/Aiguafreda",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "bigues-i-riells",
+        "locationName": "Bigues i Riells del Fai",
+        "nameSource": "BIGAS",
+        "qid": "Q15398",
+        "wikipedia": "https://es.wikipedia.org/wiki/Bigas",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "caldes-de-montbui",
+        "locationName": "Caldes de Montbui",
+        "nameSource": "CALDAS DE MONTBUY",
+        "qid": "Q15400",
+        "wikipedia": "https://es.wikipedia.org/wiki/Caldas_de_Montbuy",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "campins",
+        "locationName": "Campins",
+        "nameSource": "CAMPINS",
+        "qid": "Q15401",
+        "wikipedia": "https://es.wikipedia.org/wiki/Campins",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "canovelles",
+        "locationName": "Canovelles",
+        "nameSource": "CANOVELLAS",
+        "qid": "Q15402",
+        "wikipedia": "https://es.wikipedia.org/wiki/Canovellas",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "canoves-i-samalus",
+        "locationName": "Cànoves i Samalús",
+        "nameSource": "CÀNOVES I SAMALÚS",
+        "qid": "Q15403",
+        "wikipedia": "https://es.wikipedia.org/wiki/C%C3%A1noves_y_Samal%C3%BAs",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "cardedeu",
+        "locationName": "Cardedeu",
+        "nameSource": "CARDEDEU",
+        "qid": "Q15406",
+        "wikipedia": "https://es.wikipedia.org/wiki/Cardedeu",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "castelltercol",
+        "locationName": "Castellterçol",
+        "nameSource": "CASTELLTERSOL",
+        "qid": "Q15408",
+        "wikipedia": "https://es.wikipedia.org/wiki/Castelltersol",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "figaro-montmany",
+        "locationName": "Figaró-Montmany",
+        "nameSource": "FIGARÓ-MONTMANY",
+        "qid": "Q15409",
+        "wikipedia": "https://es.wikipedia.org/wiki/Figar%C3%B3-Montmany",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "fogars-de-montclus",
+        "locationName": "Fogars de Montclús",
+        "nameSource": "FOGARS DE MONCLÚS",
+        "qid": "Q15411",
+        "wikipedia": "https://es.wikipedia.org/wiki/Fog%C3%A1s_de_Moncl%C3%BAs",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "granera",
+        "locationName": "Granera",
+        "nameSource": "GRANERA",
+        "qid": "Q15418",
+        "wikipedia": "https://es.wikipedia.org/wiki/Granera",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "granollers",
+        "locationName": "Granollers",
+        "nameSource": "GRANOLLERS",
+        "qid": "Q15418",
+        "wikipedia": null,
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "La fuente trae 2 QIDs: Q15418, Q15420.",
+          "La fuente no trae Wikipedia."
+        ],
+        "qidCandidates": [
+          "Q15418",
+          "Q15420"
+        ],
+        "proposedQid": "Q15420",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Granollers"
+      },
+      {
+        "locationSlug": "gualba",
+        "locationName": "Gualba",
+        "nameSource": "GUALBA",
+        "qid": "Q15421",
+        "wikipedia": "https://es.wikipedia.org/wiki/Gualba",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "l-ametlla-del-valles",
+        "locationName": "L'Ametlla del Vallès",
+        "nameSource": "LA AMETLLA",
+        "qid": "Q15397",
+        "wikipedia": "https://es.wikipedia.org/wiki/La_Ametlla",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "la-garriga",
+        "locationName": "La Garriga",
+        "nameSource": "LA GARRIGA",
+        "qid": "Q15415",
+        "wikipedia": "https://es.wikipedia.org/wiki/La_Garriga",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "la-roca-del-valles",
+        "locationName": "La Roca del Vallès",
+        "nameSource": "LA ROCA DEL VALLÈS",
+        "qid": "Q15439",
+        "wikipedia": "https://es.wikipedia.org/wiki/La_Roca_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "les-franqueses-del-valles",
+        "locationName": "Les Franqueses del Vallès",
+        "nameSource": "LES FRANQUESES DEL VALLÈS",
+        "qid": "Q15412",
+        "wikipedia": "https://es.wikipedia.org/wiki/Les_Franqueses_del_Vall%C3%A8s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "llissa-de-munt",
+        "locationName": "Lliçà de Munt",
+        "nameSource": "LLIÇÀ D'AMUNT",
+        "qid": "Q15425",
+        "wikipedia": "https://es.wikipedia.org/wiki/Lliss%C3%A1_de_Munt",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "llissa-de-vall",
+        "locationName": "Lliçà de Vall",
+        "nameSource": "LLIÇÀ DE VALL",
+        "qid": "Q15428",
+        "wikipedia": "https://es.wikipedia.org/wiki/Lliss%C3%A1_de_Vall",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "llinars-del-valles",
+        "locationName": "Llinars del Vallès",
+        "nameSource": "LLINARS DEL VALLÈS",
+        "qid": "Q15423",
+        "wikipedia": "https://es.wikipedia.org/wiki/Llinars_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "montornes-del-valles",
+        "locationName": "Montornès del Vallès",
+        "nameSource": "MONTORNÈS DEL VALLÈS",
+        "qid": "Q15433",
+        "wikipedia": "https://es.wikipedia.org/wiki/Montorn%C3%A9s_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "montseny",
+        "locationName": "Montseny",
+        "nameSource": "MONTSENY",
+        "qid": "Q15434",
+        "wikipedia": "https://es.wikipedia.org/wiki/Montseny_(Barcelona)",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-antoni-de-vilamajor",
+        "locationName": "Sant Antoni de Vilamajor",
+        "nameSource": "SANT ANTONI DE VILAMAJOR",
+        "qid": "Q15440",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Antonio_Vilamajor",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-celoni",
+        "locationName": "Sant Celoni",
+        "nameSource": "SANT CELONI",
+        "qid": "Q15441",
+        "wikipedia": "https://es.wikipedia.org/wiki/Sant_Celoni",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-esteve-de-palautordera",
+        "locationName": "Sant Esteve de Palautordera",
+        "nameSource": "SANT ESTEVE DE PALAUTORDERA",
+        "qid": "Q15442",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Esteban_de_Palautordera",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-pere-de-vilamajor",
+        "locationName": "Sant Pere de Vilamajor",
+        "nameSource": "SANT PERE DE VILAMAJOR",
+        "qid": "Q15450",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Pedro_de_Vilamajor",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-quirze-safaja",
+        "locationName": "Sant Quirze Safaja",
+        "nameSource": "SANT QUIRZE SAFAJA",
+        "qid": "Q15452",
+        "wikipedia": "https://es.wikipedia.org/wiki/Sant_Quirze_Safaja",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "santa-eulalia-de-ronsana",
+        "locationName": "Santa Eulàlia de Ronçana",
+        "nameSource": "SANTA EULÀLIA DE RONÇANA",
+        "qid": "Q15454",
+        "wikipedia": "https://es.wikipedia.org/wiki/Santa_Eulalia_de_Ronsana",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "santa-maria-de-palautordera",
+        "locationName": "Santa Maria de Palautordera",
+        "nameSource": "SANTA MARIA DE PALAUTORDERA",
+        "qid": "Q15456",
+        "wikipedia": "https://es.wikipedia.org/wiki/Santa_Mar%C3%ADa_de_Palautordera",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "tagamanent",
+        "locationName": "Tagamanent",
+        "nameSource": "TAGAMANENT",
+        "qid": "Q15457",
+        "wikipedia": "https://es.wikipedia.org/wiki/Tagamanent",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "vallgorguina",
+        "locationName": "Vallgorguina",
+        "nameSource": "VALLGORGUINA",
+        "qid": "Q15458",
+        "wikipedia": "https://es.wikipedia.org/wiki/Vallgorguina",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "vallromanes",
+        "locationName": "Vallromanes",
+        "nameSource": "VALLROMANES",
+        "qid": "Q15460",
+        "wikipedia": "https://es.wikipedia.org/wiki/Vallromanes",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "villalba-sasserra",
+        "locationName": "Vilalba Sasserra",
+        "nameSource": "VILALBA SASSERRA",
+        "qid": "Q15461",
+        "wikipedia": "https://es.wikipedia.org/wiki/Villalba_Saserra",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "vilanova-del-valles",
+        "locationName": "Vilanova del Vallès",
+        "nameSource": "VILANOVA DEL VALLÈS",
+        "qid": "Q15463",
+        "wikipedia": "https://es.wikipedia.org/wiki/Vilanova_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [
+      {
+        "nameSource": "SANT FELIU DE CODINES",
+        "qids": [
+          "Q15444"
+        ],
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Fel%C3%ADu_de_Codinas",
+        "reason": "Sin coincidencia por nombre ni por etiqueta Wikidata"
+      }
+    ],
+    "orphanQids": []
+  },
+  "hospitalet-de-llobregat": {
+    "judicialDistrict": "L'Hospitalet de Llobregat",
+    "partido": {
+      "nameSource": "HOSPITALET DE LLOBREGAT",
+      "qid": "Q117469392",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Hospitalet_de_Llobregat",
+      "mapsUrl": "https://maps.google.com/?cid=7699209551399261957",
+      "plusCode": "948M+73 L'Hospitalet de Llobregat",
+      "address": "Av. del Carrilet, 2, 08902 L'Hospitalet de Llobregat, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 7699209551399261957 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "hospitalet-de-llobregat",
+        "locationName": "L'Hospitalet de Llobregat",
+        "nameSource": "Hospitalet de Llobregat",
+        "qid": "Q15470",
+        "wikipedia": "https://es.wikipedia.org/wiki/Hospitalet_de_Llobregat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "igualada": {
+    "judicialDistrict": "Igualada",
+    "partido": {
+      "nameSource": null,
+      "qid": null,
+      "wikipedia": null,
+      "mapsUrl": null,
+      "plusCode": null,
+      "address": null,
+      "source": "db",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "Partido ausente en la fuente: QID/Wikipedia a completar con búsqueda en Wikidata."
+      ],
+      "proposedQid": "Q2842321",
+      "proposedWikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Igualada"
+    },
+    "municipios": [
+      {
+        "locationSlug": "argensola",
+        "locationName": "Argensola",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15936",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Argensola"
+      },
+      {
+        "locationSlug": "bellprat",
+        "locationName": "Bellprat",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15937",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Bellprat"
+      },
+      {
+        "locationSlug": "cabrera-d-anoia",
+        "locationName": "Cabrera d'Anoia",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15939",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Cabrera_de_Igualada"
+      },
+      {
+        "locationSlug": "calaf",
+        "locationName": "Calaf",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15940",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Calaf_(Espa%C3%B1a)"
+      },
+      {
+        "locationSlug": "calonge-de-segarra",
+        "locationName": "Calonge de Segarra",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15941",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Calonje_de_Segarra"
+      },
+      {
+        "locationSlug": "capellades",
+        "locationName": "Capellades",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15942",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Capellades"
+      },
+      {
+        "locationSlug": "carme",
+        "locationName": "Carme",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15943",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Carme"
+      },
+      {
+        "locationSlug": "castellfollit-de-riubregos",
+        "locationName": "Castellfollit de Riubregós",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15945",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellfollit_de_Riubreg%C3%B3s"
+      },
+      {
+        "locationSlug": "castelloli",
+        "locationName": "Castellolí",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15946",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellol%C3%AD"
+      },
+      {
+        "locationSlug": "copons",
+        "locationName": "Copons",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15947",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Cop%C3%B3ns"
+      },
+      {
+        "locationSlug": "el-bruc",
+        "locationName": "El Bruc",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15938",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Bruch"
+      },
+      {
+        "locationSlug": "els-hostalets-de-pierola",
+        "locationName": "Els Hostalets de Pierola",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15949",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Els_Hostalets_de_Pierola"
+      },
+      {
+        "locationSlug": "els-prats-de-rei",
+        "locationName": "Els Prats de Rei",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15961",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Els_Prats_de_Rei"
+      },
+      {
+        "locationSlug": "igualada",
+        "locationName": "Igualada",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15950",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Igualada"
+      },
+      {
+        "locationSlug": "la-llacuna",
+        "locationName": "La Llacuna",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15952",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/La_Llacuna"
+      },
+      {
+        "locationSlug": "la-pobla-de-claramunt",
+        "locationName": "La Pobla de Claramunt",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15960",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/La_Pobla_de_Claramunt"
+      },
+      {
+        "locationSlug": "la-torre-de-claramunt",
+        "locationName": "La Torre de Claramunt",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15971",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Torre_de_Claramunt"
+      },
+      {
+        "locationSlug": "montmaneu",
+        "locationName": "Montmaneu",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15955",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Montmaneu"
+      },
+      {
+        "locationSlug": "odena",
+        "locationName": "Òdena",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15957",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/%C3%93dena"
+      },
+      {
+        "locationSlug": "orpi",
+        "locationName": "Orpí",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15958",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Orp%C3%AD"
+      },
+      {
+        "locationSlug": "piera",
+        "locationName": "Piera",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15959",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Piera"
+      },
+      {
+        "locationSlug": "pujalt",
+        "locationName": "Pujalt",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15962",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Pujalt"
+      },
+      {
+        "locationSlug": "rubio",
+        "locationName": "Rubió",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15963",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Rubi%C3%B3"
+      },
+      {
+        "locationSlug": "sant-marti-de-tous",
+        "locationName": "Sant Martí de Tous",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15966",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Mart%C3%ADn_de_Tous"
+      },
+      {
+        "locationSlug": "sant-marti-sesgueioles",
+        "locationName": "Sant Martí Sesgueioles",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15964",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Mart%C3%ADn_Sasgayolas"
+      },
+      {
+        "locationSlug": "sant-pere-sallavinera",
+        "locationName": "Sant Pere Sallavinera",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15967",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Salavinera"
+      },
+      {
+        "locationSlug": "santa-margarida-de-montbui",
+        "locationName": "Santa Margarida de Montbui",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15968",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Margarita_de_Montbuy"
+      },
+      {
+        "locationSlug": "santa-maria-de-miralles",
+        "locationName": "Santa Maria de Miralles",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15970",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Mar%C3%ADa_de_Miralles"
+      },
+      {
+        "locationSlug": "vallbona-d-anoia",
+        "locationName": "Vallbona d'Anoia",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15972",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Vallbona"
+      },
+      {
+        "locationSlug": "veciana",
+        "locationName": "Veciana",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15973",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Veciana"
+      },
+      {
+        "locationSlug": "vilanova-del-cami",
+        "locationName": "Vilanova del Camí",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15974",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Vilanova_del_Cam%C3%AD"
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "manresa": {
+    "judicialDistrict": "Manresa",
+    "partido": {
+      "nameSource": null,
+      "qid": null,
+      "wikipedia": null,
+      "mapsUrl": null,
+      "plusCode": null,
+      "address": null,
+      "source": "db",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "Partido ausente en la fuente: QID/Wikipedia a completar con búsqueda en Wikidata."
+      ],
+      "proposedQid": "Q6064880",
+      "proposedWikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Manresa"
+    },
+    "municipios": [
+      {
+        "locationSlug": "aguilar-de-segarra",
+        "locationName": "Aguilar de Segarra",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16675",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Aguilar_de_Segarra"
+      },
+      {
+        "locationSlug": "artes",
+        "locationName": "Artés",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16677",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Art%C3%A9s"
+      },
+      {
+        "locationSlug": "avinyo",
+        "locationName": "Avinyó",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16678",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Aviny%C3%B3"
+      },
+      {
+        "locationSlug": "balsareny",
+        "locationName": "Balsareny",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16679",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Balsareny"
+      },
+      {
+        "locationSlug": "calders",
+        "locationName": "Calders",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16680",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Calders"
+      },
+      {
+        "locationSlug": "callus",
+        "locationName": "Callús",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16682",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Call%C3%BAs"
+      },
+      {
+        "locationSlug": "cardona",
+        "locationName": "Cardona",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16683",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Cardona"
+      },
+      {
+        "locationSlug": "castellbell-i-el-vilar",
+        "locationName": "Castellbell i el Vilar",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16684",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellbell_y_Vilar"
+      },
+      {
+        "locationSlug": "castellfollit-del-boix",
+        "locationName": "Castellfollit del Boix",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16685",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellfollit_del_Boix"
+      },
+      {
+        "locationSlug": "castellgali",
+        "locationName": "Castellgalí",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16686",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellgal%C3%AD"
+      },
+      {
+        "locationSlug": "castellnou-de-bages",
+        "locationName": "Castellnou de Bages",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16687",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellnou_de_Bages"
+      },
+      {
+        "locationSlug": "el-pont-de-vilomara-i-rocafort",
+        "locationName": "El Pont de Vilomara i Rocafort",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16726",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Rocafort_y_Vilumara"
+      },
+      {
+        "locationSlug": "fonollosa",
+        "locationName": "Fonollosa",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16695",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Fonollosa"
+      },
+      {
+        "locationSlug": "gaia",
+        "locationName": "Gaià",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16696",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Gay%C3%A1"
+      },
+      {
+        "locationSlug": "l-estany",
+        "locationName": "L'Estany",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16694",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Estany"
+      },
+      {
+        "locationSlug": "manresa",
+        "locationName": "Manresa",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16697",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Manresa"
+      },
+      {
+        "locationSlug": "marganell",
+        "locationName": "Marganell",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16698",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Marganell"
+      },
+      {
+        "locationSlug": "moia",
+        "locationName": "Moià",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16702",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Moy%C3%A1"
+      },
+      {
+        "locationSlug": "monistrol-de-calders",
+        "locationName": "Monistrol de Calders",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16703",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Monistrol_de_Calders"
+      },
+      {
+        "locationSlug": "monistrol-de-montserrat",
+        "locationName": "Monistrol de Montserrat",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16704",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Monistrol_de_Montserrat"
+      },
+      {
+        "locationSlug": "mura",
+        "locationName": "Mura",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16722",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Mura"
+      },
+      {
+        "locationSlug": "navarcles",
+        "locationName": "Navarcles",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16723",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Navarcl%C3%A9s"
+      },
+      {
+        "locationSlug": "navas",
+        "locationName": "Navàs",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16724",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Nav%C3%A1s_(Barcelona)"
+      },
+      {
+        "locationSlug": "rajadell",
+        "locationName": "Rajadell",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16727",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Rajadell"
+      },
+      {
+        "locationSlug": "sallent",
+        "locationName": "Sallent",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16728",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Sallent_de_Llobregat"
+      },
+      {
+        "locationSlug": "sant-feliu-sasserra",
+        "locationName": "Sant Feliu Sasserra",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16729",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Fel%C3%ADu_Saserra"
+      },
+      {
+        "locationSlug": "sant-fruitos-de-bages",
+        "locationName": "Sant Fruitós de Bages",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16730",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Fructuoso_de_Bages"
+      },
+      {
+        "locationSlug": "sant-joan-de-vilatorrada",
+        "locationName": "Sant Joan de Vilatorrada",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16731",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Juan_de_Torruella"
+      },
+      {
+        "locationSlug": "sant-mateu-de-bages",
+        "locationName": "Sant Mateu de Bages",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16732",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Mateo_de_Bages"
+      },
+      {
+        "locationSlug": "guardiola",
+        "locationName": "Sant Salvador de Guardiola",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16733",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Salvador_de_Guardiola"
+      },
+      {
+        "locationSlug": "sant-vicenc-de-castellet",
+        "locationName": "Sant Vicenç de Castellet",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16734",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Vicente_de_Castellet"
+      },
+      {
+        "locationSlug": "santa-maria-d-olo",
+        "locationName": "Santa Maria d'Oló",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16735",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Mar%C3%ADa_de_Ol%C3%B3"
+      },
+      {
+        "locationSlug": "santpedor",
+        "locationName": "Santpedor",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16736",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santpedor"
+      },
+      {
+        "locationSlug": "suria",
+        "locationName": "Súria",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16737",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Suria"
+      },
+      {
+        "locationSlug": "talamanca",
+        "locationName": "Talamanca",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q16738",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Talamanca_(Barcelona)"
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "martorell": {
+    "judicialDistrict": "Martorell",
+    "partido": {
+      "nameSource": "MARTORELL",
+      "qid": "Q6064889",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Martorell",
+      "mapsUrl": "https://maps.google.com/?cid=11772922754161233191",
+      "plusCode": "FWHC+2W Martorell",
+      "address": "Passeig del Sindicat, 10 (CP 08760)",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 11772922754161233191 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "abrera",
+        "locationName": "Abrera",
+        "nameSource": "ABRERA",
+        "qid": "Q15593",
+        "wikipedia": "https://es.wikipedia.org/wiki/Abrera",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "castellvi-de-rosanes",
+        "locationName": "Castellví de Rosanes",
+        "nameSource": "CASTELLVÍ DE ROSANES",
+        "qid": "Q15598",
+        "wikipedia": "https://es.wikipedia.org/wiki/Castellv%C3%AD_de_Rosanes",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "collbato",
+        "locationName": "Collbató",
+        "nameSource": "COLLBATÓ",
+        "qid": "Q15600",
+        "wikipedia": "https://es.wikipedia.org/wiki/Collbat%C3%B3",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "esparraguera",
+        "locationName": "Esparreguera",
+        "nameSource": "ESPARREGUERA",
+        "qid": "Q15620",
+        "wikipedia": "https://es.wikipedia.org/wiki/Esparraguera",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "martorell",
+        "locationName": "Martorell",
+        "nameSource": "MARTORELL",
+        "qid": "Q15623",
+        "wikipedia": "https://es.wikipedia.org/wiki/Martorell",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "masquefa",
+        "locationName": "Masquefa",
+        "nameSource": "MASQUEFA",
+        "qid": "Q15954",
+        "wikipedia": "https://es.wikipedia.org/wiki/Masquefa",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "olesa-de-montserrat",
+        "locationName": "Olesa de Montserrat",
+        "nameSource": "OLESA DE MONTSERRAT",
+        "qid": "Q15626",
+        "wikipedia": "https://es.wikipedia.org/wiki/Olesa_de_Montserrat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-andreu-de-la-barca",
+        "locationName": "Sant Andreu de la Barca",
+        "nameSource": "SANT ANDREU DE LA BARCA",
+        "qid": "Q15634",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Andr%C3%A9s_de_la_Barca",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-esteve-sesrovires",
+        "locationName": "Sant Esteve Sesrovires",
+        "nameSource": "SANT ESTEVE SESROVIRES",
+        "qid": "Q15638",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Esteban_Sasroviras",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "mataro": {
+    "judicialDistrict": "Mataró",
+    "partido": {
+      "nameSource": "MATARÓ",
+      "qid": "Q6064895",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Matar%C3%B3",
+      "mapsUrl": "https://maps.google.com/?cid=10272135822096008812",
+      "plusCode": "GCMQ+3V Mataró",
+      "address": "Plaça Francisco Tomás i Valiente, s/n (CP 08302) [1, 2]",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 10272135822096008812 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "alella",
+        "locationName": "Alella",
+        "nameSource": "ALELLA",
+        "qid": "Q12034",
+        "wikipedia": "https://es.wikipedia.org/wiki/Alella",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "argentona",
+        "locationName": "Argentona",
+        "nameSource": "ARGENTONA",
+        "qid": "Q11539",
+        "wikipedia": "https://es.wikipedia.org/wiki/Argentona",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "cabrera-de-mar",
+        "locationName": "Cabrera de Mar",
+        "nameSource": "CABRERA DE MAR",
+        "qid": "Q12824",
+        "wikipedia": "https://es.wikipedia.org/wiki/Cabrera_de_Mar",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "cabrils",
+        "locationName": "Cabrils",
+        "nameSource": "Cabrils",
+        "qid": "Q12083",
+        "wikipedia": "https://es.wikipedia.org/wiki/Cabrils",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "caldes-d-estrac",
+        "locationName": "Caldes d'Estrac",
+        "nameSource": "Caldetas",
+        "qid": "Q12102",
+        "wikipedia": "https://es.wikipedia.org/wiki/Caldetas",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "dosrius",
+        "locationName": "Dosrius",
+        "nameSource": "Dosrius",
+        "qid": "Q11968",
+        "wikipedia": "https://es.wikipedia.org/wiki/Dosrius",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "el-masnou",
+        "locationName": "El Masnou",
+        "nameSource": "El Masnou",
+        "qid": "Q12039",
+        "wikipedia": "https://es.wikipedia.org/wiki/El_Masnou",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "mataro",
+        "locationName": "Mataró",
+        "nameSource": "Mataró",
+        "qid": "Q11492",
+        "wikipedia": "https://es.wikipedia.org/wiki/Matar%C3%B3",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "orrius",
+        "locationName": "Orrius",
+        "nameSource": "Orrius",
+        "qid": "Q12080",
+        "wikipedia": "https://es.wikipedia.org/wiki/Orrius",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "premia-de-dalt",
+        "locationName": "Premià de Dalt",
+        "nameSource": "Premiá de Dalt",
+        "qid": "Q12049",
+        "wikipedia": "https://es.wikipedia.org/wiki/Premi%C3%A1_de_Dalt",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "premia-de-mar",
+        "locationName": "Premià de Mar",
+        "nameSource": "Premiá de Mar",
+        "qid": "Q12046",
+        "wikipedia": "https://es.wikipedia.org/wiki/Premi%C3%A1_de_Mar",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-andreu-de-llavaneres",
+        "locationName": "Sant Andreu de Llavaneres",
+        "nameSource": "San Andrés de Llavaneras",
+        "qid": "Q12093",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Andr%C3%A9s_de_Llavaneras",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-vicenc-de-montalt",
+        "locationName": "Sant Vicenç de Montalt",
+        "nameSource": "San Vicente de Montalt",
+        "qid": "Q12095",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Vicente_de_Montalt",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "teia",
+        "locationName": "Teià",
+        "nameSource": "Teyá",
+        "qid": "Q12028",
+        "wikipedia": "https://es.wikipedia.org/wiki/Tey%C3%A1",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "tiana",
+        "locationName": "Tiana",
+        "nameSource": "Tiana",
+        "qid": "Q12026",
+        "wikipedia": "https://es.wikipedia.org/wiki/Tiana_(Barcelona)",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "vilassar-de-dalt",
+        "locationName": "Vilassar de Dalt",
+        "nameSource": "San Ginés de Vilasar",
+        "qid": "Q12075",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Gin%C3%A9s_de_Vilasar",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "vilassar-de-mar",
+        "locationName": "Vilassar de Mar",
+        "nameSource": "Vilasar de Mar",
+        "qid": "Q12071",
+        "wikipedia": "https://es.wikipedia.org/wiki/Vilasar_de_Mar",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "mollet-del-valles": {
+    "judicialDistrict": "Mollet del Vallès",
+    "partido": {
+      "nameSource": "MOLLET DEL VALLÈS",
+      "qid": "Q117469524",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Mollet_del_Vall%C3%A9s",
+      "mapsUrl": "https://maps.google.com/?cid=11600220240531087249",
+      "plusCode": "G6P9+68 Mollet del Vallès",
+      "address": "Carrer de les Llevadores, 2, 08100 Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Localidad del Plus Code en la fuente = \"Barcelona\"; se corrige a \"Mollet del Vallès\".",
+        "Maps: URL reconstruida desde el CID 11600220240531087249 (sin tracking).",
+        "Dirección de la fuente con localidad errónea (\"Carrer de les Llevadores, 2, 08100 Barcelona, España\"). No se publica: manda courts.address."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "la-llagosta",
+        "locationName": "La Llagosta",
+        "nameSource": "La Llagosta",
+        "qid": "Q15422",
+        "wikipedia": "https://es.wikipedia.org/wiki/La_Llagosta",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "martorelles",
+        "locationName": "Martorelles",
+        "nameSource": "Martorellas",
+        "qid": "Q15429",
+        "wikipedia": "https://es.wikipedia.org/wiki/Martorellas",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "mollet-del-valles",
+        "locationName": "Mollet del Vallès",
+        "nameSource": "Mollet del Vallés",
+        "qid": "Q15430",
+        "wikipedia": "https://es.wikipedia.org/wiki/Mollet_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "montmelo",
+        "locationName": "Montmeló",
+        "nameSource": "Montmeló",
+        "qid": "Q15431",
+        "wikipedia": "https://es.wikipedia.org/wiki/Montmel%C3%B3",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "parets-del-valles",
+        "locationName": "Parets del Vallès",
+        "nameSource": "Parets",
+        "qid": "Q15437",
+        "wikipedia": "https://es.wikipedia.org/wiki/Parets",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-fost-de-campsentelles",
+        "locationName": "Sant Fost de Campsentelles",
+        "nameSource": "San Fausto de Campcentellas",
+        "qid": "Q15445",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Fausto_de_Campcentellas",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "santa-maria-de-martorelles",
+        "locationName": "Santa Maria de Martorelles",
+        "nameSource": "Santa María de Martorellas de Arriba",
+        "qid": "Q15455",
+        "wikipedia": "https://es.wikipedia.org/wiki/Santa_Mar%C3%ADa_de_Martorellas_de_Arriba",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "rubi": {
+    "judicialDistrict": "Rubí",
+    "partido": {
+      "nameSource": "RUBÍ",
+      "qid": "Q6064975",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Rub%C3%AD",
+      "mapsUrl": "https://maps.google.com/?cid=5372127517517987048",
+      "plusCode": "F2QJ+X7 Rubí",
+      "address": "Carrer de Pere Esmendia, 15, 08191 Rubí, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 5372127517517987048 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "castellbisbal",
+        "locationName": "Castellbisbal",
+        "nameSource": "CASTELLBISBAL",
+        "qid": "Q13921",
+        "wikipedia": "https://es.wikipedia.org/wiki/Castellbisbal",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "rubi",
+        "locationName": "Rubí",
+        "nameSource": "RUBÍ",
+        "qid": "Q13934",
+        "wikipedia": "https://es.wikipedia.org/wiki/Rub%C3%AD_(Barcelona)",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-cugat-del-valles",
+        "locationName": "Sant Cugat del Vallès",
+        "nameSource": "SANT CUGAT DEL VALLÈS",
+        "qid": "Q13936",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Cugat_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "sabadell": {
+    "judicialDistrict": "Sabadell",
+    "partido": {
+      "nameSource": "SABADELL",
+      "qid": "Q117469765",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Sabadell",
+      "mapsUrl": "https://maps.google.com/?cid=1161763006227761546",
+      "plusCode": "H33X+2F Sabadell",
+      "address": "Av. de Francesc Macià, 34, 08208 Sabadell, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 1161763006227761546 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "castellar-del-valles",
+        "locationName": "Castellar del Vallès",
+        "nameSource": "Castellar del Vallès",
+        "qid": "Q13918",
+        "wikipedia": "https://es.wikipedia.org/wiki/Castellar_del_Vall%C3%A9s",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "gallifa",
+        "locationName": "Gallifa",
+        "nameSource": "Gallifa",
+        "qid": "Q13928",
+        "wikipedia": "https://es.wikipedia.org/wiki/Gallifa",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "palau-solita-i-plegamans",
+        "locationName": "Palau-solità i Plegamans",
+        "nameSource": "Palau-solità i Plegamans",
+        "qid": "Q13926",
+        "wikipedia": "https://es.wikipedia.org/wiki/Palau-solit%C3%A0_i_Plegamans",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "polinya",
+        "locationName": "Polinyà",
+        "nameSource": "Polinyà",
+        "qid": "Q13925",
+        "wikipedia": "https://es.wikipedia.org/wiki/Poliny%C3%A1",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sabadell",
+        "locationName": "Sabadell",
+        "nameSource": "Sabadell",
+        "qid": "Q12258",
+        "wikipedia": "https://es.wikipedia.org/wiki/Sabadell",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-llorenc-savall",
+        "locationName": "Sant Llorenç Savall",
+        "nameSource": "Sant Llorenç Savall",
+        "qid": "Q13937",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Lorenzo_Savall",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-quirze-del-valles",
+        "locationName": "Sant Quirze del Vallès",
+        "nameSource": "Sant Quirze de Terrasa",
+        "qid": "Q13935",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Quirico_de_Tarrasa",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "santa-perpetua-de-mogoda",
+        "locationName": "Santa Perpètua de Mogoda",
+        "nameSource": "Santa Perpètua de Mogoda",
+        "qid": "Q13941",
+        "wikipedia": "https://es.wikipedia.org/wiki/Santa_Perpetua_de_Moguda",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sentmenat",
+        "locationName": "Sentmenat",
+        "nameSource": "Sentmenat",
+        "qid": "Q13943",
+        "wikipedia": "https://es.wikipedia.org/wiki/Senmanat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "sant-boi-de-llobregat": {
+    "judicialDistrict": "Sant Boi de Llobregat",
+    "partido": {
+      "nameSource": "SANT BOI DE LLOBREGAT",
+      "qid": "Q117469787",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_San_Baudilio_de_Llobregat",
+      "mapsUrl": "https://maps.google.com/?cid=13197497720322434982",
+      "plusCode": "82XR+J2 Sant Boi de Llobregat",
+      "address": "Carrer Carles Martí i Vila, 2-4, 08830 Sant Boi de Llobregat, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 13197497720322434982 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "sant-boi-de-llobregat",
+        "locationName": "Sant Boi de Llobregat",
+        "nameSource": "SANT BOI DE LLOBREGAT",
+        "qid": "Q15635",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Baudilio_de_Llobregat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-climent-de-llobregat",
+        "locationName": "Sant Climent de Llobregat",
+        "nameSource": "SANT CLIMENT DE LLOBREGAT",
+        "qid": "Q15636",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Clemente_de_Llobregat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "santa-coloma-de-cervello",
+        "locationName": "Santa Coloma de Cervelló",
+        "nameSource": "SANTA COLOMA DE CERVELLÓ",
+        "qid": "Q15632",
+        "wikipedia": "https://es.wikipedia.org/wiki/Santa_Coloma_de_Cervell%C3%B3",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "torrelles-de-llobregat",
+        "locationName": "Torrelles de Llobregat",
+        "nameSource": "TORRELLES DE LLOBREGAT",
+        "qid": "Q15650",
+        "wikipedia": "https://es.wikipedia.org/wiki/Torrellas_de_Llobregat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "sant-feliu-de-llobregat": {
+    "judicialDistrict": "Sant Feliu de Llobregat",
+    "partido": {
+      "nameSource": "SANT FELIU DE LLOBREGAT",
+      "qid": "Q117469907",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Sant_Feliu_de_Llobregat",
+      "mapsUrl": "https://maps.google.com/?cid=16966458240446042653",
+      "plusCode": "92MW+49 Sant Feliu de Llobregat",
+      "address": "Carrer de Dalt, 10-12, 08980 Sant Feliu de Llobregat, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 16966458240446042653 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "cervello",
+        "locationName": "Cervelló",
+        "nameSource": "CERVELLÓ",
+        "qid": "Q15599",
+        "wikipedia": "https://es.wikipedia.org/wiki/Cervell%C3%B3",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "corbera-de-llobregat",
+        "locationName": "Corbera de Llobregat",
+        "nameSource": "CORBERA DE LLOBREGAT",
+        "qid": "Q15601Ç",
+        "wikipedia": "https://es.wikipedia.org/wiki/Corbera_de_Llobregat",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "PENDIENTE",
+        "notes": [
+          "QID con caracteres no válidos en la fuente: \"Q15601Ç\"."
+        ],
+        "proposedQid": "Q15601"
+      },
+      {
+        "locationSlug": "el-papiol",
+        "locationName": "El Papiol",
+        "nameSource": "EL PAPIOL",
+        "qid": "Q15631",
+        "wikipedia": "https://es.wikipedia.org/wiki/El_Papiol",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "la-palma-de-cervello",
+        "locationName": "La Palma de Cervelló",
+        "nameSource": "LA PALMA DE CERVELLÓ",
+        "qid": "Q15630",
+        "wikipedia": "https://es.wikipedia.org/wiki/La_Palma_de_Cervell%C3%B3",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "molins-de-rei",
+        "locationName": "Molins de Rei",
+        "nameSource": "MOLINS DE REI",
+        "qid": "Q15624",
+        "wikipedia": "https://es.wikipedia.org/wiki/Molins_de_Rey",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "palleja",
+        "locationName": "Pallejà",
+        "nameSource": "PALLEJÀ",
+        "qid": "Q15627",
+        "wikipedia": "https://es.wikipedia.org/wiki/Pallej%C3%A1",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-feliu-de-llobregat",
+        "locationName": "Sant Feliu de Llobregat",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Municipio de la BD sin entrada en la fuente."
+        ],
+        "proposedQid": "Q15639",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Sant_Feliu_de_Llobregat"
+      },
+      {
+        "locationSlug": "sant-joan-despi",
+        "locationName": "Sant Joan Despí",
+        "nameSource": "SANT JOAN DESPÍ",
+        "qid": "Q15640",
+        "wikipedia": "https://es.wikipedia.org/wiki/Sant_Joan_Desp%C3%AD",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-vicenc-dels-horts",
+        "locationName": "Sant Vicenç dels Horts",
+        "nameSource": "SANT VICENÇ DELS HORTS",
+        "qid": "Q15649",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Vicente_dels_Horts",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "vallirana",
+        "locationName": "Vallirana",
+        "nameSource": "VALLIRANA",
+        "qid": "Q15651",
+        "wikipedia": "https://es.wikipedia.org/wiki/Vallirana",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "santa-coloma-de-gramenet": {
+    "judicialDistrict": "Santa Coloma de Gramenet",
+    "partido": {
+      "nameSource": "SANTA COLOMA DE GRAMENET",
+      "qid": null,
+      "wikipedia": null,
+      "mapsUrl": "https://maps.google.com/?cid=16068413496007518461",
+      "plusCode": "F622+7X Santa Coloma de Gramenet",
+      "address": "Plaça d'en Baró, 6, 08921 Santa Coloma de Gramenet, Barcelona, España",
+      "source": "fuente",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 16068413496007518461 (sin tracking).",
+        "La fuente no trae el QID del partido judicial.",
+        "La fuente no trae la Wikipedia del partido judicial."
+      ],
+      "proposedQid": "Q117469947"
+    },
+    "municipios": [
+      {
+        "locationSlug": "santa-coloma-de-gramenet",
+        "locationName": "Santa Coloma de Gramenet",
+        "nameSource": "Santa Coloma de Gramanet",
+        "qid": "Q15473",
+        "wikipedia": "https://es.wikipedia.org/wiki/Santa_Coloma_de_Gramanet",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "terrassa": {
+    "judicialDistrict": "Terrassa",
+    "partido": {
+      "nameSource": "TERRASSA",
+      "qid": "Q117469966",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Tarrasa",
+      "mapsUrl": "https://maps.google.com/?cid=10171223262054384256",
+      "plusCode": "H225+7C Terrassa",
+      "address": "Edifici Jutjats Nous, Rambleta del Pare Alegre, 112, 08224 Terrassa, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 10171223262054384256 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "matadepera",
+        "locationName": "Matadepera",
+        "nameSource": "MATADEPERA",
+        "qid": "Q13929",
+        "wikipedia": "https://es.wikipedia.org/wiki/Matadepera",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "rellinars",
+        "locationName": "Rellinars",
+        "nameSource": "RELLINARS",
+        "qid": "Q13932",
+        "wikipedia": "https://es.wikipedia.org/wiki/Rellinars",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "terrassa",
+        "locationName": "Terrassa",
+        "nameSource": "TERRASSA",
+        "qid": "Q13939",
+        "wikipedia": "https://es.wikipedia.org/wiki/Tarrasa",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "ullastrell",
+        "locationName": "Ullastrell",
+        "nameSource": "ULLASTRELL",
+        "qid": "Q13944",
+        "wikipedia": "https://es.wikipedia.org/wiki/Ullastrell",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "vacarisses",
+        "locationName": "Vacarisses",
+        "nameSource": "VAQUERISSES",
+        "qid": "Q13945",
+        "wikipedia": "https://es.wikipedia.org/wiki/Vacarisas",
+        "matchMethod": "wikidata-label",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "viladecavalls",
+        "locationName": "Viladecavalls",
+        "nameSource": "VILADECAVALLS",
+        "qid": "Q13946",
+        "wikipedia": "https://es.wikipedia.org/wiki/Viladecavalls",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "vic": {
+    "judicialDistrict": "Vic",
+    "partido": {
+      "nameSource": null,
+      "qid": null,
+      "wikipedia": null,
+      "mapsUrl": null,
+      "plusCode": null,
+      "address": null,
+      "source": "db",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "Partido ausente en la fuente: QID/Wikipedia a completar con búsqueda en Wikidata."
+      ],
+      "proposedQid": "Q6065039",
+      "proposedWikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Vic"
+    },
+    "municipios": [
+      {
+        "locationSlug": "alpens",
+        "locationName": "Alpens",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13777",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Alpens"
+      },
+      {
+        "locationSlug": "balenya",
+        "locationName": "Balenyà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13776",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Baleny%C3%A1"
+      },
+      {
+        "locationSlug": "calldetenes",
+        "locationName": "Calldetenes",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13774",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Calldetenes"
+      },
+      {
+        "locationSlug": "castellcir",
+        "locationName": "Castellcir",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q15407",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellcir"
+      },
+      {
+        "locationSlug": "centelles",
+        "locationName": "Centelles",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13773",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Centellas"
+      },
+      {
+        "locationSlug": "collsuspina",
+        "locationName": "Collsuspina",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13779",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Collsuspina"
+      },
+      {
+        "locationSlug": "el-brull",
+        "locationName": "El Brull",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13775",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Brull"
+      },
+      {
+        "locationSlug": "folgueroles",
+        "locationName": "Folgueroles",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13782",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Folgarolas"
+      },
+      {
+        "locationSlug": "gurb",
+        "locationName": "Gurb",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13783",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Gurb"
+      },
+      {
+        "locationSlug": "l-esquirol",
+        "locationName": "L'Esquirol",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13837",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Mar%C3%ADa_de_Corc%C3%B3"
+      },
+      {
+        "locationSlug": "les-masies-de-roda",
+        "locationName": "Les Masies de Roda",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13803",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Mas%C3%ADas_de_Roda"
+      },
+      {
+        "locationSlug": "les-masies-de-voltrega",
+        "locationName": "Les Masies de Voltregà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13801",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Las_Mas%C3%ADas_de_Voltreg%C3%A1"
+      },
+      {
+        "locationSlug": "lluça",
+        "locationName": "Lluçà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13784",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Llus%C3%A1"
+      },
+      {
+        "locationSlug": "malla",
+        "locationName": "Malla",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13805",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Malla_(Barcelona)"
+      },
+      {
+        "locationSlug": "manlleu",
+        "locationName": "Manlleu",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13804",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Manlleu"
+      },
+      {
+        "locationSlug": "montesquiu",
+        "locationName": "Montesquiu",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13800",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Montesquiu"
+      },
+      {
+        "locationSlug": "muntanyola",
+        "locationName": "Muntanyola",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13799",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Montanyola"
+      },
+      {
+        "locationSlug": "olost",
+        "locationName": "Olost",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13798",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Olost"
+      },
+      {
+        "locationSlug": "oris",
+        "locationName": "Orís",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13797",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Or%C3%ADs"
+      },
+      {
+        "locationSlug": "orista",
+        "locationName": "Oristà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13796",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Orist%C3%A1"
+      },
+      {
+        "locationSlug": "perafita",
+        "locationName": "Perafita",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13795",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Perafita"
+      },
+      {
+        "locationSlug": "prats-de-llucanes",
+        "locationName": "Prats de Lluçanès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13814",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Prats_de_Llusan%C3%A9s"
+      },
+      {
+        "locationSlug": "roda-de-ter",
+        "locationName": "Roda de Ter",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13815",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Roda_de_Ter"
+      },
+      {
+        "locationSlug": "rupit-i-pruit",
+        "locationName": "Rupit i Pruit",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13816",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Rupit_y_Pru%C3%AFt"
+      },
+      {
+        "locationSlug": "sant-agusti-de-llucanes",
+        "locationName": "Sant Agustí de Lluçanès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13817",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Agust%C3%ADn_de_Llusan%C3%A9s"
+      },
+      {
+        "locationSlug": "sant-bartomeu-del-grau",
+        "locationName": "Sant Bartomeu del Grau",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13818",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Bartolom%C3%A9_del_Grau"
+      },
+      {
+        "locationSlug": "sant-boi-de-llucanes",
+        "locationName": "Sant Boi de Lluçanès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13819",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Baudilio_de_Llusan%C3%A9s"
+      },
+      {
+        "locationSlug": "sant-hipolit-de-voltrega",
+        "locationName": "Sant Hipòlit de Voltregà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13820",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Hip%C3%B3lito_de_Voltreg%C3%A1"
+      },
+      {
+        "locationSlug": "sant-julia-de-vilatorta",
+        "locationName": "Sant Julià de Vilatorta",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13821",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Juli%C3%A1n_de_Vilatorta"
+      },
+      {
+        "locationSlug": "sant-marti-d-albars",
+        "locationName": "Sant Martí d'Albars",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13822",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Mart%C3%ADn_del_Bas"
+      },
+      {
+        "locationSlug": "sant-marti-de-centelles",
+        "locationName": "Sant Martí de Centelles",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13823",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Mart%C3%ADn_de_Centellas"
+      },
+      {
+        "locationSlug": "sant-pere-de-torello",
+        "locationName": "Sant Pere de Torelló",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13828",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Pedro_de_Torell%C3%B3"
+      },
+      {
+        "locationSlug": "sant-quirze-de-besora",
+        "locationName": "Sant Quirze de Besora",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13830",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Quirico_de_Besora"
+      },
+      {
+        "locationSlug": "sant-sadurni-d-osormort",
+        "locationName": "Sant Sadurní d'Osormort",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13831",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Saturnino_de_Osormort"
+      },
+      {
+        "locationSlug": "sant-vicenc-de-torello",
+        "locationName": "Sant Vicenç de Torelló",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13833",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Vicente_de_Torell%C3%B3"
+      },
+      {
+        "locationSlug": "santa-cecilia-de-voltrega",
+        "locationName": "Santa Cecília de Voltregà",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13832",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Cecilia_de_Voltreg%C3%A1"
+      },
+      {
+        "locationSlug": "santa-eugenia-de-berga",
+        "locationName": "Santa Eugènia de Berga",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13834",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Eugenia_de_Berga"
+      },
+      {
+        "locationSlug": "santa-eulalia-de-riuprimer",
+        "locationName": "Santa Eulàlia de Riuprimer",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13836",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Eulalia_de_Riuprimer"
+      },
+      {
+        "locationSlug": "santa-maria-de-besora",
+        "locationName": "Santa Maria de Besora",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13835",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Mar%C3%ADa_de_Besora"
+      },
+      {
+        "locationSlug": "seva",
+        "locationName": "Seva",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13839",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Seva_(Espa%C3%B1a)"
+      },
+      {
+        "locationSlug": "sobremunt",
+        "locationName": "Sobremunt",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13848",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Sobremunt"
+      },
+      {
+        "locationSlug": "sora",
+        "locationName": "Sora",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13849",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Sora_(Barcelona)"
+      },
+      {
+        "locationSlug": "taradell",
+        "locationName": "Taradell",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13850",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Taradell"
+      },
+      {
+        "locationSlug": "tavernoles",
+        "locationName": "Tavèrnoles",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13851",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Tabernolas"
+      },
+      {
+        "locationSlug": "tavertet",
+        "locationName": "Tavertet",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13852",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Tavertet"
+      },
+      {
+        "locationSlug": "tona",
+        "locationName": "Tona",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13853",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Tona_(Espa%C3%B1a)"
+      },
+      {
+        "locationSlug": "torello",
+        "locationName": "Torelló",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13854",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Torell%C3%B3"
+      },
+      {
+        "locationSlug": "vic",
+        "locationName": "Vic",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13855",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Vic"
+      },
+      {
+        "locationSlug": "vilanova-de-sau",
+        "locationName": "Vilanova de Sau",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q13859",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Vilanova_de_Sau"
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "vilafranca-del-penedes": {
+    "judicialDistrict": "Vilafranca del Penedès",
+    "partido": {
+      "nameSource": null,
+      "qid": null,
+      "wikipedia": null,
+      "mapsUrl": null,
+      "plusCode": null,
+      "address": null,
+      "source": "db",
+      "status": "CORREGIDO-PROPUESTO",
+      "notes": [
+        "Partido ausente en la fuente: QID/Wikipedia a completar con búsqueda en Wikidata."
+      ],
+      "proposedQid": "Q6065049",
+      "proposedWikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Villafranca_del_Panad%C3%A9s"
+    },
+    "municipios": [
+      {
+        "locationSlug": "avinyonet-del-penedes",
+        "locationName": "Avinyonet del Penedès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q791068",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Avinyonet"
+      },
+      {
+        "locationSlug": "castellvi-de-la-marca",
+        "locationName": "Castellví de la Marca",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q765591",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Castellv%C3%AD_de_la_Marca"
+      },
+      {
+        "locationSlug": "el-pla-del-penedes",
+        "locationName": "El Pla del Penedès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q1312464",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Pla_del_Panad%C3%A9s"
+      },
+      {
+        "locationSlug": "font-rubi",
+        "locationName": "Font-rubí",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q984398",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Fontrub%C3%AD"
+      },
+      {
+        "locationSlug": "gelida",
+        "locationName": "Gelida",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q763729",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/G%C3%A9lida"
+      },
+      {
+        "locationSlug": "la-granada",
+        "locationName": "La Granada",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q1228808",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/La_Granada"
+      },
+      {
+        "locationSlug": "les-cabanyes",
+        "locationName": "Les Cabanyes",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q1228790",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Las_Cabanyas"
+      },
+      {
+        "locationSlug": "mediona",
+        "locationName": "Mediona",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q686790",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Mediona"
+      },
+      {
+        "locationSlug": "olerdola",
+        "locationName": "Olèrdola",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q1228441",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Ol%C3%A8rdola"
+      },
+      {
+        "locationSlug": "olesa-de-bonesvalls",
+        "locationName": "Olesa de Bonesvalls",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q659734",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Olesa_de_Bonesvalls"
+      },
+      {
+        "locationSlug": "pacs-del-penedes",
+        "locationName": "Pacs del Penedès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q958681",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Pachs_del_Panad%C3%A9s"
+      },
+      {
+        "locationSlug": "pontons",
+        "locationName": "Pontons",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q1229275",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Pontons"
+      },
+      {
+        "locationSlug": "puigdalber",
+        "locationName": "Puigdàlber",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q1230115",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Puigdalba"
+      },
+      {
+        "locationSlug": "sant-cugat-sesgarrigues",
+        "locationName": "Sant Cugat Sesgarrigues",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q584252",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Cugat_Sasgarrigas"
+      },
+      {
+        "locationSlug": "sant-llorenc-d-hortons",
+        "locationName": "Sant Llorenç d'Hortons",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q321918",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Lorenzo_de_Hort%C3%B3ns"
+      },
+      {
+        "locationSlug": "sant-marti-sarroca",
+        "locationName": "Sant Martí Sarroca",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q593512",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Mart%C3%ADn_Sarroca"
+      },
+      {
+        "locationSlug": "sant-pere-de-riudebitlles",
+        "locationName": "Sant Pere de Riudebitlles",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q633095",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Pedro_de_Riudevitlles"
+      },
+      {
+        "locationSlug": "sant-quinti-de-mediona",
+        "locationName": "Sant Quintí de Mediona",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q648963",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Quint%C3%ADn_de_Mediona"
+      },
+      {
+        "locationSlug": "sant-sadurni-d-anoia",
+        "locationName": "Sant Sadurní d'Anoia",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q984508",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/San_Sadurn%C3%AD_de_Noya"
+      },
+      {
+        "locationSlug": "santa-fe-del-penedes",
+        "locationName": "Santa Fe del Penedès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q920409",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Fe_del_Panad%C3%A9s"
+      },
+      {
+        "locationSlug": "santa-margarida-i-els-monjos",
+        "locationName": "Santa Margarida i els Monjos",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q660350",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Santa_Margarita_y_Monj%C3%B3s"
+      },
+      {
+        "locationSlug": "subirats",
+        "locationName": "Subirats",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q782758",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Subirats"
+      },
+      {
+        "locationSlug": "torrelavit",
+        "locationName": "Torrelavit",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q1228768",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Torrelavit"
+      },
+      {
+        "locationSlug": "torrelles-de-foix",
+        "locationName": "Torrelles de Foix",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q984393",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Torrellas_de_Foix"
+      },
+      {
+        "locationSlug": "vilafranca-del-penedes",
+        "locationName": "Vilafranca del Penedès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q835012",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Villafranca_del_Panad%C3%A9s"
+      },
+      {
+        "locationSlug": "vilobi-del-penedes",
+        "locationName": "Vilobí del Penedès",
+        "nameSource": null,
+        "qid": null,
+        "wikipedia": null,
+        "matchMethod": null,
+        "source": "wikidata-search",
+        "status": "CORREGIDO-PROPUESTO",
+        "notes": [
+          "Partido ausente en la fuente."
+        ],
+        "proposedQid": "Q1228795",
+        "proposedWikipedia": "https://es.wikipedia.org/wiki/Vilov%C3%AD"
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  },
+  "vilanova-i-la-geltru": {
+    "judicialDistrict": "Vilanova i la Geltrú",
+    "partido": {
+      "nameSource": "VILANOVA I LA GELTRÚ",
+      "qid": "Q117470023",
+      "wikipedia": "https://es.wikipedia.org/wiki/Partido_judicial_de_Villanueva_y_Geltr%C3%BA",
+      "mapsUrl": "https://maps.google.com/?cid=17581315882892468235",
+      "plusCode": "6PG8+J8 Vilanova i la Geltrú",
+      "address": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona, España",
+      "source": "fuente",
+      "status": "OK",
+      "notes": [
+        "Maps: URL reconstruida desde el CID 17581315882892468235 (sin tracking)."
+      ]
+    },
+    "municipios": [
+      {
+        "locationSlug": "canyelles",
+        "locationName": "Canyelles",
+        "nameSource": "CANYELLES",
+        "qid": "Q15559",
+        "wikipedia": "https://es.wikipedia.org/wiki/Canyellas",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "castellet-i-la-gornal",
+        "locationName": "Castellet i la Gornal",
+        "nameSource": "CASTELLET I LA GORNAL",
+        "qid": "Q1228799",
+        "wikipedia": "https://es.wikipedia.org/wiki/Castellet_y_Gornal",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "cubelles",
+        "locationName": "Cubelles",
+        "nameSource": "CUBELLES",
+        "qid": "Q15558",
+        "wikipedia": "https://es.wikipedia.org/wiki/Cubellas",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "olivella",
+        "locationName": "Olivella",
+        "nameSource": "OLIVELLA",
+        "qid": "Q15557",
+        "wikipedia": "https://es.wikipedia.org/wiki/Olivella",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sant-pere-de-ribes",
+        "locationName": "Sant Pere de Ribes",
+        "nameSource": "SANT PERE DE RIBES",
+        "qid": "Q15555",
+        "wikipedia": "https://es.wikipedia.org/wiki/San_Pedro_de_Ribas",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "sitges",
+        "locationName": "Sitges",
+        "nameSource": "SITGES",
+        "qid": "Q15551",
+        "wikipedia": "https://es.wikipedia.org/wiki/Sitges",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      },
+      {
+        "locationSlug": "vilanova-i-la-geltru",
+        "locationName": "Vilanova i la Geltrú",
+        "nameSource": "VILANOVA I LA GELTRÚ",
+        "qid": "Q15553",
+        "wikipedia": "https://es.wikipedia.org/wiki/Villanueva_y_Geltr%C3%BA",
+        "matchMethod": "nombre",
+        "source": "fuente",
+        "status": "OK",
+        "notes": []
+      }
+    ],
+    "unmatchedSource": [],
+    "orphanQids": []
+  }
+}
