@@ -7,9 +7,10 @@
  * 3. No sameAs is null, empty string, or generic "https://wikidata.org".
  * 4. WebPage node does NOT have an areaServed property.
  * 5. WebPage.mainEntity references {canonical}#service.
- * 6. All referenced @ids exist in the graph or are known global nodes
- *    (#organization, #website, #emergency-contact).
- * 7. Courthouse geo is on Courthouse, not on AdministrativeArea.
+ * 6. Courthouse has parsed address (streetAddress, postalCode, addressLocality)
+ *    and telephone in E.164. Geo remains on Courthouse (never on AdministrativeArea).
+ * 7. All referenced @ids MUST be defined within the local graph itself
+ *    (including #organization, #website, and #emergency-contact).
  *
  * Usage: npx tsx scripts/test-district-jsonld.ts
  */
@@ -24,8 +25,8 @@ const mockData: DistrictFullData = {
         name: 'Martorell',
         judicialDistrict: 'Martorell',
         officialName: 'Tribunal de Instancia de Martorell',
-        address: 'Passeig del Sindicat, 10, 08760 Martorell, Barcelona',
-        phone: '+34 937 75 12 34',
+        address: 'Passatge del Sindicat, 8, 08760 Martorell, Barcelona',
+        phone: '+34 93 773 57 00',
         fiscaliaAddress: null,
         gpsCoords: { lat: 41.4775, lng: 1.9223 },
         atestadoInfo: null,
@@ -80,7 +81,7 @@ const mockData: DistrictFullData = {
             id: 'faq1',
             position: 1,
             question: '¿Dónde está el juzgado de guardia en Martorell?',
-            answer: 'En Passeig del Sindicat, 10.',
+            answer: 'En Passatge del Sindicat, 8.',
         },
     ],
     pricing: [],
@@ -163,7 +164,7 @@ function runTests() {
     }
     console.log('✓ 4. WebPage no contiene areaServed y enlaza a #service vía mainEntity');
 
-    // 5. Courthouse node & geo placement
+    // 5. Courthouse node: postalCode, telephone, geo placement
     const courthouse = graph.find(n => n['@type'] === 'Courthouse');
     if (!courthouse) {
         throw new Error('FAILED: Falta nodo Courthouse');
@@ -180,9 +181,30 @@ function runTests() {
     if (courthouse.containedInPlace['@id'] !== 'https://www.autoridad.legal/juzgados/martorell#partido-judicial') {
         throw new Error('FAILED: Courthouse no está containedInPlace en #partido-judicial');
     }
-    console.log('✓ 5. Courthouse es un nodo independiente con geo y containedInPlace referenciando al partido');
+    if (courthouse.address?.postalCode !== '08760') {
+        throw new Error(`FAILED: Courthouse.address.postalCode incorrecto: ${courthouse.address?.postalCode}`);
+    }
+    if (courthouse.address?.streetAddress !== 'Passatge del Sindicat, 8') {
+        throw new Error(`FAILED: Courthouse.address.streetAddress incorrecto: ${courthouse.address?.streetAddress}`);
+    }
+    if (courthouse.address?.addressLocality !== 'Martorell') {
+        throw new Error(`FAILED: Courthouse.address.addressLocality incorrecto: ${courthouse.address?.addressLocality}`);
+    }
+    if (courthouse.telephone !== '+34937735700') {
+        throw new Error(`FAILED: Courthouse.telephone no está en formato E.164: ${courthouse.telephone}`);
+    }
+    console.log('✓ 5. Courthouse separa streetAddress, postalCode, addressLocality y añade telephone E.164');
 
-    // 6. ID references validation
+    // 6. Global nodes defined directly in graph
+    const org = graph.find(n => n['@id'] === 'https://www.autoridad.legal/#organization');
+    if (!org) throw new Error('FAILED: El nodo #organization no está definido en el grafo local');
+    const contact = graph.find(n => n['@id'] === 'https://www.autoridad.legal/#emergency-contact');
+    if (!contact) throw new Error('FAILED: El nodo #emergency-contact no está definido en el grafo local');
+    const website = graph.find(n => n['@id'] === 'https://www.autoridad.legal/#website');
+    if (!website) throw new Error('FAILED: El nodo #website no está definido en el grafo local');
+    console.log('✓ 6. Nodos globales #organization, #emergency-contact y #website definidos en el propio grafo');
+
+    // 7. Strict ID references validation: ALL referenced @ids MUST be defined within this graph
     const collectIds = (obj: any, ids = new Set<string>()): Set<string> => {
         if (!obj || typeof obj !== 'object') return ids;
         if (obj['@id'] && typeof obj['@id'] === 'string') ids.add(obj['@id']);
@@ -197,18 +219,13 @@ function runTests() {
     };
 
     const definedIds = collectIds(graph);
-    const globalIds = new Set([
-        'https://www.autoridad.legal/#organization',
-        'https://www.autoridad.legal/#website',
-        'https://www.autoridad.legal/#emergency-contact',
-    ]);
 
     const verifyRef = (ref: any, context: string) => {
         if (!ref) return;
         if (typeof ref === 'object' && ref['@id']) {
             const id = ref['@id'];
-            if (!definedIds.has(id) && !globalIds.has(id)) {
-                throw new Error(`FAILED: Referencia @id desconocida "${id}" en ${context}`);
+            if (!definedIds.has(id)) {
+                throw new Error(`FAILED: Referencia @id no resuelta en el grafo local: "${id}" en ${context}`);
             }
         }
     };
@@ -220,8 +237,10 @@ function runTests() {
     verifyRef(webPage.publisher, 'WebPage.publisher');
     verifyRef(webPage.about, 'WebPage.about');
     verifyRef(webPage.breadcrumb, 'WebPage.breadcrumb');
+    verifyRef(webPage.mainEntity, 'WebPage.mainEntity');
     verifyRef(courthouse.containedInPlace, 'Courthouse.containedInPlace');
-    console.log('✓ 6. Todas las referencias @id del grafo son consistentes y resuelven correctamente');
+    verifyRef(org.contactPoint, 'Organization.contactPoint');
+    console.log('✓ 7. CERO referencias huérfanas: todos los @id referenciados existen en el grafo de la página');
 
     console.log('\nTODOS LOS TESTS PASARON CON ÉXITO (7/7)');
 }

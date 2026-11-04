@@ -6,20 +6,88 @@ export interface FaqItem {
     answer: string;
 }
 
+export const ORGANIZATION_ID = 'https://www.autoridad.legal/#organization';
+export const WEBSITE_ID = 'https://www.autoridad.legal/#website';
+export const EMERGENCY_CONTACT_ID = 'https://www.autoridad.legal/#emergency-contact';
+
+export const ORGANIZATION_SAME_AS = [
+    'https://www.linkedin.com/company/135936660/',
+    'https://www.facebook.com/profile.php?id=61591553736969',
+    'https://www.instagram.com/autoridad.legal/',
+    'https://x.com/AutoridadLegal_',
+    'https://www.youtube.com/@Autoridad_Legal'
+];
+
+/**
+ * Returns the minimal WebSite node (#website).
+ */
+export function getWebsiteNode() {
+    return {
+        '@type': 'WebSite',
+        '@id': WEBSITE_ID,
+        'url': 'https://www.autoridad.legal',
+        'name': 'Autoridad Legal',
+        'inLanguage': 'es'
+    };
+}
+
+/**
+ * Returns the emergency ContactPoint node (#emergency-contact).
+ */
+export function getEmergencyContactNode() {
+    return {
+        '@type': 'ContactPoint',
+        '@id': EMERGENCY_CONTACT_ID,
+        'telephone': PHONE_E164,
+        'contactType': 'emergency',
+        'url': `tel:${PHONE_E164}`,
+        'availableLanguage': ['es', 'ca'],
+        'areaServed': 'ES-B',
+        'hoursAvailable': {
+            '@type': 'OpeningHoursSpecification',
+            'dayOfWeek': [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday'
+            ],
+            'opens': '00:00',
+            'closes': '23:59'
+        }
+    };
+}
+
+/**
+ * Returns the core reduced Organization node (#organization)
+ * for use in subpage graphs (like /juzgados/*).
+ */
+export function getOrganizationCoreNode() {
+    return {
+        '@type': ['LegalService', 'Organization'],
+        '@id': ORGANIZATION_ID,
+        'name': 'Autoridad Legal',
+        'url': 'https://www.autoridad.legal',
+        'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
+        'telephone': PHONE_E164,
+        'contactPoint': {
+            '@id': EMERGENCY_CONTACT_ID
+        },
+        'sameAs': ORGANIZATION_SAME_AS
+    };
+}
+
 export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
     const graphNodes: any[] = [
         {
-            '@type': ['LegalService', 'Organization'],
-            '@id': 'https://www.autoridad.legal/#organization',
-            'name': 'Autoridad Legal',
+            ...getOrganizationCoreNode(),
             'legalName': 'Santiago Giménez Olavarriaga',
             'taxID': '46358445J',
             'description': 'Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa urgente 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin carné y casos de conductores profesionales, con honorarios cerrados y tasados por escrito (IVA y procurador incluidos).',
-            'url': 'https://www.autoridad.legal',
-            'telephone': PHONE_E164,
             'email': 'contacto@autoridad.legal',
             'image': DEFAULT_OG_IMAGE,
-            'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
             'priceRange': `${PRICING_SUMMARY.basePriceNumber}€–${PRICING_SUMMARY.proPriceNumber}€`,
             'knowsLanguage': ['es', 'ca'],
             'address': {
@@ -35,29 +103,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                 'name': 'Provincia de Barcelona'
             },
             'contactPoint': [
-                {
-                    '@type': 'ContactPoint',
-                    '@id': 'https://www.autoridad.legal/#emergency-contact',
-                    'telephone': PHONE_E164,
-                    'contactType': 'emergency',
-                    'url': `tel:${PHONE_E164}`,
-                    'availableLanguage': ['es', 'ca'],
-                    'areaServed': 'ES-B',
-                    'hoursAvailable': {
-                        '@type': 'OpeningHoursSpecification',
-                        'dayOfWeek': [
-                            'Monday',
-                            'Tuesday',
-                            'Wednesday',
-                            'Thursday',
-                            'Friday',
-                            'Saturday',
-                            'Sunday'
-                        ],
-                        'opens': '00:00',
-                        'closes': '23:59'
-                    }
-                }
+                getEmergencyContactNode()
             ],
             'founder': {
                 '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person'
@@ -174,13 +220,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                     }
                 ]
             },
-            'sameAs': [
-                'https://www.linkedin.com/company/135936660/',
-                'https://www.facebook.com/profile.php?id=61591553736969',
-                'https://www.instagram.com/autoridad.legal/',
-                'https://x.com/AutoridadLegal_',
-                'https://www.youtube.com/@Autoridad_Legal'
-            ]
+            'sameAs': ORGANIZATION_SAME_AS
         }
     ];
 

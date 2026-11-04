@@ -1,5 +1,13 @@
 import { DistrictFullData, DistrictMunicipality } from '@/lib/db/district-content';
 import { PHONE_E164 } from '@/lib/config';
+import {
+    getOrganizationCoreNode,
+    getEmergencyContactNode,
+    getWebsiteNode,
+    ORGANIZATION_ID,
+    EMERGENCY_CONTACT_ID,
+    WEBSITE_ID,
+} from '@/lib/seo/home-jsonld';
 
 export interface DistrictJsonLdOptions {
     canonicalUrl?: string;
@@ -20,6 +28,45 @@ function cleanSameAs(wikidataQid?: string | null, wikipediaUrl?: string | null):
 }
 
 /**
+ * Normalizes phone number to E.164 (+34...).
+ */
+export function formatE164Phone(rawPhone: string | null | undefined): string | null {
+    if (!rawPhone) return null;
+    const digits = rawPhone.replace(/[^\d+]/g, '');
+    if (!digits) return null;
+    if (digits.startsWith('+')) return digits;
+    if (digits.startsWith('34')) return `+${digits}`;
+    return `+34${digits}`;
+}
+
+/**
+ * Parses courts.address into streetAddress, postalCode, and addressLocality.
+ * Expects pattern: "{street}, {08xxx} {locality}[, Barcelona]"
+ * If pattern does not match, falls back to full streetAddress without inventing values.
+ */
+export function parseCourtAddress(raw: string | null | undefined): {
+    streetAddress: string;
+    postalCode: string | null;
+    addressLocality: string | null;
+} | null {
+    if (!raw) return null;
+    const trimmed = raw.trim();
+    const match = trimmed.match(/^(.*?),\s*(08\d{3})\s+([^,]+?)(?:,\s*Barcelona)?$/i);
+    if (match) {
+        return {
+            streetAddress: match[1].trim(),
+            postalCode: match[2].trim(),
+            addressLocality: match[3].trim(),
+        };
+    }
+    return {
+        streetAddress: trimmed,
+        postalCode: null,
+        addressLocality: null,
+    };
+}
+
+/**
  * Builds the schema.org @graph for a judicial district page (/juzgados/[slug]).
  *
  * Strict schema.org rules applied:
@@ -30,7 +77,10 @@ function cleanSameAs(wikidataQid?: string | null, wikipediaUrl?: string | null):
  * 3. AdministrativeArea containsPlace lists all municipalities with Wikidata/Wikipedia sameAs.
  * 4. Courthouse is a standalone node (#courthouse) referenced by WebPage.about,
  *    containedInPlace -> #partido-judicial, geo on Courthouse (never on AdministrativeArea).
- * 5. Reuses global #organization, #website, and #emergency-contact identifiers.
+ *    Address is cleanly parsed into streetAddress, postalCode, addressLocality, and telephone in E.164.
+ * 5. Global nodes (#organization, #website, and #emergency-contact) are explicitly defined
+ *    within the page graph using the shared core helpers from home-jsonld.ts, so Google can
+ *    resolve every @id reference locally without any dangling pointers.
  */
 export function buildDistrictJsonLdGraph(data: DistrictFullData, options: DistrictJsonLdOptions = {}) {
     const canonical = options.canonicalUrl || `https://www.autoridad.legal/juzgados/${data.slug}`;
@@ -68,13 +118,25 @@ export function buildDistrictJsonLdGraph(data: DistrictFullData, options: Distri
     };
 
     if (court.address) {
-        courthouseNode.address = {
+        const parsed = parseCourtAddress(court.address);
+        const postalAddress: Record<string, any> = {
             '@type': 'PostalAddress',
-            streetAddress: court.address,
-            addressLocality: partido,
+            streetAddress: parsed?.streetAddress || court.address,
+            addressLocality: parsed?.addressLocality || partido,
             addressRegion: 'Barcelona',
             addressCountry: 'ES',
         };
+        if (parsed?.postalCode) {
+            postalAddress.postalCode = parsed.postalCode;
+        }
+        courthouseNode.address = postalAddress;
+    }
+
+    if (court.phone) {
+        const e164 = formatE164Phone(court.phone);
+        if (e164) {
+            courthouseNode.telephone = e164;
+        }
     }
 
     if (court.gpsCoords) {
@@ -125,14 +187,14 @@ export function buildDistrictJsonLdGraph(data: DistrictFullData, options: Distri
         name: `Abogado para juicio rápido en ${partido}`,
         serviceType: 'Defensa penal en delitos contra la seguridad vial (juicio rápido)',
         provider: {
-            '@id': 'https://www.autoridad.legal/#organization',
+            '@id': ORGANIZATION_ID,
         },
         url: canonical,
         areaServed: administrativeAreaNode,
         availableChannel: {
             '@type': 'ServiceChannel',
             servicePhone: {
-                '@id': 'https://www.autoridad.legal/#emergency-contact',
+                '@id': EMERGENCY_CONTACT_ID,
             },
         },
     };
@@ -146,13 +208,13 @@ export function buildDistrictJsonLdGraph(data: DistrictFullData, options: Distri
         description: pageDescription,
         inLanguage: 'es',
         isPartOf: {
-            '@id': 'https://www.autoridad.legal/#website',
+            '@id': WEBSITE_ID,
         },
         provider: {
-            '@id': 'https://www.autoridad.legal/#organization',
+            '@id': ORGANIZATION_ID,
         },
         publisher: {
-            '@id': 'https://www.autoridad.legal/#organization',
+            '@id': ORGANIZATION_ID,
         },
         breadcrumb: {
             '@id': breadcrumbId,
@@ -209,7 +271,20 @@ export function buildDistrictJsonLdGraph(data: DistrictFullData, options: Distri
               }
             : null;
 
-    const graph = [webPageNode, serviceNode, courthouseNode, breadcrumbNode];
+    // 8. Shared global nodes defined right inside the page graph
+    const organizationNode = getOrganizationCoreNode();
+    const emergencyContactNode = getEmergencyContactNode();
+    const websiteNode = getWebsiteNode();
+
+    const graph: any[] = [
+        webPageNode,
+        serviceNode,
+        courthouseNode,
+        breadcrumbNode,
+        organizationNode,
+        emergencyContactNode,
+        websiteNode,
+    ];
     if (faqNode) {
         graph.push(faqNode);
     }
