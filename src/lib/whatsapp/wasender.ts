@@ -27,7 +27,7 @@ export async function sendWhatsAppMessage(to: string, text: string) {
                 params: {
                     name: "send_text_message",
                     arguments: {
-                        session_id: sessionId,
+                        session_id: Number(sessionId),
                         to: cleanTo,
                         text: text
                     }
