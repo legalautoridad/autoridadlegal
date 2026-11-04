@@ -14,6 +14,7 @@ import {
 import { DistrictMunicipalitySection } from '@/components/juicio-rapido/DistrictMunicipalitySection';
 import { Phone, MessageCircle, AlertTriangle, MapPin, ExternalLink } from 'lucide-react';
 import { DEFAULT_OG_IMAGE, PHONE_E164, WHATSAPP_URL } from '@/lib/config';
+import { buildDistrictJsonLdGraph } from '@/lib/seo/district-jsonld';
 
 export const revalidate = 3600; // ISR 1 hour
 
@@ -185,100 +186,18 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
         answer: `${PRICING_SUMMARY.basePriceDisplay} (IVA incluido) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet; ${PRICING_SUMMARY.proPriceDisplay} para conductores profesionales. Los recargos están tasados y se comunican por escrito y por adelantado.`,
     });
 
-    // PASO 2: JSON-LD en un único @graph (sin crear Organization ni Person nuevos)
-    const courthouseNode: Record<string, any> = {
-        '@type': 'Courthouse',
-        '@id': `${canonicalUrl}#courthouse`,
-        name: oficial,
-    };
-    if (court.address) {
-        courthouseNode.address = {
-            '@type': 'PostalAddress',
-            streetAddress: court.address,
-            addressLocality: partido,
-            addressRegion: 'Barcelona',
-            addressCountry: 'ES',
-        };
-    }
-    if (court.gpsCoords) {
-        courthouseNode.geo = {
-            '@type': 'GeoCoordinates',
-            latitude: court.gpsCoords.lat,
-            longitude: court.gpsCoords.lng,
-        };
-    }
-
-    const jsonLdGraph = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'WebPage',
-                '@id': `${canonicalUrl}#webpage`,
-                url: canonicalUrl,
-                name: pageTitle,
-                description: pageDescription,
-                inLanguage: 'es',
-                isPartOf: {
-                    '@id': 'https://www.autoridad.legal/#website',
-                },
-                provider: {
-                    '@id': 'https://www.autoridad.legal/#organization',
-                },
-                publisher: {
-                    '@id': 'https://www.autoridad.legal/#organization',
-                },
-                breadcrumb: {
-                    '@id': `${canonicalUrl}#breadcrumb`,
-                },
-                about: courthouseNode,
-                areaServed: municipalities.map(m => ({
-                    '@type': 'City',
-                    name: m.name,
-                })),
-            },
-            {
-                '@type': 'BreadcrumbList',
-                '@id': `${canonicalUrl}#breadcrumb`,
-                itemListElement: [
-                    {
-                        '@type': 'ListItem',
-                        position: 1,
-                        name: 'Inicio',
-                        item: 'https://www.autoridad.legal',
-                    },
-                    {
-                        '@type': 'ListItem',
-                        position: 2,
-                        name: 'Juicio rápido',
-                        item: 'https://www.autoridad.legal/juzgados',
-                    },
-                    {
-                        '@type': 'ListItem',
-                        position: 3,
-                        name: partido,
-                        item: canonicalUrl,
-                    },
-                ],
-            },
-            {
-                '@type': 'FAQPage',
-                '@id': `${canonicalUrl}#faq`,
-                mainEntity: faqs.map(faq => ({
-                    '@type': 'Question',
-                    name: faq.question,
-                    acceptedAnswer: {
-                        '@type': 'Answer',
-                        text: faq.answer,
-                    },
-                })),
-            },
-        ],
-    };
+    // PASO 2: JSON-LD en un único @graph (helper puro y testeable)
+    const jsonLdGraph = buildDistrictJsonLdGraph(data, {
+        canonicalUrl,
+        pageTitle,
+        pageDescription,
+        faqs,
+    });
 
     const googleMapsQuery = encodeURIComponent(
         court.address ? `${oficial}, ${court.address}` : oficial
     );
-    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${googleMapsQuery}`;
+    const googleMapsUrl = court.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${googleMapsQuery}`;
     const mapEmbedUrl = court.gpsCoords
         ? `https://www.openstreetmap.org/export/embed.html?bbox=${court.gpsCoords.lng - 0.006}%2C${court.gpsCoords.lat - 0.004}%2C${court.gpsCoords.lng + 0.006}%2C${court.gpsCoords.lat + 0.004}&layer=mapnik&marker=${court.gpsCoords.lat}%2C${court.gpsCoords.lng}`
         : null;
