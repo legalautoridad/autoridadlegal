@@ -202,3 +202,4 @@ export function processTriageStep(
         outMsgTextToSend: shouldResendC ? WHATSAPP_MESSAGES.MENSAJE_C(leadName) : null,
     };
 }
+

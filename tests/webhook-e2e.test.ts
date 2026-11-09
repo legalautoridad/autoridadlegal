@@ -106,3 +106,4 @@ test('E2E Webhook: Lead creation, state advancement and idempotency in Supabase'
     // Clean up test lead
     await supabase.from('leads').delete().eq('phone', testPhone);
 });
+

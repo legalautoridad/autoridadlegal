@@ -21,3 +21,4 @@ ALTER TABLE public.whatsapp_events ENABLE ROW LEVEL SECURITY;
 CREATE INDEX IF NOT EXISTS leads_whatsapp_phone_idx 
   ON public.leads (phone) 
   WHERE systemin = 'whatsapp';
+

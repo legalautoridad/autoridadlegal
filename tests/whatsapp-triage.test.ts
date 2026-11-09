@@ -255,3 +255,4 @@ test('Classification: Incident keywords and city detection', () => {
     assert.strictEqual(detectCity('Fue en Hospitalet de Llobregat', locations), 'Hospitalet de Llobregat');
     assert.strictEqual(detectCity('No sé en qué pueblo era', locations), null);
 });
+

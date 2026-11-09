@@ -227,7 +227,7 @@ export async function POST(req: NextRequest) {
                 direction: 'out',
                 type: 'text',
                 text: decision.outMsgTextToSend,
-                message_id: sendResult.result?.response?.data?.key?.id || null,
+                message_id: (sendResult.result?.response as any)?.data?.key?.id || null,
                 timestamp: new Date().toISOString(),
             };
 
