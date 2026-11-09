@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getArticlesAdmin, upsertArticle, deleteArticle, getAuthorsAdmin, uploadArticleImage } from '@/lib/actions/articles';
 import { getLocationsAdmin } from '@/lib/actions/locations';
-import { FileText, Trash2, Edit2, Plus, ArrowLeft, Search, X, CheckCircle2, Circle, Globe, User, Tag, MapPin } from 'lucide-react';
+import { FileText, Trash2, Edit2, Plus, ArrowLeft, Search, X, CheckCircle2, Circle, User, Tag, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ArticleManagementPage() {
@@ -420,14 +420,6 @@ export default function ArticleManagementPage() {
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex justify-end gap-2">
-                                                <a
-                                                    href={`/blog/${art.slug}`}
-                                                    target="_blank"
-                                                    className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
-                                                    title="Ver en el sitio"
-                                                >
-                                                    <Globe className="h-4 w-4" />
-                                                </a>
                                                 <button
                                                     onClick={() => openEdit(art)}
                                                     className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"

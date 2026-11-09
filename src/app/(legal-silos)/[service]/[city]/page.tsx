@@ -1,4 +1,4 @@
-import { permanentRedirect } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import MAPA from '@/data/municipio-a-partido.json';
 
 const PARTIDOS = MAPA as Record<string, string>;
@@ -22,7 +22,10 @@ interface LeafPageProps {
  */
 export default async function LocalizedServiceLeafPage({ params }: LeafPageProps) {
     const { service, city } = await params;
-    const servicio = SERVICIOS[(service ?? '').toLowerCase()] || 'alcoholemia';
+    const servicio = SERVICIOS[(service ?? '').toLowerCase()];
+    if (!servicio) {
+        return notFound();
+    }
     let municipio = city ?? '';
     try {
         municipio = decodeURIComponent(municipio);

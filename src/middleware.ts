@@ -17,6 +17,36 @@ const SERVICIOS: Record<string, string> = {
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
+    // 0. HTTP 410 Gone for retired URLs (/recursos, /blog/*)
+    if (
+        pathname === '/recursos' ||
+        pathname.startsWith('/recursos/') ||
+        pathname === '/blog' ||
+        pathname.startsWith('/blog/')
+    ) {
+        return new NextResponse(
+            `<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>410 Gone - Autoridad Legal</title>
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+    <h1>410 Gone</h1>
+    <p>El recurso solicitado ha sido eliminado permanentemente de este servidor.</p>
+</body>
+</html>`,
+            {
+                status: 410,
+                headers: {
+                    'Content-Type': 'text/html; charset=utf-8',
+                    'X-Robots-Tag': 'noindex, nofollow',
+                },
+            }
+        );
+    }
+
     // 1. 301 Redirects for /{servicio}/{municipio} -> /juzgados/{partido} and /sin_carnet -> /sin-carnet
     const partes = pathname.split('/').filter(Boolean);
     const servicio = SERVICIOS[(partes[0] ?? '').toLowerCase()];
@@ -89,6 +119,10 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
+        '/recursos',
+        '/recursos/:path*',
+        '/blog',
+        '/blog/:path*',
         '/alcoholemia/:path+',
         '/drogas/:path+',
         '/velocidad/:path+',
