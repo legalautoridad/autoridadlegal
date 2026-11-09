@@ -3,7 +3,7 @@ import { Lock, ShieldCheck, Trash2, EyeOff, Database, UserCheck, FileText, Phone
 import { DEFAULT_OG_IMAGE } from '@/lib/config';
 
 export const metadata: Metadata = {
-    title: 'Política de Privacidad ("GDPR Búnker") | Autoridad Legal',
+    title: 'Política de privacidad | Autoridad Legal',
     description: 'Política de privacidad y protección de datos conforme al RGPD. Protocolos de OCR Efímero (destrucción en 24h), Data Sanitization y seguridad avanzada.',
     robots: {
         index: false,
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         canonical: 'https://www.autoridad.legal/legal/privacy',
     },
     openGraph: {
-        title: 'Política de Privacidad ("GDPR Búnker")',
+        title: 'Política de privacidad | Autoridad Legal',
         description: 'Política de privacidad y protección de datos conforme al RGPD.',
         url: 'https://www.autoridad.legal/legal/privacy',
         siteName: 'Autoridad Legal',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Política de Privacidad ("GDPR Búnker")',
+        title: 'Política de privacidad | Autoridad Legal',
         description: 'Política de privacidad y protección de datos conforme al RGPD.',
         images: [DEFAULT_OG_IMAGE],
     },
