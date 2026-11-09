@@ -1,63 +1,65 @@
 export async function sendWhatsAppMessage(to: string, text: string) {
-    const url = process.env.WASENDER_MCP_URL;
-    const token = process.env.WASENDER_MCP_TOKEN;
-    const sessionId = process.env.WASENDER_SESSION_ID;
+    const apiKey = process.env.WASENDER_API_KEY;
 
-    if (!url || !token || !sessionId) {
-        console.error("[WASENDER] Missing configuration", { url: !!url, token: !!token, sessionId: !!sessionId });
-        return { success: false, error: "Missing configuration" };
+    // Clean phone number (keep only digits)
+    const cleanTo = to.replace(/\D/g, '');
+    if (!cleanTo) {
+        console.error('[WASENDER] Invalid recipient phone number:', to);
+        return { success: false, error: 'Invalid recipient phone number' };
+    }
+
+    if (!apiKey) {
+        console.error('[WASENDER] Missing WASENDER_API_KEY configuration');
+        return { success: false, error: 'Missing WASENDER_API_KEY configuration' };
     }
 
     try {
-        // Cleaning phone number (remove +, spaces, etc.)
-        const cleanTo = to.replace(/\D/g, '');
-        const targetUrl = url;
+        // Add a natural 2-second delay before replying so WhatsApp does not flag sub-second automated replies on newly linked devices
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
-        console.log(`[WASENDER] Sending message to ${cleanTo} via ${targetUrl}...`);
+        const restUrl = 'https://wasenderapi.com/api/send-message';
+        console.log(`[WASENDER] Sending message to +${cleanTo} via REST API...`);
 
-        const response = await fetch(targetUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                jsonrpc: "2.0",
-                method: "tools/call",
-                params: {
-                    name: "send_text_message",
-                    arguments: {
-                        session_id: sessionId,
-                        to: cleanTo,
-                        text: text
-                    }
+        const sendViaRest = async () => {
+            const restRes = await fetch(restUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`,
                 },
-                id: "1"
-            })
-        });
+                body: JSON.stringify({
+                    to: `+${cleanTo}`,
+                    text,
+                }),
+            });
+            const contentType = restRes.headers.get('content-type') || '';
+            const restResult = contentType.includes('application/json')
+                ? await restRes.json()
+                : { raw: await restRes.text() };
+            return { status: restRes.status, ok: restRes.ok, body: restResult };
+        };
 
-        console.log(`[WASENDER] Response status: ${response.status}`);
-        
-        let result;
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-            result = await response.json();
-        } else {
-            result = { error: await response.text() };
+        let attempt = await sendViaRest();
+
+        // If WaSender Account Protection rate-limits (1 message every 5 seconds), wait and retry once (never bypass via MCP)
+        if (attempt.status === 429) {
+            const waitSec = Number(attempt.body?.retry_after) || 6;
+            console.log(`[WASENDER] Rate limited (429), waiting ${waitSec}s before retry...`);
+            await new Promise(resolve => setTimeout(resolve, (waitSec + 1) * 1000));
+            attempt = await sendViaRest();
         }
-        
-        console.log(`[WASENDER] Response body:`, JSON.stringify(result));
 
-        if (!response.ok) {
-            console.error("[WASENDER] API Error:", result);
-            return { success: false, error: result };
+        console.log(`[WASENDER] REST status: ${attempt.status}, body:`, JSON.stringify(attempt.body));
+
+        if (attempt.ok && attempt.body?.success !== false) {
+            console.log(`[WASENDER] Message sent successfully to +${cleanTo}`);
+            return { success: true, data: attempt.body };
         }
 
-        console.log(`[WASENDER] Message sent successfully to ${cleanTo}`);
-        return { success: true, data: result };
-
+        console.error('[WASENDER] API Error:', attempt.body);
+        return { success: false, error: attempt.body };
     } catch (error) {
-        console.error("[WASENDER] Network/Server Error:", error);
-        return { success: false, error: error };
+        console.error('[WASENDER] Network/Server Error:', error);
+        return { success: false, error };
     }
 }

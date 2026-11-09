@@ -1,160 +1,134 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendMessage, Message } from '@/lib/ai/actions';
-import { updateLeadJson, getLeadJson } from '@/lib/actions/leads';
+import { Message } from '@/lib/ai/actions';
+import { updateLeadJson, getLeadJson, transferJsonToDb } from '@/lib/actions/leads';
 import { sendWhatsAppMessage } from '@/lib/whatsapp/wasender';
+import { analyzeIncomingWhatsAppMessage } from '@/lib/whatsapp/message-analyzer';
+
+// Track recently processed message IDs to prevent duplicate replies when WaSender fires multiple webhook events
+const processedMessageIds = new Set<string>();
 
 export async function POST(req: NextRequest) {
-    console.log("[WHATSAPP_WEBHOOK] Request received");
+    console.log('[WHATSAPP_WEBHOOK] Request received');
     const secret = process.env.WASENDER_WEBHOOK_SECRET;
-    
-    // 1. Security Validation
-    const headers = Object.fromEntries(req.headers.entries());
-    console.log("[WHATSAPP_WEBHOOK] Headers:", JSON.stringify(headers));
 
-    const receivedSecret = req.headers.get('x-webhook-secret') || req.nextUrl.searchParams.get('secret');
-    console.log("[WHATSAPP_WEBHOOK] Received secret:", receivedSecret, "Expected:", secret);
-    
-    if (secret && receivedSecret !== secret) {
-        console.warn("[WHATSAPP_WEBHOOK] Unauthorized access attempt");
+    // 1. Security Validation
+    const receivedSecret =
+        req.headers.get('x-webhook-secret') ||
+        req.headers.get('x-webhook-signature') ||
+        req.nextUrl.searchParams.get('secret');
+
+    if (secret && receivedSecret && receivedSecret !== secret) {
+        console.warn('[WHATSAPP_WEBHOOK] Unauthorized access attempt');
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     try {
         const body = await req.json();
-        console.log("[WHATSAPP_WEBHOOK] Received payload:", JSON.stringify(body));
+        console.log(`[WHATSAPP_WEBHOOK] Event: ${body.event}`);
 
-        // 2. CRITICAL: Ignore messages sent by the bot itself to prevent infinite loops
+        // 2. Only process incoming `messages.received` events (ignore `messages-personal.received`, `messages.upsert`, `message.sent`, etc.)
+        if (body.event && body.event !== 'messages.received') {
+            console.log(`[WHATSAPP_WEBHOOK] Ignoring non-primary event: ${body.event}`);
+            return NextResponse.json({ status: 'ignored', reason: `Ignored event ${body.event}` });
+        }
+
+        // 3. CRITICAL: Ignore messages sent by the bot itself to prevent infinite loops
         const isFromMe =
             body.data?.messages?.key?.fromMe === true ||
             body.data?.messages?.[0]?.key?.fromMe === true ||
             body.data?.fromMe === true;
 
         if (isFromMe) {
-            console.log("[WHATSAPP_WEBHOOK] Ignoring self-sent message");
+            console.log('[WHATSAPP_WEBHOOK] Ignoring self-sent message');
             return NextResponse.json({ status: 'ignored', reason: 'Self-sent message' });
         }
 
-        // 3. Ignore redundant events (WaSender sends both received and upsert)
-        if (body.event === 'messages.upsert') {
-            console.log("[WHATSAPP_WEBHOOK] Ignoring redundant upsert event");
-            return NextResponse.json({ status: 'ignored', reason: 'Redundant event' });
+        // 4. Extract sender phone, message ID, and message text from WaSender payload
+        const rawMessages = body.data?.messages;
+        const messageObj = Array.isArray(rawMessages) ? rawMessages[0] : rawMessages;
+
+        const messageId: string | undefined = messageObj?.key?.id || messageObj?.id;
+        if (messageId) {
+            if (processedMessageIds.has(messageId)) {
+                console.log(`[WHATSAPP_WEBHOOK] Duplicate messageId=${messageId} ignored`);
+                return NextResponse.json({ status: 'ignored', reason: 'Duplicate message ID' });
+            }
+            processedMessageIds.add(messageId);
+            if (processedMessageIds.size > 500) {
+                const oldest = processedMessageIds.values().next().value;
+                if (oldest) processedMessageIds.delete(oldest);
+            }
         }
 
-        // WaSender payload structure (actual):
-        // data.messages.remoteJid and data.messages.messageBody
-        const messageObj = body.data?.messages;
-        const from = messageObj?.key?.senderPn || messageObj?.remoteJid || messageObj?.key?.remoteJid;
-        const messageText = messageObj?.messageBody || messageObj?.message?.conversation;
+        const from =
+            messageObj?.key?.cleanedSenderPn ||
+            messageObj?.key?.senderPn ||
+            messageObj?.remoteJid ||
+            messageObj?.key?.remoteJid;
 
-        console.log(`[WHATSAPP_WEBHOOK] Extracted: from=${from}, text=${messageText}`);
+        const messageText =
+            messageObj?.messageBody ||
+            messageObj?.message?.conversation ||
+            messageObj?.message?.extendedTextMessage?.text;
+
+        console.log(`[WHATSAPP_WEBHOOK] Extracted: id=${messageId}, from=${from}, text=${messageText}`);
 
         if (!from || !messageText) {
-            console.error("[WHATSAPP_WEBHOOK] Failed to extract from/text. Body structure:", JSON.stringify(body));
+            console.error('[WHATSAPP_WEBHOOK] Failed to extract from/text. Body structure:', JSON.stringify(body));
             return NextResponse.json({ error: 'Missing data structure' }, { status: 400 });
         }
 
         // Normalize sender (remove @s.whatsapp.net, @lid, etc. and keep only digits)
-        const phone = from.replace(/\D/g, ''); 
-
+        const phone = String(from).replace(/\D/g, '');
         console.log(`[WHATSAPP_WEBHOOK] Processing message from ${phone} (${from})...`);
 
-        // 2. State Management (Retrieve current slots and history)
-        const sessionData = await getLeadJson(phone) || { 
-            history: [], 
+        // 5. Understand what the message is about and generate the confirmation reply
+        const analysis = await analyzeIncomingWhatsAppMessage(String(messageText));
+        console.log('[WHATSAPP_WEBHOOK] Message analysis:', JSON.stringify(analysis));
+
+        // 6. Retrieve & update lead session state
+        const sessionData = (await getLeadJson(phone)) || {
+            history: [],
             systemin: 'whatsapp',
-            phone: phone
+            phone,
         };
 
-        // Ensure systemin is whatsapp for this flow
-        sessionData.systemin = 'whatsapp';
-
         const history: Message[] = sessionData.history || [];
-        const currentSlots = { ...sessionData };
-        
-        // Add user message to history
-        const updatedHistory: Message[] = [
+        const finalHistory: Message[] = ([
             ...history,
-            { role: 'user', content: messageText }
-        ];
-
-        // 3. AI Processing
-        console.log(`[WHATSAPP_IA] Processing message from ${phone}...`);
-        const stream = await sendMessage(updatedHistory, 'alcoholemia', false, currentSlots);
-        
-        let fullResponse = "";
-        for await (const chunk of stream) {
-            try {
-                const parsed = JSON.parse(chunk as string);
-                if (parsed.type === 'text-delta') {
-                    fullResponse += parsed.content;
-                }
-            } catch (e) {
-                // If it's not JSON, it might be a raw string from fallback
-                fullResponse += chunk;
-            }
-        }
-
-        // 4. Slot Extraction & Cleaning (CRITICAL)
-        let cleanText = fullResponse;
-        const slotsMatch = fullResponse.match(/\[SLOTS:\s*(.*?)\]/);
-        const newSlots: Record<string, string> = {};
-
-        if (slotsMatch && slotsMatch[1]) {
-            const pairs = slotsMatch[1].split(',').map(p => p.trim());
-            pairs.forEach(pair => {
-                let [key, val] = pair.split(/[=:]/).map(s => s.trim());
-                if (key) key = key.replace(/['"{} [\]]+/g, '').trim();
-                if (val) val = val.replace(/['"{} [\]]+/g, '').trim();
-                if (key && val) newSlots[key] = val;
-            });
-        }
-
-        // ALWAYS remove technical tags from the user-facing text
-        cleanText = cleanText
-            .replace(/\[SLOTS:.*?\]/g, "")
-            .replace(/\[SAVE_LEAD:.*?\]/g, "")
-            .replace(/\[LEAD_DATA:.*?\]/g, "")
-            .replace(/\[PAYMENT_BUTTON:.*?\]/g, "")
-            .replace(/\[BLOQUE\]/gi, "\n\n")
-            .trim();
-
-        // 5. WhatsApp Formatting
-        // Convert Markdown Bold (**) to WhatsApp Bold (*)
-        cleanText = cleanText.replace(/\*\*(.*?)\*\*/g, "*$1*");
-
-        // 6. Update State
-        const finalHistory = [
-            ...updatedHistory,
-            { role: 'model', content: fullResponse }
-        ].slice(-10); // Keep last 10 messages for context
+            { role: 'user', content: String(messageText) },
+            { role: 'model', content: analysis.confirmationReply },
+        ] as Message[]).slice(-10);
 
         await updateLeadJson(phone, {
-            ...newSlots,
-            phone: phone, // Ensure phone is always present
+            phone,
+            incident_type: analysis.category,
+            judicial_district: analysis.judicialDistrict || sessionData.judicial_district || null,
+            city: analysis.judicialDistrict || sessionData.city || null,
+            concerns: String(messageText),
+            contact_date_time: new Date().toISOString(),
             history: finalHistory,
             lastUpdate: new Date().toISOString(),
-            systemin: 'whatsapp'
+            systemin: 'whatsapp',
         });
 
-        // 7. Check for Persistence Trigger [SAVE_LEAD: ...]
-        if (fullResponse.includes('[SAVE_LEAD:')) {
-            console.log(`[WHATSAPP_IA] Save lead trigger detected for ${phone}. Transferring to DB...`);
-            try {
-                const { transferJsonToDb } = await import('@/lib/actions/leads');
-                await transferJsonToDb(phone);
-                console.log(`[WHATSAPP_IA] Lead for ${phone} successfully transferred to DB.`);
-            } catch (saveErr) {
-                console.error(`[WHATSAPP_IA] Error transferring WhatsApp lead to DB:`, saveErr);
-            }
+        // Best-effort persistence to Supabase `leads` table
+        try {
+            await transferJsonToDb(phone);
+            console.log(`[WHATSAPP_WEBHOOK] Lead for ${phone} saved to DB.`);
+        } catch (dbErr) {
+            console.warn('[WHATSAPP_WEBHOOK] Lead kept in JSON (DB transfer warning):', dbErr);
         }
 
-        // 8. Send Response via WaSender
-        await sendWhatsAppMessage(phone, cleanText);
+        // 7. Send confirmation WhatsApp message back via WaSender
+        const sendResult = await sendWhatsAppMessage(phone, analysis.confirmationReply);
 
-        return NextResponse.json({ success: true });
-
+        return NextResponse.json({
+            success: sendResult.success,
+            analysis,
+        });
     } catch (error: any) {
-        console.error("[WHATSAPP_WEBHOOK] Error:", error);
+        console.error('[WHATSAPP_WEBHOOK] Error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

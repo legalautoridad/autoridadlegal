@@ -5,6 +5,9 @@ import { getHomepageFaqs } from '@/lib/db/homepage-faqs';
 export async function SitewideJsonLd() {
     const headersList = await headers();
     const pathname = headersList.get('x-pathname') || '';
+    if (pathname === '/juzgados' || pathname.startsWith('/juzgados/')) {
+        return null;
+    }
     const isHome = pathname === '/' || pathname === '';
 
     const homepageFaqs = isHome ? await getHomepageFaqs() : undefined;

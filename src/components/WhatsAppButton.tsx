@@ -12,7 +12,7 @@ export function WhatsAppButton({
     className, 
     message = "Hola, necesito ayuda con mi juicio rápido por alcoholemia." 
 }: WhatsAppButtonProps) {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "34666644171";
+    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "34664364195";
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 

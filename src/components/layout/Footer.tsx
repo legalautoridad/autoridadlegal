@@ -35,10 +35,8 @@ export function Footer() {
                             <li><Link href="/profesionales" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-bold text-prestige-gold">Conductores Profesionales</Link></li>
                             <li><Link href="/abogados/santiago-gimenez-olavarriaga" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Santiago Giménez (Director Jurídico)</Link></li>
                             <li><Link href="/honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Honorarios y Precios</Link></li>
-                            <li><Link href="/acuerdo-honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Modelo Hoja de Encargo</Link></li>
                             <li><Link href="/glosario" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Glosario Jurídico</Link></li>
-                            <li><Link href="/juzgados" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Busca tu Juzgado (25 Partidos)</Link></li>
-                            <li><Link href="/recursos" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Centro de Conocimiento</Link></li>
+                            <li><Link href="/juzgados" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Juicio rápido (25 Partidos)</Link></li>
                         </ul>
                     </div>
                     <div className="space-y-4">
@@ -92,7 +90,7 @@ export function Footer() {
                         </Link>
                     </h4>
                     <Link href="/juzgados" className="text-xs font-semibold text-prestige-gold hover:underline">
-                        Ver todos los juzgados y 310 municipios →
+                        Ver todos los juzgados y 309 municipios →
                     </Link>
                 </div>
                 <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-2 text-xs">

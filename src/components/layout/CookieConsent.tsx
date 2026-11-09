@@ -54,7 +54,7 @@ export function CookieConsent({ gaId }: CookieConsentProps) {
                     role="dialog"
                     aria-live="polite"
                     aria-label="Consentimiento de cookies"
-                    className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:max-w-lg z-[100] bg-slate-950/95 backdrop-blur-md text-white border border-prestige-gold/40 p-5 rounded-2xl shadow-2xl space-y-4 animate-in fade-in slide-in-from-bottom-5 duration-300"
+                    className="fixed bottom-24 md:bottom-24 left-4 right-4 md:left-auto md:right-6 md:max-w-lg z-[100] bg-slate-950/95 backdrop-blur-md text-white border border-prestige-gold/40 p-5 rounded-2xl shadow-2xl space-y-4 animate-in fade-in slide-in-from-bottom-5 duration-300"
                 >
                     <div className="flex items-center gap-2 text-prestige-gold font-bold text-sm tracking-wide">
                         <Cookie className="w-5 h-5 text-prestige-gold shrink-0" />

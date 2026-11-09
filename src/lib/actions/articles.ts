@@ -143,8 +143,6 @@ export async function upsertArticle(data: any) {
     }
 
     revalidatePath('/admin/articles');
-    revalidatePath(`/blog/${data.slug}`);
-    revalidatePath('/blog');
     return { success: true };
 }
 
@@ -160,7 +158,6 @@ export async function deleteArticle(id: string) {
     if (error) throw error;
 
     revalidatePath('/admin/articles');
-    revalidatePath('/blog');
     return { success: true };
 }
 

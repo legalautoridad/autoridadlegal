@@ -7,6 +7,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { SitewideJsonLd } from "@/components/seo/SitewideJsonLd";
+import StickyContactBar from "@/components/StickyContactBar";
+import { getCourtDistrictMap } from "@/lib/db/district-content";
 import { DEFAULT_OG_IMAGE } from "@/lib/config";
 
 const geistSans = Geist({
@@ -80,6 +82,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const courtDistrictsBySlug = await getCourtDistrictMap();
+
   return (
     <html lang="es" suppressHydrationWarning>
       <body
@@ -93,6 +97,7 @@ export default async function RootLayout({
           <ChatWidget />
         </Suspense>
         <Footer />
+        <StickyContactBar courtDistrictsBySlug={courtDistrictsBySlug} />
         <CookieConsent gaId={process.env.NEXT_PUBLIC_GA_ID || "G-3NLK4X21QL"} />
       </body>
     </html>
