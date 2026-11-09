@@ -75,6 +75,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         },
         {
+            url: `${BASE_URL}/abogados/santiago-gimenez-olavarriaga`,
+            lastModified: new Date('2026-11-09T00:00:00.000Z'),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
             url: `${BASE_URL}/glosario`,
             lastModified: CONTENT_LAST_MODIFIED,
             changeFrequency: 'monthly',
