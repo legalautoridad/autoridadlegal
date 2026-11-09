@@ -1,134 +1,254 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Message } from '@/lib/ai/actions';
-import { updateLeadJson, getLeadJson, transferJsonToDb } from '@/lib/actions/leads';
-import { sendWhatsAppMessage } from '@/lib/whatsapp/wasender';
-import { analyzeIncomingWhatsAppMessage } from '@/lib/whatsapp/message-analyzer';
+import { createClient } from '@supabase/supabase-js';
+import { getWasenderClient, sendWhatsAppMessage } from '@/lib/whatsapp/wasender';
+import {
+    extractMessageData,
+    processTriageStep,
+    ConversationItem,
+} from '@/lib/whatsapp/triage-machine';
 
-// Track recently processed message IDs to prevent duplicate replies when WaSender fires multiple webhook events
-const processedMessageIds = new Set<string>();
+function getSupabaseAdmin() {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseUrl || !serviceRoleKey) {
+        throw new Error('Missing Supabase server configuration');
+    }
+
+    return createClient(supabaseUrl, serviceRoleKey, {
+        auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+        },
+    });
+}
+
+// In-memory cache for locations list to avoid querying the DB on every message
+let cachedLocations: string[] | null = null;
+let lastLocationsFetch = 0;
+
+async function getLocationsList(supabase: ReturnType<typeof getSupabaseAdmin>): Promise<string[]> {
+    const now = Date.now();
+    if (cachedLocations && now - lastLocationsFetch < 3600000) {
+        return cachedLocations;
+    }
+    try {
+        const { data } = await supabase.from('locations').select('name');
+        if (data && data.length > 0) {
+            cachedLocations = data.map((l: any) => l.name).filter(Boolean);
+            lastLocationsFetch = now;
+            return cachedLocations!;
+        }
+    } catch (err) {
+        console.error('[WHATSAPP_WEBHOOK] Error fetching locations:', err);
+    }
+    return cachedLocations || [];
+}
 
 export async function POST(req: NextRequest) {
-    console.log('[WHATSAPP_WEBHOOK] Request received');
-    const secret = process.env.WASENDER_WEBHOOK_SECRET;
+    console.log('[WHATSAPP_WEBHOOK] Received incoming webhook request');
 
-    // 1. Security Validation
-    const receivedSecret =
-        req.headers.get('x-webhook-secret') ||
-        req.headers.get('x-webhook-signature') ||
-        req.nextUrl.searchParams.get('secret');
+    // 1. Read raw body and verify signature using the official SDK
+    const rawBody = await req.text();
+    const wasender = getWasenderClient();
 
-    if (secret && receivedSecret && receivedSecret !== secret) {
-        console.warn('[WHATSAPP_WEBHOOK] Unauthorized access attempt');
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const adapter = {
+        getHeader: (name: string) => req.headers.get(name) || '',
+        getRawBody: () => rawBody,
+    };
+
+    let event: any;
+    try {
+        event = await wasender.handleWebhookEvent(adapter);
+    } catch (err: any) {
+        console.warn('[WHATSAPP_WEBHOOK] Signature verification failed:', err?.message);
+        return NextResponse.json({ error: 'Unauthorized: Invalid webhook signature' }, { status: 401 });
     }
 
     try {
-        const body = await req.json();
-        console.log(`[WHATSAPP_WEBHOOK] Event: ${body.event}`);
+        const eventType = event?.event;
+        console.log(`[WHATSAPP_WEBHOOK] Event type: ${eventType}`);
 
-        // 2. Only process incoming `messages.received` events (ignore `messages-personal.received`, `messages.upsert`, `message.sent`, etc.)
-        if (body.event && body.event !== 'messages.received') {
-            console.log(`[WHATSAPP_WEBHOOK] Ignoring non-primary event: ${body.event}`);
-            return NextResponse.json({ status: 'ignored', reason: `Ignored event ${body.event}` });
+        // 2. Only process incoming message events ('messages.received' or 'messages.upsert')
+        if (eventType !== 'messages.received' && eventType !== 'messages.upsert') {
+            return NextResponse.json({ status: 'ignored', reason: `Non-message event: ${eventType}` }, { status: 200 });
         }
 
-        // 3. CRITICAL: Ignore messages sent by the bot itself to prevent infinite loops
-        const isFromMe =
-            body.data?.messages?.key?.fromMe === true ||
-            body.data?.messages?.[0]?.key?.fromMe === true ||
-            body.data?.fromMe === true;
+        // 3. Extract message data
+        const extracted = extractMessageData(event);
 
-        if (isFromMe) {
+        // Filter: Ignore self-sent messages (CRITICAL: prevents infinite reply loop)
+        if (extracted.fromMe) {
             console.log('[WHATSAPP_WEBHOOK] Ignoring self-sent message');
-            return NextResponse.json({ status: 'ignored', reason: 'Self-sent message' });
+            return NextResponse.json({ status: 'ignored', reason: 'Self-sent message' }, { status: 200 });
         }
 
-        // 4. Extract sender phone, message ID, and message text from WaSender payload
-        const rawMessages = body.data?.messages;
-        const messageObj = Array.isArray(rawMessages) ? rawMessages[0] : rawMessages;
+        // Filter: Ignore groups, status broadcasts, and newsletters
+        if (extracted.isGroupOrBroadcast) {
+            console.log(`[WHATSAPP_WEBHOOK] Ignoring group/broadcast message: ${extracted.remoteJid}`);
+            return NextResponse.json({ status: 'ignored', reason: 'Group, broadcast, or newsletter' }, { status: 200 });
+        }
 
-        const messageId: string | undefined = messageObj?.key?.id || messageObj?.id;
-        if (messageId) {
-            if (processedMessageIds.has(messageId)) {
-                console.log(`[WHATSAPP_WEBHOOK] Duplicate messageId=${messageId} ignored`);
-                return NextResponse.json({ status: 'ignored', reason: 'Duplicate message ID' });
+        if (!extracted.messageId) {
+            console.warn('[WHATSAPP_WEBHOOK] Missing message ID');
+            return NextResponse.json({ status: 'ignored', reason: 'Missing message ID' }, { status: 200 });
+        }
+
+        const supabase = getSupabaseAdmin();
+
+        // 4. Idempotency: insert message ID into whatsapp_events
+        const { error: eventInsertError } = await supabase
+            .from('whatsapp_events')
+            .insert({
+                message_id: extracted.messageId,
+                received_at: new Date().toISOString(),
+            });
+
+        if (eventInsertError) {
+            // If already processed (unique constraint violation code 23505), stop and reply 200
+            if (
+                eventInsertError.code === '23505' ||
+                eventInsertError.message?.includes('duplicate key') ||
+                eventInsertError.message?.includes('unique constraint')
+            ) {
+                console.log(`[WHATSAPP_WEBHOOK] Event ${extracted.messageId} already processed (idempotent).`);
+                return NextResponse.json({ status: 'duplicate', messageId: extracted.messageId }, { status: 200 });
             }
-            processedMessageIds.add(messageId);
-            if (processedMessageIds.size > 500) {
-                const oldest = processedMessageIds.values().next().value;
-                if (oldest) processedMessageIds.delete(oldest);
+            console.error('[WHATSAPP_WEBHOOK] Error tracking event in DB:', eventInsertError);
+        }
+
+        // 5. Look for an open lead: systemin = 'whatsapp', phone = ese número, is_taken = false, creado hace menos de 7 días
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+
+        // Check active in-progress lead first (wa_state != 'done')
+        const { data: openLeads, error: openLeadsError } = await supabase
+            .from('leads')
+            .select('*')
+            .eq('systemin', 'whatsapp')
+            .eq('phone', extracted.normalizedPhone)
+            .eq('is_taken', false)
+            .neq('wa_state', 'done')
+            .gte('created_at', sevenDaysAgo)
+            .order('created_at', { ascending: false })
+            .limit(1);
+
+        if (openLeadsError) {
+            console.error('[WHATSAPP_WEBHOOK] Error querying active leads:', openLeadsError);
+        }
+
+        let targetLead = openLeads && openLeads.length > 0 ? openLeads[0] : null;
+
+        // If no in-progress lead, check if a recent 'done' lead exists for this phone within 7 days
+        if (!targetLead) {
+            const { data: doneLeads } = await supabase
+                .from('leads')
+                .select('*')
+                .eq('systemin', 'whatsapp')
+                .eq('phone', extracted.normalizedPhone)
+                .eq('is_taken', false)
+                .eq('wa_state', 'done')
+                .gte('created_at', sevenDaysAgo)
+                .order('created_at', { ascending: false })
+                .limit(1);
+
+            if (doneLeads && doneLeads.length > 0) {
+                targetLead = doneLeads[0];
             }
         }
 
-        const from =
-            messageObj?.key?.cleanedSenderPn ||
-            messageObj?.key?.senderPn ||
-            messageObj?.remoteJid ||
-            messageObj?.key?.remoteJid;
+        const locations = await getLocationsList(supabase);
+        const decision = processTriageStep(targetLead, extracted, locations);
 
-        const messageText =
-            messageObj?.messageBody ||
-            messageObj?.message?.conversation ||
-            messageObj?.message?.extendedTextMessage?.text;
+        let leadId: string | null = targetLead?.id || null;
+        let currentConversation: ConversationItem[] = targetLead && Array.isArray(targetLead.conversation)
+            ? targetLead.conversation
+            : [];
 
-        console.log(`[WHATSAPP_WEBHOOK] Extracted: id=${messageId}, from=${from}, text=${messageText}`);
+        // 6. If NO open lead exists: INSERT immediately BEFORE sending any message
+        if (decision.isNew) {
+            const initialConversation: ConversationItem[] = [decision.inMsg];
+            const nowIso = new Date().toISOString();
 
-        if (!from || !messageText) {
-            console.error('[WHATSAPP_WEBHOOK] Failed to extract from/text. Body structure:', JSON.stringify(body));
-            return NextResponse.json({ error: 'Missing data structure' }, { status: 400 });
+            const { data: insertedLead, error: insertError } = await supabase
+                .from('leads')
+                .insert({
+                    phone: decision.phone,
+                    systemin: 'whatsapp',
+                    contact_date_time: nowIso,
+                    concerns: decision.concerns,
+                    wa_state: decision.wa_state,
+                    conversation: initialConversation,
+                    is_taken: false,
+                    "lastUpdate": nowIso,
+                    created_at: nowIso,
+                })
+                .select('id')
+                .single();
+
+            if (insertError) {
+                console.error('[WHATSAPP_WEBHOOK] Error inserting new lead:', insertError);
+                return NextResponse.json({ error: 'Database error' }, { status: 500 });
+            }
+
+            leadId = insertedLead.id;
+            currentConversation = initialConversation;
+            console.log(`[WHATSAPP_WEBHOOK] New lead created AL INSTANTE: ${leadId}`);
+        } else if (targetLead) {
+            // Existing lead: update state and append incoming message
+            currentConversation = [...currentConversation, decision.inMsg];
+
+            const updatePayload: Record<string, any> = {
+                wa_state: decision.wa_state,
+                conversation: currentConversation,
+                "lastUpdate": new Date().toISOString(),
+            };
+
+            if (decision.name !== undefined) updatePayload.name = decision.name;
+            if (decision.concerns !== undefined) updatePayload.concerns = decision.concerns;
+            if (decision.incident_type !== undefined) updatePayload.incident_type = decision.incident_type;
+            if (decision.city !== undefined) updatePayload.city = decision.city;
+
+            const { error: updateError } = await supabase
+                .from('leads')
+                .update(updatePayload)
+                .eq('id', targetLead.id);
+
+            if (updateError) {
+                console.error('[WHATSAPP_WEBHOOK] Error updating existing lead:', updateError);
+            }
         }
 
-        // Normalize sender (remove @s.whatsapp.net, @lid, etc. and keep only digits)
-        const phone = String(from).replace(/\D/g, '');
-        console.log(`[WHATSAPP_WEBHOOK] Processing message from ${phone} (${from})...`);
+        // 7. Send bot reply if dictated by the state machine
+        if (decision.outMsgTextToSend && leadId) {
+            console.log(`[WHATSAPP_WEBHOOK] Sending reply to ${extracted.normalizedPhone}...`);
+            const sendResult = await sendWhatsAppMessage(extracted.normalizedPhone, decision.outMsgTextToSend);
 
-        // 5. Understand what the message is about and generate the confirmation reply
-        const analysis = await analyzeIncomingWhatsAppMessage(String(messageText));
-        console.log('[WHATSAPP_WEBHOOK] Message analysis:', JSON.stringify(analysis));
+            const outMsg: ConversationItem = {
+                direction: 'out',
+                type: 'text',
+                text: decision.outMsgTextToSend,
+                message_id: sendResult.result?.response?.data?.key?.id || null,
+                timestamp: new Date().toISOString(),
+            };
 
-        // 6. Retrieve & update lead session state
-        const sessionData = (await getLeadJson(phone)) || {
-            history: [],
-            systemin: 'whatsapp',
-            phone,
-        };
-
-        const history: Message[] = sessionData.history || [];
-        const finalHistory: Message[] = ([
-            ...history,
-            { role: 'user', content: String(messageText) },
-            { role: 'model', content: analysis.confirmationReply },
-        ] as Message[]).slice(-10);
-
-        await updateLeadJson(phone, {
-            phone,
-            incident_type: analysis.category,
-            judicial_district: analysis.judicialDistrict || sessionData.judicial_district || null,
-            city: analysis.judicialDistrict || sessionData.city || null,
-            concerns: String(messageText),
-            contact_date_time: new Date().toISOString(),
-            history: finalHistory,
-            lastUpdate: new Date().toISOString(),
-            systemin: 'whatsapp',
-        });
-
-        // Best-effort persistence to Supabase `leads` table
-        try {
-            await transferJsonToDb(phone);
-            console.log(`[WHATSAPP_WEBHOOK] Lead for ${phone} saved to DB.`);
-        } catch (dbErr) {
-            console.warn('[WHATSAPP_WEBHOOK] Lead kept in JSON (DB transfer warning):', dbErr);
+            // Append out message to conversation in DB
+            const finalConversation = [...currentConversation, outMsg];
+            await supabase
+                .from('leads')
+                .update({
+                    conversation: finalConversation,
+                    "lastUpdate": new Date().toISOString(),
+                })
+                .eq('id', leadId);
         }
-
-        // 7. Send confirmation WhatsApp message back via WaSender
-        const sendResult = await sendWhatsAppMessage(phone, analysis.confirmationReply);
 
         return NextResponse.json({
-            success: sendResult.success,
-            analysis,
-        });
-    } catch (error: any) {
-        console.error('[WHATSAPP_WEBHOOK] Error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+            status: 'success',
+            lead_id: leadId,
+            wa_state: decision.wa_state,
+        }, { status: 200 });
+    } catch (err: any) {
+        console.error('[WHATSAPP_WEBHOOK] Unexpected error:', err);
+        return NextResponse.json({ error: err.message }, { status: 500 });
     }
 }
