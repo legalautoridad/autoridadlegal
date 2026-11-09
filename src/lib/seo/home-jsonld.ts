@@ -13,7 +13,6 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             '@id': 'https://www.autoridad.legal/#organization',
             'name': 'Autoridad Legal',
             'legalName': 'Santiago Giménez Olavarriaga',
-            'taxID': '46358445J',
             'description': 'Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa urgente 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin carné y casos de conductores profesionales, con honorarios cerrados y tasados por escrito (IVA y procurador incluidos).',
             'url': 'https://www.autoridad.legal',
             'telephone': PHONE_E164,
@@ -60,7 +59,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                 }
             ],
             'founder': {
-                '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person'
+                '@id': 'https://www.gimenezolavarriaga.abogado/#person'
             },
             'knowsAbout': [
                 'Delitos contra la seguridad vial',
@@ -208,7 +207,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
 
     graphNodes.push({
         '@type': 'Person',
-        '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person',
+        '@id': 'https://www.gimenezolavarriaga.abogado/#person',
         'name': 'Santiago Giménez Olavarriaga',
         'givenName': 'Santiago',
         'familyName': 'Giménez Olavarriaga',
@@ -372,7 +371,7 @@ export function getHonorariosPageJsonLd() {
             },
             {
                 '@type': 'Person',
-                '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person'
+                '@id': 'https://www.gimenezolavarriaga.abogado/#person'
             }
         ]
     };

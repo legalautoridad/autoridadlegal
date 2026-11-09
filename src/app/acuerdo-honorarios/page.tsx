@@ -85,7 +85,7 @@ export default function AcuerdoHonorariosPage() {
                 'dateModified': '2026-09-14T09:00:00+02:00',
                 'author': {
                     '@type': 'Person',
-                    '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person',
+                    '@id': 'https://www.gimenezolavarriaga.abogado/#person',
                     'name': professional.name,
                     'jobTitle': professional.condition,
                     'identifier': professional.barNumber,

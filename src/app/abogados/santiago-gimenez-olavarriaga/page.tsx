@@ -1,33 +1,32 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { PHONE_E164, DEFAULT_OG_IMAGE } from '@/lib/config';
-import { Award, ShieldCheck, GraduationCap, Linkedin, Phone, Mail, Globe, Scale, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Phone, ExternalLink, ArrowRight, Quote } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Santiago Giménez Olavarriaga | Director Jurídico ICAB 31.389 - Autoridad Legal',
-    description: 'Perfil oficial del letrado Santiago Giménez Olavarriaga, colegiado ICAB nº 31.389. Director jurídico de Autoridad Legal y especialista en defensa penal por delitos contra la seguridad vial en Barcelona.',
+    title: 'Santiago Giménez Olavarriaga | Abogado penalista ICAB 31.389',
+    description: 'Abogado penalista colegiado en el ICAB desde 2006 (n.º 31.389). Dirige la defensa en delitos de tráfico y juicios rápidos de Autoridad Legal en Barcelona.',
     alternates: {
         canonical: 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
     },
     openGraph: {
-        title: 'Santiago Giménez Olavarriaga | Director Jurídico ICAB 31.389',
-        description: 'Perfil profesional verificado de Santiago Giménez Olavarriaga, abogado penalista colegiado ICAB 31.389 y especialista en derecho penal de tráfico en Barcelona.',
+        title: 'Santiago Giménez Olavarriaga | Abogado penalista ICAB 31.389',
+        description: 'Abogado penalista colegiado en el ICAB desde 2006 (n.º 31.389). Dirige la defensa en delitos de tráfico y juicios rápidos de Autoridad Legal en Barcelona.',
         url: 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
         type: 'profile',
         images: [
             {
-                url: DEFAULT_OG_IMAGE,
+                url: 'https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg',
                 width: 1200,
                 height: 630,
-                alt: 'Santiago Giménez Olavarriaga — Director Jurídico Autoridad Legal',
+                alt: 'Santiago Giménez Olavarriaga — Abogado Penalista ICAB 31.389',
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Santiago Giménez Olavarriaga | Director Jurídico ICAB 31.389',
-        description: 'Perfil profesional verificado de Santiago Giménez Olavarriaga, abogado penalista colegiado ICAB 31.389.',
-        images: [DEFAULT_OG_IMAGE],
+        title: 'Santiago Giménez Olavarriaga | Abogado penalista ICAB 31.389',
+        description: 'Abogado penalista colegiado en el ICAB desde 2006 (n.º 31.389). Dirige la defensa en delitos de tráfico y juicios rápidos de Autoridad Legal en Barcelona.',
+        images: ['https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg'],
     },
 };
 
@@ -36,90 +35,121 @@ export default function SantiagoGimenezPage() {
         '@context': 'https://schema.org',
         '@graph': [
             {
+                '@type': 'ProfilePage',
+                '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#webpage',
+                'url': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
+                'name': 'Santiago Giménez Olavarriaga | Abogado penalista ICAB 31.389',
+                'inLanguage': 'es',
+                'dateModified': '2026-11-09',
+                'mainEntity': { '@id': 'https://www.gimenezolavarriaga.abogado/#person' },
+                'about': { '@id': 'https://www.gimenezolavarriaga.abogado/#person' }
+            },
+            {
                 '@type': 'Person',
-                '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person',
+                '@id': 'https://www.gimenezolavarriaga.abogado/#person',
                 'name': 'Santiago Giménez Olavarriaga',
                 'givenName': 'Santiago',
                 'familyName': 'Giménez Olavarriaga',
-                'jobTitle': 'Director Jurídico y Abogado Penalista Ejerciente',
-                'description': 'Abogado penalista colegiado en el Ilustre Colegio de la Abogacía de Barcelona (ICAB nº 31.389). Ejerce la dirección jurídica de Autoridad Legal y es especialista en la defensa de delitos contra la seguridad vial en Barcelona.',
-                'url': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
-                'telephone': PHONE_E164,
-                'email': 'contacto@autoridad.legal',
+                'description': 'Abogado penalista colegiado en el Ilustre Colegio de la Abogacía de Barcelona desde 2006 (n.º 31.389). Director jurídico de Autoridad Legal, especializado en delitos contra la seguridad vial y juicios rápidos en la provincia de Barcelona.',
+                'jobTitle': 'Director jurídico y abogado penalista',
+                'url': 'https://www.gimenezolavarriaga.abogado',
                 'image': 'https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg',
-                'worksFor': {
-                    '@type': 'Organization',
-                    '@id': 'https://www.autoridad.legal/#organization',
-                },
+                'telephone': '+34605118871',
+                'knowsLanguage': ['es', 'ca'],
+                'worksFor': { '@id': 'https://www.autoridad.legal/#organization' },
                 'memberOf': {
                     '@type': 'Organization',
                     'name': 'Ilustre Colegio de la Abogacía de Barcelona',
                     'alternateName': 'ICAB',
-                    'url': 'https://www.icab.es',
+                    'url': 'https://www.icab.es'
                 },
                 'hasCredential': {
                     '@type': 'EducationalOccupationalCredential',
                     'credentialCategory': 'Colegiación profesional',
+                    'identifier': '31389',
                     'recognizedBy': {
                         '@type': 'Organization',
                         'name': 'Ilustre Colegio de la Abogacía de Barcelona',
-                        'alternateName': 'ICAB',
+                        'alternateName': 'ICAB'
                     },
-                    'identifier': '31389',
-                    'url': 'https://www.icab.es/es/colegio/miembros/index.html?id=31389',
+                    'url': 'https://www.icab.es/es/colegio/miembros/index.html?id=31389'
                 },
                 'knowsAbout': [
                     'Delitos contra la seguridad vial',
+                    'Juicio rápido (diligencias urgentes)',
                     'Alcoholemia al volante',
-                    'Negativa a someterse a las pruebas de alcohol o drogas',
                     'Conducción bajo la influencia de drogas',
                     'Exceso de velocidad como delito',
                     'Conducción sin permiso o licencia',
                     'Defensa penal de conductores profesionales',
-                    'Juicio rápido (diligencias urgentes)',
-                    'Derecho penal',
+                    'Control metrológico de etilómetros y cinemómetros',
+                    'Impugnación de atestados policiales'
+                ],
+                'subjectOf': [
+                    {
+                        '@type': 'Article',
+                        'headline': '¿Te pueden pedir el DNI por grabar a la policía en la calle? La trampa del \'por si acaso\'',
+                        'url': 'https://www.economistjurist.es/articulos-juridicos-destacados/te-pueden-pedir-el-dni-por-grabar-a-la-policia-en-la-calle-la-trampa-del-por-si-acaso/',
+                        'author': { '@id': 'https://www.gimenezolavarriaga.abogado/#person' },
+                        'publisher': { '@type': 'Organization', 'name': 'Economist & Jurist' }
+                    },
+                    {
+                        '@type': 'Article',
+                        'headline': 'La tiranía de la casilla: cómo combatir el acta de síntomas en los controles de alcoholemia y drogas',
+                        'url': 'https://www.economistjurist.es/articulos-juridicos-destacados/la-tirania-de-la-casilla-como-combatir-el-acta-de-sintomas-en-los-controles-de-alcoholemia-y-drogas/',
+                        'author': { '@id': 'https://www.gimenezolavarriaga.abogado/#person' },
+                        'publisher': { '@type': 'Organization', 'name': 'Economist & Jurist' }
+                    }
                 ],
                 'sameAs': [
-                    'https://www.linkedin.com/in/santiagogimenezolavarriaga/',
                     'https://www.gimenezolavarriaga.abogado',
+                    'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
                     'https://www.icab.es/es/colegio/miembros/index.html?id=31389',
-                ],
+                    'https://www.linkedin.com/in/santiagogimenezolavarriaga/',
+                    'https://www.youtube.com/@SantiagoGimenezOlavarriaga',
+                    'https://www.instagram.com/santiago.gimenez.abogado/',
+                    'https://x.com/santiagogolavar',
+                    'https://www.facebook.com/santiago.gimenez.olavarriaga'
+                ]
             },
             {
-                '@type': 'WebPage',
-                '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#webpage',
-                'url': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
-                'name': 'Santiago Giménez Olavarriaga | Director Jurídico ICAB 31.389',
-                'description': 'Perfil oficial y verificado del letrado Santiago Giménez Olavarriaga.',
-                'mainEntity': {
-                    '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#person',
-                },
-            },
-            {
-                '@type': 'BreadcrumbList',
-                '@id': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga#breadcrumb',
-                'itemListElement': [
+                '@type': 'FAQPage',
+                'mainEntity': [
                     {
-                        '@type': 'ListItem',
-                        'position': 1,
-                        'name': 'Inicio',
-                        'item': 'https://www.autoridad.legal/',
+                        '@type': 'Question',
+                        'name': '¿Cómo compruebo que Santiago Giménez Olavarriaga es abogado colegiado?',
+                        'acceptedAnswer': {
+                            '@type': 'Answer',
+                            'text': 'En el censo público del Ilustre Colegio de la Abogacía de Barcelona, con el número 31.389.'
+                        }
                     },
                     {
-                        '@type': 'ListItem',
-                        'position': 2,
-                        'name': 'Abogados',
-                        'item': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
+                        '@type': 'Question',
+                        'name': '¿Qué relación hay entre Santiago Giménez Olavarriaga y Autoridad Legal?',
+                        'acceptedAnswer': {
+                            '@type': 'Answer',
+                            'text': 'Santiago es el abogado y director jurídico. Autoridad Legal es la marca con la que presta la defensa urgente en delitos contra la seguridad vial en la provincia de Barcelona.'
+                        }
                     },
                     {
-                        '@type': 'ListItem',
-                        'position': 3,
-                        'name': 'Santiago Giménez Olavarriaga',
-                        'item': 'https://www.autoridad.legal/abogados/santiago-gimenez-olavarriaga',
+                        '@type': 'Question',
+                        'name': '¿En qué juzgados actúa?',
+                        'acceptedAnswer': {
+                            '@type': 'Answer',
+                            'text': 'En los juzgados de guardia y tribunales de instancia de los 25 partidos judiciales de la provincia de Barcelona.'
+                        }
                     },
-                ],
-            },
-        ],
+                    {
+                        '@type': 'Question',
+                        'name': '¿Cuánto cuestan sus honorarios?',
+                        'acceptedAnswer': {
+                            '@type': 'Answer',
+                            'text': 'Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet, y 1.480 € para conductores profesionales. Los recargos están tasados por escrito.'
+                        }
+                    }
+                ]
+            }
+        ]
     };
 
     return (
@@ -131,222 +161,400 @@ export default function SantiagoGimenezPage() {
 
             <main className="min-h-screen bg-slate-950 text-slate-100 font-sans">
                 {/* HERO HEADER */}
-                <header className="relative bg-gradient-to-b from-trust-navy via-slate-900 to-slate-950 border-b border-white/10 pt-16 pb-20 overflow-hidden">
-                    <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+                <header className="relative bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border-b border-white/10 pt-16 pb-14 overflow-hidden">
+                    <div className="max-w-4xl mx-auto px-6 relative z-10">
                         {/* Breadcrumbs */}
                         <nav className="mb-6 flex items-center gap-2 text-xs font-medium text-slate-400">
-                            <Link href="/" className="hover:text-prestige-gold transition-colors">Inicio</Link>
+                            <Link href="/" className="hover:text-amber-400 transition-colors">Inicio</Link>
                             <span>/</span>
-                            <span className="text-prestige-gold">Santiago Giménez Olavarriaga</span>
+                            <span>Abogados</span>
+                            <span>/</span>
+                            <span className="text-amber-400">Santiago Giménez Olavarriaga</span>
                         </nav>
 
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-prestige-gold/10 border border-prestige-gold/30 text-prestige-gold text-xs font-semibold uppercase tracking-wider mb-6">
-                            <Award className="w-4 h-4" />
-                            Dirección Jurídica Verificada · ICAB 31.389
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
+                            {/* Fotografía oficial */}
+                            <img
+                                src="https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg"
+                                alt="Santiago Giménez Olavarriaga"
+                                className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl object-cover border-2 border-amber-400/30 shadow-xl shrink-0"
+                            />
+                            <div>
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+                                    Santiago Giménez Olavarriaga, abogado penalista y director jurídico de Autoridad Legal
+                                </h1>
+                                <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+                                    Santiago Giménez Olavarriaga es abogado penalista, colegiado en el Ilustre Colegio de la Abogacía de Barcelona con el número 31.389 desde 2006. Dirige jurídicamente Autoridad Legal y está especializado en delitos contra la seguridad vial y juicios rápidos en los 25 partidos judiciales de la provincia de Barcelona.
+                                </p>
+                            </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                            <div className="md:col-span-8 space-y-4">
-                                <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-                                    Santiago Giménez Olavarriaga
-                                </h1>
-                                <p className="text-lg sm:text-xl text-prestige-gold font-bold">
-                                    Director Jurídico y Abogado Penalista Ejerciente
-                                </p>
-                                <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-                                    Especialista en la defensa técnica de delitos contra la seguridad vial y juicios rápidos en la provincia de Barcelona y Cataluña.
-                                </p>
+                        {/* Línea visible de revisión */}
+                        <p className="text-xs text-slate-400 italic border-l-2 border-amber-400/50 pl-3 py-0.5">
+                            Revisado por Santiago Giménez Olavarriaga · Actualizado el 9 de noviembre de 2026
+                        </p>
 
-                                <div className="pt-2 flex flex-wrap items-center gap-4 text-xs">
-                                    <span className="px-3 py-1 rounded-lg bg-slate-900 border border-white/10 text-slate-200 font-medium">
-                                        ⚖️ Ilustre Colegio de la Abogacía de Barcelona (ICAB nº 31.389)
-                                    </span>
-                                    <span className="px-3 py-1 rounded-lg bg-slate-900 border border-white/10 text-slate-200 font-medium">
-                                        📍 Barcelona, España
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Trust Badge Card */}
-                            <div className="md:col-span-4 bg-slate-900/90 p-6 rounded-2xl border border-prestige-gold/30 shadow-2xl space-y-4">
-                                <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-white/10 pb-2">
-                                    Verificación Deontológica
-                                </h3>
-                                <ul className="space-y-3 text-xs text-slate-300">
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                                        <span>Abogado Colegiado Ejerciente</span>
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                                        <span>Colegio de la Abogacía de Barcelona</span>
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                                        <span>Especialista Penalista en Seguridad Vial</span>
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                                        <span>Atención de Guardia 24h</span>
-                                    </li>
-                                </ul>
-
-                                <div className="pt-2 border-t border-white/10 space-y-2">
-                                    <a
-                                        href={`tel:${PHONE_E164}`}
-                                        className="w-full py-2.5 px-4 rounded-xl bg-prestige-gold hover:bg-amber-400 text-trust-navy font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md"
-                                    >
-                                        <Phone className="w-4 h-4" />
-                                        Contactar Guardia 24h
-                                    </a>
-                                </div>
-                            </div>
+                        {/* Botones de acción principales */}
+                        <div className="mt-8 flex flex-wrap gap-4 items-center">
+                            <a
+                                href="tel:+34605118871"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-sm transition-colors shadow-lg"
+                            >
+                                <Phone className="w-4 h-4" />
+                                Llamar a la guardia 24 h — +34 605 118 871
+                            </a>
+                            <Link
+                                href="/honorarios"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white border border-white/10 font-bold text-sm transition-colors"
+                            >
+                                Ver honorarios cerrados
+                                <ArrowRight className="w-4 h-4 text-amber-400" />
+                            </Link>
                         </div>
                     </div>
                 </header>
 
-                <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 space-y-16">
-                    {/* BIOGRAPHY & E-E-A-T */}
-                    <section className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                        <div className="lg:col-span-8 space-y-6 text-slate-300 text-sm md:text-base leading-relaxed">
-                            <div className="border-l-4 border-prestige-gold pl-4 space-y-1">
-                                <h2 className="text-2xl md:text-3xl font-extrabold text-white">
-                                    Trayectoria y Especialización Jurídica
-                                </h2>
-                                <p className="text-xs text-prestige-gold uppercase tracking-wider font-bold">
-                                    Dirección de Estrategia Penal y Defensa en Juicios Rápidos
-                                </p>
+                <div className="max-w-4xl mx-auto px-6 py-12 space-y-14">
+                    {/* DATOS VERIFICABLES */}
+                    <section className="space-y-4">
+                        <div className="overflow-x-auto rounded-2xl border border-white/10 bg-slate-900/60 shadow-xl">
+                            <table className="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr className="border-b border-white/10 bg-slate-900 text-slate-400 text-xs uppercase tracking-wider">
+                                        <th className="py-3 px-4 font-semibold w-1/3">Dato</th>
+                                        <th className="py-3 px-4 font-semibold">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5 text-slate-300">
+                                    <tr>
+                                        <td className="py-3 px-4 font-medium text-white">Colegiación</td>
+                                        <td className="py-3 px-4">
+                                            ICAB n.º 31.389, desde 2006 —{' '}
+                                            <a
+                                                href="https://www.icab.es/es/colegio/miembros/index.html?id=31389"
+                                                target="_blank"
+                                                rel="noopener"
+                                                className="text-amber-400 hover:underline inline-flex items-center gap-1 font-medium"
+                                            >
+                                                verificar en el censo del ICAB
+                                                <ExternalLink className="w-3.5 h-3.5 inline" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 font-medium text-white">Cargo</td>
+                                        <td className="py-3 px-4">Director jurídico de Autoridad Legal</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 font-medium text-white">Especialidad</td>
+                                        <td className="py-3 px-4">Delitos contra la seguridad vial: alcoholemia, drogas, velocidad, conducción sin permiso y conductores profesionales</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 font-medium text-white">Ámbito</td>
+                                        <td className="py-3 px-4">Provincia de Barcelona (25 partidos judiciales)</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 font-medium text-white">Idiomas</td>
+                                        <td className="py-3 px-4">Castellano y catalán</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 font-medium text-white">Despacho</td>
+                                        <td className="py-3 px-4">Av. Diagonal 437, Principal 3ª, 08036 Barcelona</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 px-4 font-medium text-white">Guardia 24 h</td>
+                                        <td className="py-3 px-4">
+                                            <a href="tel:+34605118871" className="text-amber-400 hover:underline font-bold">
+                                                +34 605 118 871
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    {/* CÓMO PLANTEA CADA DEFENSA */}
+                    <section className="space-y-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight border-b border-white/10 pb-3">
+                            Cómo plantea cada defensa
+                        </h2>
+                        <p className="text-slate-300 leading-relaxed text-base">
+                            Para Santiago, el resultado de un juicio rápido se decide antes de entrar en sala. Su método tiene cuatro pasos:
+                        </p>
+                        <ol className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed list-decimal list-inside pl-2">
+                            <li className="pl-1">
+                                <strong className="text-white">Leer el atestado entero.</strong> Fechas, horas, firmas, diligencias y contradicciones internas. Un error formal no anula todo por sí solo, pero puede cambiar cómo se valora la prueba.
+                            </li>
+                            <li className="pl-1">
+                                <strong className="text-white">Auditar la prueba técnica.</strong> Certificados de verificación de etilómetros y cinemómetros según la Orden ICT/155/2020, pruebas salivales de drogas y cadena de custodia de las muestras.
+                            </li>
+                            <li className="pl-1">
+                                <strong className="text-white">Revisar la actuación policial.</strong> Si el control, los requerimientos, la información dada al conductor y la toma de muestras respetaron sus derechos y quedaron bien documentados. También cómo se describió la sintomatología en el acta.
+                            </li>
+                            <li className="pl-1">
+                                <strong className="text-white">Decidir la estrategia con el cliente.</strong> Conformidad, no conformidad o pedir diligencias: no hay una opción buena para todos. Se elige después de estudiar el caso y explicar al cliente las consecuencias de cada una.
+                            </li>
+                        </ol>
+
+                        {/* Cita destacada */}
+                        <blockquote className="relative my-8 p-6 rounded-2xl bg-slate-900 border-l-4 border-amber-400 border-t border-r border-b border-white/10 shadow-xl">
+                            <Quote className="w-8 h-8 text-amber-400/20 absolute top-4 right-4" />
+                            <p className="text-lg sm:text-xl font-medium text-slate-200 italic leading-relaxed">
+                                «Un caso, aunque sea en conformidad, no se prepara cinco minutos antes de entrar en sala.»
+                            </p>
+                            <footer className="mt-3 text-sm text-amber-400 font-semibold">
+                                — Santiago Giménez Olavarriaga
+                            </footer>
+                        </blockquote>
+                    </section>
+
+                    {/* UN EJEMPLO: LA TASA DEL TICKET NO ES LA TASA DEFINITIVA */}
+                    <section className="space-y-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight border-b border-white/10 pb-3">
+                            Un ejemplo: la tasa del ticket no es la tasa definitiva
+                        </h2>
+                        <p className="text-slate-300 leading-relaxed text-base">
+                            Santiago explica que la cifra que imprime el etilómetro no es una verdad absoluta. La normativa metrológica obliga a aplicar un margen de error a esa tasa. Por eso, una lectura de 0,61 o 0,62 mg/l en aire espirado puede quedar por debajo del umbral penal y pasar de delito a infracción administrativa. La diferencia es grande: con delito hay antecedentes penales y retirada del permiso; con infracción administrativa, una multa y pérdida de puntos.
+                        </p>
+                        <div>
+                            <a
+                                href="https://www.youtube.com/@SantiagoGimenezOlavarriaga"
+                                target="_blank"
+                                rel="noopener"
+                                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-bold text-sm underline decoration-amber-400/50 hover:decoration-amber-300 transition-colors"
+                            >
+                                Ver el vídeo de Santiago en YouTube
+                                <ExternalLink className="w-4 h-4" />
+                            </a>
+                        </div>
+                    </section>
+
+                    {/* PUBLICACIONES */}
+                    <section className="space-y-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight border-b border-white/10 pb-3">
+                            Publicaciones
+                        </h2>
+                        <ul className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                            <li className="flex items-start gap-2">
+                                <span className="text-amber-400 font-bold">•</span>
+                                <div>
+                                    <a
+                                        href="https://www.economistjurist.es/articulos-juridicos-destacados/te-pueden-pedir-el-dni-por-grabar-a-la-policia-en-la-calle-la-trampa-del-por-si-acaso/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        className="text-amber-400 hover:underline font-semibold"
+                                    >
+                                        «¿Te pueden pedir el DNI por grabar a la policía en la calle? La trampa del &quot;por si acaso&quot;»
+                                    </a>
+                                    <span className="text-slate-400"> — Economist &amp; Jurist</span>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-amber-400 font-bold">•</span>
+                                <div>
+                                    <a
+                                        href="https://www.economistjurist.es/articulos-juridicos-destacados/la-tirania-de-la-casilla-como-combatir-el-acta-de-sintomas-en-los-controles-de-alcoholemia-y-drogas/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        className="text-amber-400 hover:underline font-semibold"
+                                    >
+                                        «La tiranía de la casilla: cómo combatir el acta de síntomas en los controles de alcoholemia y drogas»
+                                    </a>
+                                    <span className="text-slate-400"> — Economist &amp; Jurist</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    {/* OPINIONES VERIFICABLES */}
+                    <section className="space-y-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight border-b border-white/10 pb-3">
+                            Opiniones verificables
+                        </h2>
+                        <p className="text-slate-400 text-sm">
+                            Extractos breves; cada uno enlaza a su fuente original.
+                        </p>
+
+                        <div className="space-y-4">
+                            <div className="p-4 rounded-xl bg-slate-900/80 border border-white/5 text-slate-300 text-sm sm:text-base leading-relaxed">
+                                <strong className="text-white">Marc Jané Cerdans</strong> — caso de alcoholemia en L&apos;Hospitalet de Llobregat. Destaca la atención de madrugada y el análisis de la medición del etilómetro.{' '}
+                                <a
+                                    href="https://share.google/NpI4eR8AUNrs7PvVD"
+                                    target="_blank"
+                                    rel="noopener"
+                                    className="text-amber-400 hover:underline font-medium inline-flex items-center gap-0.5"
+                                >
+                                    Google <ExternalLink className="w-3 h-3 inline" />
+                                </a>
+                                {' · '}
+                                <a
+                                    href="https://www.gimenezolavarriaga.abogado/observatorio/caso-exito-alcoholemia-hospitalet-marc-jane"
+                                    target="_blank"
+                                    rel="noopener"
+                                    className="text-amber-400 hover:underline font-medium inline-flex items-center gap-0.5"
+                                >
+                                    Caso <ExternalLink className="w-3 h-3 inline" />
+                                </a>
                             </div>
 
-                            <p>
-                                Santiago Giménez Olavarriaga es letrado ejerciente del Ilustre Colegio de la Abogacía de Barcelona (ICAB 31.389) y director jurídico de Autoridad Legal. Cuenta con una dilatada experiencia profesional volcada en el derecho penal técnico y la litigación en juzgados de instrucción y de lo penal.
-                            </p>
+                            <div className="p-4 rounded-xl bg-slate-900/80 border border-white/5 text-slate-300 text-sm sm:text-base leading-relaxed">
+                                <strong className="text-white">Xavi Perera Flor</strong>, conductor profesional — Ciutat de la Justícia de Barcelona. Conservó el permiso y el empleo.{' '}
+                                <a
+                                    href="https://share.google/KtZfE9Z3utJKMotmn"
+                                    target="_blank"
+                                    rel="noopener"
+                                    className="text-amber-400 hover:underline font-medium inline-flex items-center gap-0.5"
+                                >
+                                    Google <ExternalLink className="w-3 h-3 inline" />
+                                </a>
+                                {' · '}
+                                <a
+                                    href="https://www.gimenezolavarriaga.abogado/observatorio/caso-exito-alcoholemia-barcelona-ciutat-de-la-justicia-xavi"
+                                    target="_blank"
+                                    rel="noopener"
+                                    className="text-amber-400 hover:underline font-medium inline-flex items-center gap-0.5"
+                                >
+                                    Caso <ExternalLink className="w-3 h-3 inline" />
+                                </a>
+                            </div>
 
-                            <p>
-                                Como especialista en delitos contra la seguridad vial, su ejercicio profesional abarca el análisis crítico de atestados policiales, la verificación metrológica de etilómetros y la impugnación técnica de pruebas de alcoholemia, drogas al volante, excesos de velocidad y conducción sin permiso.
-                            </p>
-
-                            <div className="bg-slate-900/80 p-6 rounded-2xl border border-white/10 space-y-3 my-6">
-                                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                                    <Scale className="w-5 h-5 text-prestige-gold" />
-                                    Áreas de Actuación y Defensa Especializada
-                                </h3>
-                                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200">
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-prestige-gold"></span>
-                                        Delitos de alcoholemia (art. 379.2 CP)
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-prestige-gold"></span>
-                                        Conducción bajo efectos de drogas (art. 379.2 CP)
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-prestige-gold"></span>
-                                        Exceso de velocidad penal (art. 379.1 CP)
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-prestige-gold"></span>
-                                        Conducir sin permiso o puntos (art. 384 CP)
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-prestige-gold"></span>
-                                        Defensa de Conductores Profesionales (C, D, E)
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-prestige-gold"></span>
-                                        Negativa a someterse a pruebas (art. 383 CP)
-                                    </li>
-                                </ul>
+                            <div className="p-4 rounded-xl bg-slate-900/80 border border-white/5 text-slate-300 text-sm sm:text-base leading-relaxed">
+                                <strong className="text-white">Diego de Urbiola Alís</strong> — juicio rápido en Terrassa. Destaca el análisis del acta de síntomas y los márgenes de error.{' '}
+                                <a
+                                    href="https://www.linkedin.com/in/diego-de-urbiola-al%C3%ADs-4aa167196/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    className="text-amber-400 hover:underline font-medium inline-flex items-center gap-0.5"
+                                >
+                                    LinkedIn <ExternalLink className="w-3 h-3 inline" />
+                                </a>
+                                {' · '}
+                                <a
+                                    href="https://www.gimenezolavarriaga.abogado/observatorio/caso-exito-alcoholemia-terrassa-diego-urbiola"
+                                    target="_blank"
+                                    rel="noopener"
+                                    className="text-amber-400 hover:underline font-medium inline-flex items-center gap-0.5"
+                                >
+                                    Caso <ExternalLink className="w-3 h-3 inline" />
+                                </a>
                             </div>
                         </div>
 
-                        {/* VERIFICATION & OFFICIAL LINKS COLUMN */}
-                        <div className="lg:col-span-4 space-y-6">
-                            <div className="bg-slate-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-4">
-                                <h3 className="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
-                                    <ShieldCheck className="w-5 h-5 text-prestige-gold" />
-                                    Enlaces de Verificación Oficial
+                        <div className="pt-2 space-y-2 text-slate-300 text-sm sm:text-base">
+                            <p className="font-semibold text-white">Compañeros de profesión:</p>
+                            <ul className="space-y-1.5 pl-4 list-disc list-inside">
+                                <li>
+                                    <strong className="text-white">Rafael Domínguez Alonso</strong>, abogado penalista (
+                                    <a
+                                        href="https://www.icab.es/es/colegio/miembros/index.html?id=31884"
+                                        target="_blank"
+                                        rel="noopener"
+                                        className="text-amber-400 hover:underline"
+                                    >
+                                        ICAB 31.884
+                                    </a>
+                                    )
+                                </li>
+                                <li>
+                                    <strong className="text-white">Javier Zacarías Jiménez</strong>, socio director de OHMIUS Advocats (
+                                    <a
+                                        href="https://icab.es/es/colegio/miembros/index.html?id=48784"
+                                        target="_blank"
+                                        rel="noopener"
+                                        className="text-amber-400 hover:underline"
+                                    >
+                                        ICAB 48.784
+                                    </a>
+                                    )
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="pt-4">
+                            <a
+                                href="https://www.gimenezolavarriaga.abogado/biografia"
+                                target="_blank"
+                                rel="noopener"
+                                className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-bold text-sm hover:underline transition-colors"
+                            >
+                                Ver todas las opiniones y la biografía completa en gimenezolavarriaga.abogado →
+                            </a>
+                        </div>
+                    </section>
+
+                    {/* PREGUNTAS FRECUENTES */}
+                    <section className="space-y-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight border-b border-white/10 pb-3">
+                            Preguntas frecuentes
+                        </h2>
+
+                        <div className="space-y-6 text-slate-300 text-sm sm:text-base leading-relaxed">
+                            <div className="space-y-1.5">
+                                <h3 className="font-bold text-white text-base">
+                                    ¿Cómo compruebo que Santiago Giménez Olavarriaga es abogado colegiado?
                                 </h3>
-
-                                <div className="space-y-3 text-xs">
-                                    <a
-                                        href="https://www.icab.es/es/colegio/miembros/index.html?id=31389"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="p-3 rounded-xl bg-slate-950 border border-white/5 hover:border-prestige-gold/40 flex items-center justify-between transition-all group"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <GraduationCap className="w-5 h-5 text-prestige-gold shrink-0" />
-                                            <div>
-                                                <p className="font-bold text-white group-hover:text-prestige-gold transition-colors">Censo Oficial ICAB</p>
-                                                <p className="text-[11px] text-slate-400">Colegiado nº 31.389</p>
-                                            </div>
-                                        </div>
-                                        <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-prestige-gold transition-colors" />
-                                    </a>
-
-                                    <a
-                                        href="https://www.linkedin.com/in/santiagogimenezolavarriaga/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="p-3 rounded-xl bg-slate-950 border border-white/5 hover:border-prestige-gold/40 flex items-center justify-between transition-all group"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <Linkedin className="w-5 h-5 text-blue-400 shrink-0" />
-                                            <div>
-                                                <p className="font-bold text-white group-hover:text-prestige-gold transition-colors">Perfil LinkedIn</p>
-                                                <p className="text-[11px] text-slate-400">Linkedin Verificado</p>
-                                            </div>
-                                        </div>
-                                        <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-prestige-gold transition-colors" />
-                                    </a>
-
-                                    <a
-                                        href="https://www.gimenezolavarriaga.abogado"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="p-3 rounded-xl bg-slate-950 border border-white/5 hover:border-prestige-gold/40 flex items-center justify-between transition-all group"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <Globe className="w-5 h-5 text-emerald-400 shrink-0" />
-                                            <div>
-                                                <p className="font-bold text-white group-hover:text-prestige-gold transition-colors">Sitio Profesional</p>
-                                                <p className="text-[11px] text-slate-400">gimenezolavarriaga.abogado</p>
-                                            </div>
-                                        </div>
-                                        <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-prestige-gold transition-colors" />
-                                    </a>
-                                </div>
+                                <p>
+                                    En el censo público del Ilustre Colegio de la Abogacía de Barcelona, con el número 31.389.
+                                </p>
                             </div>
 
-                            <div className="bg-slate-900/90 p-6 rounded-2xl border border-white/10 shadow-xl space-y-3 text-xs text-slate-300">
-                                <h3 className="font-bold text-white uppercase tracking-wider text-xs">Contacto Directo</h3>
-                                <p className="flex items-center gap-2">
-                                    <Mail className="w-4 h-4 text-prestige-gold shrink-0" />
-                                    <span>contacto@autoridad.legal</span>
+                            <div className="space-y-1.5">
+                                <h3 className="font-bold text-white text-base">
+                                    ¿Qué relación hay entre Santiago Giménez Olavarriaga y Autoridad Legal?
+                                </h3>
+                                <p>
+                                    Santiago es el abogado y director jurídico. Autoridad Legal es la marca con la que presta la defensa urgente en delitos contra la seguridad vial en la provincia de Barcelona.
                                 </p>
-                                <p className="flex items-center gap-2">
-                                    <Phone className="w-4 h-4 text-prestige-gold shrink-0" />
-                                    <span>+34 605 118 871</span>
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <h3 className="font-bold text-white text-base">
+                                    ¿En qué juzgados actúa?
+                                </h3>
+                                <p>
+                                    En los juzgados de guardia y tribunales de instancia de los 25 partidos judiciales de la provincia de Barcelona.{' '}
+                                    <Link href="/juzgados" className="text-amber-400 hover:underline font-medium">
+                                        Ver lista de partidos judiciales
+                                    </Link>
+                                </p>
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <h3 className="font-bold text-white text-base">
+                                    ¿Cuánto cuestan sus honorarios?
+                                </h3>
+                                <p>
+                                    Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet, y 1.480 € para conductores profesionales. Los recargos están tasados por escrito.{' '}
+                                    <Link href="/honorarios" className="text-amber-400 hover:underline font-medium">
+                                        Ver honorarios
+                                    </Link>
                                 </p>
                             </div>
                         </div>
                     </section>
 
-                    {/* LINK TO SERVICES & HONORARIOS */}
-                    <section className="bg-gradient-to-r from-slate-900 via-trust-navy to-slate-900 p-8 rounded-3xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div className="space-y-2">
-                            <h3 className="text-xl font-bold text-white">Transparencia en Honorarios y Hoja de Encargo</h3>
-                            <p className="text-sm text-slate-300">
-                                Consulta nuestro modelo de precios cerrados por escrito (980 € base y 1.480 € profesionales) con pago en custodia y opciones de financiación.
-                            </p>
+                    {/* LLAMADAS A LA ACCIÓN FINALES */}
+                    <section className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div className="space-y-1 text-center sm:text-left">
+                            <h3 className="text-lg font-bold text-white">¿Necesitas asistencia letrada inmediata?</h3>
+                            <p className="text-sm text-slate-400">Guardia penal 24 horas y honorarios cerrados por escrito.</p>
                         </div>
-                        <Link
-                            href="/honorarios"
-                            className="px-6 py-3 rounded-xl bg-prestige-gold hover:bg-amber-400 text-trust-navy font-extrabold text-sm whitespace-nowrap transition-all shadow-lg"
-                        >
-                            Ver Honorarios →
-                        </Link>
+                        <div className="flex flex-wrap gap-3 items-center justify-center">
+                            <a
+                                href="tel:+34605118871"
+                                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm transition-colors shadow-lg"
+                            >
+                                <Phone className="w-4 h-4" />
+                                Llamar a la guardia 24 h — +34 605 118 871
+                            </a>
+                            <Link
+                                href="/honorarios"
+                                className="inline-flex items-center gap-1.5 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white border border-white/10 font-bold text-xs sm:text-sm transition-colors"
+                            >
+                                Ver honorarios cerrados
+                            </Link>
+                        </div>
                     </section>
                 </div>
             </main>
