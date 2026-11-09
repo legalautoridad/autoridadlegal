@@ -1,4 +1,5 @@
-import { detectIncidentType, detectCity } from './classifier';
+import { detectIncidentType, detectCity, hasCaseWords, isOutsideZone } from './classifier';
+import { extractName } from './name-extractor';
 import { WHATSAPP_MESSAGES } from './constants';
 
 export interface ConversationItem {
@@ -107,7 +108,7 @@ export function extractMessageData(payload: any): ExtractedWhatsAppMessage {
 
 export interface LeadStateUpdate {
     isNew: boolean;
-    name?: string;
+    name?: string | null;
     phone?: string;
     concerns?: string;
     wa_state: 'ask_name' | 'ask_incident' | 'done';
@@ -123,49 +124,199 @@ export function processTriageStep(
     locationNames: string[] = [],
     now: Date = new Date()
 ): LeadStateUpdate {
+    const text = extracted.extractedText;
+
     const inMsg: ConversationItem = {
         direction: 'in',
         type: extracted.messageType,
-        text: extracted.extractedText,
+        text,
         message_id: extracted.messageId,
         timestamp: now.toISOString(),
     };
 
-    // 1. If NO existing lead -> create new lead, state = ask_name, send MENSAJE_A
+    // 1. NEW LEAD (First message)
     if (!currentLead) {
+        const foundName = extractName(text);
+        const hasCase = hasCaseWords(text);
+        const incidentType = detectIncidentType(text);
+        let city = detectCity(text, locationNames);
+        const outside = isOutsideZone(text);
+
+        let concerns = text;
+        if (hasCase || incidentType) {
+            if (outside || !city) {
+                city = null;
+                concerns = `[REVISAR ZONA] ${text}`;
+            }
+        }
+
+        // Case A: First message has BOTH name and case details
+        if (foundName && hasCase) {
+            return {
+                isNew: true,
+                phone: extracted.normalizedPhone,
+                name: foundName,
+                concerns,
+                wa_state: 'done',
+                incident_type: incidentType,
+                city,
+                inMsg,
+                outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_C(foundName),
+            };
+        }
+
+        // Case B: First message has name, but not case details
+        if (foundName && !hasCase) {
+            return {
+                isNew: true,
+                phone: extracted.normalizedPhone,
+                name: foundName,
+                concerns: text,
+                wa_state: 'ask_incident',
+                inMsg,
+                outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_B(foundName),
+            };
+        }
+
+        // Case C: First message has case details, but NO name
+        if (!foundName && hasCase) {
+            return {
+                isNew: true,
+                phone: extracted.normalizedPhone,
+                concerns,
+                wa_state: 'ask_name',
+                incident_type: incidentType,
+                city,
+                inMsg,
+                outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_A2,
+            };
+        }
+
+        // Case D: First message is generic greeting (no name, no case)
         return {
             isNew: true,
             phone: extracted.normalizedPhone,
-            concerns: extracted.extractedText,
+            concerns: text,
             wa_state: 'ask_name',
             inMsg,
             outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_A,
         };
     }
 
-    const state = currentLead.wa_state;
+    // 2. EXISTING LEAD IN 'ask_name' STATE
+    if (currentLead.wa_state === 'ask_name') {
+        const foundName = extractName(text);
 
-    // 2. If state is 'ask_name' -> extract name, state = ask_incident, send MENSAJE_B
-    if (state === 'ask_name') {
-        const name = extracted.extractedText.slice(0, 80).trim() || 'estimado/a';
+        // Count how many times the bot has already asked for the name
+        const conversation: ConversationItem[] = Array.isArray(currentLead.conversation)
+            ? currentLead.conversation
+            : [];
+        const timesNameAsked = conversation.filter(
+            m => m.direction === 'out' && (m.text === WHATSAPP_MESSAGES.MENSAJE_A || m.text === WHATSAPP_MESSAGES.MENSAJE_A2)
+        ).length;
+
+        // Subcase 2.1: extractName returned a valid name
+        if (foundName) {
+            // Check if user also gave incident details in the same reply
+            if (hasCaseWords(text)) {
+                let combinedConcerns = currentLead.concerns ? `${currentLead.concerns}\n\n${text}` : text;
+                const incident_type = detectIncidentType(combinedConcerns) || currentLead.incident_type || null;
+                let city = detectCity(combinedConcerns, locationNames) || currentLead.city || null;
+                const outside = isOutsideZone(combinedConcerns);
+
+                if (outside || !city) {
+                    city = null;
+                    if (!combinedConcerns.startsWith('[REVISAR ZONA] ')) {
+                        combinedConcerns = `[REVISAR ZONA] ${combinedConcerns}`;
+                    }
+                }
+
+                return {
+                    isNew: false,
+                    name: foundName,
+                    concerns: combinedConcerns,
+                    wa_state: 'done',
+                    incident_type,
+                    city,
+                    inMsg,
+                    outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_C(foundName),
+                };
+            }
+
+            return {
+                isNew: false,
+                name: foundName,
+                wa_state: 'ask_incident',
+                inMsg,
+                outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_B(foundName),
+            };
+        }
+
+        // Subcase 2.2: extractName returned null, but text contains case words
+        if (hasCaseWords(text)) {
+            let combinedConcerns = currentLead.concerns ? `${currentLead.concerns}\n\n${text}` : text;
+            const incident_type = detectIncidentType(combinedConcerns) || currentLead.incident_type || null;
+            let city = detectCity(combinedConcerns, locationNames) || currentLead.city || null;
+            const outside = isOutsideZone(combinedConcerns);
+
+            if (outside || !city) {
+                city = null;
+                if (!combinedConcerns.startsWith('[REVISAR ZONA] ')) {
+                    combinedConcerns = `[REVISAR ZONA] ${combinedConcerns}`;
+                }
+            }
+
+            // If we have already asked for the name >= 2 times, stop asking and proceed to done
+            if (timesNameAsked >= 2) {
+                return {
+                    isNew: false,
+                    name: null,
+                    concerns: combinedConcerns,
+                    wa_state: 'done',
+                    incident_type,
+                    city,
+                    inMsg,
+                    outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_C(null),
+                };
+            }
+
+            // Otherwise, ask for name again with MENSAJE A2
+            return {
+                isNew: false,
+                concerns: combinedConcerns,
+                wa_state: 'ask_name',
+                incident_type,
+                city,
+                inMsg,
+                outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_A2,
+            };
+        }
+
+        // Subcase 2.3: extractName returned null and does NOT look like a case
         return {
             isNew: false,
-            name,
+            name: null,
             wa_state: 'ask_incident',
             inMsg,
-            outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_B(name),
+            outMsgTextToSend: WHATSAPP_MESSAGES.MENSAJE_B(null),
         };
     }
 
-    // 3. If state is 'ask_incident' -> append concerns, state = done, classify incident & city, send MENSAJE_C
-    if (state === 'ask_incident') {
-        const combinedConcerns = currentLead.concerns
-            ? `${currentLead.concerns}\n\n${extracted.extractedText}`
-            : extracted.extractedText;
+    // 3. EXISTING LEAD IN 'ask_incident' STATE
+    if (currentLead.wa_state === 'ask_incident') {
+        let combinedConcerns = currentLead.concerns ? `${currentLead.concerns}\n\n${text}` : text;
+        const incident_type = detectIncidentType(combinedConcerns) || currentLead.incident_type || null;
+        let city = detectCity(combinedConcerns, locationNames);
+        const outside = isOutsideZone(combinedConcerns);
 
-        const incident_type = detectIncidentType(combinedConcerns);
-        const city = detectCity(combinedConcerns, locationNames);
-        const leadName = currentLead.name || 'estimado/a';
+        if (outside || !city) {
+            city = null;
+            if (!combinedConcerns.startsWith('[REVISAR ZONA] ')) {
+                combinedConcerns = `[REVISAR ZONA] ${combinedConcerns}`;
+            }
+        }
+
+        const leadName = currentLead.name || null;
 
         return {
             isNew: false,
@@ -178,28 +329,34 @@ export function processTriageStep(
         };
     }
 
-    // 4. If state is 'done' -> append concerns, only resend MENSAJE_C if > 12h since last out message
-    const combinedConcerns = currentLead.concerns
-        ? `${currentLead.concerns}\n\n${extracted.extractedText}`
-        : extracted.extractedText;
+    // 4. EXISTING LEAD IN 'done' STATE
+    let combinedConcerns = currentLead.concerns ? `${currentLead.concerns}\n\n${text}` : text;
+    let city = currentLead.city || detectCity(combinedConcerns, locationNames);
+    const outside = isOutsideZone(combinedConcerns);
+
+    if (outside || !city) {
+        city = null;
+        if (!combinedConcerns.startsWith('[REVISAR ZONA] ')) {
+            combinedConcerns = `[REVISAR ZONA] ${combinedConcerns}`;
+        }
+    }
 
     const conversation: ConversationItem[] = Array.isArray(currentLead.conversation)
         ? currentLead.conversation
         : [];
-
-    const outMessages = conversation.filter((m) => m.direction === 'out');
+    const outMessages = conversation.filter(m => m.direction === 'out');
     const lastOut = outMessages[outMessages.length - 1];
     const twelveHoursMs = 12 * 60 * 60 * 1000;
     const shouldResendC = !lastOut?.timestamp || now.getTime() - new Date(lastOut.timestamp).getTime() > twelveHoursMs;
 
-    const leadName = currentLead.name || 'estimado/a';
+    const leadName = currentLead.name || null;
 
     return {
         isNew: false,
         concerns: combinedConcerns,
+        city,
         wa_state: 'done',
         inMsg,
         outMsgTextToSend: shouldResendC ? WHATSAPP_MESSAGES.MENSAJE_C(leadName) : null,
     };
 }
-

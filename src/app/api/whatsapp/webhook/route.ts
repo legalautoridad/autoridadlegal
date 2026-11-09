@@ -169,19 +169,24 @@ export async function POST(req: NextRequest) {
             const initialConversation: ConversationItem[] = [decision.inMsg];
             const nowIso = new Date().toISOString();
 
+            const insertPayload: Record<string, any> = {
+                phone: decision.phone,
+                systemin: 'whatsapp',
+                contact_date_time: nowIso,
+                concerns: decision.concerns,
+                wa_state: decision.wa_state,
+                conversation: initialConversation,
+                is_taken: false,
+                "lastUpdate": nowIso,
+                created_at: nowIso,
+            };
+            if (decision.name !== undefined) insertPayload.name = decision.name;
+            if (decision.incident_type !== undefined) insertPayload.incident_type = decision.incident_type;
+            if (decision.city !== undefined) insertPayload.city = decision.city;
+
             const { data: insertedLead, error: insertError } = await supabase
                 .from('leads')
-                .insert({
-                    phone: decision.phone,
-                    systemin: 'whatsapp',
-                    contact_date_time: nowIso,
-                    concerns: decision.concerns,
-                    wa_state: decision.wa_state,
-                    conversation: initialConversation,
-                    is_taken: false,
-                    "lastUpdate": nowIso,
-                    created_at: nowIso,
-                })
+                .insert(insertPayload)
                 .select('id')
                 .single();
 

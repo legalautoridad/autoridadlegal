@@ -1,4 +1,4 @@
-import { PHONE_CALL_DISPLAY } from '@/lib/contact';
+import { PHONE_CALL_DISPLAY } from '../contact';
 
 export const WHATSAPP_MESSAGES = {
     MENSAJE_A: `Hola, soy el asistente de Autoridad Legal, defensa penal en delitos de tráfico en Barcelona. ¿Cómo te llamas?
