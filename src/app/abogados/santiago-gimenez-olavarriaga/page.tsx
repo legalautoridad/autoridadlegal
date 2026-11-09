@@ -172,12 +172,12 @@ export default function SantiagoGimenezPage() {
                             <span className="text-amber-400">Santiago Giménez Olavarriaga</span>
                         </nav>
 
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
+                        <div className="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 mb-8">
                             {/* Fotografía oficial */}
                             <img
                                 src="https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg"
                                 alt="Santiago Giménez Olavarriaga"
-                                className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl object-cover border-2 border-amber-400/30 shadow-xl shrink-0"
+                                className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 rounded-2xl object-cover border-2 border-amber-400/30 shadow-2xl shrink-0"
                             />
                             <div>
                                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
