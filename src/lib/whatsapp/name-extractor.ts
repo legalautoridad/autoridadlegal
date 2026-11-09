@@ -121,3 +121,4 @@ export function extractName(text: string | null | undefined): string | null {
 
     return result;
 }
+
