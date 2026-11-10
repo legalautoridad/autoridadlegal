@@ -17,7 +17,7 @@ test('1. Meta descriptions in Home and /honorarios are ≤ 155 characters', () =
     assert.ok(homeDesc.length <= 155, `Home description exceeds 155 chars (${homeDesc.length}): "${homeDesc}"`);
     assert.strictEqual(
         homeDesc,
-        'Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 € + IVA, procurador incluido.'
+        'Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 €, procurador incluido.'
     );
 
     // Extract description from /honorarios
@@ -27,7 +27,7 @@ test('1. Meta descriptions in Home and /honorarios are ≤ 155 characters', () =
     assert.ok(honDesc.length <= 155, `Honorarios description exceeds 155 chars (${honDesc.length}): "${honDesc}"`);
     assert.strictEqual(
         honDesc,
-        'Honorarios cerrados por escrito: 680 € + IVA con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.'
+        'Honorarios cerrados por escrito: 680 € con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.'
     );
 });
 

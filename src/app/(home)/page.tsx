@@ -21,7 +21,7 @@ export const revalidate = 3600; // ISR revalidation for homepage FAQs
 
 export const metadata: Metadata = {
     title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-    description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 € + IVA, procurador incluido.",
+    description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 €, procurador incluido.",
     alternates: {
         canonical: "https://www.autoridad.legal/",
     },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "https://www.autoridad.legal/",
         siteName: "Autoridad Legal",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-        description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 € + IVA, procurador incluido.",
+        description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 €, procurador incluido.",
         images: [
             {
                 url: DEFAULT_OG_IMAGE,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-        description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 € + IVA, procurador incluido.",
+        description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 €, procurador incluido.",
         images: [DEFAULT_OG_IMAGE],
     },
 };
@@ -90,7 +90,7 @@ export default async function MarketingPage() {
 
                         {/* Anchor Text - Closer */}
                         <p className="mt-4 bg-white/5 border border-prestige-gold/20 p-4 rounded-xl text-center text-sm text-white/95 w-full max-w-md lg:max-w-lg leading-relaxed shadow-lg">
-                            Honorarios cerrados de <strong className="text-prestige-gold text-lg">{PRICING_SUMMARY.basePriceDisplay} + IVA</strong> para el supuesto base (procurador de los tribunales incluido; {PRICING_SUMMARY.proPriceDisplay} + IVA para conductores profesionales). Sistema de pago seguro en custodia: los fondos solo se liberan tras la actuación judicial. Financiación hasta 12 meses.
+                            Honorarios cerrados de <strong className="text-prestige-gold text-lg">{PRICING_SUMMARY.basePriceDisplay}</strong> para el supuesto base (procurador de los tribunales incluido; {PRICING_SUMMARY.proPriceDisplay} para conductores profesionales). Sistema de pago seguro en custodia: los fondos solo se liberan tras la actuación judicial. Financiación hasta 12 meses.
                         </p>
                     </div>
                 </div>
@@ -120,7 +120,7 @@ export default async function MarketingPage() {
                     Defensa Premium frente a Juicios Rápidos
                 </h2>
                 <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                    Ofrecemos una defensa penal integral con precio cerrado de {PRICING_SUMMARY.basePriceDisplay} + IVA (procurador incluido) para el supuesto base y {PRICING_SUMMARY.proPriceDisplay} + IVA para conductores profesionales ({PRICING_SUMMARY.proPriceExplanation}). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados siempre por escrito y por adelantado. {PRICING_SUMMARY.taxNoteShort} Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
+                    Ofrecemos una defensa penal integral con precio cerrado de {PRICING_SUMMARY.basePriceDisplay} (procurador incluido) para el supuesto base y {PRICING_SUMMARY.proPriceDisplay} para conductores profesionales ({PRICING_SUMMARY.proPriceExplanation}). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados siempre por escrito y por adelantado. {PRICING_SUMMARY.taxNoteShort} Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
                 </p>
             </article>
 

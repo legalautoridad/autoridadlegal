@@ -186,7 +186,7 @@ export default async function GlosarioTermPage({ params }: GlosarioPageProps) {
                         ¿Tiene una citación o atestado relacionado con {term.name}?
                     </h3>
                     <p className="text-slate-300 text-sm leading-relaxed">
-                        Nuestros abogados penalistas intervienen desde la primera asistencia en comisaría o juzgado de guardia en toda la provincia de Barcelona por honorarios cerrados de 680 € + IVA (procurador de los tribunales incluido).
+                        Nuestros abogados penalistas intervienen desde la primera asistencia en comisaría o juzgado de guardia en toda la provincia de Barcelona por honorarios cerrados de 680 € (procurador de los tribunales incluido).
                     </p>
                     <div className="pt-2 flex flex-wrap gap-4">
                         <a

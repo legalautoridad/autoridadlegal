@@ -15,7 +15,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             '@id': 'https://www.autoridad.legal/#organization',
             'name': 'Autoridad Legal',
             'legalName': 'Santiago Giménez Olavarriaga',
-            'description': 'Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa urgente 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin carné y casos de conductores profesionales, con honorarios cerrados de 680 € + IVA (procurador incluido) y suplementos tasados por escrito.',
+            'description': 'Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa urgente 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin carné y casos de conductores profesionales, con honorarios cerrados de 680 € (procurador incluido) y suplementos tasados por escrito.',
             'url': 'https://www.autoridad.legal',
             'telephone': PHONE_E164,
             'email': 'contacto@autoridad.legal',

@@ -15,7 +15,7 @@ export interface CanonicalPricingSupplement {
     formattedAmount: string; // e.g. "500,00"
     price: string; // alias for formattedAmount ("500.00")
     displayPrice: string; // e.g. "+500 €"
-    displayWithTaxLabel: string; // e.g. "+500 € + IVA"
+    displayWithTaxLabel: string; // e.g. "+500 €"
     appliesToLabel: string;
     appliesToProfesionales: boolean;
     description: string;
@@ -33,7 +33,7 @@ export interface CanonicalServicePricing {
     basePrice: string; // alias for basePriceNumber as string ("680.00" or "1180.00")
     basePriceDisplay: string; // e.g. "680 €"
     displayPrice: string; // alias for basePriceDisplay
-    displayWithTaxLabel: string; // e.g. "680 € + IVA"
+    displayWithTaxLabel: string; // e.g. "680 €, procurador incluido"
     serviceName: string;
     serviceType: string;
     scopeSummary: string;
@@ -84,22 +84,20 @@ export const STATUTORY_TAX_NOTE_SHORT =
 // ---------------------------------------------------------------------------
 
 export interface FormatPriceOptions {
-    withTaxSuffix?: boolean; // añade " + IVA"
+    withTaxSuffix?: boolean;
     decimals?: boolean; // true -> "680,00 €", false -> "680 €"
     prefix?: string; // e.g. "+"
 }
 
 export function formatPrice(amount: number, options?: FormatPriceOptions): string {
     const decimals = options?.decimals ?? false;
-    const withTax = options?.withTaxSuffix ?? false;
     const prefix = options?.prefix ?? '';
 
     const formattedNumber = decimals
         ? amount.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
         : amount.toLocaleString('es-ES');
 
-    const taxSuffix = withTax ? ' + IVA' : '';
-    return `${prefix}${formattedNumber} €${taxSuffix}`;
+    return `${prefix}${formattedNumber} €`;
 }
 
 // ---------------------------------------------------------------------------
@@ -116,7 +114,7 @@ export const CANONICAL_SUPPLEMENTS: Record<string, CanonicalPricingSupplement> =
         formattedAmount: '500,00',
         price: '500.00',
         displayPrice: '+500 €',
-        displayWithTaxLabel: '+500 € + IVA',
+        displayWithTaxLabel: '+500 €',
         appliesToLabel: 'Permisos C, D, E',
         appliesToProfesionales: true,
         description:
@@ -131,7 +129,7 @@ export const CANONICAL_SUPPLEMENTS: Record<string, CanonicalPricingSupplement> =
         formattedAmount: '200,00',
         price: '200.00',
         displayPrice: '+200 €',
-        displayWithTaxLabel: '+200 € + IVA',
+        displayWithTaxLabel: '+200 €',
         appliesToLabel: 'Los 5 servicios',
         appliesToProfesionales: true,
         description:
@@ -146,7 +144,7 @@ export const CANONICAL_SUPPLEMENTS: Record<string, CanonicalPricingSupplement> =
         formattedAmount: '300,00',
         price: '300.00',
         displayPrice: '+300 €',
-        displayWithTaxLabel: '+300 € + IVA',
+        displayWithTaxLabel: '+300 €',
         appliesToLabel: 'Los 5 servicios',
         appliesToProfesionales: true,
         description:
@@ -161,7 +159,7 @@ export const CANONICAL_SUPPLEMENTS: Record<string, CanonicalPricingSupplement> =
         formattedAmount: '500,00',
         price: '500.00',
         displayPrice: '+500 €',
-        displayWithTaxLabel: '+500 € + IVA',
+        displayWithTaxLabel: '+500 €',
         appliesToLabel: 'Los 5 servicios',
         appliesToProfesionales: true,
         description:
@@ -176,7 +174,7 @@ export const CANONICAL_SUPPLEMENTS: Record<string, CanonicalPricingSupplement> =
         formattedAmount: '300,00',
         price: '300.00',
         displayPrice: '+300 €',
-        displayWithTaxLabel: '+300 € + IVA',
+        displayWithTaxLabel: '+300 €',
         appliesToLabel: 'Los 4 servicios base particulares',
         appliesToProfesionales: false,
         description:
@@ -207,13 +205,13 @@ export const SERVICES_PRICING: CanonicalServicePricing[] = [
         basePrice: '680.00',
         basePriceDisplay: '680 €',
         displayPrice: '680 €',
-        displayWithTaxLabel: '680 € + IVA, procurador incluido',
+        displayWithTaxLabel: '680 €, procurador incluido',
         serviceName: 'Defensa penal por delito de alcoholemia',
         serviceType: 'Defensa penal por conducción bajo influencia de alcohol',
         scopeSummary:
-            'precio cerrado de 680 € + IVA (procurador incluido) para el supuesto base: juicio rápido con conformidad',
+            'precio cerrado de 680 € (procurador incluido) para el supuesto base: juicio rápido con conformidad',
         description:
-            'Honorarios profesionales de 680 € + IVA para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.',
+            'Honorarios profesionales de 680 € para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.',
         applicableAddOns: ['reincidencia', 'noConformidad', 'riesgoPrision', 'asistenciaDetenido'],
     },
     {
@@ -228,13 +226,13 @@ export const SERVICES_PRICING: CanonicalServicePricing[] = [
         basePrice: '680.00',
         basePriceDisplay: '680 €',
         displayPrice: '680 €',
-        displayWithTaxLabel: '680 € + IVA, procurador incluido',
+        displayWithTaxLabel: '680 €, procurador incluido',
         serviceName: 'Defensa penal por drogas al volante',
         serviceType: 'Defensa penal por conducción bajo influencia de drogas',
         scopeSummary:
-            'precio cerrado de 680 € + IVA (procurador incluido) para el supuesto base: juicio rápido con conformidad',
+            'precio cerrado de 680 € (procurador incluido) para el supuesto base: juicio rápido con conformidad',
         description:
-            'Honorarios profesionales de 680 € + IVA para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.',
+            'Honorarios profesionales de 680 € para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.',
         applicableAddOns: ['reincidencia', 'noConformidad', 'riesgoPrision', 'asistenciaDetenido'],
     },
     {
@@ -249,13 +247,13 @@ export const SERVICES_PRICING: CanonicalServicePricing[] = [
         basePrice: '680.00',
         basePriceDisplay: '680 €',
         displayPrice: '680 €',
-        displayWithTaxLabel: '680 € + IVA, procurador incluido',
+        displayWithTaxLabel: '680 €, procurador incluido',
         serviceName: 'Defensa penal por exceso de velocidad',
         serviceType: 'Defensa penal por delito de exceso de velocidad',
         scopeSummary:
-            'precio cerrado de 680 € + IVA (procurador incluido) para el supuesto base: juicio rápido con conformidad',
+            'precio cerrado de 680 € (procurador incluido) para el supuesto base: juicio rápido con conformidad',
         description:
-            'Honorarios profesionales de 680 € + IVA para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.',
+            'Honorarios profesionales de 680 € para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.',
         applicableAddOns: ['reincidencia', 'noConformidad', 'riesgoPrision', 'asistenciaDetenido'],
     },
     {
@@ -270,13 +268,13 @@ export const SERVICES_PRICING: CanonicalServicePricing[] = [
         basePrice: '680.00',
         basePriceDisplay: '680 €',
         displayPrice: '680 €',
-        displayWithTaxLabel: '680 € + IVA, procurador incluido',
+        displayWithTaxLabel: '680 €, procurador incluido',
         serviceName: 'Defensa penal por conducción sin permiso',
         serviceType: 'Defensa penal por conducción sin permiso o licencia',
         scopeSummary:
-            'precio cerrado de 680 € + IVA (procurador incluido) para el supuesto base: juicio rápido con conformidad',
+            'precio cerrado de 680 € (procurador incluido) para el supuesto base: juicio rápido con conformidad',
         description:
-            'Honorarios profesionales de 680 € + IVA para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.',
+            'Honorarios profesionales de 680 € para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.',
         applicableAddOns: ['reincidencia', 'noConformidad', 'riesgoPrision', 'asistenciaDetenido'],
     },
     {
@@ -291,13 +289,13 @@ export const SERVICES_PRICING: CanonicalServicePricing[] = [
         basePrice: '1180.00',
         basePriceDisplay: '1.180 €',
         displayPrice: '1.180 €',
-        displayWithTaxLabel: '680 € + 500 € de suplemento por conductor profesional (+ IVA)',
+        displayWithTaxLabel: '680 € + 500 € de suplemento por conductor profesional',
         serviceName: 'Defensa penal para conductores profesionales',
         serviceType: 'Defensa penal de tráfico para titulares de permisos profesionales (C, D, E)',
         scopeSummary:
-            '680 € + 500 € de suplemento por conductor profesional (+ IVA) para el procedimiento completo en primera instancia hasta la sentencia. Incluye procurador y protección del CAP y tacógrafo digital.',
+            '680 € + 500 € de suplemento por conductor profesional para el procedimiento completo en primera instancia hasta la sentencia. Incluye procurador y protección del CAP y tacógrafo digital.',
         description:
-            'Honorarios de 680 € + 500 € de suplemento por conductor profesional (+ IVA) para titulares de permisos C, D o E. Cubre el procedimiento completo en primera instancia hasta la sentencia. Incluye Procurador de los Tribunales (0 € adicionales), protección del CAP y tarjeta de tacógrafo digital. No incluye recurso de apelación ante la Audiencia Provincial.',
+            'Honorarios de 680 € + 500 € de suplemento por conductor profesional para titulares de permisos C, D o E. Cubre el procedimiento completo en primera instancia hasta la sentencia. Incluye Procurador de los Tribunales (0 € adicionales), protección del CAP y tarjeta de tacógrafo digital. No incluye recurso de apelación ante la Audiencia Provincial.',
         applicableAddOns: ['reincidencia', 'riesgoPrision', 'asistenciaDetenido'],
     },
 ];
@@ -312,8 +310,8 @@ export const PRICING_SUMMARY = {
     proTotalNumber: PENAL_BASE_PRICE + SUPPLEMENT_PROFESIONAL,
     proPriceDisplay: '1.180 €',
     proTotalDecimals: '1.180,00 €',
-    proPriceExplanation: '680 € + 500 € de suplemento por conductor profesional (+ IVA)',
-    basePriceWithTaxAndProcurador: '680 € + IVA, procurador incluido',
+    proPriceExplanation: '680 € + 500 € de suplemento por conductor profesional',
+    basePriceWithTaxAndProcurador: '680 €, procurador incluido',
     accidentsLabel: 'Accidentes con daños a terceros o lesiones',
     accidentsValue: 'Presupuesto específico por escrito tras revisar el atestado',
     taxNote: STATUTORY_TAX_NOTE,
@@ -336,9 +334,9 @@ const pro6040 = calculate6040(PENAL_BASE_PRICE + SUPPLEMENT_PROFESIONAL);
 export const PAYMENT_60_40_TIERS: Payment6040Plan[] = [
     {
         id: 'base',
-        label: `Servicios base (${PENAL_BASE_PRICE} € + IVA)`,
+        label: `Servicios base (${PENAL_BASE_PRICE} €)`,
         totalAmount: PENAL_BASE_PRICE,
-        totalDisplay: `${PENAL_BASE_PRICE} € + IVA`,
+        totalDisplay: `${PENAL_BASE_PRICE} €`,
         totalWithDecimals: '680,00 €',
         pago60Amount: base6040.pago60,
         pago60Display: `${base6040.pago60} €`,
@@ -349,9 +347,9 @@ export const PAYMENT_60_40_TIERS: Payment6040Plan[] = [
     },
     {
         id: 'profesionales',
-        label: `Conductores profesionales (1.180 € + IVA)`,
+        label: `Conductores profesionales (1.180 €)`,
         totalAmount: PENAL_BASE_PRICE + SUPPLEMENT_PROFESIONAL,
-        totalDisplay: '1.180 € + IVA',
+        totalDisplay: '1.180 €',
         totalWithDecimals: '1.180,00 €',
         pago60Amount: pro6040.pago60,
         pago60Display: `${pro6040.pago60} €`,
@@ -380,17 +378,17 @@ export const DEFENSE_POINTS_PRICING = {
     basePriceNumber: ADMIN_POINTS_BASE_PRICE,
     basePriceFormatted: '350,00',
     basePriceDisplay: '350,00 €',
-    basePriceWithTaxLabel: '350,00 € + IVA',
+    basePriceWithTaxLabel: '350,00 €',
     baseConcept: 'Provisión base de defensa técnica',
     baseDescription: 'Estudio, alegaciones, proposición de prueba y recursos ordinarios',
     successBonusNumber: ADMIN_POINTS_SUCCESS_BONUS,
     successBonusFormatted: '150,00',
     successBonusDisplay: '150,00 €',
-    successBonusWithTaxLabel: '150,00 € + IVA',
+    successBonusWithTaxLabel: '150,00 €',
     successBonusConcept: 'Bono de éxito (conservar el carnet)',
     successBonusDescription: 'Solo si el conductor conserva la vigencia del permiso',
     totalFavorableDisplay: '500,00 €',
-    totalFavorableWithTaxLabel: '500,00 € + IVA',
+    totalFavorableWithTaxLabel: '500,00 €',
     taxNote: STATUTORY_TAX_NOTE,
     taxNoteShort: STATUTORY_TAX_NOTE_SHORT,
 } as const;
@@ -429,14 +427,14 @@ export function calculateFinancingQuotas(totalAmount: number): {
  * Genera las líneas de "Honorarios" y "Recargos" para la cabecera de llms.txt y llms-full.txt
  */
 export function renderDatosClaveHonorariosLines(): [string, string] {
-    const honorariosLine = `- Honorarios defensa penal: ${PENAL_BASE_PRICE} € + IVA (procurador de los tribunales incluido) para juicio rápido con conformidad en Barcelona; ${PRICING_SUMMARY.proPriceDisplay} + IVA para conductores profesionales (${PRICING_SUMMARY.proPriceExplanation}).`;
+    const honorariosLine = `- Honorarios defensa penal: ${PENAL_BASE_PRICE} € (procurador de los tribunales incluido) para juicio rápido con conformidad en Barcelona; ${PRICING_SUMMARY.proPriceDisplay} para conductores profesionales (${PRICING_SUMMARY.proPriceExplanation}).`;
 
     const addOnParts = Object.values(CANONICAL_SUPPLEMENTS).map(addOn => {
         const suffix = addOn.appliesToProfesionales ? '' : ' (particulares)';
         return `${addOn.shortLabel} ${addOn.displayPrice}${suffix}`;
     });
 
-    const recargosLine = `- Suplementos tasados acumulables (+ IVA): ${addOnParts.join('; ')}. ${STATUTORY_TAX_NOTE_SHORT}`;
+    const recargosLine = `- Suplementos tasados acumulables: ${addOnParts.join('; ')}. ${STATUTORY_TAX_NOTE_SHORT}`;
 
     return [honorariosLine, recargosLine];
 }

@@ -108,7 +108,7 @@ export async function renderLlmsFull(): Promise<string> {
         '## Honorarios',
         `URL: ${SITE_BASE_URL}/honorarios`,
         '',
-        '### Precio por servicio (+ IVA, procurador de los tribunales incluido)',
+        '### Precio por servicio (procurador de los tribunales incluido)',
     ];
 
     for (const svc of pricing.services) {
@@ -117,7 +117,7 @@ export async function renderLlmsFull(): Promise<string> {
         );
     }
 
-    lines.push('', '### Suplementos tasados (+ IVA)');
+    lines.push('', '### Suplementos tasados');
 
     for (const addOn of Object.values(pricing.addOns)) {
         lines.push(

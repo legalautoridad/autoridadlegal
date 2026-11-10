@@ -108,7 +108,7 @@ async function generateEntityMap() {
                 })
             })),
             "pricingPolicy": {
-                "basePricing": "680 € + IVA (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.180 € + IVA (Conductores Profesionales C, D, E)",
+                "basePricing": "680 € (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.180 € (Conductores Profesionales C, D, E)",
                 "taxIncluded": false,
                 "procuratorIncluded": true,
                 "paymentModel": "Custodia Segura (Escrow)",
@@ -247,7 +247,7 @@ async function generateEntityMap() {
                         <li><strong>Especialidad:</strong> Juicios Rápidos, Alcoholemia, Drogas al Volante y Seguridad Vial</li>
                         <li><strong>Ámbito Geográfico:</strong> Barcelona y toda Cataluña</li>
                         <li><strong>Teléfono Guardia 24h:</strong> <a href="tel:+34605118871" class="text-amber-400 underline">+34 605 118 871</a></li>
-                        <li><strong>Honorarios Cerrados:</strong> 680 € + IVA base (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.180 € + IVA Conductores Profesionales (Procurador de los Tribunales incluido)</li>
+                        <li><strong>Honorarios Cerrados:</strong> 680 € base (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.180 € Conductores Profesionales (Procurador de los Tribunales incluido)</li>
                         <li><strong>Garantía:</strong> Custodia Segura del pago (Escrow)</li>
                     </ul>
                 </div>

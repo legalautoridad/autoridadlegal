@@ -314,7 +314,7 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
         : [];
 
     const isProfesionales = normService === 'profesionales';
-    const priceText = isProfesionales ? '680 € + 500 € de suplemento por conductor profesional (+ IVA)' : '680 € + IVA, procurador incluido';
+    const priceText = isProfesionales ? '680 € + 500 € de suplemento por conductor profesional' : '680 €, procurador incluido';
 
     const h1Title = lsRow.h1_headline || (normService === 'alcoholemia'
         ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name}`

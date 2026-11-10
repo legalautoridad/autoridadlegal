@@ -88,8 +88,8 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura, 
 
     const isProfesionales = service === 'profesionales';
     const priceText = isProfesionales
-        ? '680 € + 500 € de suplemento por conductor profesional (+ IVA)'
-        : '680 € + IVA, procurador incluido';
+        ? '680 € + 500 € de suplemento por conductor profesional'
+        : '680 €, procurador incluido';
 
     // Use DB structured faqs if present, fallback to passed faqs or okfFaqs
     const displayFaqs = (cobertura && cobertura.faqs && cobertura.faqs.length > 0)

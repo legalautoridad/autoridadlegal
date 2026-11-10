@@ -32,7 +32,6 @@ test('1. Canonical pricing constants and calculations', () => {
 
     // formatPrice test
     assert.strictEqual(formatPrice(680), '680 €');
-    assert.strictEqual(formatPrice(680, { withTaxSuffix: true }), '680 € + IVA');
     assert.strictEqual(formatPrice(680, { decimals: true }), '680,00 €');
     assert.strictEqual(formatPrice(500, { prefix: '+' }), '+500 €');
 

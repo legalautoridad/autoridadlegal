@@ -547,7 +547,7 @@ export default async function DefensaPuntosCarnetPage() {
                                             {DEFENSE_POINTS_PRICING.baseConcept}
                                         </th>
                                         <td className="py-5 px-6 text-xl font-black text-prestige-gold whitespace-nowrap">
-                                            {DEFENSE_POINTS_PRICING.basePriceWithTaxLabel}
+                                            {DEFENSE_POINTS_PRICING.basePriceDisplay}
                                         </td>
                                         <td className="py-5 px-6 text-slate-300">
                                             Abono inicial a la formalización del encargo.
@@ -561,7 +561,7 @@ export default async function DefensaPuntosCarnetPage() {
                                             {DEFENSE_POINTS_PRICING.successBonusConcept}
                                         </th>
                                         <td className="py-5 px-6 text-xl font-black text-emerald-400 whitespace-nowrap">
-                                            {DEFENSE_POINTS_PRICING.successBonusWithTaxLabel}
+                                            {DEFENSE_POINTS_PRICING.successBonusDisplay}
                                         </td>
                                         <td className="py-5 px-6 text-slate-300 font-semibold text-emerald-300">
                                             Exclusivamente si se conserva el permiso de conducir.

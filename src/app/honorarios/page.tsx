@@ -14,13 +14,13 @@ import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, CreditCard, FileText
 
 export const metadata: Metadata = {
     title: 'Precio, honorarios y financiación | Autoridad Legal',
-    description: 'Honorarios cerrados por escrito: 680 € + IVA con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
+    description: 'Honorarios cerrados por escrito: 680 € con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
     alternates: {
         canonical: 'https://www.autoridad.legal/honorarios',
     },
     openGraph: {
         title: 'Precio, honorarios y financiación | Autoridad Legal',
-        description: 'Honorarios cerrados por escrito: 680 € + IVA con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
+        description: 'Honorarios cerrados por escrito: 680 € con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
         url: 'https://www.autoridad.legal/honorarios',
         type: 'website',
         images: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Precio, honorarios y financiación | Autoridad Legal',
-        description: 'Honorarios cerrados por escrito: 680 € + IVA con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
+        description: 'Honorarios cerrados por escrito: 680 € con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
         images: [DEFAULT_OG_IMAGE],
     },
 };
@@ -195,7 +195,7 @@ export default function HonorariosPage() {
                                             {DEFENSE_POINTS_PRICING.baseConcept}
                                         </th>
                                         <td className="py-5 px-6 text-xl font-black text-prestige-gold whitespace-nowrap">
-                                            {DEFENSE_POINTS_PRICING.basePriceWithTaxLabel}
+                                            {DEFENSE_POINTS_PRICING.basePriceDisplay}
                                         </td>
                                         <td className="py-5 px-6 text-slate-300">
                                             {DEFENSE_POINTS_PRICING.baseDescription}
@@ -214,7 +214,7 @@ export default function HonorariosPage() {
                                             {DEFENSE_POINTS_PRICING.successBonusConcept}
                                         </th>
                                         <td className="py-5 px-6 text-xl font-black text-emerald-400 whitespace-nowrap">
-                                            {DEFENSE_POINTS_PRICING.successBonusWithTaxLabel}
+                                            {DEFENSE_POINTS_PRICING.successBonusDisplay}
                                         </td>
                                         <td className="py-5 px-6 text-slate-300">
                                             {DEFENSE_POINTS_PRICING.successBonusDescription}
@@ -347,7 +347,7 @@ export default function HonorariosPage() {
                                 <thead>
                                     <tr className="bg-slate-900 border-b border-white/10 text-xs font-bold text-slate-300 uppercase tracking-wider">
                                         <th className="py-4 px-6">Suplemento</th>
-                                        <th className="py-4 px-6">Importe (+ IVA)</th>
+                                        <th className="py-4 px-6">Importe</th>
                                         <th className="py-4 px-6">Aplica a</th>
                                         <th className="py-4 px-6">Descripción y Causa Procesal</th>
                                     </tr>

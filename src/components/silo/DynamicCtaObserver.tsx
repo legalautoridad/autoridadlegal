@@ -57,7 +57,7 @@ export function DynamicCtaObserver() {
             badge: "URGENCIA PENAL DELITO 379.2 CP",
             title: `Citación para Juicio Rápido por Alcoholemia en ${targetLocation}`,
             description: `Superar 0,60 mg/l es delito penal en España. Afrontas penas de prisión de 3 a 6 meses, trabajos comunitarios y retirada obligatoria del carné de 1 a 4 años. Te citarán en breve en el Juzgado de Guardia de ${targetLocation}.`,
-            buttonText: "⚡ CONTRATAR DEFENSA PENAL - 680€ + IVA",
+            buttonText: "⚡ CONTRATAR DEFENSA PENAL - 680€",
             buttonHref: "#contacto",
             alertText: "⚠️ RECOMENDACIÓN CRÍTICA: La ley exige comparecer con abogado. Si conformas con nuestro abogado penalista, reducimos la condena y la retirada de carné en un 33% automáticamente (Art. 801 LECrim).",
             severityStyle: "from-red-950/80 to-slate-950 border-red-900/50 shadow-red-900/5",

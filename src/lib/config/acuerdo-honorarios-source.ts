@@ -145,19 +145,19 @@ El servicio contratado corresponde a la defensa técnica en el procedimiento con
 
 ${STATUTORY_TAX_NOTE}`,
             basePricesTable: [
-                { servicio: 'Alcoholemia, Drogas al volante, Exceso de velocidad o Conducir sin carné', base: '680,00 €', iva: 'A liquidar en encargo', total: '680,00 € + IVA' },
-                { servicio: 'Conductores profesionales (C, D, E) — Primera Instancia', base: '1.180,00 €', iva: 'A liquidar en encargo', total: '1.180,00 € + IVA' },
+                { servicio: 'Alcoholemia, Drogas al volante, Exceso de velocidad o Conducir sin carné', base: '680,00 €', iva: 'A liquidar en encargo', total: '680,00 €' },
+                { servicio: 'Conductores profesionales (C, D, E) — Primera Instancia', base: '1.180,00 €', iva: 'A liquidar en encargo', total: '1.180,00 €' },
             ],
         },
         {
             id: 'suplementos',
             number: '6',
             title: 'Suplementos tasados',
-            content: 'Los suplementos solo se aplican cuando la circunstancia correspondiente concurre y exige un alcance distinto del servicio base, comunicándose siempre por escrito antes de la contratación. Las cuantías reflejadas corresponden a honorarios profesionales (+ IVA):',
+            content: 'Los suplementos solo se aplican cuando la circunstancia correspondiente concurre y exige un alcance distinto del servicio base, comunicándose siempre por escrito antes de la contratación. Las cuantías reflejadas corresponden a honorarios profesionales:',
             supplementsTable: [
                 ...Object.values(PRICING_ADDONS).map((addOn) => ({
                     circunstancia: addOn.name,
-                    suplemento: addOn.displayWithTaxLabel,
+                    suplemento: addOn.displayPrice,
                     aplica: addOn.appliesToLabel,
                     descripcion: addOn.description,
                 })),

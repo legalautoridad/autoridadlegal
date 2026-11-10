@@ -124,7 +124,7 @@ export default function TermsPage() {
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-4">
                             <div>
                                 <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider">Tarifa Base Juicio Rápido con Conformidad</span>
-                                <h3 className="text-3xl font-extrabold text-white">680,00 € <span className="text-sm font-normal text-slate-400">(+ IVA)</span></h3>
+                                <h3 className="text-3xl font-extrabold text-white">680,00 €</h3>
                             </div>
                             <span className="px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
                                 Procurador de los Tribunales Incluido
