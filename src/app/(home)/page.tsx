@@ -21,7 +21,7 @@ export const revalidate = 3600; // ISR revalidation for homepage FAQs
 
 export const metadata: Metadata = {
     title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-    description: "Abogado penalista 24 h para alcoholemia, drogas, velocidad y sin carnet en Barcelona. Precio cerrado de 980 € con IVA y procurador incluidos.",
+    description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 €, procurador incluido.",
     alternates: {
         canonical: "https://www.autoridad.legal/",
     },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "https://www.autoridad.legal/",
         siteName: "Autoridad Legal",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-        description: "Abogado penalista 24 h para alcoholemia, drogas, velocidad y sin carnet en Barcelona. Precio cerrado de 980 € con IVA y procurador incluidos.",
+        description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 €, procurador incluido.",
         images: [
             {
                 url: DEFAULT_OG_IMAGE,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-        description: "Abogado penalista 24 h para alcoholemia, drogas, velocidad y sin carnet en Barcelona. Precio cerrado de 980 € con IVA y procurador incluidos.",
+        description: "Abogado penalista 24 h en Barcelona para alcoholemia, drogas, velocidad y sin carnet. Juicio rápido: 680 €, procurador incluido.",
         images: [DEFAULT_OG_IMAGE],
     },
 };
@@ -90,7 +90,7 @@ export default async function MarketingPage() {
 
                         {/* Anchor Text - Closer */}
                         <p className="mt-4 bg-white/5 border border-prestige-gold/20 p-4 rounded-xl text-center text-sm text-white/95 w-full max-w-md lg:max-w-lg leading-relaxed shadow-lg">
-                            Precio cerrado de <strong className="text-prestige-gold text-lg">{PRICING_SUMMARY.basePriceDisplay}</strong> para el supuesto base ({PRICING_SUMMARY.proPriceDisplay} para conductores profesionales; IVA y Procurador incluidos). Sistema de pago seguro tipo Booking: el dinero se retiene y solo se libera tras el juicio. Financiación a 12 meses.
+                            Honorarios cerrados de <strong className="text-prestige-gold text-lg">{PRICING_SUMMARY.basePriceDisplay}</strong> para el supuesto base (procurador de los tribunales incluido; {PRICING_SUMMARY.proPriceDisplay} para conductores profesionales). Sistema de pago seguro en custodia: los fondos solo se liberan tras la actuación judicial. Financiación hasta 12 meses.
                         </p>
                     </div>
                 </div>
@@ -120,9 +120,60 @@ export default async function MarketingPage() {
                     Defensa Premium frente a Juicios Rápidos
                 </h2>
                 <p className="font-body-lg text-lg text-slate-700 leading-relaxed">
-                    Ofrecemos una defensa penal integral con precio cerrado de {PRICING_SUMMARY.basePriceDisplay} (base {PRICING_SUMMARY.baseTaxBase} + IVA {PRICING_SUMMARY.baseTaxAmount}) para el supuesto base y {PRICING_SUMMARY.proPriceDisplay} para conductores profesionales (IVA y procurador incluidos). Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados siempre por escrito y por adelantado. Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
+                    Ofrecemos una defensa penal integral con precio cerrado de {PRICING_SUMMARY.basePriceDisplay} (procurador incluido) para el supuesto base y {PRICING_SUMMARY.proPriceDisplay} para conductores profesionales ({PRICING_SUMMARY.proPriceExplanation}). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados siempre por escrito y por adelantado. {PRICING_SUMMARY.taxNoteShort} Utilizamos un sistema de depósito seguro donde el pago se custodia y solo se libera al finalizar el procedimiento judicial, ofreciendo máxima transparencia y financiación flexible hasta doce meses.
                 </p>
             </article>
+
+            {/* SERVICIOS DE DEFENSA */}
+            <section className="w-full max-w-6xl px-6 pb-16 space-y-8">
+                <div className="border-l-4 border-prestige-gold pl-4 space-y-2">
+                    <span className="text-prestige-gold text-xs font-bold uppercase tracking-widest">Especialidades</span>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-trust-navy tracking-tight">
+                        Servicios de Defensa en Tráfico y Seguridad Vial
+                    </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <Link href="/alcoholemia" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Juicio Rápido por Alcoholemia</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa penal por alcoholemia (art. 379.2 CP). Asistencia de guardia 24 h en comisarías y juzgados.</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/drogas" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Juicio Rápido por Drogas</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa penal por test salival indiciario y analítica de sangre (art. 379.2 CP).</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/sin-carnet" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Conducción Sin Carnet</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa penal por pérdida de vigencia o privación judicial (art. 384 CP).</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/velocidad" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Delito de Exceso de Velocidad</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa penal por cinemómetro y márgenes de error metrológicos (art. 379.1 CP).</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/profesionales" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Conductores Profesionales</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa técnica especializada para transportistas, taxistas y titulares de CAP y tacógrafo.</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/defensa-puntos-carnet" className="group p-6 rounded-2xl bg-gradient-to-br from-trust-navy to-slate-900 border border-prestige-gold/40 text-white hover:border-prestige-gold transition-all shadow-md hover:shadow-xl">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-prestige-gold/20 text-prestige-gold text-[10px] font-bold uppercase tracking-wider mb-2">
+                            Ámbito Nacional
+                        </div>
+                        <h3 className="text-lg font-bold text-white group-hover:text-prestige-gold transition-colors">Recurso de Multas y Puntos del Carnet</h3>
+                        <p className="text-xs text-slate-300 mt-2 leading-relaxed">Defensa administrativa telemática frente a la DGT, Servei Català de Trànsit y Ayuntamientos en toda España.</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio nacional →</span>
+                    </Link>
+                </div>
+            </section>
 
             {/* PARTIDOS JUDICIALES SECTION (SSR Links to /juzgados + 25 Partidos) */}
             <section className="w-full bg-slate-900 border-y border-white/10 py-16 md:py-24 flex justify-center">

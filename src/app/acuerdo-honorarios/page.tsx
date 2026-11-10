@@ -7,7 +7,7 @@ import { FileText, Download, ShieldCheck, Scale, Award, AlertCircle, Phone, Arro
 
 export const metadata: Metadata = {
     title: 'Modelo Estándar de Hoja de Encargo y Acuerdo de Honorarios | Autoridad Legal',
-    description: 'Modelo transparente de hoja de encargo profesional para juicios rápidos por alcoholemia, drogas, velocidad, sin carné y conductores profesionales. Tarifas cerradas por escrito (IVA y procurador incluidos) e información deontológica ICAB 31.389.',
+    description: 'Modelo transparente de hoja de encargo profesional para juicios rápidos por alcoholemia, drogas, velocidad, sin carné y conductores profesionales. Honorarios cerrados de 680 € (procurador incluido) e información deontológica ICAB 31.389.',
     robots: {
         index: false,
         follow: true,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: 'Modelo Estándar de Hoja de Encargo y Acuerdo de Honorarios | Autoridad Legal',
-        description: `Modelo oficial de hoja de encargo para la defensa en juicios rápidos de tráfico en Barcelona. Honorarios cerrados de ${PRICING_SUMMARY.basePriceDisplay} y ${PRICING_SUMMARY.proPriceDisplay} con desglose de IVA y procurador.`,
+        description: `Modelo oficial de hoja de encargo para la defensa en juicios rápidos de tráfico en Barcelona. Honorarios de ${PRICING_SUMMARY.basePriceDisplay} (procurador incluido) y ${PRICING_SUMMARY.proPriceDisplay} para conductores profesionales.`,
         url: ACUERDO_HONORARIOS_CONFIG.canonicalUrl,
         type: 'article',
         images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Modelo Estándar de Hoja de Encargo y Acuerdo de Honorarios | Autoridad Legal',
-        description: `Modelo oficial de hoja de encargo para la defensa en juicios rápidos de tráfico en Barcelona. Honorarios cerrados de ${PRICING_SUMMARY.basePriceDisplay} y ${PRICING_SUMMARY.proPriceDisplay} con desglose de IVA y procurador.`,
+        description: `Modelo oficial de hoja de encargo para la defensa en juicios rápidos de tráfico en Barcelona. Honorarios de ${PRICING_SUMMARY.basePriceDisplay} (procurador incluido) y ${PRICING_SUMMARY.proPriceDisplay} para conductores profesionales.`,
         images: [DEFAULT_OG_IMAGE],
     },
 };

@@ -61,7 +61,7 @@ async function generateEntityMap() {
             "telephone": "+34605118871",
             "email": "contacto@autoridad.legal",
             "areaServed": "Cataluña, España",
-            "priceRange": "980€–1480€",
+            "priceRange": "680€–1180€",
             "sameAs": [
                 "https://www.linkedin.com/company/autoridad-legal/",
                 "https://www.facebook.com/AutoridadLegal/",
@@ -108,8 +108,8 @@ async function generateEntityMap() {
                 })
             })),
             "pricingPolicy": {
-                "basePricing": "980 € (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.480 € (Conductores Profesionales C, D, E)",
-                "taxIncluded": true,
+                "basePricing": "680 € (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.180 € (Conductores Profesionales C, D, E)",
+                "taxIncluded": false,
                 "procuratorIncluded": true,
                 "paymentModel": "Custodia Segura (Escrow)",
                 "financing": "Financiación hasta 12 meses o Modalidad Híbrida 60/40",
@@ -247,7 +247,7 @@ async function generateEntityMap() {
                         <li><strong>Especialidad:</strong> Juicios Rápidos, Alcoholemia, Drogas al Volante y Seguridad Vial</li>
                         <li><strong>Ámbito Geográfico:</strong> Barcelona y toda Cataluña</li>
                         <li><strong>Teléfono Guardia 24h:</strong> <a href="tel:+34605118871" class="text-amber-400 underline">+34 605 118 871</a></li>
-                        <li><strong>Honorarios Cerrados:</strong> 980 € base (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.480 € Conductores Profesionales (IVA y Procurador incluidos)</li>
+                        <li><strong>Honorarios Cerrados:</strong> 680 € base (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.180 € Conductores Profesionales (Procurador de los Tribunales incluido)</li>
                         <li><strong>Garantía:</strong> Custodia Segura del pago (Escrow)</li>
                     </ul>
                 </div>

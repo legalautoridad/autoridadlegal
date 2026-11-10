@@ -69,7 +69,7 @@ function parseAddressParts(rawAddress: string | null | undefined) {
 export function generateCoberturaJsonLd(cobertura: CoberturaData, canonicalUrl: string) {
     const normSlug = normalizeServiceSlug(cobertura.service.slug);
     const pricingConfig = SERVICES_PRICING.find(s => s.slug === normSlug);
-    const priceStr = pricingConfig ? pricingConfig.basePrice : (normSlug === 'profesionales' ? "1480.00" : "980.00");
+    const priceStr = pricingConfig ? pricingConfig.basePrice : (normSlug === 'profesionales' ? "1180.00" : "680.00");
 
     const graph: any[] = [];
 
@@ -179,7 +179,7 @@ export function generateCoberturaJsonLd(cobertura: CoberturaData, canonicalUrl: 
             "@type": "PriceSpecification",
             "price": priceStr,
             "priceCurrency": "EUR",
-            "valueAddedTaxIncluded": true,
+            "valueAddedTaxIncluded": false,
         },
         "offeredBy": {
             "@type": "Organization",
@@ -201,7 +201,7 @@ export function generateCoberturaJsonLd(cobertura: CoberturaData, canonicalUrl: 
                     "@type": "PriceSpecification",
                     "price": addOn.price,
                     "priceCurrency": "EUR",
-                    "valueAddedTaxIncluded": true
+                    "valueAddedTaxIncluded": false
                 },
                 "description": addOn.description
             };

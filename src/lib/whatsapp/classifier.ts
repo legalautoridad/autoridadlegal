@@ -16,7 +16,11 @@ export function detectIncidentType(text: string): string | null {
     if (/velocidad|radar|cinem[oó]metro/i.test(lower)) {
         return 'velocidad';
     }
-    if (/sin[\s_-]?(carnet|permiso)|retirada\s+de\s+carnet|p[eé]rdida\s+de\s+puntos|sin\s+puntos/i.test(lower)) {
+    // Multas y puntos del carnet (ámbito administrativo nacional)
+    if (/multa|puntos|sanci[oó]n|dgt|tr[aà]nsit|pronto\s+pago|recurso|alegaci[oó]n|alegaciones|p[eé]rdida\s+de\s+vigencia/i.test(lower)) {
+        return 'multa_puntos';
+    }
+    if (/sin[\s_-]?(carnet|permiso)|retirada\s+de\s+carnet/i.test(lower)) {
         return 'sin-carnet';
     }
     if (/accidente|choque|colisi[oó]n|atropello/i.test(lower)) {
@@ -29,7 +33,7 @@ export function detectIncidentType(text: string): string | null {
 export function hasCaseWords(text: string): boolean {
     if (!text) return false;
     const lower = text.toLowerCase();
-    return /alcohol|alcoholemia|droga|drogas|velocidad|radar|sin[\s_-]?(carnet|permiso)|accidente|choque|juicio|citaci[oó]n|multa|control|mossos|polic[ií]a|positivo|pararon/i.test(lower);
+    return /alcohol|alcoholemia|droga|drogas|velocidad|radar|sin[\s_-]?(carnet|permiso)|accidente|choque|juicio|citaci[oó]n|multa|puntos|sanci[oó]n|dgt|tr[aà]nsit|pronto\s+pago|recurso|alegaci[oó]n|alegaciones|p[eé]rdida\s+de\s+vigencia|control|mossos|polic[ií]a|positivo|pararon/i.test(lower);
 }
 
 export function isOutsideZone(text: string): boolean {

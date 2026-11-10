@@ -1,6 +1,7 @@
 import { PHONE_E164, DEFAULT_OG_IMAGE } from '../config';
 import { PHONE_CALL_E164, WHATSAPP_URL } from '../contact';
-import { SERVICES_PRICING, PRICING_ADDONS, PRICING_SUMMARY } from '../config/pricing';
+import { SERVICES_PRICING, PRICING_ADDONS, PRICING_SUMMARY, DEFENSE_POINTS_PRICING } from '../config/pricing';
+import { SITEWIDE_KNOWS_ABOUT, WIKIDATA_ICAB } from './wikidata';
 
 export interface FaqItem {
     question: string;
@@ -14,13 +15,13 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             '@id': 'https://www.autoridad.legal/#organization',
             'name': 'Autoridad Legal',
             'legalName': 'Santiago Giménez Olavarriaga',
-            'description': 'Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa urgente 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin carné y casos de conductores profesionales, con honorarios cerrados y tasados por escrito (IVA y procurador incluidos).',
+            'description': 'Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa urgente 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin carné y casos de conductores profesionales, con honorarios cerrados de 680 € (procurador incluido) y suplementos tasados por escrito.',
             'url': 'https://www.autoridad.legal',
             'telephone': PHONE_E164,
             'email': 'contacto@autoridad.legal',
             'image': DEFAULT_OG_IMAGE,
             'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
-            'priceRange': `${PRICING_SUMMARY.basePriceNumber}€–${PRICING_SUMMARY.proPriceNumber}€`,
+            'priceRange': '680€–1180€',
             'knowsLanguage': ['es', 'ca'],
             'address': {
                 '@type': 'PostalAddress',
@@ -83,75 +84,104 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             'founder': {
                 '@id': 'https://www.gimenezolavarriaga.abogado/#person'
             },
-            'knowsAbout': [
-                'Delitos contra la seguridad vial',
-                'Alcoholemia al volante',
-                'Negativa a someterse a las pruebas de alcohol o drogas',
-                'Conducción bajo la influencia de drogas',
-                'Exceso de velocidad como delito',
-                'Conducción sin permiso o licencia',
-                'Defensa penal de conductores profesionales',
-                'Juicio rápido (diligencias urgentes)',
-                'Derecho penal',
-                'https://www.wikidata.org/wiki/Q19842607',
-                'https://www.wikidata.org/wiki/Q3602521',
-                'https://www.wikidata.org/wiki/Q150342',
-                'https://www.wikidata.org/wiki/Q5954562',
-                'https://www.wikidata.org/wiki/Q110823293',
-                'https://www.wikidata.org/wiki/Q1048450',
-                'https://www.wikidata.org/wiki/Q5807185'
-            ],
+            'knowsAbout': SITEWIDE_KNOWS_ABOUT,
             'hasOfferCatalog': {
                 '@type': 'OfferCatalog',
                 '@id': 'https://www.autoridad.legal/#honorarios',
                 'name': 'Catálogo de Honorarios Cerrados — Defensa en Seguridad Vial',
-                'itemListElement': SERVICES_PRICING.map(svc => ({
-                    '@type': 'Offer',
-                    'name': svc.offerName,
-                    'url': svc.url,
-                    'availability': 'https://schema.org/InStock',
-                    'price': svc.priceNumber,
-                    'priceCurrency': 'EUR',
-                    'priceSpecification': {
-                        '@type': 'PriceSpecification',
-                        'price': svc.basePrice,
+                'itemListElement': [
+                    ...SERVICES_PRICING.map(svc => ({
+                        '@type': 'Offer',
+                        'name': svc.offerName,
+                        'url': svc.url,
+                        'availability': 'https://schema.org/InStock',
+                        'price': svc.priceNumber,
                         'priceCurrency': 'EUR',
-                        'valueAddedTaxIncluded': true
-                    },
-                    'acceptedPaymentMethod': [
-                        {
-                            '@type': 'PaymentMethod',
-                            'name': 'Financiación externa (Klarna/Stripe), sujeta a aprobación bancaria'
-                        },
-                        {
-                            '@type': 'PaymentMethod',
-                            'name': 'Sistema de Facilidades de Pago Híbrido Flex 60/40 de Autoridad Legal'
-                        }
-                    ],
-                    'itemOffered': {
-                        '@type': 'Service',
-                        'name': svc.serviceName,
-                        'serviceType': svc.serviceType,
-                        'url': svc.url
-                    },
-                    'description': svc.description,
-                    'addOn': svc.applicableAddOns.map(addOnId => {
-                        const addOn = PRICING_ADDONS[addOnId];
-                        return {
-                            '@type': 'Offer',
-                            'name': addOn.name,
-                            'price': addOn.priceNumber,
+                        'priceSpecification': {
+                            '@type': 'PriceSpecification',
+                            'price': svc.basePrice,
                             'priceCurrency': 'EUR',
-                            'priceSpecification': {
-                                '@type': 'PriceSpecification',
-                                'price': addOn.price,
-                                'priceCurrency': 'EUR',
-                                'valueAddedTaxIncluded': true
+                            'valueAddedTaxIncluded': false
+                        },
+                        'acceptedPaymentMethod': [
+                            {
+                                '@type': 'PaymentMethod',
+                                'name': 'Financiación externa (Klarna/Stripe), sujeta a aprobación bancaria'
                             },
-                            'description': addOn.description
-                        };
-                    })
-                }))
+                            {
+                                '@type': 'PaymentMethod',
+                                'name': 'Sistema de Facilidades de Pago Híbrido Flex 60/40 de Autoridad Legal'
+                            }
+                        ],
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': svc.serviceName,
+                            'serviceType': svc.serviceType,
+                            'url': svc.url
+                        },
+                        'description': svc.description,
+                        'addOn': svc.applicableAddOns.map(addOnId => {
+                            const addOn = PRICING_ADDONS[addOnId];
+                            return {
+                                '@type': 'Offer',
+                                'name': addOn.name,
+                                'price': addOn.priceNumber,
+                                'priceCurrency': 'EUR',
+                                'priceSpecification': {
+                                    '@type': 'PriceSpecification',
+                                    'price': addOn.price,
+                                    'priceCurrency': 'EUR',
+                                    'valueAddedTaxIncluded': false
+                                },
+                                'description': addOn.description
+                            };
+                        })
+                    })),
+                    {
+                        '@type': 'Offer',
+                        '@id': 'https://www.autoridad.legal/defensa-puntos-carnet#tarifa-base',
+                        'name': DEFENSE_POINTS_PRICING.baseConcept,
+                        'url': DEFENSE_POINTS_PRICING.url,
+                        'availability': 'https://schema.org/InStock',
+                        'price': DEFENSE_POINTS_PRICING.basePriceNumber,
+                        'priceCurrency': 'EUR',
+                        'priceSpecification': {
+                            '@type': 'PriceSpecification',
+                            'price': DEFENSE_POINTS_PRICING.basePriceFormatted,
+                            'priceCurrency': 'EUR',
+                            'valueAddedTaxIncluded': false
+                        },
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': DEFENSE_POINTS_PRICING.serviceName,
+                            'serviceType': DEFENSE_POINTS_PRICING.serviceType,
+                            'url': DEFENSE_POINTS_PRICING.url
+                        },
+                        'description': DEFENSE_POINTS_PRICING.baseDescription
+                    },
+                    {
+                        '@type': 'Offer',
+                        '@id': 'https://www.autoridad.legal/defensa-puntos-carnet#bono-exito',
+                        'name': DEFENSE_POINTS_PRICING.successBonusConcept,
+                        'url': DEFENSE_POINTS_PRICING.url,
+                        'availability': 'https://schema.org/InStock',
+                        'price': DEFENSE_POINTS_PRICING.successBonusNumber,
+                        'priceCurrency': 'EUR',
+                        'priceSpecification': {
+                            '@type': 'PriceSpecification',
+                            'price': DEFENSE_POINTS_PRICING.successBonusFormatted,
+                            'priceCurrency': 'EUR',
+                            'valueAddedTaxIncluded': false
+                        },
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': DEFENSE_POINTS_PRICING.serviceName,
+                            'serviceType': DEFENSE_POINTS_PRICING.serviceType,
+                            'url': DEFENSE_POINTS_PRICING.url
+                        },
+                        'description': DEFENSE_POINTS_PRICING.successBonusDescription
+                    }
+                ]
             },
             'subjectOf': {
                 '@type': 'VideoObject',
@@ -243,41 +273,15 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
         'worksFor': {
             '@id': 'https://www.autoridad.legal/#organization'
         },
-        'memberOf': {
-            '@type': 'Organization',
-            'name': 'Ilustre Colegio de la Abogacía de Barcelona',
-            'alternateName': 'ICAB',
-            'url': 'https://www.icab.es'
-        },
+        'memberOf': WIKIDATA_ICAB,
         'hasCredential': {
             '@type': 'EducationalOccupationalCredential',
             'credentialCategory': 'Colegiación profesional',
-            'recognizedBy': {
-                '@type': 'Organization',
-                'name': 'Ilustre Colegio de la Abogacía de Barcelona',
-                'alternateName': 'ICAB'
-            },
+            'recognizedBy': WIKIDATA_ICAB,
             'identifier': '31389',
             'url': 'https://www.icab.es/es/colegio/miembros/index.html?id=31389'
         },
-        'knowsAbout': [
-            'Delitos contra la seguridad vial',
-            'Alcoholemia al volante',
-            'Negativa a someterse a las pruebas de alcohol o drogas',
-            'Conducción bajo la influencia de drogas',
-            'Exceso de velocidad como delito',
-            'Conducción sin permiso o licencia',
-            'Defensa penal de conductores profesionales',
-            'Juicio rápido (diligencias urgentes)',
-            'Derecho penal',
-            'https://www.wikidata.org/wiki/Q19842607',
-            'https://www.wikidata.org/wiki/Q3602521',
-            'https://www.wikidata.org/wiki/Q150342',
-            'https://www.wikidata.org/wiki/Q5954562',
-            'https://www.wikidata.org/wiki/Q110823293',
-            'https://www.wikidata.org/wiki/Q1048450',
-            'https://www.wikidata.org/wiki/Q5807185'
-        ],
+        'knowsAbout': SITEWIDE_KNOWS_ABOUT,
         'sameAs': [
             'https://www.linkedin.com/in/santiagogimenezolavarriaga/',
             'https://www.gimenezolavarriaga.abogado',
@@ -339,53 +343,99 @@ export function getHonorariosPageJsonLd() {
                 '@type': 'OfferCatalog',
                 '@id': 'https://www.autoridad.legal/#honorarios',
                 'name': 'Catálogo de Honorarios Cerrados — Defensa en Seguridad Vial',
-                'itemListElement': SERVICES_PRICING.map(svc => ({
-                    '@type': 'Offer',
-                    'name': svc.offerName,
-                    'url': svc.url,
-                    'availability': 'https://schema.org/InStock',
-                    'price': svc.priceNumber,
-                    'priceCurrency': 'EUR',
-                    'priceSpecification': {
-                        '@type': 'PriceSpecification',
-                        'price': svc.basePrice,
+                'itemListElement': [
+                    ...SERVICES_PRICING.map(svc => ({
+                        '@type': 'Offer',
+                        'name': svc.offerName,
+                        'url': svc.url,
+                        'availability': 'https://schema.org/InStock',
+                        'price': svc.priceNumber,
                         'priceCurrency': 'EUR',
-                        'valueAddedTaxIncluded': true
-                    },
-                    'acceptedPaymentMethod': [
-                        {
-                            '@type': 'PaymentMethod',
-                            'name': 'Financiación externa (Klarna/Stripe), sujeta a aprobación bancaria'
-                        },
-                        {
-                            '@type': 'PaymentMethod',
-                            'name': 'Sistema de Facilidades de Pago Híbrido Flex 60/40 de Autoridad Legal'
-                        }
-                    ],
-                    'itemOffered': {
-                        '@type': 'Service',
-                        'name': svc.serviceName,
-                        'serviceType': svc.serviceType,
-                        'url': svc.url
-                    },
-                    'description': svc.description,
-                    'addOn': svc.applicableAddOns.map(addOnId => {
-                        const addOn = PRICING_ADDONS[addOnId];
-                        return {
-                            '@type': 'Offer',
-                            'name': addOn.name,
-                            'price': addOn.priceNumber,
+                        'priceSpecification': {
+                            '@type': 'PriceSpecification',
+                            'price': svc.basePrice,
                             'priceCurrency': 'EUR',
-                            'priceSpecification': {
-                                '@type': 'PriceSpecification',
-                                'price': addOn.price,
-                                'priceCurrency': 'EUR',
-                                'valueAddedTaxIncluded': true
+                            'valueAddedTaxIncluded': false
+                        },
+                        'acceptedPaymentMethod': [
+                            {
+                                '@type': 'PaymentMethod',
+                                'name': 'Financiación externa (Klarna/Stripe), sujeta a aprobación bancaria'
                             },
-                            'description': addOn.description
-                        };
-                    })
-                }))
+                            {
+                                '@type': 'PaymentMethod',
+                                'name': 'Sistema de Facilidades de Pago Híbrido Flex 60/40 de Autoridad Legal'
+                            }
+                        ],
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': svc.serviceName,
+                            'serviceType': svc.serviceType,
+                            'url': svc.url
+                        },
+                        'description': svc.description,
+                        'addOn': svc.applicableAddOns.map(addOnId => {
+                            const addOn = PRICING_ADDONS[addOnId];
+                            return {
+                                '@type': 'Offer',
+                                'name': addOn.name,
+                                'price': addOn.priceNumber,
+                                'priceCurrency': 'EUR',
+                                'priceSpecification': {
+                                    '@type': 'PriceSpecification',
+                                    'price': addOn.price,
+                                    'priceCurrency': 'EUR',
+                                    'valueAddedTaxIncluded': false
+                                },
+                                'description': addOn.description
+                            };
+                        })
+                    })),
+                    {
+                        '@type': 'Offer',
+                        '@id': 'https://www.autoridad.legal/defensa-puntos-carnet#tarifa-base',
+                        'name': DEFENSE_POINTS_PRICING.baseConcept,
+                        'url': DEFENSE_POINTS_PRICING.url,
+                        'availability': 'https://schema.org/InStock',
+                        'price': DEFENSE_POINTS_PRICING.basePriceNumber,
+                        'priceCurrency': 'EUR',
+                        'priceSpecification': {
+                            '@type': 'PriceSpecification',
+                            'price': DEFENSE_POINTS_PRICING.basePriceFormatted,
+                            'priceCurrency': 'EUR',
+                            'valueAddedTaxIncluded': false
+                        },
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': DEFENSE_POINTS_PRICING.serviceName,
+                            'serviceType': DEFENSE_POINTS_PRICING.serviceType,
+                            'url': DEFENSE_POINTS_PRICING.url
+                        },
+                        'description': DEFENSE_POINTS_PRICING.baseDescription
+                    },
+                    {
+                        '@type': 'Offer',
+                        '@id': 'https://www.autoridad.legal/defensa-puntos-carnet#bono-exito',
+                        'name': DEFENSE_POINTS_PRICING.successBonusConcept,
+                        'url': DEFENSE_POINTS_PRICING.url,
+                        'availability': 'https://schema.org/InStock',
+                        'price': DEFENSE_POINTS_PRICING.successBonusNumber,
+                        'priceCurrency': 'EUR',
+                        'priceSpecification': {
+                            '@type': 'PriceSpecification',
+                            'price': DEFENSE_POINTS_PRICING.successBonusFormatted,
+                            'priceCurrency': 'EUR',
+                            'valueAddedTaxIncluded': false
+                        },
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': DEFENSE_POINTS_PRICING.serviceName,
+                            'serviceType': DEFENSE_POINTS_PRICING.serviceType,
+                            'url': DEFENSE_POINTS_PRICING.url
+                        },
+                        'description': DEFENSE_POINTS_PRICING.successBonusDescription
+                    }
+                ]
             },
             {
                 '@type': 'Organization',

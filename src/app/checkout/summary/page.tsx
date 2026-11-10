@@ -5,13 +5,15 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Shield, Check, ArrowRight, Gavel, User, CreditCard } from 'lucide-react';
 import { saveLead } from '@/lib/actions/leads';
 
+import { PENAL_BASE_PRICE } from '@/lib/pricing';
+
 function SummaryContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
 
     const vertical = searchParams.get('vertical') || 'Defensa Penal';
     const city = searchParams.get('city') || 'Barcelona';
-    const price = searchParams.get('price') || '950';
+    const price = searchParams.get('price') || String(PENAL_BASE_PRICE);
     const reservation = 50;
 
     // Form State

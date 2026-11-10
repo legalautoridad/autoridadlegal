@@ -17,6 +17,7 @@ import { CoberturaData } from '@/lib/db/cobertura';
 import { ChevronDown, Phone, MapPin, Building2, ShieldAlert, FileText, ArrowRight, Scale } from 'lucide-react';
 import { PuntoDeInteres } from '@/lib/okf/parser';
 import { ReviewedBy } from '@/components/legal/ReviewedBy';
+import { PuntosCrosslink } from '@/components/legal/PuntosCrosslink';
 
 interface ServiceTemplateProps {
     service: string;
@@ -86,7 +87,9 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura, 
     const okfPuntos = city ? OKFService.getPuntosDeInteres(city) : [];
 
     const isProfesionales = service === 'profesionales';
-    const priceText = isProfesionales ? `${getFormattedServicePrice(service)} (1ª instancia)` : getFormattedServicePrice(service);
+    const priceText = isProfesionales
+        ? '680 € + 500 € de suplemento por conductor profesional'
+        : '680 €, procurador incluido';
 
     // Use DB structured faqs if present, fallback to passed faqs or okfFaqs
     const displayFaqs = (cobertura && cobertura.faqs && cobertura.faqs.length > 0)
@@ -161,7 +164,7 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura, 
                             </h1>
 
                             <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-bold">
-                                Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. Honorarios cerrados de {priceText} con IVA y procurador incluidos.
+                                Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. {isProfesionales ? `Honorarios de ${priceText}.` : `Honorarios cerrados de ${priceText}.`}
                             </p>
 
                             <div className="pt-2 flex flex-col gap-3">
@@ -390,6 +393,11 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura, 
                     </div>
                 </div>
             </section>
+
+            {/* Crosslink to Administrative Points Defense */}
+            <div className="max-w-4xl mx-auto px-6">
+                <PuntosCrosslink />
+            </div>
 
             {/* VISIBLE FAQ ACCORDION SECTION */}
             {displayFaqs && displayFaqs.length > 0 && (

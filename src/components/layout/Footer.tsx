@@ -2,8 +2,11 @@ import Link from 'next/link';
 import { Shield, ShieldCheck, Scale } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 import { PARTIDOS_JUDICIALES } from '@/lib/db/city-court-map';
+import { getNavItems } from '@/lib/navigation';
 
 export function Footer() {
+    const navItems = getNavItems();
+
     return (
         <footer className="bg-trust-navy text-white/80 py-16 border-t border-white/10 font-sans">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -28,15 +31,34 @@ export function Footer() {
                     <div className="space-y-4">
                         <h4 className="font-label-md text-xs font-bold text-white border-b border-white/10 pb-2 uppercase tracking-widest">Navegación</h4>
                         <ul className="space-y-3 text-xs">
-                            <li><Link href="/alcoholemia" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Abogado Alcoholemia</Link></li>
-                            <li><Link href="/drogas" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Abogado Drogas</Link></li>
-                            <li><Link href="/sin-carnet" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Conducir Sin Carnet</Link></li>
-                            <li><Link href="/velocidad" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors">Delito de Velocidad</Link></li>
-                            <li><Link href="/profesionales" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-bold text-prestige-gold">Conductores Profesionales</Link></li>
-                            <li><Link href="/abogados/santiago-gimenez-olavarriaga" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Santiago Giménez (Director Jurídico)</Link></li>
-                            <li><Link href="/honorarios" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Honorarios y Precios</Link></li>
-                            <li><Link href="/glosario" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Glosario Jurídico</Link></li>
-                            <li><Link href="/juzgados" className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium">Juicio rápido (25 Partidos)</Link></li>
+                            {navItems.map((item) => (
+                                <li key={item.href}>
+                                    <Link
+                                        href={item.href}
+                                        aria-label={item.ariaLabel}
+                                        className={
+                                            item.highlight
+                                                ? "font-body-md text-white/80 hover:text-prestige-gold transition-colors font-bold text-prestige-gold flex items-center justify-between"
+                                                : "font-body-md text-white/70 hover:text-prestige-gold transition-colors flex items-center justify-between"
+                                        }
+                                    >
+                                        <span>{item.label}</span>
+                                        {item.badge && (
+                                            <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-prestige-gold/20 text-prestige-gold border border-prestige-gold/40">
+                                                {item.badge}
+                                            </span>
+                                        )}
+                                    </Link>
+                                </li>
+                            ))}
+                            <li>
+                                <Link
+                                    href="/abogados/santiago-gimenez-olavarriaga"
+                                    className="font-body-md text-white/70 hover:text-prestige-gold transition-colors font-medium block"
+                                >
+                                    Santiago Giménez (Director Jurídico)
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                     <div className="space-y-4">

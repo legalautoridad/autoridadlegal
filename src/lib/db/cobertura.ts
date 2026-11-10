@@ -314,14 +314,14 @@ export async function getCoberturaData(serviceSlug: string, citySlug: string): P
         : [];
 
     const isProfesionales = normService === 'profesionales';
-    const priceText = isProfesionales ? `${getFormattedServicePrice(normService)} (1ª instancia)` : getFormattedServicePrice(normService);
+    const priceText = isProfesionales ? '680 € + 500 € de suplemento por conductor profesional' : '680 €, procurador incluido';
 
     const h1Title = lsRow.h1_headline || (normService === 'alcoholemia'
         ? `Abogado Penalista para Juicio Rápido por Alcoholemia en ${location.name}`
         : `Abogado Especialista en ${service.name} en ${location.name} | Urgencias 24h`);
 
     const summary = sanitizeText(`Asistencia legal inmediata y defensa penal de urgencia en comisarías y Juzgados de Guardia de ${location.name} (${courtOfficialName}).`);
-    const description = `${h1Title}. Defensa técnica en comisarías y juzgados de ${location.name} con honorarios cerrados de ${priceText} con IVA y procurador incluidos.`;
+    const description = `${h1Title}. Defensa técnica en comisarías y juzgados de ${location.name} con honorarios cerrados de ${priceText}.`;
 
     return {
         id: lsRow.id,

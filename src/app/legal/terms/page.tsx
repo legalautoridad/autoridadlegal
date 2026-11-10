@@ -123,23 +123,23 @@ export default function TermsPage() {
                     <div className="p-6 rounded-3xl bg-slate-950/90 border border-emerald-500/30 space-y-4 relative overflow-hidden">
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-4">
                             <div>
-                                <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider">Tarifa Única Estandarizada</span>
-                                <h3 className="text-3xl font-extrabold text-white">1.149,50 € <span className="text-sm font-normal text-slate-400">(IVA Incluido)</span></h3>
+                                <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider">Tarifa Base Juicio Rápido con Conformidad</span>
+                                <h3 className="text-3xl font-extrabold text-white">680,00 €</h3>
                             </div>
                             <span className="px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
-                                950,00 € Base Imponible
+                                Procurador de los Tribunales Incluido
                             </span>
                         </div>
 
                         <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                            Esta tarifa es única e incluye de forma íntegra los honorarios del abogado, los honorarios del Procurador de los Tribunales, el IVA correspondiente y toda la gestión administrativa requerida por la plataforma.
+                            Esta tarifa corresponde a los honorarios profesionales de dirección letrada en juicio rápido con conformidad ante los juzgados de la provincia de Barcelona. Incluye íntegramente la representación procesal del Procurador de los Tribunales. Los tributos legalmente aplicables se liquidan formalmente en la hoja de encargo profesional firmada con carácter previo.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                             <div className="p-4 rounded-2xl bg-slate-900 border border-white/10 space-y-1">
-                                <p className="text-amber-400 font-bold text-sm">⚡ Suplemento Hiperurgencia (+50 €)</p>
+                                <p className="text-amber-400 font-bold text-sm">⚡ Suplementos Tasados</p>
                                 <p className="text-slate-300 text-xs leading-relaxed">
-                                    Se aplicará en aquellos casos en los que el juicio se celebre en un plazo inferior a 24 horas desde el momento de la contratación.
+                                    Conductor profesional (+500 €), reincidencia (+200 €), riesgo de prisión (+300 €), asistencia urgente en comisaría (+500 €) o no conformidad (+300 €).
                                 </p>
                             </div>
 
@@ -153,9 +153,9 @@ export default function TermsPage() {
 
                         {/* Protocolo 60/40 */}
                         <div className="p-4 rounded-2xl bg-slate-900/80 border border-blue-500/30 space-y-2 mt-2">
-                            <p className="text-blue-400 font-bold text-sm">🛡️ Protocolo de Emergencia 60/40</p>
+                            <p className="text-blue-400 font-bold text-sm">🛡️ Modalidad Híbrida 60/40</p>
                             <p className="text-slate-300 text-xs md:text-sm leading-relaxed">
-                                Si la pasarela de pago inicial rechaza el perfil de riesgo del usuario, el sistema activará automáticamente el denominado &quot;Protocolo 60/40&quot;. Este protocolo de emergencia permite realizar un cobro inicial del 60 % (588 €) para bloquear la prestación del servicio. El 40 % restante del importe total se cobrará de manera diferida a los 30 días.
+                                La modalidad 60/40 permite realizar un primer abono del 60 % de los honorarios (408 € en el servicio base) al formalizar el encargo. El 40 % restante (272 €) se abona a los 30 días.
                             </p>
                         </div>
                     </div>

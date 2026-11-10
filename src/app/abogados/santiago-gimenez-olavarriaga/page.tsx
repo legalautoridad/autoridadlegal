@@ -61,7 +61,8 @@ export default function SantiagoGimenezPage() {
                     '@type': 'Organization',
                     'name': 'Ilustre Colegio de la Abogacía de Barcelona',
                     'alternateName': 'ICAB',
-                    'url': 'https://www.icab.es'
+                    'url': 'https://www.icab.es',
+                    'sameAs': 'https://www.wikidata.org/wiki/Q8347714'
                 },
                 'hasCredential': {
                     '@type': 'EducationalOccupationalCredential',
@@ -144,7 +145,7 @@ export default function SantiagoGimenezPage() {
                         'name': '¿Cuánto cuestan sus honorarios?',
                         'acceptedAnswer': {
                             '@type': 'Answer',
-                            'text': 'Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet, y 1.480 € para conductores profesionales. Los recargos están tasados por escrito.'
+                            'text': 'Honorarios cerrados de 680 € (procurador de los tribunales incluido) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € de suplemento para conductores profesionales. Los suplementos están tasados por escrito.'
                         }
                     }
                 ]
@@ -525,7 +526,7 @@ export default function SantiagoGimenezPage() {
                                     ¿Cuánto cuestan sus honorarios?
                                 </h3>
                                 <p>
-                                    Precio cerrado de 980 € (IVA y procurador incluidos) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet, y 1.480 € para conductores profesionales. Los recargos están tasados por escrito.{' '}
+                                    Honorarios cerrados de 680 € (procurador de los tribunales incluido) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € de suplemento para conductores profesionales. Los suplementos están tasados por escrito.{' '}
                                     <Link href="/honorarios" className="text-amber-400 hover:underline font-medium">
                                         Ver honorarios
                                     </Link>

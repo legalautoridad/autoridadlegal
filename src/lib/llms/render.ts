@@ -7,7 +7,9 @@ import {
 import {
     PAYMENT_METHODS,
     renderDatosClaveHonorariosLines,
-} from '@/lib/config/pricing';
+    DEFENSE_POINTS_PRICING,
+    STATUTORY_TAX_NOTE_SHORT,
+} from '@/lib/pricing';
 import { getLlmsCourtsData, getLlmsFullDataset } from './data';
 
 /**
@@ -47,6 +49,12 @@ export async function renderLlmsTxt(): Promise<string> {
         '## Servicios',
         '',
         ...LLMS_SERVICES.map(s => `- [${s.title}](${s.url}): ${s.summary}`),
+        '',
+        '## Recurso de multas y puntos del carnet (toda España)',
+        '',
+        `- [Recurso de multas y puntos del carnet](${DEFENSE_POINTS_PRICING.url}): Defensa administrativa telemática ante la DGT, Servei Català de Trànsit, Trafikoa, Servicio de Tráfico de Navarra, Ayuntamientos y organismos de recaudación (SUMA, BASE).`,
+        '- Método: Oposición formal en vía administrativa mediante pliegos de alegaciones, auditoría metrológica y recursos ordinarios, impidiendo la firmeza registral de la detracción de puntos mientras se consolida la recuperación automática de los 12 puntos (art. 65.1 LTSV) o caduca el expediente.',
+        `- Honorarios: ${DEFENSE_POINTS_PRICING.basePriceDisplay} de provisión base y ${DEFENSE_POINTS_PRICING.successBonusDisplay} de bono de éxito condicionado a conservar la vigencia del permiso. Los tributos aplicables se liquidan y detallan formalmente en la hoja de encargo previa.`,
         '',
         '## Honorarios y contacto',
         '',
@@ -100,25 +108,26 @@ export async function renderLlmsFull(): Promise<string> {
         '## Honorarios',
         `URL: ${SITE_BASE_URL}/honorarios`,
         '',
-        '### Precio por servicio (IVA y procurador incluidos)',
+        '### Precio por servicio (procurador de los tribunales incluido)',
     ];
 
     for (const svc of pricing.services) {
         lines.push(
-            `- **${svc.name}** (${svc.url}): precio cerrado de ${svc.displayPrice} (IVA y procurador incluidos) para el supuesto base; los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados por escrito y por adelantado.`
+            `- **${svc.name}** (${svc.url}): honorarios de ${svc.displayWithTaxLabel} para el supuesto base; los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.`
         );
     }
 
-    lines.push('', '### Recargos tasados (IVA incluido)');
+    lines.push('', '### Suplementos tasados');
 
     for (const addOn of Object.values(pricing.addOns)) {
         lines.push(
-            `- **${addOn.name} (${addOn.displayPrice})**: ${addOn.appliesToLabel}. ${addOn.description}`
+            `- **${addOn.name} (${addOn.displayWithTaxLabel})**: ${addOn.appliesToLabel}. ${addOn.description}`
         );
     }
 
     lines.push(
         '- **Accidentes con daños a terceros o lesiones**: presupuesto por escrito tras revisar el atestado.',
+        `- **Régimen fiscal**: ${STATUTORY_TAX_NOTE_SHORT}`,
         '',
         '### Formas de pago',
         ...PAYMENT_METHODS.map(m => `- ${m}`),
@@ -137,6 +146,24 @@ export async function renderLlmsFull(): Promise<string> {
         );
 
         for (const faq of faqs) {
+            lines.push(`**P:** ${faq.question.trim()}`);
+            lines.push(`**R:** ${faq.answer.trim()}`);
+        }
+    }
+
+    const puntosFaqs = serviceFaqsBySlug['defensa-puntos-carnet'] || [];
+    lines.push(
+        '',
+        '### Recurso de multas y puntos del carnet (toda España)',
+        `URL: ${DEFENSE_POINTS_PRICING.url}`,
+        'Defensa administrativa telemática ante la DGT, Servei Català de Trànsit, Trafikoa, Navarra y Ayuntamientos.',
+        `- ${DEFENSE_POINTS_PRICING.baseConcept}: ${DEFENSE_POINTS_PRICING.basePriceWithTaxLabel} (${DEFENSE_POINTS_PRICING.baseDescription})`,
+        `- ${DEFENSE_POINTS_PRICING.successBonusConcept}: ${DEFENSE_POINTS_PRICING.successBonusWithTaxLabel} (${DEFENSE_POINTS_PRICING.successBonusDescription})`,
+        DEFENSE_POINTS_PRICING.taxNote
+    );
+    if (puntosFaqs.length > 0) {
+        lines.push('Preguntas frecuentes:');
+        for (const faq of puntosFaqs) {
             lines.push(`**P:** ${faq.question.trim()}`);
             lines.push(`**R:** ${faq.answer.trim()}`);
         }
