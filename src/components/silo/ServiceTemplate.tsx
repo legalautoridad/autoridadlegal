@@ -17,6 +17,7 @@ import { CoberturaData } from '@/lib/db/cobertura';
 import { ChevronDown, Phone, MapPin, Building2, ShieldAlert, FileText, ArrowRight, Scale } from 'lucide-react';
 import { PuntoDeInteres } from '@/lib/okf/parser';
 import { ReviewedBy } from '@/components/legal/ReviewedBy';
+import { PuntosCrosslink } from '@/components/legal/PuntosCrosslink';
 
 interface ServiceTemplateProps {
     service: string;
@@ -390,6 +391,11 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura, 
                     </div>
                 </div>
             </section>
+
+            {/* Crosslink to Administrative Points Defense */}
+            <div className="max-w-4xl mx-auto px-6">
+                <PuntosCrosslink />
+            </div>
 
             {/* VISIBLE FAQ ACCORDION SECTION */}
             {displayFaqs && displayFaqs.length > 0 && (

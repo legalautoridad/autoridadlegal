@@ -7,6 +7,7 @@ import {
 import {
     PAYMENT_METHODS,
     renderDatosClaveHonorariosLines,
+    DEFENSE_POINTS_PRICING,
 } from '@/lib/config/pricing';
 import { getLlmsCourtsData, getLlmsFullDataset } from './data';
 
@@ -47,6 +48,12 @@ export async function renderLlmsTxt(): Promise<string> {
         '## Servicios',
         '',
         ...LLMS_SERVICES.map(s => `- [${s.title}](${s.url}): ${s.summary}`),
+        '',
+        '## Recurso de multas y puntos del carnet (toda España)',
+        '',
+        `- [Recurso de multas y puntos del carnet](${DEFENSE_POINTS_PRICING.url}): Defensa administrativa telemática ante la DGT, Servei Català de Trànsit, Trafikoa, Servicio de Tráfico de Navarra, Ayuntamientos y organismos de recaudación (SUMA, BASE).`,
+        '- Método: Oposición formal en vía administrativa mediante pliegos de alegaciones, auditoría metrológica y recursos ordinarios, impidiendo la firmeza registral de la detracción de puntos mientras se consolida la recuperación automática de los 12 puntos (art. 65.1 LTSV) o caduca el expediente.',
+        `- Honorarios: ${DEFENSE_POINTS_PRICING.basePriceDisplay} de provisión base y ${DEFENSE_POINTS_PRICING.successBonusDisplay} de bono de éxito condicionado a conservar la vigencia del permiso. Los tributos aplicables se liquidan y detallan formalmente en la hoja de encargo previa.`,
         '',
         '## Honorarios y contacto',
         '',
@@ -137,6 +144,24 @@ export async function renderLlmsFull(): Promise<string> {
         );
 
         for (const faq of faqs) {
+            lines.push(`**P:** ${faq.question.trim()}`);
+            lines.push(`**R:** ${faq.answer.trim()}`);
+        }
+    }
+
+    const puntosFaqs = serviceFaqsBySlug['defensa-puntos-carnet'] || [];
+    lines.push(
+        '',
+        '### Recurso de multas y puntos del carnet (toda España)',
+        `URL: ${DEFENSE_POINTS_PRICING.url}`,
+        'Defensa administrativa telemática ante la DGT, Servei Català de Trànsit, Trafikoa, Navarra y Ayuntamientos.',
+        `- ${DEFENSE_POINTS_PRICING.baseConcept}: ${DEFENSE_POINTS_PRICING.basePriceWithTaxLabel} (${DEFENSE_POINTS_PRICING.baseDescription})`,
+        `- ${DEFENSE_POINTS_PRICING.successBonusConcept}: ${DEFENSE_POINTS_PRICING.successBonusWithTaxLabel} (${DEFENSE_POINTS_PRICING.successBonusDescription})`,
+        DEFENSE_POINTS_PRICING.taxNote
+    );
+    if (puntosFaqs.length > 0) {
+        lines.push('Preguntas frecuentes:');
+        for (const faq of puntosFaqs) {
             lines.push(`**P:** ${faq.question.trim()}`);
             lines.push(`**R:** ${faq.answer.trim()}`);
         }

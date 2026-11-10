@@ -1,7 +1,7 @@
 export const SITE_BASE_URL = 'https://www.autoridad.legal';
 
 export const LLMS_NAP = {
-    ambito: 'provincia de Barcelona, en los 25 partidos judiciales listados abajo.',
+    ambito: 'defensa penal en la provincia de Barcelona (25 partidos judiciales); defensa administrativa de multas y puntos en toda España, de forma telemática.',
     direccion: 'Avenida Diagonal 437, Principal 3ª, 08036 Barcelona',
     telefonoGuardiaDisplay: '+34 605 118 871',
     telefonoGuardiaHref: 'tel:+34605118871',

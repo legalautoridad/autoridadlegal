@@ -6,6 +6,7 @@ import {
     PRICING_ADDONS,
     PAYMENT_60_40_TIERS,
     PRICING_SUMMARY,
+    DEFENSE_POINTS_PRICING,
 } from '@/lib/config/pricing';
 import { getHonorariosPageJsonLd } from '@/lib/seo/home-jsonld';
 import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, CreditCard, FileText, Phone, Award, Scale } from 'lucide-react';
@@ -177,6 +178,80 @@ export default function HonorariosPage() {
                                     Base imponible <strong className="text-white">{PRICING_SUMMARY.proTaxBase}</strong> + IVA (21 %) <strong className="text-white">{PRICING_SUMMARY.proTaxAmount}</strong> = <strong className="text-prestige-gold">{PRICING_SUMMARY.proTotalDecimals}</strong>. Primera instancia hasta sentencia. Excluye recurso de apelación ante la Audiencia Provincial.
                                 </p>
                             </div>
+                        </div>
+                    </section>
+
+                    {/* SERVICIO ADMINISTRATIVO: DEFENSA DE PUNTOS Y MULTAS */}
+                    <section className="space-y-6">
+                        <div className="border-l-4 border-prestige-gold pl-4 space-y-2">
+                            <span className="text-prestige-gold text-xs font-bold uppercase tracking-widest">Ámbito Nacional Telemático</span>
+                            <h2 className="text-3xl font-extrabold text-white tracking-tight">
+                                Recurso de multas de tráfico y protección de puntos del carnet
+                            </h2>
+                            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                                Defensa letrada en vía administrativa frente a la DGT, el Servei Català de Trànsit, Trafikoa y Ayuntamientos de toda España, sin desplazarte.
+                            </p>
+                        </div>
+
+                        <div className="overflow-x-auto rounded-2xl border border-white/10 bg-slate-900/60 shadow-xl">
+                            <table className="w-full text-left text-sm">
+                                <caption className="sr-only">Honorarios técnicos del servicio de defensa de multas y puntos</caption>
+                                <thead className="bg-slate-900 text-xs uppercase tracking-wider text-slate-400 border-b border-white/10">
+                                    <tr>
+                                        <th scope="col" className="py-4 px-6 font-semibold">Concepto de Honorarios</th>
+                                        <th scope="col" className="py-4 px-6 font-semibold">Cuantía</th>
+                                        <th scope="col" className="py-4 px-6 font-semibold">Alcance Técnico Incluido</th>
+                                        <th scope="col" className="py-4 px-6 font-semibold text-right">Información</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5 font-medium">
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                        <th scope="row" className="py-5 px-6 font-bold text-white">
+                                            {DEFENSE_POINTS_PRICING.baseConcept}
+                                        </th>
+                                        <td className="py-5 px-6 text-xl font-black text-prestige-gold whitespace-nowrap">
+                                            {DEFENSE_POINTS_PRICING.basePriceWithTaxLabel}
+                                        </td>
+                                        <td className="py-5 px-6 text-slate-300">
+                                            {DEFENSE_POINTS_PRICING.baseDescription}
+                                        </td>
+                                        <td className="py-5 px-6 text-right whitespace-nowrap">
+                                            <Link
+                                                href="/defensa-puntos-carnet"
+                                                className="text-prestige-gold hover:underline font-semibold text-xs"
+                                            >
+                                                Ver servicio →
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                        <th scope="row" className="py-5 px-6 font-bold text-white">
+                                            {DEFENSE_POINTS_PRICING.successBonusConcept}
+                                        </th>
+                                        <td className="py-5 px-6 text-xl font-black text-emerald-400 whitespace-nowrap">
+                                            {DEFENSE_POINTS_PRICING.successBonusWithTaxLabel}
+                                        </td>
+                                        <td className="py-5 px-6 text-slate-300">
+                                            {DEFENSE_POINTS_PRICING.successBonusDescription}
+                                        </td>
+                                        <td className="py-5 px-6 text-right whitespace-nowrap">
+                                            <Link
+                                                href="/defensa-puntos-carnet"
+                                                className="text-prestige-gold hover:underline font-semibold text-xs"
+                                            >
+                                                Ver servicio →
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Nota informativa literal sobre honorarios y régimen fiscal */}
+                        <div className="bg-slate-900/90 border-l-4 border-prestige-gold p-5 rounded-r-xl shadow-lg">
+                            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                                {DEFENSE_POINTS_PRICING.taxNote}
+                            </p>
                         </div>
                     </section>
 

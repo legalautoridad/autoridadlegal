@@ -521,6 +521,17 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                 Ver honorarios completos
                             </Link>
                         </p>
+
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pt-1">
+                            Si tu caso no es delito pero te pueden quitar puntos, consulta el{' '}
+                            <Link
+                                href="/defensa-puntos-carnet"
+                                className="font-bold text-slate-900 underline hover:text-slate-700"
+                            >
+                                recurso de multas y defensa de los puntos del carnet
+                            </Link>
+                            .
+                        </p>
                     </div>
                 </section>
 

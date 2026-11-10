@@ -69,6 +69,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.9,
         },
         {
+            url: `${BASE_URL}/defensa-puntos-carnet`,
+            lastModified: new Date('2026-11-10T00:00:00.000Z'),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        {
             url: `${BASE_URL}/honorarios`,
             lastModified: CONTENT_LAST_MODIFIED,
             changeFrequency: 'monthly',

@@ -174,3 +174,29 @@ test('6. Municipality outside zone: Girona / Madrid sets city = null and prepend
     assert.ok(step.concerns?.startsWith('[REVISAR ZONA] '), 'Concerns must be prefixed with [REVISAR ZONA]');
     assert.strictEqual(step.outMsgTextToSend, WHATSAPP_MESSAGES.MENSAJE_C('Pere'), 'Response to user must still be MENSAJE_C');
 });
+
+test('7. National multa_puntos classification: detects keywords and NEVER prefixes [REVISAR ZONA]', () => {
+    const locations = ['Barcelona', 'Sabadell', 'Terrassa'];
+
+    assert.strictEqual(detectIncidentType('Me ha llegado una multa de la DGT con retirada de puntos'), 'multa_puntos');
+    assert.strictEqual(detectIncidentType('¿Vale la pena pagar con pronto pago o presento alegaciones?'), 'multa_puntos');
+    assert.strictEqual(detectIncidentType('Notificación del Servei Català de Trànsit por pérdida de vigencia'), 'multa_puntos');
+    assert.strictEqual(detectIncidentType('Recurso contra sanción de tráfico'), 'multa_puntos');
+
+    // Triage step for national multa_puntos outside Barcelona (e.g. Madrid or Sevilla)
+    const newMsgMadrid = extractMessageData({
+        event: 'messages.received',
+        data: {
+            messages: {
+                key: { id: 'MSG_MADRID_MULTA', remoteJid: '34699333444@s.whatsapp.net', fromMe: false },
+                message: { conversation: 'Hola soy Laura, me ha llegado una multa con pérdida de puntos de la DGT en Madrid' },
+            },
+        },
+    });
+
+    const step = processTriageStep(null, newMsgMadrid, locations);
+    assert.strictEqual(step.name, 'Laura');
+    assert.strictEqual(step.incident_type, 'multa_puntos');
+    assert.strictEqual(step.wa_state, 'done');
+    assert.strictEqual(step.concerns?.includes('[REVISAR ZONA]'), false, 'multa_puntos must NOT have [REVISAR ZONA]');
+});

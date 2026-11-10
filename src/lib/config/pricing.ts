@@ -238,6 +238,27 @@ export const PAYMENT_METHODS: string[] = [
     `Modalidad híbrida 60/40: primer pago del 60 % al encargo y 40 % pendiente a 30 días (${PAYMENT_60_40_TIERS.map(t => `${t.label}: ${t.pago60Display} + ${t.pago40Display}`).join('; ')}).`,
 ];
 
+export const DEFENSE_POINTS_PRICING = {
+    slug: 'defensa-puntos-carnet',
+    url: 'https://www.autoridad.legal/defensa-puntos-carnet',
+    serviceName: 'Defensa técnica de multas de tráfico y protección del carnet por puntos',
+    serviceType: 'Defensa administrativa de multas de tráfico y puntos del carnet',
+    basePriceNumber: 350,
+    basePriceFormatted: '350,00',
+    basePriceDisplay: '350,00 €',
+    basePriceWithTaxLabel: '350,00 € + IVA',
+    baseConcept: 'Provisión base de defensa técnica',
+    baseDescription: 'Estudio, alegaciones, prueba y recursos ordinarios',
+    successBonusNumber: 150,
+    successBonusFormatted: '150,00',
+    successBonusDisplay: '150,00 €',
+    successBonusWithTaxLabel: '150,00 € + IVA',
+    successBonusConcept: 'Bono de éxito (conservar el carnet)',
+    successBonusDescription: 'Solo si el conductor conserva la vigencia del permiso',
+    totalFavorableDisplay: '500,00 €',
+    taxNote: 'Nota informativa sobre honorarios profesionales y régimen fiscal: Las cantidades reflejadas corresponden estrictamente a los honorarios profesionales técnicos de dirección letrada y representación procesal. Los tributos legalmente aplicables conforme a la legislación fiscal vigente (Impuesto sobre el Valor Añadido al tipo general del 21% o retenciones de IRPF aplicables en caso de autónomos y personas jurídicas) se liquidan y detallan formalmente en la correspondiente hoja de encargo profesional firmada con carácter previo al inicio de las actuaciones.',
+} as const;
+
 export function getServicePricing(slug: string): ServicePricing {
     const norm = slug.toLowerCase().trim() === 'sin_carnet' ? 'sin-carnet' : slug.toLowerCase().trim();
     return SERVICES_PRICING.find(s => s.slug === norm) || SERVICES_PRICING[0];

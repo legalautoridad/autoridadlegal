@@ -124,6 +124,57 @@ export default async function MarketingPage() {
                 </p>
             </article>
 
+            {/* SERVICIOS DE DEFENSA */}
+            <section className="w-full max-w-6xl px-6 pb-16 space-y-8">
+                <div className="border-l-4 border-prestige-gold pl-4 space-y-2">
+                    <span className="text-prestige-gold text-xs font-bold uppercase tracking-widest">Especialidades</span>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-trust-navy tracking-tight">
+                        Servicios de Defensa en Tráfico y Seguridad Vial
+                    </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <Link href="/alcoholemia" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Juicio Rápido por Alcoholemia</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa penal por alcoholemia (art. 379.2 CP). Asistencia de guardia 24 h en comisarías y juzgados.</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/drogas" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Juicio Rápido por Drogas</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa penal por test salival indiciario y analítica de sangre (art. 379.2 CP).</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/sin-carnet" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Conducción Sin Carnet</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa penal por pérdida de vigencia o privación judicial (art. 384 CP).</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/velocidad" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Delito de Exceso de Velocidad</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa penal por cinemómetro y márgenes de error metrológicos (art. 379.1 CP).</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/profesionales" className="group p-6 rounded-2xl bg-white border border-outline-variant/30 hover:border-prestige-gold/50 transition-all shadow-sm hover:shadow-md">
+                        <h3 className="text-lg font-bold text-trust-navy group-hover:text-prestige-gold transition-colors">Conductores Profesionales</h3>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">Defensa técnica especializada para transportistas, taxistas y titulares de CAP y tacógrafo.</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio →</span>
+                    </Link>
+
+                    <Link href="/defensa-puntos-carnet" className="group p-6 rounded-2xl bg-gradient-to-br from-trust-navy to-slate-900 border border-prestige-gold/40 text-white hover:border-prestige-gold transition-all shadow-md hover:shadow-xl">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-prestige-gold/20 text-prestige-gold text-[10px] font-bold uppercase tracking-wider mb-2">
+                            Ámbito Nacional
+                        </div>
+                        <h3 className="text-lg font-bold text-white group-hover:text-prestige-gold transition-colors">Recurso de Multas y Puntos del Carnet</h3>
+                        <p className="text-xs text-slate-300 mt-2 leading-relaxed">Defensa administrativa telemática frente a la DGT, Servei Català de Trànsit y Ayuntamientos en toda España.</p>
+                        <span className="text-xs font-bold text-prestige-gold mt-4 inline-flex items-center gap-1">Ver servicio nacional →</span>
+                    </Link>
+                </div>
+            </section>
+
             {/* PARTIDOS JUDICIALES SECTION (SSR Links to /juzgados + 25 Partidos) */}
             <section className="w-full bg-slate-900 border-y border-white/10 py-16 md:py-24 flex justify-center">
                 <div className="max-w-7xl w-full px-6 lg:px-8 space-y-10">

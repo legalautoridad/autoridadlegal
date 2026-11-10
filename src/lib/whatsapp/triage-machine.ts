@@ -144,7 +144,7 @@ export function processTriageStep(
 
         let concerns = text;
         if (hasCase || incidentType) {
-            if (outside || !city) {
+            if ((outside || !city) && incidentType !== 'multa_puntos') {
                 city = null;
                 concerns = `[REVISAR ZONA] ${text}`;
             }
@@ -226,7 +226,7 @@ export function processTriageStep(
 
                 if (outside || !city) {
                     city = null;
-                    if (!combinedConcerns.startsWith('[REVISAR ZONA] ')) {
+                    if (incident_type !== 'multa_puntos' && !combinedConcerns.startsWith('[REVISAR ZONA] ')) {
                         combinedConcerns = `[REVISAR ZONA] ${combinedConcerns}`;
                     }
                 }
@@ -261,7 +261,7 @@ export function processTriageStep(
 
             if (outside || !city) {
                 city = null;
-                if (!combinedConcerns.startsWith('[REVISAR ZONA] ')) {
+                if (incident_type !== 'multa_puntos' && !combinedConcerns.startsWith('[REVISAR ZONA] ')) {
                     combinedConcerns = `[REVISAR ZONA] ${combinedConcerns}`;
                 }
             }
@@ -311,7 +311,7 @@ export function processTriageStep(
 
         if (outside || !city) {
             city = null;
-            if (!combinedConcerns.startsWith('[REVISAR ZONA] ')) {
+            if (incident_type !== 'multa_puntos' && !combinedConcerns.startsWith('[REVISAR ZONA] ')) {
                 combinedConcerns = `[REVISAR ZONA] ${combinedConcerns}`;
             }
         }
@@ -334,9 +334,11 @@ export function processTriageStep(
     let city = currentLead.city || detectCity(combinedConcerns, locationNames);
     const outside = isOutsideZone(combinedConcerns);
 
+    const incident_type = detectIncidentType(combinedConcerns) || currentLead.incident_type || null;
+
     if (outside || !city) {
         city = null;
-        if (!combinedConcerns.startsWith('[REVISAR ZONA] ')) {
+        if (incident_type !== 'multa_puntos' && !combinedConcerns.startsWith('[REVISAR ZONA] ')) {
             combinedConcerns = `[REVISAR ZONA] ${combinedConcerns}`;
         }
     }

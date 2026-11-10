@@ -61,7 +61,8 @@ export default function SantiagoGimenezPage() {
                     '@type': 'Organization',
                     'name': 'Ilustre Colegio de la Abogacía de Barcelona',
                     'alternateName': 'ICAB',
-                    'url': 'https://www.icab.es'
+                    'url': 'https://www.icab.es',
+                    'sameAs': 'https://www.wikidata.org/wiki/Q8347714'
                 },
                 'hasCredential': {
                     '@type': 'EducationalOccupationalCredential',
