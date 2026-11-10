@@ -1,5 +1,6 @@
-import { PHONE_E164, DEFAULT_OG_IMAGE } from '@/lib/config';
-import { SERVICES_PRICING, PRICING_ADDONS, PRICING_SUMMARY } from '@/lib/config/pricing';
+import { PHONE_E164, DEFAULT_OG_IMAGE } from '../config';
+import { PHONE_CALL_E164, WHATSAPP_URL } from '../contact';
+import { SERVICES_PRICING, PRICING_ADDONS, PRICING_SUMMARY } from '../config/pricing';
 
 export interface FaqItem {
     question: string;
@@ -37,9 +38,30 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                 {
                     '@type': 'ContactPoint',
                     '@id': 'https://www.autoridad.legal/#emergency-contact',
-                    'telephone': PHONE_E164,
+                    'telephone': PHONE_CALL_E164,
                     'contactType': 'emergency',
-                    'url': `tel:${PHONE_E164}`,
+                    'url': `tel:${PHONE_CALL_E164}`,
+                    'availableLanguage': ['es', 'ca'],
+                    'areaServed': 'ES-B',
+                    'hoursAvailable': {
+                        '@type': 'OpeningHoursSpecification',
+                        'dayOfWeek': [
+                            'Monday',
+                            'Tuesday',
+                            'Wednesday',
+                            'Thursday',
+                            'Friday',
+                            'Saturday',
+                            'Sunday'
+                        ],
+                        'opens': '00:00',
+                        'closes': '23:59'
+                    }
+                },
+                {
+                    '@type': 'ContactPoint',
+                    'contactType': 'customer support',
+                    'url': WHATSAPP_URL,
                     'availableLanguage': ['es', 'ca'],
                     'areaServed': 'ES-B',
                     'hoursAvailable': {
@@ -174,8 +196,8 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                 ]
             },
             'sameAs': [
-                'https://www.linkedin.com/company/135936660/',
-                'https://www.facebook.com/profile.php?id=61591553736969',
+                'https://www.linkedin.com/company/autoridad-legal/',
+                'https://www.facebook.com/AutoridadLegal/',
                 'https://www.instagram.com/autoridad.legal/',
                 'https://x.com/AutoridadLegal_',
                 'https://www.youtube.com/@Autoridad_Legal'

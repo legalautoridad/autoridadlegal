@@ -21,7 +21,7 @@ export const revalidate = 3600; // ISR revalidation for homepage FAQs
 
 export const metadata: Metadata = {
     title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-    description: `Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado de ${PRICING_SUMMARY.basePriceDisplay} (base ${PRICING_SUMMARY.baseTaxBase} + IVA ${PRICING_SUMMARY.baseTaxAmount}) y ${PRICING_SUMMARY.proPriceDisplay} para profesionales (IVA y procurador incluidos) en el supuesto base, abogado de guardia y pago en custodia.`,
+    description: "Abogado penalista 24 h para alcoholemia, drogas, velocidad y sin carnet en Barcelona. Precio cerrado de 980 € con IVA y procurador incluidos.",
     alternates: {
         canonical: "https://www.autoridad.legal/",
     },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "https://www.autoridad.legal/",
         siteName: "Autoridad Legal",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-        description: `Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado de ${PRICING_SUMMARY.basePriceDisplay} (base ${PRICING_SUMMARY.baseTaxBase} + IVA ${PRICING_SUMMARY.baseTaxAmount}) y ${PRICING_SUMMARY.proPriceDisplay} para profesionales (IVA y procurador incluidos) en el supuesto base, abogado de guardia y pago en custodia.`,
+        description: "Abogado penalista 24 h para alcoholemia, drogas, velocidad y sin carnet en Barcelona. Precio cerrado de 980 € con IVA y procurador incluidos.",
         images: [
             {
                 url: DEFAULT_OG_IMAGE,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Abogado de Urgencia por Delitos contra la Seguridad Vial en Barcelona | 24h",
-        description: `Defensa penal 24h en alcoholemia, drogas, velocidad, conducir sin carnet y conductores profesionales en la provincia de Barcelona. Precio cerrado de ${PRICING_SUMMARY.basePriceDisplay} (base ${PRICING_SUMMARY.baseTaxBase} + IVA ${PRICING_SUMMARY.baseTaxAmount}) y ${PRICING_SUMMARY.proPriceDisplay} para profesionales (IVA y procurador incluidos) en el supuesto base, abogado de guardia y pago en custodia.`,
+        description: "Abogado penalista 24 h para alcoholemia, drogas, velocidad y sin carnet en Barcelona. Precio cerrado de 980 € con IVA y procurador incluidos.",
         images: [DEFAULT_OG_IMAGE],
     },
 };

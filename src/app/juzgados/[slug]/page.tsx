@@ -12,7 +12,9 @@ import {
     joinListSpanish,
 } from '@/lib/juicio-rapido/textos';
 import { DistrictMunicipalitySection } from '@/components/juicio-rapido/DistrictMunicipalitySection';
-import { Phone, MessageCircle, AlertTriangle, MapPin, ExternalLink } from 'lucide-react';
+import { Phone, MessageCircle, AlertTriangle, MapPin, ExternalLink, Building2, ShieldCheck, Scale, Clock, ShieldAlert } from 'lucide-react';
+import { ReviewedBy } from '@/components/legal/ReviewedBy';
+import ReactMarkdown from 'react-markdown';
 import { DEFAULT_OG_IMAGE, PHONE_E164, WHATSAPP_URL } from '@/lib/config';
 
 export const revalidate = 3600; // ISR 1 hour
@@ -97,6 +99,8 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
 
     const {
         court,
+        courthouses,
+        policeStations,
         municipalities,
         topMunicipalities,
         allMunicipalities,
@@ -208,34 +212,44 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
         };
     }
 
+    const webPageNode: Record<string, any> = {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: pageTitle,
+        description: pageDescription,
+        inLanguage: 'es',
+        isPartOf: {
+            '@id': 'https://www.autoridad.legal/#website',
+        },
+        provider: {
+            '@id': 'https://www.autoridad.legal/#organization',
+        },
+        publisher: {
+            '@id': 'https://www.autoridad.legal/#organization',
+        },
+        breadcrumb: {
+            '@id': `${canonicalUrl}#breadcrumb`,
+        },
+        about: courthouseNode,
+        areaServed: municipalities.map(m => ({
+            '@type': 'City',
+            name: m.name,
+        })),
+    };
+
+    if (court.practicalReviewed && court.lastReviewed) {
+        webPageNode.dateModified = court.lastReviewed;
+        webPageNode.lastReviewed = court.lastReviewed;
+        webPageNode.reviewedBy = {
+            '@id': 'https://www.gimenezolavarriaga.abogado/#person',
+        };
+    }
+
     const jsonLdGraph = {
         '@context': 'https://schema.org',
         '@graph': [
-            {
-                '@type': 'WebPage',
-                '@id': `${canonicalUrl}#webpage`,
-                url: canonicalUrl,
-                name: pageTitle,
-                description: pageDescription,
-                inLanguage: 'es',
-                isPartOf: {
-                    '@id': 'https://www.autoridad.legal/#website',
-                },
-                provider: {
-                    '@id': 'https://www.autoridad.legal/#organization',
-                },
-                publisher: {
-                    '@id': 'https://www.autoridad.legal/#organization',
-                },
-                breadcrumb: {
-                    '@id': `${canonicalUrl}#breadcrumb`,
-                },
-                about: courthouseNode,
-                areaServed: municipalities.map(m => ({
-                    '@type': 'City',
-                    name: m.name,
-                })),
-            },
+            webPageNode,
             {
                 '@type': 'BreadcrumbList',
                 '@id': `${canonicalUrl}#breadcrumb`,
@@ -347,6 +361,12 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                             <p className="text-xs text-slate-400 leading-relaxed">
                                 {CABECERA_TEXTOS.lawyerLine}
                             </p>
+
+                            {court.practicalReviewed && court.lastReviewed && (
+                                <div className="pt-2">
+                                    <ReviewedBy date={court.lastReviewed} />
+                                </div>
+                            )}
                         </div>
 
                         {/* Right Column: Tarjeta blanca "Qué hacer, paso a paso" */}
@@ -550,15 +570,27 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
 
                                 {court.address && (
                                     <div className="space-y-0.5">
-                                        <dt className="font-bold text-slate-900">Dirección</dt>
+                                        <dt className="font-bold text-slate-900">Dirección principal</dt>
                                         <dd className="text-slate-600">{court.address}</dd>
                                     </div>
                                 )}
 
-                                {publicTransport.length > 0 && (
+                                {court.phoneGuardia && (
                                     <div className="space-y-0.5">
-                                        <dt className="font-bold text-slate-900">Cómo llegar</dt>
-                                        <dd className="text-slate-600">{publicTransport.join(' · ')}</dd>
+                                        <dt className="font-bold text-emerald-800 flex items-center gap-1.5">
+                                            <Phone className="w-4 h-4 text-emerald-600" />
+                                            <span>Teléfono de guardia del juzgado</span>
+                                        </dt>
+                                        <dd className="text-emerald-900 font-semibold">{court.phoneGuardia} · servicio permanente</dd>
+                                    </div>
+                                )}
+
+                                {formattedCourtPhone && (
+                                    <div className="space-y-0.5">
+                                        <dt className="font-bold text-slate-900">Teléfono general</dt>
+                                        <dd className="text-slate-600">
+                                            {formattedCourtPhone} · atención general de secretaría
+                                        </dd>
                                     </div>
                                 )}
 
@@ -569,15 +601,57 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                     </div>
                                 )}
 
-                                {formattedCourtPhone && (
+                                {publicTransport.length > 0 && (
                                     <div className="space-y-0.5">
-                                        <dt className="font-bold text-slate-900">Teléfono del juzgado</dt>
-                                        <dd className="text-slate-600">
-                                            {formattedCourtPhone} · solo para gestiones con el juzgado
-                                        </dd>
+                                        <dt className="font-bold text-slate-900">Cómo llegar</dt>
+                                        <dd className="text-slate-600">{publicTransport.join(' · ')}</dd>
                                     </div>
                                 )}
                             </dl>
+
+                            {/* Sedes y edificios judiciales */}
+                            {courthouses.length > 0 && (
+                                <div className="space-y-3 pt-2">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                                        <Building2 className="w-4 h-4 text-slate-600" />
+                                        <span>Sedes del tribunal en {partido}</span>
+                                    </h3>
+                                    <div className="space-y-2.5">
+                                        {courthouses.map(ch => (
+                                            <div key={ch.id} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm space-y-1">
+                                                <div className="flex items-center justify-between gap-2 flex-wrap">
+                                                    <strong className="font-bold text-slate-900">{ch.buildingName}</strong>
+                                                    {ch.isGuardService && (
+                                                        <span className="px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold">
+                                                            Sede de guardia
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="text-slate-600">{ch.address}</p>
+                                                {ch.sectionsHosted.length > 0 && (
+                                                    <ul className="text-slate-500 text-xs list-disc list-inside pt-1 space-y-0.5">
+                                                        {ch.sectionsHosted.map((sec, sIdx) => (
+                                                            <li key={sIdx}>{sec}</li>
+                                                        ))}
+                                                    </ul>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Organización bajo LO 1/2025 */}
+                            {court.efficiencyData && (
+                                <div className="pt-2 text-xs text-slate-500 space-y-1.5 border-t border-slate-100">
+                                    {court.efficiencyData.reforma && (
+                                        <p className="leading-relaxed">
+                                            <strong className="font-semibold text-slate-700">Organización judicial: </strong>
+                                            {court.efficiencyData.reforma}
+                                        </p>
+                                    )}
+                                </div>
+                            )}
                         </div>
 
                         <div className="lg:col-span-6 w-full space-y-3">
@@ -613,6 +687,117 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                         </div>
                     </div>
                 </section>
+
+                {/* Protocolo de guardia */}
+                {court.protocoloGuardia && (
+                    <section className="bg-slate-50 text-slate-900 border-b border-slate-200 py-12 md:py-16">
+                        <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6">
+                            <div className="space-y-2 max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                    Cómo funciona la guardia en {partido}
+                                </h2>
+                                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                    Procedimiento de tramitación urgente para detenidos y citados en el servicio de guardia de este partido judicial.
+                                </p>
+                            </div>
+                            <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-xs space-y-3">
+                                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700">
+                                    <Clock className="w-4 h-4 text-amber-600" />
+                                    <span>Protocolo y cronología de guardia</span>
+                                </div>
+                                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+                                    {court.protocoloGuardia}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* Criterios habituales de la fiscalía */}
+                {court.prosecutorCriteria && (
+                    <section className="bg-white text-slate-900 border-b border-slate-200 py-12 md:py-16">
+                        <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6">
+                            <div className="space-y-2 max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                    Criterios habituales de la fiscalía en {partido}
+                                </h2>
+                                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                    Criterios y prácticas observadas por el ministerio fiscal en la tramitación de juicios rápidos por delitos contra la seguridad vial.
+                                </p>
+                            </div>
+                            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 shadow-xs space-y-3">
+                                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-700">
+                                    <Scale className="w-4 h-4 text-slate-700" />
+                                    <span>Criterio acusatorio y conformidades</span>
+                                </div>
+                                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+                                    {court.prosecutorCriteria}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* Lo que conviene saber del juzgado (Notas locales redactadas por el letrado) */}
+                {court.localNotesMd && (
+                    <section className="bg-slate-50 text-slate-900 border-b border-slate-200 py-12 md:py-16">
+                        <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6">
+                            <div className="space-y-2 max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                    Lo que conviene saber del juzgado de {partido}
+                                </h2>
+                                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                    Observaciones prácticas directas sobre sedes, accesos y operativa policial en el partido judicial.
+                                </p>
+                            </div>
+                            <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-xs text-sm sm:text-base text-slate-700 leading-relaxed space-y-4">
+                                <ReactMarkdown
+                                    components={{
+                                        h3: ({ children }) => <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-4 first:mt-0">{children}</h3>,
+                                        p: ({ children }) => <p className="leading-relaxed">{children}</p>,
+                                        ul: ({ children }) => <ul className="list-disc list-inside space-y-1.5 pl-2">{children}</ul>,
+                                        ol: ({ children }) => <ol className="list-decimal list-inside space-y-1.5 pl-2">{children}</ol>,
+                                        li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                                        strong: ({ children }) => <strong className="font-bold text-slate-900">{children}</strong>,
+                                    }}
+                                >
+                                    {court.localNotesMd}
+                                </ReactMarkdown>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* Comisarías de policía para la familia de un detenido */}
+                {policeStations.length > 0 && (
+                    <section className="bg-white text-slate-900 border-b border-slate-200 py-12 md:py-16">
+                        <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6">
+                            <div className="space-y-2 max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                    Comisarías y asistencia al detenido en {partido}
+                                </h2>
+                                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                    Si un conductor ha sido detenido o citado por la policía, estas son las comisarías y jefaturas de referencia del partido judicial donde se instruyen los atestados de seguridad vial antes de pasar al juzgado de guardia:
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {policeStations.map(station => (
+                                    <div key={station.id} className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-2">
+                                        <h3 className="text-sm sm:text-base font-extrabold text-slate-900 flex items-center gap-2">
+                                            <ShieldAlert className="w-4 h-4 text-slate-600 shrink-0" />
+                                            <span>{station.name}</span>
+                                        </h3>
+                                        {station.details && (
+                                            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                                {station.details}
+                                            </p>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )}
 
                 {/* 1.7 "Preguntas frecuentes sobre el juicio rápido en {partido}" (fondo slate-50) */}
                 <section className="bg-slate-50 text-slate-900 border-b border-slate-200 py-12 md:py-16">

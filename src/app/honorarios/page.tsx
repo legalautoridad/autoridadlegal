@@ -12,13 +12,13 @@ import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, CreditCard, FileText
 
 export const metadata: Metadata = {
     title: 'Precio, honorarios y financiación | Autoridad Legal',
-    description: `Información sobre honorarios cerrados de ${PRICING_SUMMARY.basePriceDisplay} y ${PRICING_SUMMARY.proPriceDisplay} (IVA y procurador incluidos), suplementos aplicables, desglose fiscal y modalidades de financiación para la defensa en juicios rápidos de tráfico en Barcelona.`,
+    description: 'Honorarios cerrados por escrito: 980 € con IVA y procurador en alcoholemia, drogas, velocidad y sin carnet; 1.480 € para conductores profesionales.',
     alternates: {
         canonical: 'https://www.autoridad.legal/honorarios',
     },
     openGraph: {
         title: 'Precio, honorarios y financiación | Autoridad Legal',
-        description: 'Transparencia absoluta en honorarios para juicios rápidos por alcoholemia, drogas, velocidad, sin carné y conductores profesionales en la provincia de Barcelona.',
+        description: 'Honorarios cerrados por escrito: 980 € con IVA y procurador en alcoholemia, drogas, velocidad y sin carnet; 1.480 € para conductores profesionales.',
         url: 'https://www.autoridad.legal/honorarios',
         type: 'website',
         images: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Precio, honorarios y financiación | Autoridad Legal',
-        description: 'Transparencia absoluta en honorarios para juicios rápidos por alcoholemia, drogas, velocidad, sin carné y conductores profesionales en la provincia de Barcelona.',
+        description: 'Honorarios cerrados por escrito: 980 € con IVA y procurador en alcoholemia, drogas, velocidad y sin carnet; 1.480 € para conductores profesionales.',
         images: [DEFAULT_OG_IMAGE],
     },
 };

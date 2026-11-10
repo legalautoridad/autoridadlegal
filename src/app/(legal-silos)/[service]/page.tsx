@@ -126,39 +126,65 @@ export default async function ParentServicePage({ params }: PageProps) {
     }
 
     // Schema.org Service + FAQPage Graph (Unified Offer pattern matching coverage pages)
+    const graphNodes: any[] = [
+        {
+            "@type": "Service",
+            "@id": `${canonicalUrl}#service`,
+            "name": jsonLdConfig.name,
+            "serviceType": jsonLdConfig.serviceType,
+            "description": jsonLdConfig.description,
+            "url": canonicalUrl,
+            "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Cataluña"
+            },
+            "provider": {
+                "@type": "Organization",
+                "@id": "https://www.autoridad.legal/#organization"
+            },
+            "offers": offersObj
+        }
+    ];
+
+    if (dbService?.last_reviewed) {
+        graphNodes.push({
+            "@type": "WebPage",
+            "@id": `${canonicalUrl}#webpage`,
+            "url": canonicalUrl,
+            "name": `${config.seo.title} | Autoridad Legal`,
+            "description": config.seo.description,
+            "dateModified": dbService.last_reviewed,
+            "lastReviewed": dbService.last_reviewed,
+            "reviewedBy": {
+                "@id": "https://www.gimenezolavarriaga.abogado/#person"
+            },
+            "isPartOf": {
+                "@id": "https://www.autoridad.legal/#website"
+            },
+            "publisher": {
+                "@id": "https://www.autoridad.legal/#organization"
+            }
+        });
+    }
+
+    if (serviceFaqs.length > 0) {
+        graphNodes.push({
+            "@type": "FAQPage",
+            "@id": `${canonicalUrl}#faq`,
+            "mainEntity": serviceFaqs.map(faq => ({
+                "@type": "Question",
+                "name": faq.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": faq.answer
+                }
+            }))
+        });
+    }
+
     const jsonLdGraph = {
         "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "Service",
-                "@id": `${canonicalUrl}#service`,
-                "name": jsonLdConfig.name,
-                "serviceType": jsonLdConfig.serviceType,
-                "description": jsonLdConfig.description,
-                "url": canonicalUrl,
-                "areaServed": {
-                    "@type": "AdministrativeArea",
-                    "name": "Cataluña"
-                },
-                "provider": {
-                    "@type": "Organization",
-                    "@id": "https://www.autoridad.legal/#organization"
-                },
-                "offers": offersObj
-            },
-            ...(serviceFaqs.length > 0 ? [{
-                "@type": "FAQPage",
-                "@id": `${canonicalUrl}#faq`,
-                "mainEntity": serviceFaqs.map(faq => ({
-                    "@type": "Question",
-                    "name": faq.question,
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": faq.answer
-                    }
-                }))
-            }] : [])
-        ]
+        "@graph": graphNodes
     };
 
     return (
@@ -167,7 +193,7 @@ export default async function ParentServicePage({ params }: PageProps) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
             />
-            <ServiceTemplate service={normSlug} city={null} faqs={serviceFaqs} />
+            <ServiceTemplate service={normSlug} city={null} faqs={serviceFaqs} lastReviewed={dbService?.last_reviewed || null} />
         </>
     );
 }
