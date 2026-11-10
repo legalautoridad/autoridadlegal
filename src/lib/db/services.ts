@@ -127,7 +127,6 @@ export async function getServiceFaqs(serviceSlug: string): Promise<ServiceFaq[]>
         .order('position', { ascending: true });
 
     if (error || !data) {
-        console.error(`Error fetching service_faqs for ${normSlug}:`, error);
         return [];
     }
 

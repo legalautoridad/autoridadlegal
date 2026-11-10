@@ -210,22 +210,23 @@ export default async function DefensaPuntosCarnetPage() {
                             Dirección letrada telemática ante la Dirección General de Tráfico (DGT), Servei Català de Trànsit, Trafikoa y Ayuntamientos de toda España. Oposición técnica formal frente a sanciones graves y muy graves para suspender la ejecutividad registral de los puntos y salvaguardar la vigencia legal del permiso de conducir sin desplazarte.
                         </p>
 
-                        <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+                            <a
+                                href={`tel:${PHONE_CALL_E164}`}
+                                className="min-h-[48px] px-6 py-3.5 rounded-xl bg-[#ffe088] hover:bg-amber-300 text-slate-900 font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2.5 shadow-lg transition-colors"
+                            >
+                                <Phone className="w-4 h-4 shrink-0" />
+                                <span>Llamar al abogado de guardia</span>
+                            </a>
+
                             <a
                                 href={WHATSAPP_URL}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-lg shadow-emerald-900/30"
+                                className="min-h-[48px] px-5 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#34e275] active:bg-[#1ebe5d] text-[#052e16] font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-lg transition-colors"
                             >
-                                <MessageCircle className="w-4 h-4" />
-                                <span>Consultar sanción por WhatsApp</span>
-                            </a>
-                            <a
-                                href={`tel:${PHONE_CALL_E164}`}
-                                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/20 text-white font-bold text-sm transition-all"
-                            >
-                                <Phone className="w-4 h-4 text-prestige-gold" />
-                                <span>{PHONE_CALL_DISPLAY}</span>
+                                <MessageCircle className="w-4 h-4 shrink-0 text-[#052e16]" />
+                                <span>Escribir a abogado por WhatsApp</span>
                             </a>
                         </div>
 
@@ -649,24 +650,28 @@ export default async function DefensaPuntosCarnetPage() {
                         <p className="text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
                             Envíanos la fotografía de la notificación o boletín de denuncia. Revisamos los plazos legales, la viabilidad técnica y te informamos del procedimiento antes de que venza el plazo de pronto pago.
                         </p>
-                        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+                            <a
+                                href={`tel:${PHONE_CALL_E164}`}
+                                className="min-h-[48px] px-6 py-3.5 rounded-xl bg-[#ffe088] hover:bg-amber-300 text-slate-900 font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2.5 shadow-lg transition-colors"
+                            >
+                                <Phone className="w-4 h-4 shrink-0" />
+                                <span>Llamar al abogado de guardia</span>
+                            </a>
+
                             <a
                                 href={WHATSAPP_URL}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-lg"
+                                className="min-h-[48px] px-5 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#34e275] active:bg-[#1ebe5d] text-[#052e16] font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-lg transition-colors"
                             >
-                                <MessageCircle className="w-5 h-5" />
-                                <span>WhatsApp: {WHATSAPP_DISPLAY}</span>
-                            </a>
-                            <a
-                                href={`tel:${PHONE_CALL_E164}`}
-                                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-prestige-gold/40 text-white font-bold text-sm transition-all"
-                            >
-                                <Phone className="w-5 h-5 text-prestige-gold" />
-                                <span>Llamar: {PHONE_CALL_DISPLAY}</span>
+                                <MessageCircle className="w-4 h-4 shrink-0 text-[#052e16]" />
+                                <span>Escribir a abogado por WhatsApp</span>
                             </a>
                         </div>
+                        <p className="text-xs text-slate-400">
+                            Atención directa: {PHONE_CALL_DISPLAY} · WhatsApp: {WHATSAPP_DISPLAY}
+                        </p>
                     </section>
                 </div>
             </main>

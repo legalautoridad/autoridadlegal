@@ -39,7 +39,6 @@ export async function getAllGlosarioTerms(): Promise<DbGlosarioTerm[]> {
         .eq('status', 'ACTIVE');
 
     if (error || !data) {
-        console.error('Error fetching semantic_entities from Supabase:', error);
         return [];
     }
 
