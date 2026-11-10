@@ -19,6 +19,7 @@ export interface DbService {
     };
     created_at?: string;
     updated_at?: string;
+    last_reviewed?: string | null;
 }
 
 export interface ServiceFaq {

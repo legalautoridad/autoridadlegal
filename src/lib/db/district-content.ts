@@ -26,6 +26,20 @@ export interface CourtFaqRow {
     answer: string;
 }
 
+export interface DistrictCourthouse {
+    id: string;
+    buildingName: string;
+    address: string;
+    isGuardService: boolean;
+    sectionsHosted: string[];
+}
+
+export interface DistrictPoliceStation {
+    id: string;
+    name: string;
+    details: string | null;
+}
+
 export interface DistrictCourtData {
     id: string;
     slug: string;
@@ -34,17 +48,28 @@ export interface DistrictCourtData {
     officialName: string;
     address: string | null;
     phone: string | null;
+    phoneGuardia: string | null;
+    protocoloGuardia: string | null;
+    prosecutorCriteria: string | null;
     fiscaliaAddress: string | null;
     gpsCoords: { lat: number; lng: number } | null;
     atestadoInfo: string | null;
     hospitalContraste: string | null;
     depositoVehiculos: string | null;
     practicalReviewed: boolean;
+    lastReviewed: string | null;
+    localNotesMd: string | null;
+    efficiencyData: {
+        reforma?: string;
+        secciones?: Record<string, string>;
+    } | null;
 }
 
 export interface DistrictFullData {
     slug: string;
     court: DistrictCourtData;
+    courthouses: DistrictCourthouse[];
+    policeStations: DistrictPoliceStation[];
     municipalities: DistrictMunicipality[];
     topMunicipalities: DistrictMunicipality[];
     allMunicipalities: SearchableMunicipality[];
@@ -92,6 +117,7 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
         { data: allCourts, error: courtsError },
         { data: allLocs, error: locsError },
         { data: pointsData },
+        { data: allCourthouses },
     ] = await Promise.all([
         supabase.from('courts').select('*').order('slug'),
         supabase
@@ -100,6 +126,7 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
             .eq('location_type', 'municipio')
             .neq('slug', 'bellaterra-uab'),
         supabase.from('interest_points').select('*'),
+        supabase.from('courthouses').select('*').order('position', { ascending: true }),
     ]);
 
     if (courtsError || locsError || !allCourts) {
@@ -206,6 +233,33 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
     const judicialDistrict = cleanJudicialDistrict(court.judicial_district || court.name);
     const practicalReviewed = Boolean(court.practical_reviewed);
 
+    const districtCourthouses: DistrictCourthouse[] = (allCourthouses || [])
+        .filter((ch: any) => ch.court_id === court.id)
+        .map((ch: any) => ({
+            id: ch.id,
+            buildingName: ch.building_name,
+            address: ch.address,
+            isGuardService: Boolean(ch.is_guard_service),
+            sectionsHosted: Array.isArray(ch.sections_hosted) ? ch.sections_hosted : [],
+        }));
+
+    // Police stations for families of detainees (class = 'policias', strictly NO radars/speedtraps/controls)
+    const policeStations: DistrictPoliceStation[] = districtPoints
+        .filter((p: any) => {
+            const cls = (p.class || p.category || '').toLowerCase();
+            if (cls !== 'policias') return false;
+            const name = (p.name || '').toLowerCase();
+            if (name.includes('radar') || name.includes('velocidad') || name.includes('control') || name.includes('tramo')) {
+                return false;
+            }
+            return true;
+        })
+        .map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            details: p.details || null,
+        }));
+
     const courtData: DistrictCourtData = {
         id: court.id,
         slug: court.slug,
@@ -214,6 +268,9 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
         officialName: court.official_name || court.name,
         address: court.address || null,
         phone: court.phone || null,
+        phoneGuardia: court.phone_guardia || null,
+        protocoloGuardia: court.protocolo_guardia ? String(court.protocolo_guardia).trim() : null,
+        prosecutorCriteria: court.prosecutor_criteria ? String(court.prosecutor_criteria).trim() : null,
         fiscaliaAddress: court.fiscalia_address || null,
         gpsCoords: parseGpsCoords(court.gps_coords),
         atestadoInfo: practicalReviewed && court.atestado_info ? String(court.atestado_info).trim() : null,
@@ -222,11 +279,16 @@ export async function getDistrictData(slug: string): Promise<DistrictFullData | 
         depositoVehiculos:
             practicalReviewed && court.deposito_vehiculos ? String(court.deposito_vehiculos).trim() : null,
         practicalReviewed,
+        lastReviewed: practicalReviewed && court.last_reviewed ? String(court.last_reviewed) : null,
+        localNotesMd: court.local_notes_md ? String(court.local_notes_md).trim() : null,
+        efficiencyData: court.efficiency_data || null,
     };
 
     return {
         slug: court.slug,
         court: courtData,
+        courthouses: districtCourthouses,
+        policeStations,
         municipalities: districtMunicipalities,
         topMunicipalities,
         allMunicipalities,

@@ -16,12 +16,14 @@ import { ServiceFaq } from '@/lib/db/services';
 import { CoberturaData } from '@/lib/db/cobertura';
 import { ChevronDown, Phone, MapPin, Building2, ShieldAlert, FileText, ArrowRight, Scale } from 'lucide-react';
 import { PuntoDeInteres } from '@/lib/okf/parser';
+import { ReviewedBy } from '@/components/legal/ReviewedBy';
 
 interface ServiceTemplateProps {
     service: string;
     city?: string | null;
     faqs?: ServiceFaq[];
     cobertura?: CoberturaData | null;
+    lastReviewed?: string | null;
 }
 
 function formatQuote(text: string): string {
@@ -70,7 +72,7 @@ function toBlufParagraph(primaryText: string, secondaryText?: string): string {
     return result || combined;
 }
 
-export default async function ServiceTemplate({ service, city, faqs, cobertura }: ServiceTemplateProps) {
+export default async function ServiceTemplate({ service, city, faqs, cobertura, lastReviewed }: ServiceTemplateProps) {
     const config = getSiloConfig(service);
     if (!config) {
         return notFound();
@@ -162,14 +164,17 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura }
                                 Especialistas en la defensa técnica de delitos de tráfico. Actuamos con urgencia para proteger tus derechos y minimizar consecuencias penales. Honorarios cerrados de {priceText} con IVA y procurador incluidos.
                             </p>
 
-                            <div className="pt-2">
+                            <div className="pt-2 flex flex-col gap-3">
                                 <Link
                                     href="/acuerdo-honorarios"
-                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950/80 hover:bg-slate-950 border border-prestige-gold/40 text-xs font-semibold text-prestige-gold transition-colors shadow-md"
+                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950/80 hover:bg-slate-950 border border-prestige-gold/40 text-xs font-semibold text-prestige-gold transition-colors shadow-md w-fit"
                                 >
                                     <FileText className="w-4 h-4 text-prestige-gold" />
                                     Ver Modelo de Hoja de Encargo →
                                 </Link>
+                                {lastReviewed && (
+                                    <ReviewedBy date={lastReviewed} />
+                                )}
                             </div>
                         </div>
 
