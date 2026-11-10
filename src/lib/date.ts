@@ -28,3 +28,4 @@ export function formatDateSpanish(dateStr: string): string {
     if (isNaN(d.getTime())) return dateStr;
     return `${d.getDate()} de ${MONTHS_ES[d.getMonth()]} de ${d.getFullYear()}`;
 }
+
