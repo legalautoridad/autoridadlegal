@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { generateGuaranteeCertificate, CertificateData } from '@/lib/services/pdf-generator';
 import { FileDown, CheckCircle, Shield, Mail, FileText } from 'lucide-react';
 
+import { PENAL_BASE_PRICE } from '@/lib/pricing';
+
 function SuccessContent() {
     const searchParams = useSearchParams();
     const [emailSent, setEmailSent] = useState(false);
@@ -19,7 +21,7 @@ function SuccessContent() {
             city: searchParams.get('city') || 'Barcelona',
             court: searchParams.get('court') || 'Juzgado Penal Nº 1',
             vertical: searchParams.get('vertical') || 'Alcoholemia',
-            totalPrice: 950,
+            totalPrice: PENAL_BASE_PRICE,
             reservationAmount: 50,
             date: new Date().toISOString()
         });

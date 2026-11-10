@@ -204,31 +204,31 @@ ${pointsMarkdown}
 ## 8. Por tipo de delito
 
 ### 8.1 Alcoholemia (#alcoholemia)
-- **Honorarios base:** 980 € (IVA y procurador incluidos)
+- **Honorarios base:** 680 € + IVA (procurador de los tribunales incluido)
 
 > **[A RELLENAR ABOGADO]**
 > - Particularidades de tramitación y conformidad para delitos de alcoholemia en este partido judicial.
 
 ### 8.2 Drogas / Estupefacientes (#drogas)
-- **Honorarios base:** 980 € (IVA y procurador incluidos)
+- **Honorarios base:** 680 € + IVA (procurador de los tribunales incluido)
 
 > **[A RELLENAR ABOGADO]**
 > - Particularidades de tramitación y conformidad para delitos de drogas en este partido judicial.
 
 ### 8.3 Exceso de velocidad (#velocidad)
-- **Honorarios base:** 980 € (IVA y procurador incluidos)
+- **Honorarios base:** 680 € + IVA (procurador de los tribunales incluido)
 
 > **[A RELLENAR ABOGADO]**
 > - Particularidades de tramitación y conformidad para delitos de velocidad en este partido judicial.
 
 ### 8.4 Conducción sin carnet (#sin-carnet)
-- **Honorarios base:** 980 € (IVA y procurador incluidos)
+- **Honorarios base:** 680 € + IVA (procurador de los tribunales incluido)
 
 > **[A RELLENAR ABOGADO]**
 > - Particularidades de tramitación y conformidad para conducción sin permiso en este partido judicial.
 
 ### 8.5 Conductores profesionales (#profesionales)
-- **Honorarios base:** 1.480 € (IVA y procurador incluidos)
+- **Honorarios base:** 680 € + 500 € de suplemento por conductor profesional (+ IVA)
 
 > **[A RELLENAR ABOGADO]**
 > - Particularidades de tramitación y conformidad para conductores profesionales en este partido judicial.

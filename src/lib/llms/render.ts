@@ -8,7 +8,8 @@ import {
     PAYMENT_METHODS,
     renderDatosClaveHonorariosLines,
     DEFENSE_POINTS_PRICING,
-} from '@/lib/config/pricing';
+    STATUTORY_TAX_NOTE_SHORT,
+} from '@/lib/pricing';
 import { getLlmsCourtsData, getLlmsFullDataset } from './data';
 
 /**
@@ -107,25 +108,26 @@ export async function renderLlmsFull(): Promise<string> {
         '## Honorarios',
         `URL: ${SITE_BASE_URL}/honorarios`,
         '',
-        '### Precio por servicio (IVA y procurador incluidos)',
+        '### Precio por servicio (+ IVA, procurador de los tribunales incluido)',
     ];
 
     for (const svc of pricing.services) {
         lines.push(
-            `- **${svc.name}** (${svc.url}): precio cerrado de ${svc.displayPrice} (IVA y procurador incluidos) para el supuesto base; los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados por escrito y por adelantado.`
+            `- **${svc.name}** (${svc.url}): honorarios de ${svc.displayWithTaxLabel} para el supuesto base; los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.`
         );
     }
 
-    lines.push('', '### Recargos tasados (IVA incluido)');
+    lines.push('', '### Suplementos tasados (+ IVA)');
 
     for (const addOn of Object.values(pricing.addOns)) {
         lines.push(
-            `- **${addOn.name} (${addOn.displayPrice})**: ${addOn.appliesToLabel}. ${addOn.description}`
+            `- **${addOn.name} (${addOn.displayWithTaxLabel})**: ${addOn.appliesToLabel}. ${addOn.description}`
         );
     }
 
     lines.push(
         '- **Accidentes con daños a terceros o lesiones**: presupuesto por escrito tras revisar el atestado.',
+        `- **Régimen fiscal**: ${STATUTORY_TAX_NOTE_SHORT}`,
         '',
         '### Formas de pago',
         ...PAYMENT_METHODS.map(m => `- ${m}`),

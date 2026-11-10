@@ -1,4 +1,4 @@
-import { PRICING_ADDONS, PAYMENT_60_40_TIERS, PRICING_SUMMARY } from '@/lib/config/pricing';
+import { PRICING_ADDONS, PAYMENT_60_40_TIERS, PRICING_SUMMARY, STATUTORY_TAX_NOTE } from '@/lib/pricing';
 
 export interface BasePriceRow {
     servicio: string;
@@ -140,22 +140,24 @@ El servicio contratado corresponde a la defensa técnica en el procedimiento con
         {
             id: 'precio-base',
             number: '5',
-            title: 'Precio del servicio base',
-            content: 'Tarifas cerradas por escrito para el supuesto base en juicios rápidos de seguridad vial (derechos de procurador e IVA 21 % incluidos):',
+            title: 'Precio del servicio base y régimen fiscal',
+            content: `Honorarios profesionales técnicos de dirección letrada para el supuesto base en juicios rápidos de seguridad vial ante los juzgados de la provincia de Barcelona. Incluye la representación procesal del Procurador de los Tribunales (0,00 € adicionales):
+
+${STATUTORY_TAX_NOTE}`,
             basePricesTable: [
-                { servicio: 'Alcoholemia, Drogas al volante, Exceso de velocidad o Conducir sin carné', base: PRICING_SUMMARY.baseTaxBase, iva: PRICING_SUMMARY.baseTaxAmount, total: PRICING_SUMMARY.baseTotalDecimals },
-                { servicio: 'Conductores profesionales (C, D, E) — Primera Instancia', base: PRICING_SUMMARY.proTaxBase, iva: PRICING_SUMMARY.proTaxAmount, total: PRICING_SUMMARY.proTotalDecimals },
+                { servicio: 'Alcoholemia, Drogas al volante, Exceso de velocidad o Conducir sin carné', base: '680,00 €', iva: 'A liquidar en encargo', total: '680,00 € + IVA' },
+                { servicio: 'Conductores profesionales (C, D, E) — Primera Instancia', base: '1.180,00 €', iva: 'A liquidar en encargo', total: '1.180,00 € + IVA' },
             ],
         },
         {
             id: 'suplementos',
             number: '6',
             title: 'Suplementos tasados',
-            content: 'Los suplementos solo se aplican cuando la circunstancia correspondiente concurre y exige un alcance distinto del servicio base, comunicándose siempre por escrito antes de la contratación. Todos los importes incluyen IVA:',
+            content: 'Los suplementos solo se aplican cuando la circunstancia correspondiente concurre y exige un alcance distinto del servicio base, comunicándose siempre por escrito antes de la contratación. Las cuantías reflejadas corresponden a honorarios profesionales (+ IVA):',
             supplementsTable: [
                 ...Object.values(PRICING_ADDONS).map((addOn) => ({
                     circunstancia: addOn.name,
-                    suplemento: addOn.displayPrice,
+                    suplemento: addOn.displayWithTaxLabel,
                     aplica: addOn.appliesToLabel,
                     descripcion: addOn.description,
                 })),
@@ -220,7 +222,7 @@ Puede consultar la información completa sobre privacidad y ejercicio de derecho
             id: 'facturacion',
             number: '14',
             title: 'Facturación',
-            content: 'El profesional emitirá la factura oficial correspondiente con desglose de base imponible, 21 % de IVA, derechos de procurador y suplementos acordados.',
+            content: 'El profesional emitirá la factura oficial correspondiente con liquidación formal de los tributos legalmente aplicables conforme a la legislación fiscal vigente (IVA al tipo general del 21% o retenciones de IRPF aplicables), derechos de procurador y suplementos acordados.',
         },
         {
             id: 'desistimiento',
@@ -244,7 +246,7 @@ Puede consultar la información completa sobre privacidad y ejercicio de derecho
             id: 'aceptacion-firma',
             number: '18',
             title: 'Modelización de Aceptación',
-            content: 'La Hoja de Encargo individualizada formalizada con cada cliente recoge expresamente la modalidad de pago elegida, el desglose final de suplementos aprobados y el precio total con IVA.',
+            content: 'La Hoja de Encargo individualizada formalizada con cada cliente recoge expresamente la modalidad de pago elegida, el desglose final de suplementos aprobados y la liquidación formal de tributos aplicables.',
         },
         {
             id: 'firma',

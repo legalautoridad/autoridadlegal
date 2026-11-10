@@ -186,7 +186,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
 
     faqs.push({
         question: `¿Cuánto cuesta un abogado para el juicio rápido en ${partido}?`,
-        answer: `${PRICING_SUMMARY.basePriceDisplay} (IVA incluido) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet; ${PRICING_SUMMARY.proPriceDisplay} para conductores profesionales. Los recargos están tasados y se comunican por escrito y por adelantado.`,
+        answer: `${PRICING_SUMMARY.basePriceDisplay} + IVA (procurador de los tribunales incluido) para el supuesto base en alcoholemia, drogas, velocidad y sin carnet; ${PRICING_SUMMARY.proPriceDisplay} + IVA para conductores profesionales (${PRICING_SUMMARY.proPriceExplanation}). Los suplementos están tasados y se comunican por escrito y por adelantado.`,
     });
 
     // PASO 2: JSON-LD en un único @graph (sin crear Organization ni Person nuevos)
@@ -478,7 +478,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                 Tu caso en {partido}, según el delito
                             </h2>
                             <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                                Precio cerrado para el supuesto base (juicio rápido con conformidad), IVA incluido. Los casos más complejos llevan recargos tasados, comunicados por escrito y por adelantado.
+                                Honorarios cerrados de {PRICING_SUMMARY.basePriceDisplay} + IVA (procurador incluido) para el supuesto base (juicio rápido con conformidad). Los casos más complejos llevan suplementos tasados, comunicados por escrito y por adelantado.
                             </p>
                         </div>
 

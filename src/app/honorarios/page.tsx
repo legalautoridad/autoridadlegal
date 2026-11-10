@@ -7,19 +7,20 @@ import {
     PAYMENT_60_40_TIERS,
     PRICING_SUMMARY,
     DEFENSE_POINTS_PRICING,
-} from '@/lib/config/pricing';
+    STATUTORY_TAX_NOTE,
+} from '@/lib/pricing';
 import { getHonorariosPageJsonLd } from '@/lib/seo/home-jsonld';
 import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, CreditCard, FileText, Phone, Award, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'Precio, honorarios y financiación | Autoridad Legal',
-    description: 'Honorarios cerrados por escrito: 980 € con IVA y procurador en alcoholemia, drogas, velocidad y sin carnet; 1.480 € para conductores profesionales.',
+    description: 'Honorarios cerrados por escrito: 680 € + IVA con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
     alternates: {
         canonical: 'https://www.autoridad.legal/honorarios',
     },
     openGraph: {
         title: 'Precio, honorarios y financiación | Autoridad Legal',
-        description: 'Honorarios cerrados por escrito: 980 € con IVA y procurador en alcoholemia, drogas, velocidad y sin carnet; 1.480 € para conductores profesionales.',
+        description: 'Honorarios cerrados por escrito: 680 € + IVA con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
         url: 'https://www.autoridad.legal/honorarios',
         type: 'website',
         images: [
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Precio, honorarios y financiación | Autoridad Legal',
-        description: 'Honorarios cerrados por escrito: 980 € con IVA y procurador en alcoholemia, drogas, velocidad y sin carnet; 1.480 € para conductores profesionales.',
+        description: 'Honorarios cerrados por escrito: 680 € + IVA con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
         images: [DEFAULT_OG_IMAGE],
     },
 };
@@ -157,27 +158,11 @@ export default function HonorariosPage() {
                             </table>
                         </div>
 
-                        {/* Desglose Fiscal e Información Adicional */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                            <div className="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
-                                <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                                    <FileText className="w-4 h-4 text-prestige-gold" />
-                                    Desglose Servicios Base ({PRICING_SUMMARY.basePriceDisplay})
-                                </h3>
-                                <p className="text-sm text-slate-300">
-                                    Base imponible <strong className="text-white">{PRICING_SUMMARY.baseTaxBase}</strong> + IVA (21 %) <strong className="text-white">{PRICING_SUMMARY.baseTaxAmount}</strong> = <strong className="text-prestige-gold">{PRICING_SUMMARY.baseTotalDecimals}</strong>. Total derechos de procurador e IVA incluidos (alcoholemia, drogas, velocidad y sin carné).
-                                </p>
-                            </div>
-
-                            <div className="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
-                                <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                                    <FileText className="w-4 h-4 text-prestige-gold" />
-                                    Desglose Profesionales ({PRICING_SUMMARY.proPriceDisplay})
-                                </h3>
-                                <p className="text-sm text-slate-300">
-                                    Base imponible <strong className="text-white">{PRICING_SUMMARY.proTaxBase}</strong> + IVA (21 %) <strong className="text-white">{PRICING_SUMMARY.proTaxAmount}</strong> = <strong className="text-prestige-gold">{PRICING_SUMMARY.proTotalDecimals}</strong>. Primera instancia hasta sentencia. Excluye recurso de apelación ante la Audiencia Provincial.
-                                </p>
-                            </div>
+                        {/* Nota informativa literal sobre honorarios profesionales y régimen fiscal */}
+                        <div className="bg-slate-900/90 border-l-4 border-prestige-gold p-5 rounded-r-xl shadow-lg">
+                            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                                {STATUTORY_TAX_NOTE}
+                            </p>
                         </div>
                     </section>
 
@@ -362,7 +347,7 @@ export default function HonorariosPage() {
                                 <thead>
                                     <tr className="bg-slate-900 border-b border-white/10 text-xs font-bold text-slate-300 uppercase tracking-wider">
                                         <th className="py-4 px-6">Suplemento</th>
-                                        <th className="py-4 px-6">Importe (IVA inc.)</th>
+                                        <th className="py-4 px-6">Importe (+ IVA)</th>
                                         <th className="py-4 px-6">Aplica a</th>
                                         <th className="py-4 px-6">Descripción y Causa Procesal</th>
                                     </tr>

@@ -67,7 +67,7 @@ export default async function ServicioSlugPage({ params }: PageProps) {
             "@type": "PriceSpecification",
             "price": pricingConfig ? pricingConfig.basePrice : jsonLdConfig.price.toFixed(2),
             "priceCurrency": "EUR",
-            "valueAddedTaxIncluded": true
+            "valueAddedTaxIncluded": false
         },
         "offeredBy": {
             "@type": "Organization",
@@ -91,7 +91,7 @@ export default async function ServicioSlugPage({ params }: PageProps) {
                     "@type": "PriceSpecification",
                     "price": addOn.price,
                     "priceCurrency": "EUR",
-                    "valueAddedTaxIncluded": true
+                    "valueAddedTaxIncluded": false
                 },
                 "description": addOn.description
             };

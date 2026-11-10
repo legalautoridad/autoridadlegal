@@ -15,13 +15,13 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
             '@id': 'https://www.autoridad.legal/#organization',
             'name': 'Autoridad Legal',
             'legalName': 'Santiago Giménez Olavarriaga',
-            'description': 'Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa urgente 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin carné y casos de conductores profesionales, con honorarios cerrados y tasados por escrito (IVA y procurador incluidos).',
+            'description': 'Despacho penalista especializado en delitos contra la seguridad vial en la provincia de Barcelona. Defensa urgente 24h en juicio rápido por alcoholemia, drogas al volante, exceso de velocidad, conducción sin carné y casos de conductores profesionales, con honorarios cerrados de 680 € + IVA (procurador incluido) y suplementos tasados por escrito.',
             'url': 'https://www.autoridad.legal',
             'telephone': PHONE_E164,
             'email': 'contacto@autoridad.legal',
             'image': DEFAULT_OG_IMAGE,
             'logo': 'https://www.autoridad.legal/images/logo-transparent.png',
-            'priceRange': `${PRICING_SUMMARY.basePriceNumber}€–${PRICING_SUMMARY.proPriceNumber}€`,
+            'priceRange': '680€–1180€',
             'knowsLanguage': ['es', 'ca'],
             'address': {
                 '@type': 'PostalAddress',
@@ -101,7 +101,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                             '@type': 'PriceSpecification',
                             'price': svc.basePrice,
                             'priceCurrency': 'EUR',
-                            'valueAddedTaxIncluded': true
+                            'valueAddedTaxIncluded': false
                         },
                         'acceptedPaymentMethod': [
                             {
@@ -131,7 +131,7 @@ export function getSitewideJsonLdV6(faqs?: FaqItem[]) {
                                     '@type': 'PriceSpecification',
                                     'price': addOn.price,
                                     'priceCurrency': 'EUR',
-                                    'valueAddedTaxIncluded': true
+                                    'valueAddedTaxIncluded': false
                                 },
                                 'description': addOn.description
                             };
@@ -355,7 +355,7 @@ export function getHonorariosPageJsonLd() {
                             '@type': 'PriceSpecification',
                             'price': svc.basePrice,
                             'priceCurrency': 'EUR',
-                            'valueAddedTaxIncluded': true
+                            'valueAddedTaxIncluded': false
                         },
                         'acceptedPaymentMethod': [
                             {
@@ -385,7 +385,7 @@ export function getHonorariosPageJsonLd() {
                                     '@type': 'PriceSpecification',
                                     'price': addOn.price,
                                     'priceCurrency': 'EUR',
-                                    'valueAddedTaxIncluded': true
+                                    'valueAddedTaxIncluded': false
                                 },
                                 'description': addOn.description
                             };

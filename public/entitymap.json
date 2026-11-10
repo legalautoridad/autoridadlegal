@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.org",
   "version": "1.2.0",
-  "generatedAt": "2026-08-17T10:25:49.722Z",
+  "generatedAt": "2026-11-10T12:39:55.135Z",
   "organization": {
     "@type": "LegalService",
     "name": "Autoridad Legal",
@@ -11,7 +11,7 @@
     "telephone": "+34605118871",
     "email": "contacto@autoridad.legal",
     "areaServed": "Cataluña, España",
-    "priceRange": "980€–1480€",
+    "priceRange": "680€–1180€",
     "sameAs": [
       "https://www.linkedin.com/company/autoridad-legal/",
       "https://www.facebook.com/AutoridadLegal/",
@@ -32,11 +32,11 @@
         "@type": "Offer",
         "name": "Defensa por Alcoholemia — Juicio Rápido con Conformidad",
         "url": "https://www.autoridad.legal/alcoholemia",
-        "price": 980,
+        "price": 680,
         "priceCurrency": "EUR",
         "valueAddedTaxIncluded": true,
         "procuratorIncluded": true,
-        "description": "Precio cerrado de 980 € (IVA y derechos de procurador incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. Los supuestos de mayor complejidad llevan recargos fijos y tasados, detallados en los suplementos y comunicados siempre por escrito y por adelantado.",
+        "description": "Honorarios profesionales de 680 € + IVA para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.",
         "itemOffered": {
           "@type": "Service",
           "name": "Defensa penal por delito de alcoholemia",
@@ -46,47 +46,47 @@
         "addOn": [
           {
             "@type": "Offer",
-            "name": "Suplemento por Reincidencia Delictiva",
+            "name": "Reincidencia o antecedentes penales activos",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 200,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 200 € (IVA incluido) aplicable cuando el investigado cuenta con antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
+            "description": "Antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento procesal por No Conformidad",
+            "name": "No conformidad / apertura de juicio oral",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 300,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 300 € (IVA incluido) cuando la estrategia de defensa descarta la conformidad para pelear la libre absolución o la nulidad de las actuaciones en juicio ordinario posterior, con mayor carga procesal."
+            "description": "Estrategia de defensa orientada a la libre absolución o impugnación técnica en juicio oral posterior."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento por Asistencia al Detenido de Urgencia",
+            "name": "Riesgo de prisión efectiva (multirreincidencia)",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": 300,
+              "priceCurrency": "EUR",
+              "valueAddedTaxIncluded": true
+            },
+            "description": "Supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de ingreso en prisión exige una defensa reforzada."
+          },
+          {
+            "@type": "Offer",
+            "name": "Asistencia urgente al detenido en comisaría",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 500,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 500 € (IVA incluido) por asistencia inmediata al detenido con desplazamiento del letrado a dependencias policiales fuera del horario ordinario."
-          },
-          {
-            "@type": "Offer",
-            "name": "Suplemento por Riesgo de Prisión Efectiva",
-            "priceSpecification": {
-              "@type": "PriceSpecification",
-              "price": 300,
-              "priceCurrency": "EUR",
-              "valueAddedTaxIncluded": true
-            },
-            "description": "Recargo fijo de 300 € (IVA incluido) en supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de prisión efectiva exige una defensa reforzada."
+            "description": "Desplazamiento urgente de letrado a comisaría o juzgado de guardia para asistencia presencial al detenido fuera del horario ordinario."
           }
         ]
       },
@@ -94,11 +94,11 @@
         "@type": "Offer",
         "name": "Defensa por Drogas al Volante — Juicio Rápido con Conformidad",
         "url": "https://www.autoridad.legal/drogas",
-        "price": 980,
+        "price": 680,
         "priceCurrency": "EUR",
         "valueAddedTaxIncluded": true,
         "procuratorIncluded": true,
-        "description": "Precio cerrado de 980 € (IVA y derechos de procurador incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. Los supuestos de mayor complejidad llevan recargos fijos y tasados, detallados en los suplementos y comunicados siempre por escrito y por adelantado.",
+        "description": "Honorarios profesionales de 680 € + IVA para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.",
         "itemOffered": {
           "@type": "Service",
           "name": "Defensa penal por drogas al volante",
@@ -108,47 +108,47 @@
         "addOn": [
           {
             "@type": "Offer",
-            "name": "Suplemento por Reincidencia Delictiva",
+            "name": "Reincidencia o antecedentes penales activos",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 200,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 200 € (IVA incluido) aplicable cuando el investigado cuenta con antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
+            "description": "Antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento procesal por No Conformidad",
+            "name": "No conformidad / apertura de juicio oral",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 300,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 300 € (IVA incluido) cuando la estrategia de defensa descarta la conformidad para pelear la libre absolución o la nulidad de las actuaciones en juicio ordinario posterior, con mayor carga procesal."
+            "description": "Estrategia de defensa orientada a la libre absolución o impugnación técnica en juicio oral posterior."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento por Asistencia al Detenido de Urgencia",
+            "name": "Riesgo de prisión efectiva (multirreincidencia)",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": 300,
+              "priceCurrency": "EUR",
+              "valueAddedTaxIncluded": true
+            },
+            "description": "Supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de ingreso en prisión exige una defensa reforzada."
+          },
+          {
+            "@type": "Offer",
+            "name": "Asistencia urgente al detenido en comisaría",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 500,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 500 € (IVA incluido) por asistencia inmediata al detenido con desplazamiento del letrado a dependencias policiales fuera del horario ordinario."
-          },
-          {
-            "@type": "Offer",
-            "name": "Suplemento por Riesgo de Prisión Efectiva",
-            "priceSpecification": {
-              "@type": "PriceSpecification",
-              "price": 300,
-              "priceCurrency": "EUR",
-              "valueAddedTaxIncluded": true
-            },
-            "description": "Recargo fijo de 300 € (IVA incluido) en supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de prisión efectiva exige una defensa reforzada."
+            "description": "Desplazamiento urgente de letrado a comisaría o juzgado de guardia para asistencia presencial al detenido fuera del horario ordinario."
           }
         ]
       },
@@ -156,11 +156,11 @@
         "@type": "Offer",
         "name": "Defensa por Exceso de Velocidad — Juicio Rápido con Conformidad",
         "url": "https://www.autoridad.legal/velocidad",
-        "price": 980,
+        "price": 680,
         "priceCurrency": "EUR",
         "valueAddedTaxIncluded": true,
         "procuratorIncluded": true,
-        "description": "Precio cerrado de 980 € (IVA y derechos de procurador incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. Los supuestos de mayor complejidad llevan recargos fijos y tasados, detallados en los suplementos y comunicados siempre por escrito y por adelantado.",
+        "description": "Honorarios profesionales de 680 € + IVA para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.",
         "itemOffered": {
           "@type": "Service",
           "name": "Defensa penal por exceso de velocidad",
@@ -170,47 +170,47 @@
         "addOn": [
           {
             "@type": "Offer",
-            "name": "Suplemento por Reincidencia Delictiva",
+            "name": "Reincidencia o antecedentes penales activos",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 200,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 200 € (IVA incluido) aplicable cuando el investigado cuenta con antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
+            "description": "Antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento procesal por No Conformidad",
+            "name": "No conformidad / apertura de juicio oral",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 300,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 300 € (IVA incluido) cuando la estrategia de defensa descarta la conformidad para pelear la libre absolución o la nulidad de las actuaciones en juicio ordinario posterior, con mayor carga procesal."
+            "description": "Estrategia de defensa orientada a la libre absolución o impugnación técnica en juicio oral posterior."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento por Asistencia al Detenido de Urgencia",
+            "name": "Riesgo de prisión efectiva (multirreincidencia)",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": 300,
+              "priceCurrency": "EUR",
+              "valueAddedTaxIncluded": true
+            },
+            "description": "Supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de ingreso en prisión exige una defensa reforzada."
+          },
+          {
+            "@type": "Offer",
+            "name": "Asistencia urgente al detenido en comisaría",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 500,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 500 € (IVA incluido) por asistencia inmediata al detenido con desplazamiento del letrado a dependencias policiales fuera del horario ordinario."
-          },
-          {
-            "@type": "Offer",
-            "name": "Suplemento por Riesgo de Prisión Efectiva",
-            "priceSpecification": {
-              "@type": "PriceSpecification",
-              "price": 300,
-              "priceCurrency": "EUR",
-              "valueAddedTaxIncluded": true
-            },
-            "description": "Recargo fijo de 300 € (IVA incluido) en supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de prisión efectiva exige una defensa reforzada."
+            "description": "Desplazamiento urgente de letrado a comisaría o juzgado de guardia para asistencia presencial al detenido fuera del horario ordinario."
           }
         ]
       },
@@ -218,11 +218,11 @@
         "@type": "Offer",
         "name": "Defensa por Conducir Sin Carné — Juicio Rápido con Conformidad",
         "url": "https://www.autoridad.legal/sin-carnet",
-        "price": 980,
+        "price": 680,
         "priceCurrency": "EUR",
         "valueAddedTaxIncluded": true,
         "procuratorIncluded": true,
-        "description": "Precio cerrado de 980 € (IVA y derechos de procurador incluidos) para el supuesto base: primer delito con conformidad en juicio rápido. Los supuestos de mayor complejidad llevan recargos fijos y tasados, detallados en los suplementos y comunicados siempre por escrito y por adelantado.",
+        "description": "Honorarios profesionales de 680 € + IVA para el supuesto base: primer delito con conformidad en juicio rápido. Incluye Procurador de los Tribunales (0 € adicionales). Los supuestos de mayor complejidad llevan suplementos fijos y tasados, comunicados por escrito y por adelantado.",
         "itemOffered": {
           "@type": "Service",
           "name": "Defensa penal por conducción sin permiso",
@@ -232,59 +232,59 @@
         "addOn": [
           {
             "@type": "Offer",
-            "name": "Suplemento por Reincidencia Delictiva",
+            "name": "Reincidencia o antecedentes penales activos",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 200,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 200 € (IVA incluido) aplicable cuando el investigado cuenta con antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
+            "description": "Antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento procesal por No Conformidad",
+            "name": "No conformidad / apertura de juicio oral",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 300,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 300 € (IVA incluido) cuando la estrategia de defensa descarta la conformidad para pelear la libre absolución o la nulidad de las actuaciones en juicio ordinario posterior, con mayor carga procesal."
+            "description": "Estrategia de defensa orientada a la libre absolución o impugnación técnica en juicio oral posterior."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento por Asistencia al Detenido de Urgencia",
+            "name": "Riesgo de prisión efectiva (multirreincidencia)",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": 300,
+              "priceCurrency": "EUR",
+              "valueAddedTaxIncluded": true
+            },
+            "description": "Supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de ingreso en prisión exige una defensa reforzada."
+          },
+          {
+            "@type": "Offer",
+            "name": "Asistencia urgente al detenido en comisaría",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 500,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 500 € (IVA incluido) por asistencia inmediata al detenido con desplazamiento del letrado a dependencias policiales fuera del horario ordinario."
-          },
-          {
-            "@type": "Offer",
-            "name": "Suplemento por Riesgo de Prisión Efectiva",
-            "priceSpecification": {
-              "@type": "PriceSpecification",
-              "price": 300,
-              "priceCurrency": "EUR",
-              "valueAddedTaxIncluded": true
-            },
-            "description": "Recargo fijo de 300 € (IVA incluido) en supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de prisión efectiva exige una defensa reforzada."
+            "description": "Desplazamiento urgente de letrado a comisaría o juzgado de guardia para asistencia presencial al detenido fuera del horario ordinario."
           }
         ]
       },
       {
         "@type": "Offer",
-        "name": "Defensa para Conductores Profesionales — Juicio Rápido con Conformidad",
+        "name": "Defensa para Conductores Profesionales — Primera Instancia",
         "url": "https://www.autoridad.legal/profesionales",
-        "price": 1480,
+        "price": 1180,
         "priceCurrency": "EUR",
         "valueAddedTaxIncluded": true,
         "procuratorIncluded": true,
-        "description": "Precio cerrado de 1.480 € (IVA y derechos de procurador incluidos) para conductores profesionales (permisos C, D, E). Incluye la complejidad jurídica añadida de salvaguardar el Certificado de Aptitud Profesional (CAP) y la vigencia de la tarjeta de tacógrafo digital. Los supuestos de mayor complejidad llevan recargos fijos y tasados, comunicados siempre por escrito y por adelantado.",
+        "description": "Honorarios de 680 € + 500 € de suplemento por conductor profesional (+ IVA) para titulares de permisos C, D o E. Cubre el procedimiento completo en primera instancia hasta la sentencia. Incluye Procurador de los Tribunales (0 € adicionales), protección del CAP y tarjeta de tacógrafo digital. No incluye recurso de apelación ante la Audiencia Provincial.",
         "itemOffered": {
           "@type": "Service",
           "name": "Defensa penal para conductores profesionales",
@@ -294,43 +294,43 @@
         "addOn": [
           {
             "@type": "Offer",
-            "name": "Suplemento por Reincidencia Delictiva",
+            "name": "Reincidencia o antecedentes penales activos",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 200,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 200 € (IVA incluido) aplicable cuando el investigado cuenta con antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
+            "description": "Antecedentes penales de seguridad vial vigentes e inscritos en el Registro Central de Penados."
           },
           {
             "@type": "Offer",
-            "name": "Suplemento por Asistencia al Detenido de Urgencia",
-            "priceSpecification": {
-              "@type": "PriceSpecification",
-              "price": 500,
-              "priceCurrency": "EUR",
-              "valueAddedTaxIncluded": true
-            },
-            "description": "Recargo fijo de 500 € (IVA incluido) por asistencia inmediata al detenido con desplazamiento del letrado a dependencias policiales fuera del horario ordinario."
-          },
-          {
-            "@type": "Offer",
-            "name": "Suplemento por Riesgo de Prisión Efectiva",
+            "name": "Riesgo de prisión efectiva (multirreincidencia)",
             "priceSpecification": {
               "@type": "PriceSpecification",
               "price": 300,
               "priceCurrency": "EUR",
               "valueAddedTaxIncluded": true
             },
-            "description": "Recargo fijo de 300 € (IVA incluido) en supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de prisión efectiva exige una defensa reforzada."
+            "description": "Supuestos de multirreincidencia donde decae el beneficio de la suspensión ordinaria de la pena y el riesgo de ingreso en prisión exige una defensa reforzada."
+          },
+          {
+            "@type": "Offer",
+            "name": "Asistencia urgente al detenido en comisaría",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": 500,
+              "priceCurrency": "EUR",
+              "valueAddedTaxIncluded": true
+            },
+            "description": "Desplazamiento urgente de letrado a comisaría o juzgado de guardia para asistencia presencial al detenido fuera del horario ordinario."
           }
         ]
       }
     ],
     "pricingPolicy": {
-      "basePricing": "980 € (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.480 € (Conductores Profesionales C, D, E)",
-      "taxIncluded": true,
+      "basePricing": "680 € + IVA (Alcoholemia, Drogas, Velocidad, Sin Carnet) / 1.180 € + IVA (Conductores Profesionales C, D, E)",
+      "taxIncluded": false,
       "procuratorIncluded": true,
       "paymentModel": "Custodia Segura (Escrow)",
       "financing": "Financiación hasta 12 meses o Modalidad Híbrida 60/40",
@@ -469,7 +469,7 @@
           },
           {
             "@type": "City",
-            "name": "Bigues i Riells",
+            "name": "Bigues i Riells del Fai",
             "url": "https://www.autoridad.legal/alcoholemia/bigues-i-riells"
           },
           {
@@ -479,7 +479,7 @@
           },
           {
             "@type": "City",
-            "name": "Cabrera d'Anoia ",
+            "name": "Cabrera d'Anoia",
             "url": "https://www.autoridad.legal/alcoholemia/cabrera-d-anoia"
           },
           {
@@ -509,7 +509,7 @@
           },
           {
             "@type": "City",
-            "name": "Caldes de Montbui\n",
+            "name": "Caldes de Montbui",
             "url": "https://www.autoridad.legal/alcoholemia/caldes-de-montbui"
           },
           {
@@ -584,7 +584,7 @@
           },
           {
             "@type": "City",
-            "name": "Caserres",
+            "name": "Casserres",
             "url": "https://www.autoridad.legal/alcoholemia/casserres"
           },
           {
@@ -639,7 +639,7 @@
           },
           {
             "@type": "City",
-            "name": "Castellfullit del Boix",
+            "name": "Castellfollit del Boix",
             "url": "https://www.autoridad.legal/alcoholemia/castellfollit-del-boix"
           },
           {
@@ -784,7 +784,7 @@
           },
           {
             "@type": "City",
-            "name": "Esparraguera",
+            "name": "Esparreguera",
             "url": "https://www.autoridad.legal/alcoholemia/esparraguera"
           },
           {
@@ -824,7 +824,7 @@
           },
           {
             "@type": "City",
-            "name": "Fontrubí",
+            "name": "Font-rubí",
             "url": "https://www.autoridad.legal/alcoholemia/font-rubi"
           },
           {
@@ -874,11 +874,6 @@
           },
           {
             "@type": "City",
-            "name": "Guardiola",
-            "url": "https://www.autoridad.legal/alcoholemia/guardiola"
-          },
-          {
-            "@type": "City",
             "name": "Guardiola de Berguedà",
             "url": "https://www.autoridad.legal/alcoholemia/guardiola-de-bergueda"
           },
@@ -891,6 +886,11 @@
             "@type": "City",
             "name": "Igualada",
             "url": "https://www.autoridad.legal/alcoholemia/igualada"
+          },
+          {
+            "@type": "City",
+            "name": "L'Ametlla del Vallès",
+            "url": "https://www.autoridad.legal/alcoholemia/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -911,11 +911,6 @@
             "@type": "City",
             "name": "L'Hospitalet de Llobregat",
             "url": "https://www.autoridad.legal/alcoholemia/hospitalet-de-llobregat"
-          },
-          {
-            "@type": "City",
-            "name": "La Ametlla del Vallès",
-            "url": "https://www.autoridad.legal/alcoholemia/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -999,13 +994,13 @@
           },
           {
             "@type": "City",
-            "name": "Llinars del Vallès",
-            "url": "https://www.autoridad.legal/alcoholemia/llinars-del-valles"
+            "name": "Lliçà de Vall",
+            "url": "https://www.autoridad.legal/alcoholemia/llissa-de-vall"
           },
           {
             "@type": "City",
-            "name": "Llissà de Vall",
-            "url": "https://www.autoridad.legal/alcoholemia/llissa-de-vall"
+            "name": "Llinars del Vallès",
+            "url": "https://www.autoridad.legal/alcoholemia/llinars-del-valles"
           },
           {
             "@type": "City",
@@ -1269,7 +1264,7 @@
           },
           {
             "@type": "City",
-            "name": "Premiá de Dalt",
+            "name": "Premià de Dalt",
             "url": "https://www.autoridad.legal/alcoholemia/premia-de-dalt"
           },
           {
@@ -1284,7 +1279,7 @@
           },
           {
             "@type": "City",
-            "name": "Puig-reig\n",
+            "name": "Puig-reig",
             "url": "https://www.autoridad.legal/alcoholemia/puig-reig"
           },
           {
@@ -1329,7 +1324,7 @@
           },
           {
             "@type": "City",
-            "name": "Rupit y Pruit",
+            "name": "Rupit i Pruit",
             "url": "https://www.autoridad.legal/alcoholemia/rupit-i-pruit"
           },
           {
@@ -1339,7 +1334,7 @@
           },
           {
             "@type": "City",
-            "name": "Sagás",
+            "name": "Sagàs",
             "url": "https://www.autoridad.legal/alcoholemia/sagas"
           },
           {
@@ -1434,7 +1429,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Feliu Saserra",
+            "name": "Sant Feliu Sasserra",
             "url": "https://www.autoridad.legal/alcoholemia/sant-feliu-sasserra"
           },
           {
@@ -1449,7 +1444,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Hipòlit de Voltregá",
+            "name": "Sant Hipòlit de Voltregà",
             "url": "https://www.autoridad.legal/alcoholemia/sant-hipolit-de-voltrega"
           },
           {
@@ -1459,7 +1454,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Jaume Frontanyà\n",
+            "name": "Sant Jaume de Frontanyà",
             "url": "https://www.autoridad.legal/alcoholemia/sant-jaume-de-frontanya"
           },
           {
@@ -1539,7 +1534,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Pere de Torellò",
+            "name": "Sant Pere de Torelló",
             "url": "https://www.autoridad.legal/alcoholemia/sant-pere-de-torello"
           },
           {
@@ -1586,6 +1581,11 @@
             "@type": "City",
             "name": "Sant Sadurní d'Osormort",
             "url": "https://www.autoridad.legal/alcoholemia/sant-sadurni-d-osormort"
+          },
+          {
+            "@type": "City",
+            "name": "Sant Salvador de Guardiola",
+            "url": "https://www.autoridad.legal/alcoholemia/guardiola"
           },
           {
             "@type": "City",
@@ -1659,7 +1659,7 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Besora",
+            "name": "Santa Maria de Besora",
             "url": "https://www.autoridad.legal/alcoholemia/santa-maria-de-besora"
           },
           {
@@ -1669,17 +1669,17 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Merlès",
+            "name": "Santa Maria de Merlès",
             "url": "https://www.autoridad.legal/alcoholemia/santa-maria-de-merles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Miralles",
+            "name": "Santa Maria de Miralles",
             "url": "https://www.autoridad.legal/alcoholemia/santa-maria-de-miralles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Palautordera",
+            "name": "Santa Maria de Palautordera",
             "url": "https://www.autoridad.legal/alcoholemia/santa-maria-de-palautordera"
           },
           {
@@ -1869,6 +1869,11 @@
           },
           {
             "@type": "City",
+            "name": "Vilalba Sasserra",
+            "url": "https://www.autoridad.legal/alcoholemia/villalba-sasserra"
+          },
+          {
+            "@type": "City",
             "name": "Vilanova de Sau",
             "url": "https://www.autoridad.legal/alcoholemia/vilanova-de-sau"
           },
@@ -1896,11 +1901,6 @@
             "@type": "City",
             "name": "Vilassar de Mar",
             "url": "https://www.autoridad.legal/alcoholemia/vilassar-de-mar"
-          },
-          {
-            "@type": "City",
-            "name": "Villalba Sasserra",
-            "url": "https://www.autoridad.legal/alcoholemia/villalba-sasserra"
           },
           {
             "@type": "City",
@@ -2046,7 +2046,7 @@
           },
           {
             "@type": "City",
-            "name": "Bigues i Riells",
+            "name": "Bigues i Riells del Fai",
             "url": "https://www.autoridad.legal/drogas/bigues-i-riells"
           },
           {
@@ -2056,7 +2056,7 @@
           },
           {
             "@type": "City",
-            "name": "Cabrera d'Anoia ",
+            "name": "Cabrera d'Anoia",
             "url": "https://www.autoridad.legal/drogas/cabrera-d-anoia"
           },
           {
@@ -2086,7 +2086,7 @@
           },
           {
             "@type": "City",
-            "name": "Caldes de Montbui\n",
+            "name": "Caldes de Montbui",
             "url": "https://www.autoridad.legal/drogas/caldes-de-montbui"
           },
           {
@@ -2161,7 +2161,7 @@
           },
           {
             "@type": "City",
-            "name": "Caserres",
+            "name": "Casserres",
             "url": "https://www.autoridad.legal/drogas/casserres"
           },
           {
@@ -2216,7 +2216,7 @@
           },
           {
             "@type": "City",
-            "name": "Castellfullit del Boix",
+            "name": "Castellfollit del Boix",
             "url": "https://www.autoridad.legal/drogas/castellfollit-del-boix"
           },
           {
@@ -2361,7 +2361,7 @@
           },
           {
             "@type": "City",
-            "name": "Esparraguera",
+            "name": "Esparreguera",
             "url": "https://www.autoridad.legal/drogas/esparraguera"
           },
           {
@@ -2401,7 +2401,7 @@
           },
           {
             "@type": "City",
-            "name": "Fontrubí",
+            "name": "Font-rubí",
             "url": "https://www.autoridad.legal/drogas/font-rubi"
           },
           {
@@ -2451,11 +2451,6 @@
           },
           {
             "@type": "City",
-            "name": "Guardiola",
-            "url": "https://www.autoridad.legal/drogas/guardiola"
-          },
-          {
-            "@type": "City",
             "name": "Guardiola de Berguedà",
             "url": "https://www.autoridad.legal/drogas/guardiola-de-bergueda"
           },
@@ -2468,6 +2463,11 @@
             "@type": "City",
             "name": "Igualada",
             "url": "https://www.autoridad.legal/drogas/igualada"
+          },
+          {
+            "@type": "City",
+            "name": "L'Ametlla del Vallès",
+            "url": "https://www.autoridad.legal/drogas/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -2488,11 +2488,6 @@
             "@type": "City",
             "name": "L'Hospitalet de Llobregat",
             "url": "https://www.autoridad.legal/drogas/hospitalet-de-llobregat"
-          },
-          {
-            "@type": "City",
-            "name": "La Ametlla del Vallès",
-            "url": "https://www.autoridad.legal/drogas/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -2576,13 +2571,13 @@
           },
           {
             "@type": "City",
-            "name": "Llinars del Vallès",
-            "url": "https://www.autoridad.legal/drogas/llinars-del-valles"
+            "name": "Lliçà de Vall",
+            "url": "https://www.autoridad.legal/drogas/llissa-de-vall"
           },
           {
             "@type": "City",
-            "name": "Llissà de Vall",
-            "url": "https://www.autoridad.legal/drogas/llissa-de-vall"
+            "name": "Llinars del Vallès",
+            "url": "https://www.autoridad.legal/drogas/llinars-del-valles"
           },
           {
             "@type": "City",
@@ -2846,7 +2841,7 @@
           },
           {
             "@type": "City",
-            "name": "Premiá de Dalt",
+            "name": "Premià de Dalt",
             "url": "https://www.autoridad.legal/drogas/premia-de-dalt"
           },
           {
@@ -2861,7 +2856,7 @@
           },
           {
             "@type": "City",
-            "name": "Puig-reig\n",
+            "name": "Puig-reig",
             "url": "https://www.autoridad.legal/drogas/puig-reig"
           },
           {
@@ -2906,7 +2901,7 @@
           },
           {
             "@type": "City",
-            "name": "Rupit y Pruit",
+            "name": "Rupit i Pruit",
             "url": "https://www.autoridad.legal/drogas/rupit-i-pruit"
           },
           {
@@ -2916,7 +2911,7 @@
           },
           {
             "@type": "City",
-            "name": "Sagás",
+            "name": "Sagàs",
             "url": "https://www.autoridad.legal/drogas/sagas"
           },
           {
@@ -3011,7 +3006,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Feliu Saserra",
+            "name": "Sant Feliu Sasserra",
             "url": "https://www.autoridad.legal/drogas/sant-feliu-sasserra"
           },
           {
@@ -3026,7 +3021,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Hipòlit de Voltregá",
+            "name": "Sant Hipòlit de Voltregà",
             "url": "https://www.autoridad.legal/drogas/sant-hipolit-de-voltrega"
           },
           {
@@ -3036,7 +3031,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Jaume Frontanyà\n",
+            "name": "Sant Jaume de Frontanyà",
             "url": "https://www.autoridad.legal/drogas/sant-jaume-de-frontanya"
           },
           {
@@ -3116,7 +3111,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Pere de Torellò",
+            "name": "Sant Pere de Torelló",
             "url": "https://www.autoridad.legal/drogas/sant-pere-de-torello"
           },
           {
@@ -3163,6 +3158,11 @@
             "@type": "City",
             "name": "Sant Sadurní d'Osormort",
             "url": "https://www.autoridad.legal/drogas/sant-sadurni-d-osormort"
+          },
+          {
+            "@type": "City",
+            "name": "Sant Salvador de Guardiola",
+            "url": "https://www.autoridad.legal/drogas/guardiola"
           },
           {
             "@type": "City",
@@ -3236,7 +3236,7 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Besora",
+            "name": "Santa Maria de Besora",
             "url": "https://www.autoridad.legal/drogas/santa-maria-de-besora"
           },
           {
@@ -3246,17 +3246,17 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Merlès",
+            "name": "Santa Maria de Merlès",
             "url": "https://www.autoridad.legal/drogas/santa-maria-de-merles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Miralles",
+            "name": "Santa Maria de Miralles",
             "url": "https://www.autoridad.legal/drogas/santa-maria-de-miralles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Palautordera",
+            "name": "Santa Maria de Palautordera",
             "url": "https://www.autoridad.legal/drogas/santa-maria-de-palautordera"
           },
           {
@@ -3446,6 +3446,11 @@
           },
           {
             "@type": "City",
+            "name": "Vilalba Sasserra",
+            "url": "https://www.autoridad.legal/drogas/villalba-sasserra"
+          },
+          {
+            "@type": "City",
             "name": "Vilanova de Sau",
             "url": "https://www.autoridad.legal/drogas/vilanova-de-sau"
           },
@@ -3473,11 +3478,6 @@
             "@type": "City",
             "name": "Vilassar de Mar",
             "url": "https://www.autoridad.legal/drogas/vilassar-de-mar"
-          },
-          {
-            "@type": "City",
-            "name": "Villalba Sasserra",
-            "url": "https://www.autoridad.legal/drogas/villalba-sasserra"
           },
           {
             "@type": "City",
@@ -3623,7 +3623,7 @@
           },
           {
             "@type": "City",
-            "name": "Bigues i Riells",
+            "name": "Bigues i Riells del Fai",
             "url": "https://www.autoridad.legal/sin-carnet/bigues-i-riells"
           },
           {
@@ -3633,7 +3633,7 @@
           },
           {
             "@type": "City",
-            "name": "Cabrera d'Anoia ",
+            "name": "Cabrera d'Anoia",
             "url": "https://www.autoridad.legal/sin-carnet/cabrera-d-anoia"
           },
           {
@@ -3663,7 +3663,7 @@
           },
           {
             "@type": "City",
-            "name": "Caldes de Montbui\n",
+            "name": "Caldes de Montbui",
             "url": "https://www.autoridad.legal/sin-carnet/caldes-de-montbui"
           },
           {
@@ -3738,7 +3738,7 @@
           },
           {
             "@type": "City",
-            "name": "Caserres",
+            "name": "Casserres",
             "url": "https://www.autoridad.legal/sin-carnet/casserres"
           },
           {
@@ -3793,7 +3793,7 @@
           },
           {
             "@type": "City",
-            "name": "Castellfullit del Boix",
+            "name": "Castellfollit del Boix",
             "url": "https://www.autoridad.legal/sin-carnet/castellfollit-del-boix"
           },
           {
@@ -3938,7 +3938,7 @@
           },
           {
             "@type": "City",
-            "name": "Esparraguera",
+            "name": "Esparreguera",
             "url": "https://www.autoridad.legal/sin-carnet/esparraguera"
           },
           {
@@ -3978,7 +3978,7 @@
           },
           {
             "@type": "City",
-            "name": "Fontrubí",
+            "name": "Font-rubí",
             "url": "https://www.autoridad.legal/sin-carnet/font-rubi"
           },
           {
@@ -4028,11 +4028,6 @@
           },
           {
             "@type": "City",
-            "name": "Guardiola",
-            "url": "https://www.autoridad.legal/sin-carnet/guardiola"
-          },
-          {
-            "@type": "City",
             "name": "Guardiola de Berguedà",
             "url": "https://www.autoridad.legal/sin-carnet/guardiola-de-bergueda"
           },
@@ -4045,6 +4040,11 @@
             "@type": "City",
             "name": "Igualada",
             "url": "https://www.autoridad.legal/sin-carnet/igualada"
+          },
+          {
+            "@type": "City",
+            "name": "L'Ametlla del Vallès",
+            "url": "https://www.autoridad.legal/sin-carnet/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -4065,11 +4065,6 @@
             "@type": "City",
             "name": "L'Hospitalet de Llobregat",
             "url": "https://www.autoridad.legal/sin-carnet/hospitalet-de-llobregat"
-          },
-          {
-            "@type": "City",
-            "name": "La Ametlla del Vallès",
-            "url": "https://www.autoridad.legal/sin-carnet/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -4153,13 +4148,13 @@
           },
           {
             "@type": "City",
-            "name": "Llinars del Vallès",
-            "url": "https://www.autoridad.legal/sin-carnet/llinars-del-valles"
+            "name": "Lliçà de Vall",
+            "url": "https://www.autoridad.legal/sin-carnet/llissa-de-vall"
           },
           {
             "@type": "City",
-            "name": "Llissà de Vall",
-            "url": "https://www.autoridad.legal/sin-carnet/llissa-de-vall"
+            "name": "Llinars del Vallès",
+            "url": "https://www.autoridad.legal/sin-carnet/llinars-del-valles"
           },
           {
             "@type": "City",
@@ -4423,7 +4418,7 @@
           },
           {
             "@type": "City",
-            "name": "Premiá de Dalt",
+            "name": "Premià de Dalt",
             "url": "https://www.autoridad.legal/sin-carnet/premia-de-dalt"
           },
           {
@@ -4438,7 +4433,7 @@
           },
           {
             "@type": "City",
-            "name": "Puig-reig\n",
+            "name": "Puig-reig",
             "url": "https://www.autoridad.legal/sin-carnet/puig-reig"
           },
           {
@@ -4483,7 +4478,7 @@
           },
           {
             "@type": "City",
-            "name": "Rupit y Pruit",
+            "name": "Rupit i Pruit",
             "url": "https://www.autoridad.legal/sin-carnet/rupit-i-pruit"
           },
           {
@@ -4493,7 +4488,7 @@
           },
           {
             "@type": "City",
-            "name": "Sagás",
+            "name": "Sagàs",
             "url": "https://www.autoridad.legal/sin-carnet/sagas"
           },
           {
@@ -4588,7 +4583,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Feliu Saserra",
+            "name": "Sant Feliu Sasserra",
             "url": "https://www.autoridad.legal/sin-carnet/sant-feliu-sasserra"
           },
           {
@@ -4603,7 +4598,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Hipòlit de Voltregá",
+            "name": "Sant Hipòlit de Voltregà",
             "url": "https://www.autoridad.legal/sin-carnet/sant-hipolit-de-voltrega"
           },
           {
@@ -4613,7 +4608,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Jaume Frontanyà\n",
+            "name": "Sant Jaume de Frontanyà",
             "url": "https://www.autoridad.legal/sin-carnet/sant-jaume-de-frontanya"
           },
           {
@@ -4693,7 +4688,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Pere de Torellò",
+            "name": "Sant Pere de Torelló",
             "url": "https://www.autoridad.legal/sin-carnet/sant-pere-de-torello"
           },
           {
@@ -4740,6 +4735,11 @@
             "@type": "City",
             "name": "Sant Sadurní d'Osormort",
             "url": "https://www.autoridad.legal/sin-carnet/sant-sadurni-d-osormort"
+          },
+          {
+            "@type": "City",
+            "name": "Sant Salvador de Guardiola",
+            "url": "https://www.autoridad.legal/sin-carnet/guardiola"
           },
           {
             "@type": "City",
@@ -4813,7 +4813,7 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Besora",
+            "name": "Santa Maria de Besora",
             "url": "https://www.autoridad.legal/sin-carnet/santa-maria-de-besora"
           },
           {
@@ -4823,17 +4823,17 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Merlès",
+            "name": "Santa Maria de Merlès",
             "url": "https://www.autoridad.legal/sin-carnet/santa-maria-de-merles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Miralles",
+            "name": "Santa Maria de Miralles",
             "url": "https://www.autoridad.legal/sin-carnet/santa-maria-de-miralles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Palautordera",
+            "name": "Santa Maria de Palautordera",
             "url": "https://www.autoridad.legal/sin-carnet/santa-maria-de-palautordera"
           },
           {
@@ -5023,6 +5023,11 @@
           },
           {
             "@type": "City",
+            "name": "Vilalba Sasserra",
+            "url": "https://www.autoridad.legal/sin-carnet/villalba-sasserra"
+          },
+          {
+            "@type": "City",
             "name": "Vilanova de Sau",
             "url": "https://www.autoridad.legal/sin-carnet/vilanova-de-sau"
           },
@@ -5050,11 +5055,6 @@
             "@type": "City",
             "name": "Vilassar de Mar",
             "url": "https://www.autoridad.legal/sin-carnet/vilassar-de-mar"
-          },
-          {
-            "@type": "City",
-            "name": "Villalba Sasserra",
-            "url": "https://www.autoridad.legal/sin-carnet/villalba-sasserra"
           },
           {
             "@type": "City",
@@ -5200,7 +5200,7 @@
           },
           {
             "@type": "City",
-            "name": "Bigues i Riells",
+            "name": "Bigues i Riells del Fai",
             "url": "https://www.autoridad.legal/velocidad/bigues-i-riells"
           },
           {
@@ -5210,7 +5210,7 @@
           },
           {
             "@type": "City",
-            "name": "Cabrera d'Anoia ",
+            "name": "Cabrera d'Anoia",
             "url": "https://www.autoridad.legal/velocidad/cabrera-d-anoia"
           },
           {
@@ -5240,7 +5240,7 @@
           },
           {
             "@type": "City",
-            "name": "Caldes de Montbui\n",
+            "name": "Caldes de Montbui",
             "url": "https://www.autoridad.legal/velocidad/caldes-de-montbui"
           },
           {
@@ -5315,7 +5315,7 @@
           },
           {
             "@type": "City",
-            "name": "Caserres",
+            "name": "Casserres",
             "url": "https://www.autoridad.legal/velocidad/casserres"
           },
           {
@@ -5370,7 +5370,7 @@
           },
           {
             "@type": "City",
-            "name": "Castellfullit del Boix",
+            "name": "Castellfollit del Boix",
             "url": "https://www.autoridad.legal/velocidad/castellfollit-del-boix"
           },
           {
@@ -5515,7 +5515,7 @@
           },
           {
             "@type": "City",
-            "name": "Esparraguera",
+            "name": "Esparreguera",
             "url": "https://www.autoridad.legal/velocidad/esparraguera"
           },
           {
@@ -5555,7 +5555,7 @@
           },
           {
             "@type": "City",
-            "name": "Fontrubí",
+            "name": "Font-rubí",
             "url": "https://www.autoridad.legal/velocidad/font-rubi"
           },
           {
@@ -5605,11 +5605,6 @@
           },
           {
             "@type": "City",
-            "name": "Guardiola",
-            "url": "https://www.autoridad.legal/velocidad/guardiola"
-          },
-          {
-            "@type": "City",
             "name": "Guardiola de Berguedà",
             "url": "https://www.autoridad.legal/velocidad/guardiola-de-bergueda"
           },
@@ -5622,6 +5617,11 @@
             "@type": "City",
             "name": "Igualada",
             "url": "https://www.autoridad.legal/velocidad/igualada"
+          },
+          {
+            "@type": "City",
+            "name": "L'Ametlla del Vallès",
+            "url": "https://www.autoridad.legal/velocidad/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -5642,11 +5642,6 @@
             "@type": "City",
             "name": "L'Hospitalet de Llobregat",
             "url": "https://www.autoridad.legal/velocidad/hospitalet-de-llobregat"
-          },
-          {
-            "@type": "City",
-            "name": "La Ametlla del Vallès",
-            "url": "https://www.autoridad.legal/velocidad/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -5730,13 +5725,13 @@
           },
           {
             "@type": "City",
-            "name": "Llinars del Vallès",
-            "url": "https://www.autoridad.legal/velocidad/llinars-del-valles"
+            "name": "Lliçà de Vall",
+            "url": "https://www.autoridad.legal/velocidad/llissa-de-vall"
           },
           {
             "@type": "City",
-            "name": "Llissà de Vall",
-            "url": "https://www.autoridad.legal/velocidad/llissa-de-vall"
+            "name": "Llinars del Vallès",
+            "url": "https://www.autoridad.legal/velocidad/llinars-del-valles"
           },
           {
             "@type": "City",
@@ -6000,7 +5995,7 @@
           },
           {
             "@type": "City",
-            "name": "Premiá de Dalt",
+            "name": "Premià de Dalt",
             "url": "https://www.autoridad.legal/velocidad/premia-de-dalt"
           },
           {
@@ -6015,7 +6010,7 @@
           },
           {
             "@type": "City",
-            "name": "Puig-reig\n",
+            "name": "Puig-reig",
             "url": "https://www.autoridad.legal/velocidad/puig-reig"
           },
           {
@@ -6060,7 +6055,7 @@
           },
           {
             "@type": "City",
-            "name": "Rupit y Pruit",
+            "name": "Rupit i Pruit",
             "url": "https://www.autoridad.legal/velocidad/rupit-i-pruit"
           },
           {
@@ -6070,7 +6065,7 @@
           },
           {
             "@type": "City",
-            "name": "Sagás",
+            "name": "Sagàs",
             "url": "https://www.autoridad.legal/velocidad/sagas"
           },
           {
@@ -6165,7 +6160,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Feliu Saserra",
+            "name": "Sant Feliu Sasserra",
             "url": "https://www.autoridad.legal/velocidad/sant-feliu-sasserra"
           },
           {
@@ -6180,7 +6175,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Hipòlit de Voltregá",
+            "name": "Sant Hipòlit de Voltregà",
             "url": "https://www.autoridad.legal/velocidad/sant-hipolit-de-voltrega"
           },
           {
@@ -6190,7 +6185,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Jaume Frontanyà\n",
+            "name": "Sant Jaume de Frontanyà",
             "url": "https://www.autoridad.legal/velocidad/sant-jaume-de-frontanya"
           },
           {
@@ -6270,7 +6265,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Pere de Torellò",
+            "name": "Sant Pere de Torelló",
             "url": "https://www.autoridad.legal/velocidad/sant-pere-de-torello"
           },
           {
@@ -6317,6 +6312,11 @@
             "@type": "City",
             "name": "Sant Sadurní d'Osormort",
             "url": "https://www.autoridad.legal/velocidad/sant-sadurni-d-osormort"
+          },
+          {
+            "@type": "City",
+            "name": "Sant Salvador de Guardiola",
+            "url": "https://www.autoridad.legal/velocidad/guardiola"
           },
           {
             "@type": "City",
@@ -6390,7 +6390,7 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Besora",
+            "name": "Santa Maria de Besora",
             "url": "https://www.autoridad.legal/velocidad/santa-maria-de-besora"
           },
           {
@@ -6400,17 +6400,17 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Merlès",
+            "name": "Santa Maria de Merlès",
             "url": "https://www.autoridad.legal/velocidad/santa-maria-de-merles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Miralles",
+            "name": "Santa Maria de Miralles",
             "url": "https://www.autoridad.legal/velocidad/santa-maria-de-miralles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Palautordera",
+            "name": "Santa Maria de Palautordera",
             "url": "https://www.autoridad.legal/velocidad/santa-maria-de-palautordera"
           },
           {
@@ -6600,6 +6600,11 @@
           },
           {
             "@type": "City",
+            "name": "Vilalba Sasserra",
+            "url": "https://www.autoridad.legal/velocidad/villalba-sasserra"
+          },
+          {
+            "@type": "City",
             "name": "Vilanova de Sau",
             "url": "https://www.autoridad.legal/velocidad/vilanova-de-sau"
           },
@@ -6627,11 +6632,6 @@
             "@type": "City",
             "name": "Vilassar de Mar",
             "url": "https://www.autoridad.legal/velocidad/vilassar-de-mar"
-          },
-          {
-            "@type": "City",
-            "name": "Villalba Sasserra",
-            "url": "https://www.autoridad.legal/velocidad/villalba-sasserra"
           },
           {
             "@type": "City",
@@ -6777,7 +6777,7 @@
           },
           {
             "@type": "City",
-            "name": "Bigues i Riells",
+            "name": "Bigues i Riells del Fai",
             "url": "https://www.autoridad.legal/profesionales/bigues-i-riells"
           },
           {
@@ -6787,7 +6787,7 @@
           },
           {
             "@type": "City",
-            "name": "Cabrera d'Anoia ",
+            "name": "Cabrera d'Anoia",
             "url": "https://www.autoridad.legal/profesionales/cabrera-d-anoia"
           },
           {
@@ -6817,7 +6817,7 @@
           },
           {
             "@type": "City",
-            "name": "Caldes de Montbui\n",
+            "name": "Caldes de Montbui",
             "url": "https://www.autoridad.legal/profesionales/caldes-de-montbui"
           },
           {
@@ -6892,7 +6892,7 @@
           },
           {
             "@type": "City",
-            "name": "Caserres",
+            "name": "Casserres",
             "url": "https://www.autoridad.legal/profesionales/casserres"
           },
           {
@@ -6947,7 +6947,7 @@
           },
           {
             "@type": "City",
-            "name": "Castellfullit del Boix",
+            "name": "Castellfollit del Boix",
             "url": "https://www.autoridad.legal/profesionales/castellfollit-del-boix"
           },
           {
@@ -7092,7 +7092,7 @@
           },
           {
             "@type": "City",
-            "name": "Esparraguera",
+            "name": "Esparreguera",
             "url": "https://www.autoridad.legal/profesionales/esparraguera"
           },
           {
@@ -7132,7 +7132,7 @@
           },
           {
             "@type": "City",
-            "name": "Fontrubí",
+            "name": "Font-rubí",
             "url": "https://www.autoridad.legal/profesionales/font-rubi"
           },
           {
@@ -7182,11 +7182,6 @@
           },
           {
             "@type": "City",
-            "name": "Guardiola",
-            "url": "https://www.autoridad.legal/profesionales/guardiola"
-          },
-          {
-            "@type": "City",
             "name": "Guardiola de Berguedà",
             "url": "https://www.autoridad.legal/profesionales/guardiola-de-bergueda"
           },
@@ -7199,6 +7194,11 @@
             "@type": "City",
             "name": "Igualada",
             "url": "https://www.autoridad.legal/profesionales/igualada"
+          },
+          {
+            "@type": "City",
+            "name": "L'Ametlla del Vallès",
+            "url": "https://www.autoridad.legal/profesionales/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -7219,11 +7219,6 @@
             "@type": "City",
             "name": "L'Hospitalet de Llobregat",
             "url": "https://www.autoridad.legal/profesionales/hospitalet-de-llobregat"
-          },
-          {
-            "@type": "City",
-            "name": "La Ametlla del Vallès",
-            "url": "https://www.autoridad.legal/profesionales/l-ametlla-del-valles"
           },
           {
             "@type": "City",
@@ -7307,13 +7302,13 @@
           },
           {
             "@type": "City",
-            "name": "Llinars del Vallès",
-            "url": "https://www.autoridad.legal/profesionales/llinars-del-valles"
+            "name": "Lliçà de Vall",
+            "url": "https://www.autoridad.legal/profesionales/llissa-de-vall"
           },
           {
             "@type": "City",
-            "name": "Llissà de Vall",
-            "url": "https://www.autoridad.legal/profesionales/llissa-de-vall"
+            "name": "Llinars del Vallès",
+            "url": "https://www.autoridad.legal/profesionales/llinars-del-valles"
           },
           {
             "@type": "City",
@@ -7577,7 +7572,7 @@
           },
           {
             "@type": "City",
-            "name": "Premiá de Dalt",
+            "name": "Premià de Dalt",
             "url": "https://www.autoridad.legal/profesionales/premia-de-dalt"
           },
           {
@@ -7592,7 +7587,7 @@
           },
           {
             "@type": "City",
-            "name": "Puig-reig\n",
+            "name": "Puig-reig",
             "url": "https://www.autoridad.legal/profesionales/puig-reig"
           },
           {
@@ -7637,7 +7632,7 @@
           },
           {
             "@type": "City",
-            "name": "Rupit y Pruit",
+            "name": "Rupit i Pruit",
             "url": "https://www.autoridad.legal/profesionales/rupit-i-pruit"
           },
           {
@@ -7647,7 +7642,7 @@
           },
           {
             "@type": "City",
-            "name": "Sagás",
+            "name": "Sagàs",
             "url": "https://www.autoridad.legal/profesionales/sagas"
           },
           {
@@ -7742,7 +7737,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Feliu Saserra",
+            "name": "Sant Feliu Sasserra",
             "url": "https://www.autoridad.legal/profesionales/sant-feliu-sasserra"
           },
           {
@@ -7757,7 +7752,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Hipòlit de Voltregá",
+            "name": "Sant Hipòlit de Voltregà",
             "url": "https://www.autoridad.legal/profesionales/sant-hipolit-de-voltrega"
           },
           {
@@ -7767,7 +7762,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Jaume Frontanyà\n",
+            "name": "Sant Jaume de Frontanyà",
             "url": "https://www.autoridad.legal/profesionales/sant-jaume-de-frontanya"
           },
           {
@@ -7847,7 +7842,7 @@
           },
           {
             "@type": "City",
-            "name": "Sant Pere de Torellò",
+            "name": "Sant Pere de Torelló",
             "url": "https://www.autoridad.legal/profesionales/sant-pere-de-torello"
           },
           {
@@ -7894,6 +7889,11 @@
             "@type": "City",
             "name": "Sant Sadurní d'Osormort",
             "url": "https://www.autoridad.legal/profesionales/sant-sadurni-d-osormort"
+          },
+          {
+            "@type": "City",
+            "name": "Sant Salvador de Guardiola",
+            "url": "https://www.autoridad.legal/profesionales/guardiola"
           },
           {
             "@type": "City",
@@ -7967,7 +7967,7 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Besora",
+            "name": "Santa Maria de Besora",
             "url": "https://www.autoridad.legal/profesionales/santa-maria-de-besora"
           },
           {
@@ -7977,17 +7977,17 @@
           },
           {
             "@type": "City",
-            "name": "Santa María de Merlès",
+            "name": "Santa Maria de Merlès",
             "url": "https://www.autoridad.legal/profesionales/santa-maria-de-merles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Miralles",
+            "name": "Santa Maria de Miralles",
             "url": "https://www.autoridad.legal/profesionales/santa-maria-de-miralles"
           },
           {
             "@type": "City",
-            "name": "Santa María de Palautordera",
+            "name": "Santa Maria de Palautordera",
             "url": "https://www.autoridad.legal/profesionales/santa-maria-de-palautordera"
           },
           {
@@ -8177,6 +8177,11 @@
           },
           {
             "@type": "City",
+            "name": "Vilalba Sasserra",
+            "url": "https://www.autoridad.legal/profesionales/villalba-sasserra"
+          },
+          {
+            "@type": "City",
             "name": "Vilanova de Sau",
             "url": "https://www.autoridad.legal/profesionales/vilanova-de-sau"
           },
@@ -8204,11 +8209,6 @@
             "@type": "City",
             "name": "Vilassar de Mar",
             "url": "https://www.autoridad.legal/profesionales/vilassar-de-mar"
-          },
-          {
-            "@type": "City",
-            "name": "Villalba Sasserra",
-            "url": "https://www.autoridad.legal/profesionales/villalba-sasserra"
           },
           {
             "@type": "City",
@@ -8284,14 +8284,14 @@
     },
     {
       "name": "Cadena de Custodia de la Muestra",
-      "description": "Procedimiento de blindaje logístico que garantiza que el vial de saliva llega al laboratorio forense sin alteraciones o manipulación.",
+      "description": "Procedimiento de blindaje logístico que asegura que el vial de saliva llega al laboratorio forense sin alteraciones o manipulación.",
       "slug": "cadena-de-custodia-de-la-muestra",
       "htmlUrl": "https://www.autoridad.legal/glosario/cadena-de-custodia-de-la-muestra",
       "rawMarkdownUrl": "https://www.autoridad.legal/glosario/cadena-de-custodia-de-la-muestra.md"
     },
     {
       "name": "Cancelación de Antecedentes Penales",
-      "description": "Trámitación administrativa que elimina los registros de una condena firme en el Registro Central de Penados tras cumplir la pena y transcurrir el plazo legal.",
+      "description": "Tramitación administrativa que elimina los registros de una condena firme en el Registro Central de Penados tras cumplir la pena y transcurrir el plazo legal.",
       "slug": "cancelacion-de-antecedentes-penales",
       "htmlUrl": "https://www.autoridad.legal/glosario/cancelacion-de-antecedentes-penales",
       "rawMarkdownUrl": "https://www.autoridad.legal/glosario/cancelacion-de-antecedentes-penales.md"
@@ -8354,7 +8354,7 @@
     },
     {
       "name": "Conducción bajo los efectos de Estupefacientes",
-      "description": "Delito consistente en pilotar un vehículo a motor teniendo las capacidades psicofísicas alteradas por el consumo de sustancias psychoactivas.",
+      "description": "Delito consistente en pilotar un vehículo a motor teniendo las capacidades psicofísicas alteradas por el consumo de sustancias psicoactivas.",
       "slug": "conduccion-bajo-los-efectos-de-estupefacientes",
       "htmlUrl": "https://www.autoridad.legal/glosario/conduccion-bajo-los-efectos-de-estupefacientes",
       "rawMarkdownUrl": "https://www.autoridad.legal/glosario/conduccion-bajo-los-efectos-de-estupefacientes.md"
@@ -8522,7 +8522,7 @@
     },
     {
       "name": "Directiva 75/443/CEE (Margen del Velocímetro)",
-      "description": "Normativa europea de homologación que obliga a los fabricantes a garantizar que el velocímetro marque una cifra superior a la velocidad real.",
+      "description": "Normativa europea de homologación que obliga a los fabricantes a asegurar que el velocímetro marque una cifra superior a la velocidad real.",
       "slug": "directiva-75-443-cee-margen-del-velocimetro",
       "htmlUrl": "https://www.autoridad.legal/glosario/directiva-75-443-cee-margen-del-velocimetro",
       "rawMarkdownUrl": "https://www.autoridad.legal/glosario/directiva-75-443-cee-margen-del-velocimetro.md"
@@ -8830,7 +8830,7 @@
     },
     {
       "name": "Procurador de los Tribunales",
-      "description": "Profesional del derecho que ostenta la representation técnica de los ciudadanos ante los juzgados, obligatorio en procedimientos de juicio rápido.",
+      "description": "Profesional del derecho que ostenta la representación técnica de los ciudadanos ante los juzgados, obligatorio en procedimientos de juicio rápido.",
       "slug": "procurador-de-los-tribunales",
       "htmlUrl": "https://www.autoridad.legal/glosario/procurador-de-los-tribunales",
       "rawMarkdownUrl": "https://www.autoridad.legal/glosario/procurador-de-los-tribunales.md"
@@ -9042,7 +9042,7 @@
         "Abrera",
         "Castellví de Rosanes",
         "Collbató",
-        "Esparraguera",
+        "Esparreguera",
         "Martorell",
         "Masquefa",
         "Olesa de Montserrat",
@@ -9064,13 +9064,12 @@
         "Callús",
         "Cardona",
         "Castellbell i el Vilar",
-        "Castellfullit del Boix",
+        "Castellfollit del Boix",
         "Castellgalí",
         "Castellnou de Bages",
         "El Pont de Vilomara i Rocafort",
         "Fonollosa",
         "Gaià",
-        "Guardiola",
         "L'Estany",
         "Manresa",
         "Marganell",
@@ -9082,10 +9081,11 @@
         "Navàs",
         "Rajadell",
         "Sallent",
-        "Sant Feliu Saserra",
+        "Sant Feliu Sasserra",
         "Sant Fruitós de Bages",
         "Sant Joan de Vilatorrada",
         "Sant Mateu de Bages",
+        "Sant Salvador de Guardiola",
         "Sant Vicenç de Castellet",
         "Santa Maria d'Oló",
         "Santpedor",
@@ -9100,8 +9100,8 @@
       "phone": "+34 93 861 41 00",
       "municipalities": [
         "Aiguafreda",
-        "Bigues i Riells",
-        "Caldes de Montbui\n",
+        "Bigues i Riells del Fai",
+        "Caldes de Montbui",
         "Campins",
         "Canovelles",
         "Cànoves i Samalús",
@@ -9112,13 +9112,13 @@
         "Granera",
         "Granollers",
         "Gualba",
-        "La Ametlla del Vallès",
+        "L'Ametlla del Vallès",
         "La Garriga",
         "La Roca del Vallès",
         "Les Franqueses del Vallès",
         "Lliçà de Munt",
+        "Lliçà de Vall",
         "Llinars del Vallès",
-        "Llissà de Vall",
         "Montornès del Vallès",
         "Montseny",
         "Sant Antoni de Vilamajor",
@@ -9127,12 +9127,12 @@
         "Sant Pere de Vilamajor",
         "Sant Quirze Safaja",
         "Santa Eulàlia de Ronçana",
-        "Santa María de Palautordera",
+        "Santa Maria de Palautordera",
         "Tagamanent",
         "Vallgorguina",
         "Vallromanes",
-        "Vilanova del Vallès",
-        "Villalba Sasserra"
+        "Vilalba Sasserra",
+        "Vilanova del Vallès"
       ]
     },
     {
@@ -9150,7 +9150,7 @@
         "El Masnou",
         "Mataró",
         "Orrius",
-        "Premiá de Dalt",
+        "Premià de Dalt",
         "Premià de Mar",
         "Sant Andreu de Llavaneres",
         "Sant Vicenç de Montalt",
@@ -9189,22 +9189,22 @@
         "Perafita",
         "Prats de Lluçanès",
         "Roda de Ter",
-        "Rupit y Pruit",
+        "Rupit i Pruit",
         "Sant Agustí de Lluçanès",
         "Sant Bartomeu del Grau",
         "Sant Boi de Lluçanès",
-        "Sant Hipòlit de Voltregá",
+        "Sant Hipòlit de Voltregà",
         "Sant Julià de Vilatorta",
         "Sant Martí d'Albars",
         "Sant Martí de Centelles",
-        "Sant Pere de Torellò",
+        "Sant Pere de Torelló",
         "Sant Quirze de Besora",
         "Sant Sadurní d'Osormort",
         "Sant Vicenç de Torelló",
         "Santa Cecília de Voltregà",
         "Santa Eugènia de Berga",
         "Santa Eulàlia de Riuprimer",
-        "Santa María de Besora",
+        "Santa Maria de Besora",
         "Seva",
         "Sobremunt",
         "Sora",
@@ -9246,7 +9246,7 @@
       "municipalities": [
         "Argensola",
         "Bellprat",
-        "Cabrera d'Anoia ",
+        "Cabrera d'Anoia",
         "Calaf",
         "Calonge de Segarra",
         "Capellades",
@@ -9271,7 +9271,7 @@
         "Sant Martí Sesgueioles",
         "Sant Pere Sallavinera",
         "Santa Margarida de Montbui",
-        "Santa María de Miralles",
+        "Santa Maria de Miralles",
         "Vallbona d'Anoia",
         "Veciana",
         "Vilanova del Camí"
@@ -9288,7 +9288,7 @@
         "Berga",
         "Borredà",
         "Capolat",
-        "Caserres",
+        "Casserres",
         "Castell de l'Areny",
         "Castellar de n'Hug",
         "Castellar del Riu",
@@ -9304,12 +9304,12 @@
         "Montclar",
         "Montmajor",
         "Olvan",
-        "Puig-reig\n",
-        "Sagás",
+        "Puig-reig",
+        "Sagàs",
         "Saldes",
-        "Sant Jaume Frontanyà\n",
+        "Sant Jaume de Frontanyà",
         "Sant Julià de Cerdanyola",
-        "Santa María de Merlès",
+        "Santa Maria de Merlès",
         "Vallcebre",
         "Vilada",
         "Viver i Serrateix"
@@ -9324,7 +9324,7 @@
         "Avinyonet del Penedès",
         "Castellví de la Marca",
         "El Pla del Penedès",
-        "Fontrubí",
+        "Font-rubí",
         "Gelida",
         "La Granada",
         "Les Cabanyes",
@@ -9363,11 +9363,12 @@
     {
       "id": "6295b540-748e-4804-b6b1-3e773f50aaf2",
       "name": "Juzgados de Cerdanyola del Vallès",
-      "address": "Passeig de d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
+      "address": "Passeig d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
       "phone": "+34 93 592 48 00",
       "municipalities": [
         "Badia del Vallès",
         "Barberà del Vallès",
+        "Bellaterra (Campus UAB)",
         "Cerdanyola del Vallès",
         "Montcada i Reixac",
         "Ripollet"
@@ -9395,19 +9396,9 @@
       ]
     },
     {
-      "id": "juzgado-de-guardia-de-la-jurisdicci-n",
-      "name": "Juzgado de Guardia de la Jurisdicción",
-      "municipalities": [
-        "Bellaterra (Campus UAB)",
-        "Cataluña",
-        "España",
-        "Provincia de Barcelona"
-      ]
-    },
-    {
       "id": "860316f5-c397-4781-86e9-63a16d9a0478",
       "name": "Juzgados de Vilanova i la Geltrú",
-      "address": "Ronda de Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
+      "address": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
       "phone": "+34 93 814 11 00",
       "municipalities": [
         "Canyelles",
@@ -9445,6 +9436,15 @@
         "Castellbisbal",
         "Rubí",
         "Sant Cugat del Vallès"
+      ]
+    },
+    {
+      "id": "juzgado-de-guardia-de-la-jurisdicci-n",
+      "name": "Juzgado de Guardia de la Jurisdicción",
+      "municipalities": [
+        "Cataluña",
+        "España",
+        "Provincia de Barcelona"
       ]
     },
     {
@@ -9784,7 +9784,7 @@
       "slug": "badia-del-valles",
       "zone": "Cataluña",
       "courtName": "Juzgados de Cerdanyola del Vallès",
-      "courtAddress": "Passeig de d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
+      "courtAddress": "Passeig d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Badia Del Valles. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Badia Del Valles. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -9848,7 +9848,7 @@
       "slug": "barbera-del-valles",
       "zone": "Cataluña",
       "courtName": "Juzgados de Cerdanyola del Vallès",
-      "courtAddress": "Passeig de d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
+      "courtAddress": "Passeig d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Barbera Del Valles. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Barbera Del Valles. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -9895,8 +9895,8 @@
       "name": "Bellaterra (Campus UAB)",
       "slug": "bellaterra-uab",
       "zone": "Cataluña",
-      "courtName": null,
-      "courtAddress": null,
+      "courtName": "Juzgados de Cerdanyola del Vallès",
+      "courtAddress": "Passeig d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Bellaterra Uab. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Bellaterra Uab. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -9940,7 +9940,7 @@
       }
     },
     {
-      "name": "Bigues i Riells",
+      "name": "Bigues i Riells del Fai",
       "slug": "bigues-i-riells",
       "zone": "Cataluña",
       "courtName": "Juzgados de Granollers",
@@ -9972,7 +9972,7 @@
       }
     },
     {
-      "name": "Cabrera d'Anoia ",
+      "name": "Cabrera d'Anoia",
       "slug": "cabrera-d-anoia",
       "zone": "Cataluña",
       "courtName": "Juzgados de Igualada",
@@ -10068,7 +10068,7 @@
       }
     },
     {
-      "name": "Caldes de Montbui\n",
+      "name": "Caldes de Montbui",
       "slug": "caldes-de-montbui",
       "zone": "Cataluña",
       "courtName": "Juzgados de Granollers",
@@ -10216,7 +10216,7 @@
       "slug": "canyelles",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vilanova i la Geltrú",
-      "courtAddress": "Ronda de Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
+      "courtAddress": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Canyelles. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Canyelles. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -10308,7 +10308,7 @@
       }
     },
     {
-      "name": "Caserres",
+      "name": "Casserres",
       "slug": "casserres",
       "zone": "Cataluña",
       "courtName": "Juzgados de Berga",
@@ -10456,7 +10456,7 @@
       "slug": "castellet-i-la-gornal",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vilanova i la Geltrú",
-      "courtAddress": "Ronda de Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
+      "courtAddress": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Castellet I La Gornal. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Castellet I La Gornal. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -10484,7 +10484,7 @@
       }
     },
     {
-      "name": "Castellfullit del Boix",
+      "name": "Castellfollit del Boix",
       "slug": "castellfollit-del-boix",
       "zone": "Cataluña",
       "courtName": "Juzgados de Manresa",
@@ -10648,7 +10648,7 @@
       "slug": "cerdanyola-del-valles",
       "zone": "Cataluña",
       "courtName": "Juzgados de Cerdanyola del Vallès",
-      "courtAddress": "Passeig de d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
+      "courtAddress": "Passeig d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Cerdanyola Del Valles. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Cerdanyola Del Valles. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -10760,7 +10760,7 @@
       "slug": "cubelles",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vilanova i la Geltrú",
-      "courtAddress": "Ronda de Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
+      "courtAddress": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Cubelles. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Cubelles. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -10948,7 +10948,7 @@
       }
     },
     {
-      "name": "Esparraguera",
+      "name": "Esparreguera",
       "slug": "esparraguera",
       "zone": "Cataluña",
       "courtName": "Juzgados de Martorell",
@@ -11076,7 +11076,7 @@
       }
     },
     {
-      "name": "Fontrubí",
+      "name": "Font-rubí",
       "slug": "font-rubi",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vilafranca del Penedès",
@@ -11236,22 +11236,6 @@
       }
     },
     {
-      "name": "Guardiola",
-      "slug": "guardiola",
-      "zone": "Cataluña",
-      "courtName": "Juzgados de Manresa",
-      "courtAddress": "Carrer d'Aransis, s/n, 08240 Manresa, Barcelona",
-      "quirks": "Mossos d'Esquadra y Policía Local de Guardiola. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
-      "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Guardiola. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
-      "urls": {
-        "alcoholemia": "https://www.autoridad.legal/alcoholemia/guardiola",
-        "drogas": "https://www.autoridad.legal/drogas/guardiola",
-        "sin-carnet": "https://www.autoridad.legal/sin-carnet/guardiola",
-        "velocidad": "https://www.autoridad.legal/velocidad/guardiola",
-        "profesionales": "https://www.autoridad.legal/profesionales/guardiola"
-      }
-    },
-    {
       "name": "Guardiola de Berguedà",
       "slug": "guardiola-de-bergueda",
       "zone": "Cataluña",
@@ -11297,6 +11281,22 @@
         "sin-carnet": "https://www.autoridad.legal/sin-carnet/igualada",
         "velocidad": "https://www.autoridad.legal/velocidad/igualada",
         "profesionales": "https://www.autoridad.legal/profesionales/igualada"
+      }
+    },
+    {
+      "name": "L'Ametlla del Vallès",
+      "slug": "l-ametlla-del-valles",
+      "zone": "Cataluña",
+      "courtName": "Juzgados de Granollers",
+      "courtAddress": "Carrer de Josep Umbert, 124, 08402 Granollers, Barcelona",
+      "quirks": "Mossos d'Esquadra y Policía Local de L Ametlla Del Valles. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
+      "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para L Ametlla Del Valles. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
+      "urls": {
+        "alcoholemia": "https://www.autoridad.legal/alcoholemia/l-ametlla-del-valles",
+        "drogas": "https://www.autoridad.legal/drogas/l-ametlla-del-valles",
+        "sin-carnet": "https://www.autoridad.legal/sin-carnet/l-ametlla-del-valles",
+        "velocidad": "https://www.autoridad.legal/velocidad/l-ametlla-del-valles",
+        "profesionales": "https://www.autoridad.legal/profesionales/l-ametlla-del-valles"
       }
     },
     {
@@ -11361,22 +11361,6 @@
         "sin-carnet": "https://www.autoridad.legal/sin-carnet/hospitalet-de-llobregat",
         "velocidad": "https://www.autoridad.legal/velocidad/hospitalet-de-llobregat",
         "profesionales": "https://www.autoridad.legal/profesionales/hospitalet-de-llobregat"
-      }
-    },
-    {
-      "name": "La Ametlla del Vallès",
-      "slug": "l-ametlla-del-valles",
-      "zone": "Cataluña",
-      "courtName": "Juzgados de Granollers",
-      "courtAddress": "Carrer de Josep Umbert, 124, 08402 Granollers, Barcelona",
-      "quirks": "Mossos d'Esquadra y Policía Local de L Ametlla Del Valles. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
-      "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para L Ametlla Del Valles. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
-      "urls": {
-        "alcoholemia": "https://www.autoridad.legal/alcoholemia/l-ametlla-del-valles",
-        "drogas": "https://www.autoridad.legal/drogas/l-ametlla-del-valles",
-        "sin-carnet": "https://www.autoridad.legal/sin-carnet/l-ametlla-del-valles",
-        "velocidad": "https://www.autoridad.legal/velocidad/l-ametlla-del-valles",
-        "profesionales": "https://www.autoridad.legal/profesionales/l-ametlla-del-valles"
       }
     },
     {
@@ -11636,6 +11620,22 @@
       }
     },
     {
+      "name": "Lliçà de Vall",
+      "slug": "llissa-de-vall",
+      "zone": "Cataluña",
+      "courtName": "Juzgados de Granollers",
+      "courtAddress": "Carrer de Josep Umbert, 124, 08402 Granollers, Barcelona",
+      "quirks": "Mossos d'Esquadra y Policía Local de Llissa De Vall. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
+      "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Llissa De Vall. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
+      "urls": {
+        "alcoholemia": "https://www.autoridad.legal/alcoholemia/llissa-de-vall",
+        "drogas": "https://www.autoridad.legal/drogas/llissa-de-vall",
+        "sin-carnet": "https://www.autoridad.legal/sin-carnet/llissa-de-vall",
+        "velocidad": "https://www.autoridad.legal/velocidad/llissa-de-vall",
+        "profesionales": "https://www.autoridad.legal/profesionales/llissa-de-vall"
+      }
+    },
+    {
       "name": "Llinars del Vallès",
       "slug": "llinars-del-valles",
       "zone": "Cataluña",
@@ -11649,22 +11649,6 @@
         "sin-carnet": "https://www.autoridad.legal/sin-carnet/llinars-del-valles",
         "velocidad": "https://www.autoridad.legal/velocidad/llinars-del-valles",
         "profesionales": "https://www.autoridad.legal/profesionales/llinars-del-valles"
-      }
-    },
-    {
-      "name": "Llissà de Vall",
-      "slug": "llissa-de-vall",
-      "zone": "Cataluña",
-      "courtName": "Juzgados de Granollers",
-      "courtAddress": "Carrer de Josep Umbert, 124, 08402 Granollers, Barcelona",
-      "quirks": "Mossos d'Esquadra y Policía Local de Llissa De Vall. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
-      "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Llissa De Vall. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
-      "urls": {
-        "alcoholemia": "https://www.autoridad.legal/alcoholemia/llissa-de-vall",
-        "drogas": "https://www.autoridad.legal/drogas/llissa-de-vall",
-        "sin-carnet": "https://www.autoridad.legal/sin-carnet/llissa-de-vall",
-        "velocidad": "https://www.autoridad.legal/velocidad/llissa-de-vall",
-        "profesionales": "https://www.autoridad.legal/profesionales/llissa-de-vall"
       }
     },
     {
@@ -11944,7 +11928,7 @@
       "slug": "montcada-i-reixac",
       "zone": "Cataluña",
       "courtName": "Juzgados de Cerdanyola del Vallès",
-      "courtAddress": "Passeig de d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
+      "courtAddress": "Passeig d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Montcada I Reixac. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Montcada I Reixac. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -12216,7 +12200,7 @@
       "slug": "olivella",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vilanova i la Geltrú",
-      "courtAddress": "Ronda de Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
+      "courtAddress": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Olivella. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Olivella. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -12500,7 +12484,7 @@
       }
     },
     {
-      "name": "Premiá de Dalt",
+      "name": "Premià de Dalt",
       "slug": "premia-de-dalt",
       "zone": "Cataluña",
       "courtName": "Juzgados de Mataró",
@@ -12548,7 +12532,7 @@
       }
     },
     {
-      "name": "Puig-reig\n",
+      "name": "Puig-reig",
       "slug": "puig-reig",
       "zone": "Cataluña",
       "courtName": "Juzgados de Berga",
@@ -12632,7 +12616,7 @@
       "slug": "ripollet",
       "zone": "Cataluña",
       "courtName": "Juzgados de Cerdanyola del Vallès",
-      "courtAddress": "Passeig de d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
+      "courtAddress": "Passeig d'Horta, 19, 08290 Cerdanyola del Vallès, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Ripollet. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Ripollet. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -12692,7 +12676,7 @@
       }
     },
     {
-      "name": "Rupit y Pruit",
+      "name": "Rupit i Pruit",
       "slug": "rupit-i-pruit",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vic",
@@ -12724,7 +12708,7 @@
       }
     },
     {
-      "name": "Sagás",
+      "name": "Sagàs",
       "slug": "sagas",
       "zone": "Cataluña",
       "courtName": "Juzgados de Berga",
@@ -13028,7 +13012,7 @@
       }
     },
     {
-      "name": "Sant Feliu Saserra",
+      "name": "Sant Feliu Sasserra",
       "slug": "sant-feliu-sasserra",
       "zone": "Cataluña",
       "courtName": "Juzgados de Manresa",
@@ -13076,7 +13060,7 @@
       }
     },
     {
-      "name": "Sant Hipòlit de Voltregá",
+      "name": "Sant Hipòlit de Voltregà",
       "slug": "sant-hipolit-de-voltrega",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vic",
@@ -13108,7 +13092,7 @@
       }
     },
     {
-      "name": "Sant Jaume Frontanyà\n",
+      "name": "Sant Jaume de Frontanyà",
       "slug": "sant-jaume-de-frontanya",
       "zone": "Cataluña",
       "courtName": "Juzgados de Berga",
@@ -13336,7 +13320,7 @@
       "slug": "sant-pere-de-ribes",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vilanova i la Geltrú",
-      "courtAddress": "Ronda de Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
+      "courtAddress": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Sant Pere De Ribes. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Sant Pere De Ribes. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -13364,7 +13348,7 @@
       }
     },
     {
-      "name": "Sant Pere de Torellò",
+      "name": "Sant Pere de Torelló",
       "slug": "sant-pere-de-torello",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vic",
@@ -13521,6 +13505,22 @@
         "sin-carnet": "https://www.autoridad.legal/sin-carnet/sant-sadurni-d-osormort",
         "velocidad": "https://www.autoridad.legal/velocidad/sant-sadurni-d-osormort",
         "profesionales": "https://www.autoridad.legal/profesionales/sant-sadurni-d-osormort"
+      }
+    },
+    {
+      "name": "Sant Salvador de Guardiola",
+      "slug": "guardiola",
+      "zone": "Cataluña",
+      "courtName": "Juzgados de Manresa",
+      "courtAddress": "Carrer d'Aransis, s/n, 08240 Manresa, Barcelona",
+      "quirks": "Mossos d'Esquadra y Policía Local de Guardiola. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
+      "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Guardiola. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
+      "urls": {
+        "alcoholemia": "https://www.autoridad.legal/alcoholemia/guardiola",
+        "drogas": "https://www.autoridad.legal/drogas/guardiola",
+        "sin-carnet": "https://www.autoridad.legal/sin-carnet/guardiola",
+        "velocidad": "https://www.autoridad.legal/velocidad/guardiola",
+        "profesionales": "https://www.autoridad.legal/profesionales/guardiola"
       }
     },
     {
@@ -13748,7 +13748,7 @@
       }
     },
     {
-      "name": "Santa María de Besora",
+      "name": "Santa Maria de Besora",
       "slug": "santa-maria-de-besora",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vic",
@@ -13780,7 +13780,7 @@
       }
     },
     {
-      "name": "Santa María de Merlès",
+      "name": "Santa Maria de Merlès",
       "slug": "santa-maria-de-merles",
       "zone": "Cataluña",
       "courtName": "Juzgados de Berga",
@@ -13796,7 +13796,7 @@
       }
     },
     {
-      "name": "Santa María de Miralles",
+      "name": "Santa Maria de Miralles",
       "slug": "santa-maria-de-miralles",
       "zone": "Cataluña",
       "courtName": "Juzgados de Igualada",
@@ -13812,7 +13812,7 @@
       }
     },
     {
-      "name": "Santa María de Palautordera",
+      "name": "Santa Maria de Palautordera",
       "slug": "santa-maria-de-palautordera",
       "zone": "Cataluña",
       "courtName": "Juzgados de Granollers",
@@ -13912,7 +13912,7 @@
       "slug": "sitges",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vilanova i la Geltrú",
-      "courtAddress": "Ronda de Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
+      "courtAddress": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Sitges. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Sitges. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -14420,6 +14420,22 @@
       }
     },
     {
+      "name": "Vilalba Sasserra",
+      "slug": "villalba-sasserra",
+      "zone": "Cataluña",
+      "courtName": "Juzgados de Granollers",
+      "courtAddress": "Carrer de Josep Umbert, 124, 08402 Granollers, Barcelona",
+      "quirks": "Mossos d'Esquadra y Policía Local de Villalba Sasserra. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
+      "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Villalba Sasserra. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
+      "urls": {
+        "alcoholemia": "https://www.autoridad.legal/alcoholemia/villalba-sasserra",
+        "drogas": "https://www.autoridad.legal/drogas/villalba-sasserra",
+        "sin-carnet": "https://www.autoridad.legal/sin-carnet/villalba-sasserra",
+        "velocidad": "https://www.autoridad.legal/velocidad/villalba-sasserra",
+        "profesionales": "https://www.autoridad.legal/profesionales/villalba-sasserra"
+      }
+    },
+    {
       "name": "Vilanova de Sau",
       "slug": "vilanova-de-sau",
       "zone": "Cataluña",
@@ -14472,7 +14488,7 @@
       "slug": "vilanova-i-la-geltru",
       "zone": "Cataluña",
       "courtName": "Juzgados de Vilanova i la Geltrú",
-      "courtAddress": "Ronda de Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
+      "courtAddress": "Ronda Ibèrica, 175, 08800 Vilanova i la Geltrú, Barcelona",
       "quirks": "Mossos d'Esquadra y Policía Local de Vilanova I La Geltru. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
       "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Vilanova I La Geltru. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
       "urls": {
@@ -14513,22 +14529,6 @@
         "sin-carnet": "https://www.autoridad.legal/sin-carnet/vilassar-de-mar",
         "velocidad": "https://www.autoridad.legal/velocidad/vilassar-de-mar",
         "profesionales": "https://www.autoridad.legal/profesionales/vilassar-de-mar"
-      }
-    },
-    {
-      "name": "Villalba Sasserra",
-      "slug": "villalba-sasserra",
-      "zone": "Cataluña",
-      "courtName": "Juzgados de Granollers",
-      "courtAddress": "Carrer de Josep Umbert, 124, 08402 Granollers, Barcelona",
-      "quirks": "Mossos d'Esquadra y Policía Local de Villalba Sasserra. Controles preventivos habituales en accesos y cascos urbanos durante el fin de semana.",
-      "courthouseTips": "Juzgados de Primera Instancia e Instrucción competentes para Villalba Sasserra. En el juzgado de guardia se tramitan las conformidades de juicios rápidos por delitos contra la seguridad vial.",
-      "urls": {
-        "alcoholemia": "https://www.autoridad.legal/alcoholemia/villalba-sasserra",
-        "drogas": "https://www.autoridad.legal/drogas/villalba-sasserra",
-        "sin-carnet": "https://www.autoridad.legal/sin-carnet/villalba-sasserra",
-        "velocidad": "https://www.autoridad.legal/velocidad/villalba-sasserra",
-        "profesionales": "https://www.autoridad.legal/profesionales/villalba-sasserra"
       }
     },
     {
