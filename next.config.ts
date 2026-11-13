@@ -93,6 +93,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: '/:path*\\.(svg|jpg|jpeg|png|webp|avif|woff2|ico)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
         source: '/llms.txt',
         headers: [
           { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
