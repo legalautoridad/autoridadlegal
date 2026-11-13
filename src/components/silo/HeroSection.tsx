@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { SiloConfig } from "@/lib/silo-config";
 import { ShieldCheck, MessageSquare, ArrowRight } from "lucide-react";
 
@@ -22,10 +23,13 @@ export function HeroSection({ config, backgroundImage }: HeroSectionProps) {
             {backgroundImage ? (
                 <>
                     <div className="absolute inset-0 opacity-25">
-                        <img 
+                        <Image 
                             alt={`${config.hero.specialty} background`} 
-                            className="w-full h-full object-cover" 
+                            className="object-cover" 
                             src={backgroundImage}
+                            fill
+                            sizes="100vw"
+                            priority
                         />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-r from-trust-navy via-trust-navy/85 to-transparent"></div>

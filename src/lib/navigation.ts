@@ -13,13 +13,13 @@ export interface NavItem {
 
 /**
  * Canonical sitewide navigation items in order specified by business architecture:
- * Busca tu juzgado · Alcoholemia · Drogas · Sin carnet · Velocidad · Profesionales ·
+ * Juicio rápido · Alcoholemia · Drogas · Sin carnet · Velocidad · Profesionales ·
  * Multas y puntos · Honorarios · Glosario
  */
 export const CANONICAL_NAV_ITEMS: readonly NavItem[] = [
     {
         href: '/juzgados',
-        label: 'Busca tu juzgado',
+        label: 'Juicio rápido',
         category: 'court',
     },
     {

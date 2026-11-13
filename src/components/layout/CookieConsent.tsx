@@ -2,29 +2,33 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { Cookie } from 'lucide-react';
 
-const CONSENT_KEY = 'al_cookie_consent';
+const CONSENT_KEY = 'cookie-consent';
+const LEGACY_KEY = 'al_cookie_consent';
 
 interface CookieConsentProps {
     gaId?: string;
 }
 
-export function CookieConsent({ gaId }: CookieConsentProps) {
+export function CookieConsent({ gaId: _gaId }: CookieConsentProps = {}) {
     const [consent, setConsent] = useState<'granted' | 'denied' | null>(null);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true);
-        const stored = localStorage.getItem(CONSENT_KEY);
-        if (stored === 'granted' || stored === 'denied') {
-            setConsent(stored as 'granted' | 'denied');
+        const stored = localStorage.getItem(CONSENT_KEY) || localStorage.getItem(LEGACY_KEY);
+        if (stored === 'all' || stored === 'granted') {
+            setConsent('granted');
+        } else if (stored === 'necessary' || stored === 'denied') {
+            setConsent('denied');
         }
 
         const handleReset = () => {
             setConsent(null);
             localStorage.removeItem(CONSENT_KEY);
+            localStorage.removeItem(LEGACY_KEY);
+            window.dispatchEvent(new Event('consent-updated'));
         };
 
         window.addEventListener('reset_cookie_consent', handleReset);
@@ -32,22 +36,21 @@ export function CookieConsent({ gaId }: CookieConsentProps) {
     }, []);
 
     const handleAccept = () => {
-        localStorage.setItem(CONSENT_KEY, 'granted');
+        localStorage.setItem(CONSENT_KEY, 'all');
+        localStorage.setItem(LEGACY_KEY, 'granted');
         setConsent('granted');
+        window.dispatchEvent(new Event('consent-updated'));
     };
 
     const handleDecline = () => {
-        localStorage.setItem(CONSENT_KEY, 'denied');
+        localStorage.setItem(CONSENT_KEY, 'necessary');
+        localStorage.setItem(LEGACY_KEY, 'denied');
         setConsent('denied');
+        window.dispatchEvent(new Event('consent-updated'));
     };
 
     return (
         <>
-            {/* Load GA4 ONLY if user explicitly granted consent */}
-            {consent === 'granted' && gaId && (
-                <GoogleAnalytics gaId={gaId} />
-            )}
-
             {/* GDPR Consent Banner rendered client-side when choice is pending */}
             {mounted && consent === null && (
                 <div

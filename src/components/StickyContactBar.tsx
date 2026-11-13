@@ -19,13 +19,14 @@ interface StickyContactBarProps {
     courtDistrictsBySlug?: Record<string, string>;
 }
 
-const CONSENT_KEY = 'al_cookie_consent';
+const CONSENT_KEY = 'cookie-consent';
+const LEGACY_KEY = 'al_cookie_consent';
 
 function trackStickyClick(eventName: 'click_call' | 'click_whatsapp', pagePath: string) {
     try {
         if (typeof window === 'undefined') return;
-        const consent = window.localStorage.getItem(CONSENT_KEY);
-        if (consent !== 'granted') return;
+        const consent = window.localStorage.getItem(CONSENT_KEY) || window.localStorage.getItem(LEGACY_KEY);
+        if (consent !== 'all' && consent !== 'granted') return;
         if (typeof window.gtag === 'function') {
             window.gtag('event', eventName, {
                 page_path: pagePath,

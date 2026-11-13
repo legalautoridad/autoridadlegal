@@ -14,13 +14,13 @@ import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, CreditCard, FileText
 
 export const metadata: Metadata = {
     title: 'Precio, honorarios y financiación | Autoridad Legal',
-    description: 'Honorarios cerrados por escrito: 680 € con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
+    description: 'Precio cerrado: 680 € con procurador en alcoholemia, drogas, velocidad o sin carnet. Profesionales 1.180 €. Financiación hasta 12 meses.',
     alternates: {
         canonical: 'https://www.autoridad.legal/honorarios',
     },
     openGraph: {
         title: 'Precio, honorarios y financiación | Autoridad Legal',
-        description: 'Honorarios cerrados por escrito: 680 € con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
+        description: 'Precio cerrado: 680 € con procurador en alcoholemia, drogas, velocidad o sin carnet. Profesionales 1.180 €. Financiación hasta 12 meses.',
         url: 'https://www.autoridad.legal/honorarios',
         type: 'website',
         images: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Precio, honorarios y financiación | Autoridad Legal',
-        description: 'Honorarios cerrados por escrito: 680 € con procurador incluido en alcoholemia, drogas, velocidad y sin carnet; 680 € + 500 € para profesionales.',
+        description: 'Precio cerrado: 680 € con procurador en alcoholemia, drogas, velocidad o sin carnet. Profesionales 1.180 €. Financiación hasta 12 meses.',
         images: [DEFAULT_OG_IMAGE],
     },
 };

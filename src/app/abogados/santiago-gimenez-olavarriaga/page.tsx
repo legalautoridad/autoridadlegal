@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Phone, ExternalLink, ArrowRight, Quote } from 'lucide-react';
 
@@ -175,9 +176,12 @@ export default function SantiagoGimenezPage() {
 
                         <div className="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 mb-8">
                             {/* Fotografía oficial */}
-                            <img
+                            <Image
                                 src="https://xiqfcritzjabiunfwksn.supabase.co/storage/v1/object/public/images/SantiagoGimenezOlavarriaga.jpeg"
                                 alt="Santiago Giménez Olavarriaga"
+                                width={208}
+                                height={208}
+                                priority
                                 className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 rounded-2xl object-cover border-2 border-amber-400/30 shadow-2xl shrink-0"
                             />
                             <div>

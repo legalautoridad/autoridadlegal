@@ -86,7 +86,7 @@ export function Header() {
                     <nav className="flex flex-col gap-1.5 text-sm font-label-md text-on-surface-variant">
                         {shouldGroupPenalInMobile ? (
                             <>
-                                {/* 1. Busca tu juzgado */}
+                                {/* 1. Juicio rápido */}
                                 {courtItems.map((item) => {
                                     const isActive = isRouteActive(item.href, pathname);
                                     return (

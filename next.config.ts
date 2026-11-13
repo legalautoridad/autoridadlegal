@@ -1,12 +1,22 @@
 import type { NextConfig } from "next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundle = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+  openAnalyzer: false,
+});
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
   serverExternalPackages: ["@google-cloud/vertexai"],
   allowedDevOrigins: [
     'carnivore-comrade-drone.ngrok-free.dev',
     'handling-freebee-mug.ngrok-free.dev'
   ],
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: "https",
@@ -83,6 +93,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: '/:path*\\.(svg|jpg|jpeg|png|webp|avif|woff2|ico)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=604800, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
         source: '/llms.txt',
         headers: [
           { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
@@ -100,4 +119,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundle(nextConfig);

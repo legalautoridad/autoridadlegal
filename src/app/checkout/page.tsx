@@ -151,9 +151,9 @@ function CheckoutContent() {
                                 </button>
 
                                 <div className="flex items-center justify-center gap-4 mt-6 grayscale opacity-60">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/2560px-PayPal.svg.png" alt="PayPal" className="h-5 object-contain" />
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa" className="h-4 object-contain" />
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard" className="h-6 object-contain" />
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/2560px-PayPal.svg.png" alt="PayPal" width="80" height="20" className="h-5 w-auto object-contain" />
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa" width="48" height="16" className="h-4 w-auto object-contain" />
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard" width="38" height="24" className="h-6 w-auto object-contain" />
                                 </div>
                                 <p className="text-center text-xs text-slate-400 mt-4">
                                     Al continuar, aceptas nuestros <strong>Términos de Servicio</strong> y la <strong>Política de Privacidad</strong>.
