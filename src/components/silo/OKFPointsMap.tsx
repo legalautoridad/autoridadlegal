@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { PuntoDeInteres } from '@/lib/okf/parser';
 import { MapPin, Navigation, Shield, AlertTriangle, Compass, CheckCircle } from 'lucide-react';
+import { GoogleMapsEmbed } from '@/components/media/GoogleMapsEmbed';
 
 interface OKFPointsMapProps {
     cityName: string;
@@ -127,17 +128,13 @@ export function OKFPointsMap({ cityName, points }: OKFPointsMapProps) {
                 <div className="lg:col-span-7 flex flex-col space-y-4">
                     {/* Google Maps Frame */}
                     <div className="relative w-full h-[320px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-950">
-                        <iframe
+                        <GoogleMapsEmbed
                             title={`Mapa de ${activePoint.name}`}
-                            width="100%"
-                            height="100%"
-                            style={{ border: 0 }}
-                            loading="lazy"
-                            allowFullScreen
-                            src={getEmbedUrl(activePoint)}
-                            className="w-full h-full filter contrast-105 brightness-95"
+                            embedUrl={getEmbedUrl(activePoint)}
+                            address={activePoint.gps && activePoint.gps !== '—' ? activePoint.gps : `${activePoint.name}, ${cityName}`}
+                            dark={true}
                         />
-                        <div className="absolute top-3 left-3 bg-slate-950/90 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white flex items-center gap-1.5 shadow-lg">
+                        <div className="absolute top-3 left-3 bg-slate-950/90 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white flex items-center gap-1.5 shadow-lg pointer-events-none">
                             <Compass className="w-3.5 h-3.5 text-prestige-gold animate-spin" style={{ animationDuration: '10s' }} />
                             Google Maps: {cityName}
                         </div>
