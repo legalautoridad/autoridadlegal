@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Props {
@@ -41,10 +42,12 @@ export default function InteractiveZoneMap({ activeZones, onToggle }: Props) {
     return (
         <div className="relative w-full aspect-[4/3] bg-blue-50/50 rounded-xl overflow-hidden shadow-inner border border-blue-100 group">
             {/* Background Image */}
-            <img
-                src="/images/mapa-judicial-barcelona.png"
+            <Image
+                src="/images/mapa-judicial-barcelona.webp"
                 alt="Mapa Judicial"
-                className="absolute inset-0 w-full h-full object-contain mix-blend-multiply opacity-80"
+                fill
+                sizes="(max-width: 768px) 100vw, 800px"
+                className="object-contain mix-blend-multiply opacity-80"
             />
 
             {/* SVG Overlay */}

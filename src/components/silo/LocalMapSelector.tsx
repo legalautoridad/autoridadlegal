@@ -127,6 +127,9 @@ export function LocalMapSelector({
                     <div className="lg:col-span-6 relative h-[420px] rounded-xl overflow-hidden shadow-2xl border border-outline-variant group">
                         <img 
                             alt={`${cityName} Map Area`} 
+                            width="800"
+                            height="420"
+                            loading="lazy"
                             className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" 
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCZfhnMedqHDPc7iFeJUP7yo0h1xqWzeqT8KYxMGP44-u5JQFtnZWakmXLGWC-d2HIXkrRHI54flk5fEainzsK-DxTD7ISzSakc3vo9AzVH718gZ88GLnqvcMFPTOBIVRGOGy1op9rovqrHWdsj0nI2r9OsQIo5ozBvLGtGlySvYFfM8DDgMdeLWrNqgaoH08qsPkZWAz1AGq_dvuEp67OuGJc1J6qBQKJIFZQnxAd3hKNvUdNhaKFLLEV4_0BnoFMUZ6sD-sc-W4R"
                         />

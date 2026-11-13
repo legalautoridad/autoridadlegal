@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface LogoProps {
     variant?: 'full' | 'icon' | 'mark';
@@ -6,6 +7,7 @@ interface LogoProps {
     size?: 'sm' | 'md' | 'lg' | 'xl';
     className?: string;
     showText?: boolean;
+    priority?: boolean;
 }
 
 export function Logo({
@@ -13,7 +15,8 @@ export function Logo({
     theme = 'transparent',
     size = 'lg',
     className = '',
-    showText = true
+    showText = true,
+    priority = true,
 }: LogoProps) {
     // Sizing maps (height in pixels)
     const heightMap = {
@@ -26,19 +29,26 @@ export function Logo({
     const isIconOnly = variant === 'icon' || variant === 'mark' || !showText;
     const h = heightMap[size] || heightMap.lg;
 
-    // Image source selection
-    let imgSrc = '/images/logo-transparent.png';
+    // Image source selection and aspect-ratio width calculation
+    let imgSrc = '/images/logo-transparent.webp';
+    let w = Math.round(h * 2);
+
     if (isIconOnly) {
-        imgSrc = '/images/logo-icon.png';
+        imgSrc = '/images/logo-icon.webp';
+        w = Math.round(h * (195 / 245));
     } else if (theme === 'dark') {
-        imgSrc = '/images/logo-dark-transparent.png';
+        imgSrc = '/images/logo-dark-transparent.webp';
+        w = Math.round(h * (785 / 430));
     }
 
     return (
         <div className={`inline-flex items-center select-none ${className}`}>
-            <img
+            <Image
                 src={imgSrc}
                 alt="Autoridad Legal"
+                width={w}
+                height={h}
+                priority={priority}
                 style={{ height: `${h}px`, width: 'auto' }}
                 className="object-contain shrink-0 transition-transform duration-300 group-hover:scale-105"
             />

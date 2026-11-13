@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 interface VideoFacadeProps {
     service?: string;
@@ -26,10 +27,12 @@ export function VideoFacade({
 
     return (
         <div className="w-full max-w-sm mx-auto aspect-[9/16] bg-slate-950 rounded-2xl overflow-hidden shadow-2xl border border-white/10 relative group">
-            <img
+            <Image
                 src={finalImageUrl}
                 alt={altText}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                fill
+                sizes="(max-width: 768px) 100vw, 384px"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
             {/* Overlay Gradient for readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex flex-col justify-between p-6 pointer-events-none">
