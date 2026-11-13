@@ -7,6 +7,9 @@ const withBundle = withBundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
   serverExternalPackages: ["@google-cloud/vertexai"],
   allowedDevOrigins: [
     'carnivore-comrade-drone.ngrok-free.dev',
