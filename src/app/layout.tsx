@@ -5,7 +5,8 @@ import { Suspense } from "react";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { CookieConsent } from "@/components/layout/CookieConsent";
+import { CookieConsent } from "@/components/layout/CookieConsentClient";
+import { Analytics } from "@/components/analytics/Analytics";
 import { SitewideJsonLd } from "@/components/seo/SitewideJsonLd";
 import StickyContactBar from "@/components/StickyContactBar";
 import { getCourtDistrictMap } from "@/lib/db/district-content";
@@ -98,7 +99,8 @@ export default async function RootLayout({
         </Suspense>
         <Footer />
         <StickyContactBar courtDistrictsBySlug={courtDistrictsBySlug} />
-        <CookieConsent gaId={process.env.NEXT_PUBLIC_GA_ID || "G-3NLK4X21QL"} />
+        <CookieConsent />
+        <Analytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-3NLK4X21QL"} />
       </body>
     </html>
   );
