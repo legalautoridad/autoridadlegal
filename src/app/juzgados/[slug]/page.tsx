@@ -12,6 +12,7 @@ import {
     joinListSpanish,
 } from '@/lib/juicio-rapido/textos';
 import { DistrictMunicipalitySection } from '@/components/juicio-rapido/DistrictMunicipalitySection';
+import { GoogleMapsEmbed } from '@/components/media/GoogleMapsEmbed';
 import { Phone, MessageCircle, AlertTriangle, MapPin, ExternalLink, Building2, ShieldCheck, Scale, Clock, ShieldAlert } from 'lucide-react';
 import { ReviewedBy } from '@/components/legal/ReviewedBy';
 import ReactMarkdown from 'react-markdown';
@@ -668,11 +669,10 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                         <div className="lg:col-span-6 w-full space-y-3">
                             {mapEmbedUrl ? (
                                 <div className="w-full h-64 sm:h-72 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100">
-                                    <iframe
+                                    <GoogleMapsEmbed
                                         title={`Mapa del ${oficial}`}
-                                        src={mapEmbedUrl}
-                                        className="w-full h-full border-0"
-                                        loading="lazy"
+                                        embedUrl={mapEmbedUrl}
+                                        address={court.address}
                                     />
                                 </div>
                             ) : (

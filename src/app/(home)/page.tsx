@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PHONE_E164, PHONE_DISPLAY, DEFAULT_OG_IMAGE } from "@/lib/config";
 import { PRICING_SUMMARY } from "@/lib/config/pricing";
 import Link from "next/link";
+import { YouTubeEmbed } from "@/components/media/YouTubeEmbed";
 import { PARTIDOS_JUDICIALES } from "@/lib/db/city-court-map";
 import { getHomepageFaqs } from "@/lib/db/homepage-faqs";
 import {
@@ -79,13 +80,9 @@ export default async function MarketingPage() {
                     {/* Hero Right Column: YouTube Video & Pricing Text */}
                     <div className="md:col-span-5 flex flex-col items-center">
                         <div className="relative w-full max-w-md lg:max-w-lg aspect-video rounded-2xl overflow-hidden shadow-2xl border border-prestige-gold/30 bg-slate-950">
-                            <iframe
-                                className="w-full h-full border-0"
-                                src="https://www.youtube.com/embed/DwJMpDn_URY"
+                            <YouTubeEmbed
+                                videoId="DwJMpDn_URY"
                                 title="CITACIÓN A JUICIO RÁPIDO: Cómo defender tu carné y tu empleo - Santiago Giménez Olavarriaga"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowFullScreen
-                                loading="lazy"
                             />
                         </div>
 
