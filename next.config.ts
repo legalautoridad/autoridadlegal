@@ -1,4 +1,10 @@
 import type { NextConfig } from "next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundle = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+  openAnalyzer: false,
+});
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["@google-cloud/vertexai"],
@@ -100,4 +106,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundle(nextConfig);
