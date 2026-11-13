@@ -8,7 +8,7 @@ test('1. Default flag OFF: navigation excludes Multas y puntos and maintains 8 i
     assert.equal(items.length, 8);
     const labels = items.map((i) => i.label);
     assert.deepEqual(labels, [
-        'Busca tu juzgado',
+        'Juicio rápido',
         'Alcoholemia',
         'Drogas',
         'Sin carnet',
@@ -26,7 +26,7 @@ test('2. Flag ON: navigation includes Multas y puntos in exact canonical order',
     assert.equal(items.length, 9);
     const labels = items.map((i) => i.label);
     assert.deepEqual(labels, [
-        'Busca tu juzgado',
+        'Juicio rápido',
         'Alcoholemia',
         'Drogas',
         'Sin carnet',
