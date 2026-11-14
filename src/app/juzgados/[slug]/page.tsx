@@ -13,6 +13,8 @@ import {
 } from '@/lib/juicio-rapido/textos';
 import { DistrictMunicipalitySection } from '@/components/juicio-rapido/DistrictMunicipalitySection';
 import { GoogleMapsEmbed } from '@/components/media/GoogleMapsEmbed';
+import { YouTubeFacade } from '@/components/media/YouTubeFacade';
+import { getVideoForPartido } from '@/data/videos';
 import { Phone, MessageCircle, AlertTriangle, MapPin, ExternalLink, Building2, ShieldCheck, Scale, Clock, ShieldAlert } from 'lucide-react';
 import { ReviewedBy } from '@/components/legal/ReviewedBy';
 import ReactMarkdown from 'react-markdown';
@@ -112,6 +114,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
 
     const partido = court.judicialDistrict;
     const oficial = court.officialName;
+    const video = getVideoForPartido(slug);
     const n = municipalities.length;
     const canonicalUrl = `https://www.autoridad.legal/juzgados/${slug}`;
     const pageTitle = buildMetaTitle(partido);
@@ -247,6 +250,69 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
         };
     }
 
+    const videoNode: Record<string, any> | null = video
+        ? {
+              '@type': 'VideoObject',
+              '@id': `${canonicalUrl}#video-${video.youtubeId}`,
+              name: video.title,
+              description: video.description,
+              thumbnailUrl: [
+                  video.thumbnailUrl,
+                  ...(video.localThumbnail
+                      ? [`https://www.autoridad.legal${video.localThumbnail}`]
+                      : []),
+              ],
+              uploadDate: video.uploadDate,
+              duration: video.duration,
+              embedUrl: video.embedUrl,
+              contentUrl: video.contentUrl,
+              inLanguage: video.inLanguage,
+              transcript: video.transcript,
+              author: {
+                  '@id': 'https://www.gimenezolavarriaga.abogado/#person',
+              },
+              actor: {
+                  '@id': 'https://www.gimenezolavarriaga.abogado/#person',
+              },
+              publisher: {
+                  '@id': 'https://www.autoridad.legal/#organization',
+              },
+              ...(video.location
+                  ? {
+                        contentLocation: {
+                            '@type': 'Place',
+                            name: video.location.name,
+                            address: {
+                                '@type': 'PostalAddress',
+                                streetAddress: video.location.streetAddress,
+                                postalCode: video.location.postalCode,
+                                addressLocality: video.location.addressLocality,
+                                addressRegion: video.location.addressRegion,
+                                addressCountry: video.location.addressCountry,
+                            },
+                        },
+                    }
+                  : {}),
+              about: video.services.map((s) => ({
+                  '@type': 'Service',
+                  '@id': `https://www.autoridad.legal/${s}#service`,
+              })),
+              hasPart: video.chapters.map((ch) => ({
+                  '@type': 'Clip',
+                  name: ch.name,
+                  startOffset: ch.start,
+                  endOffset: ch.end,
+                  url: `${video.contentUrl}&t=${ch.start}s`,
+              })),
+          }
+        : null;
+
+    if (videoNode) {
+        webPageNode.video = {
+            '@id': videoNode['@id'],
+        };
+    }
+
     const jsonLdGraph = {
         '@context': 'https://schema.org',
         '@graph': [
@@ -287,6 +353,7 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                     },
                 })),
             },
+            ...(videoNode ? [videoNode] : []),
         ],
     };
 
@@ -437,6 +504,14 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                     topMunicipalities={topMunicipalities}
                     allMunicipalities={allMunicipalities}
                 />
+
+                {/* 1.25 Vídeo explicativo del partido judicial (si existe vídeo configurado) */}
+                {video && (
+                    <YouTubeFacade
+                        video={video}
+                        partidoName={partido}
+                    />
+                )}
 
                 {/* 1.3 "Cómo es un juicio rápido" (fondo slate-50) */}
                 <section className="bg-slate-50 text-slate-900 border-b border-slate-200 py-12 md:py-16">

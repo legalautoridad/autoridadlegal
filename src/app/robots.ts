@@ -37,6 +37,9 @@ export default function robots(): MetadataRoute.Robots {
                 allow: '/',
             },
         ],
-        sitemap: 'https://www.autoridad.legal/sitemap.xml',
+        sitemap: [
+            'https://www.autoridad.legal/sitemap.xml',
+            'https://www.autoridad.legal/sitemap-video.xml',
+        ],
     };
 }
