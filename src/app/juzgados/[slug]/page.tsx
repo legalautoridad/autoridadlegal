@@ -14,8 +14,9 @@ import {
 import { DistrictMunicipalitySection } from '@/components/juicio-rapido/DistrictMunicipalitySection';
 import { GoogleMapsEmbed } from '@/components/media/GoogleMapsEmbed';
 import { YouTubeFacade } from '@/components/media/YouTubeFacade';
+import { PreferredSourceButton } from '@/components/PreferredSourceButton';
 import { getVideoForPartido } from '@/data/videos';
-import { Phone, MessageCircle, AlertTriangle, MapPin, ExternalLink, Building2, ShieldCheck, Scale, Clock, ShieldAlert } from 'lucide-react';
+import { Phone, MessageCircle, AlertTriangle, MapPin, ExternalLink, Building2, Scale, Clock, ShieldAlert } from 'lucide-react';
 import { ReviewedBy } from '@/components/legal/ReviewedBy';
 import ReactMarkdown from 'react-markdown';
 import { DEFAULT_OG_IMAGE, PHONE_E164, WHATSAPP_URL } from '@/lib/config';
@@ -914,6 +915,13 @@ export default async function JuzgadoDetailPage({ params }: PageProps) {
                                 </details>
                             ))}
                         </div>
+                    </div>
+                </section>
+
+                {/* Fuente preferida en Google */}
+                <section className="bg-slate-50 border-b border-slate-200 py-8">
+                    <div className="max-w-4xl mx-auto px-4 md:px-8">
+                        <PreferredSourceButton withLeadIn theme="light" />
                     </div>
                 </section>
 

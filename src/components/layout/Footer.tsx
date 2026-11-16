@@ -3,6 +3,7 @@ import { Shield, ShieldCheck, Scale } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 import { PARTIDOS_JUDICIALES } from '@/lib/db/city-court-map';
 import { getNavItems } from '@/lib/navigation';
+import { PreferredSourceButton } from '@/components/PreferredSourceButton';
 
 export function Footer() {
     const navItems = getNavItems();
@@ -134,10 +135,13 @@ export function Footer() {
                 <p className="font-body-md text-xs text-center md:text-left text-white/50">
                     &copy; {new Date().getFullYear()} Autoridad.Legal - Especialistas en Defensa Penal. Todos los derechos reservados.
                 </p>
-                <div className="flex items-center gap-2 opacity-50 grayscale hover:grayscale-0 hover:opacity-80 transition-all duration-300">
-                    <span className="text-[10px] text-white font-bold tracking-tight">
-                        Powered by <span className="text-sm">stripe</span>
-                    </span>
+                <div className="flex flex-wrap items-center justify-center gap-4">
+                    <PreferredSourceButton theme="dark" />
+                    <div className="flex items-center gap-2 opacity-50 grayscale hover:grayscale-0 hover:opacity-80 transition-all duration-300">
+                        <span className="text-[10px] text-white font-bold tracking-tight">
+                            Powered by <span className="text-sm">stripe</span>
+                        </span>
+                    </div>
                 </div>
             </div>
         </footer>
