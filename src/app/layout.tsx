@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Montserrat, Inter, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { Suspense } from "react";
@@ -94,6 +95,19 @@ export default async function RootLayout({
         <StickyContactBar courtDistrictsBySlug={courtDistrictsBySlug} />
         <CookieConsent />
         <Analytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-3NLK4X21QL"} />
+        <Script
+          src="https://news.google.com/swg/js/v1/publisher.js"
+          preferred-sources-control="manual"
+          strategy="lazyOnload"
+        />
+        <Script id="preferred-source-init" strategy="lazyOnload">
+          {`
+            (self.PREFERRED_SOURCE = self.PREFERRED_SOURCE || []).push(function(preferredSource) {
+              self.__PREFERRED_SOURCE_LOADED__ = true;
+              preferredSource.init({ theme: 'light', lang: 'es' });
+            });
+          `}
+        </Script>
       </body>
     </html>
   );

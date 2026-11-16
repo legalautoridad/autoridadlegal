@@ -18,6 +18,7 @@ import { ChevronDown, Phone, MapPin, Building2, ShieldAlert, FileText, ArrowRigh
 import { PuntoDeInteres } from '@/lib/okf/parser';
 import { ReviewedBy } from '@/components/legal/ReviewedBy';
 import { PuntosCrosslink } from '@/components/legal/PuntosCrosslink';
+import { PreferredSourceButton } from '@/components/PreferredSourceButton';
 
 interface ServiceTemplateProps {
     service: string;
@@ -440,6 +441,13 @@ export default async function ServiceTemplate({ service, city, faqs, cobertura, 
             <StatsRow config={config} />
             <div className="bg-slate-950/50 py-12">
                 <TrustSignals />
+            </div>
+
+            {/* Fuente preferida en Google */}
+            <div className="bg-slate-950 border-t border-white/10 py-10">
+                <div className="max-w-4xl mx-auto px-6">
+                    <PreferredSourceButton withLeadIn theme="dark" />
+                </div>
             </div>
         </div>
     );
